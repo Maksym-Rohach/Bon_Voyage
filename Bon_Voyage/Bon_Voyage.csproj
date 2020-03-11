@@ -25,6 +25,7 @@
   <ItemGroup>
     <Folder Include="Controllers\ClientControllers\" />
     <Folder Include="Controllers\ManagerControllers\" />
+    <Folder Include="Controllers\AuthControllers\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
