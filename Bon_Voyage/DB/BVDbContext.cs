@@ -40,6 +40,10 @@ namespace Bon_Voyage.DB
                 .HasOne(x => x.BaseProfile)
                 .WithOne(x => x.ClientProfile)
                 .HasForeignKey<ClientProfile>(x => x.Id);
+            builder.Entity<ClientProfile>()
+                .HasMany(x => x.Tickets)
+                .WithOne(x => x.Client)
+                .HasForeignKey(x => x.ClientId);
             #endregion
 
             #region AdminProfile
@@ -67,6 +71,10 @@ namespace Bon_Voyage.DB
             builder.Entity<Hotel>()
                 .HasOne(x => x.City)
                 .WithOne(x => x.Hotel);
+            builder.Entity<Hotel>()
+                .HasMany(x => x.PhotosToHotels)
+                .WithOne(x => x.Hotel)
+                .HasForeignKey(x => x.HotelId);
             #endregion
 
             #region Airport

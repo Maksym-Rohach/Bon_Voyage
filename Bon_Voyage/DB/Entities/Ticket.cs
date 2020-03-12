@@ -21,6 +21,8 @@ namespace Bon_Voyage.DB.Entities
         public virtual Airport Airport { get; set; }
         public string RoomTypeId { get; set; }
         public virtual RoomType RoomType { get; set; }
+        public string ClientId { get; set; }
+        public virtual ClientProfile Client { get; set; }
 
         public virtual ICollection<TicketsToComforts> TicketToComforts { get; set; }
     }

@@ -13,11 +13,12 @@ namespace Bon_Voyage.DB.Entities
         public string Name { get; set; }
         public int Stars { get; set; }
         public string Description { get; set; }
-        //public virtual List<string> Photo { get; set; }
 
         public string CityId { get; set; }
         public virtual City City { get; set; }
 
         public virtual Ticket Ticket { get; set; }
+
+        public virtual ICollection<PhotosToHotel> PhotosToHotels { get; set; }
     }
 }
