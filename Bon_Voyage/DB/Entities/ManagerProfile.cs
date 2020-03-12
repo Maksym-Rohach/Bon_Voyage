@@ -6,14 +6,10 @@ using System.Threading.Tasks;
 
 namespace Bon_Voyage.DB.Entities
 {
-    public class ManagerProfile
-    {
-        [Key]
-        public string Id { get; set; }
+    public class ManagerProfile : BaseProfile
+    {        
         public bool State { get; set; }
         public DateTime DateOfRegister { get; set; }
         public float Salary { get; set; }
-
-        public virtual BaseProfile BaseProfile { get; set; }
     }
 }

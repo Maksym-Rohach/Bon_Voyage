@@ -18,7 +18,6 @@ namespace Bon_Voyage.DB
         {
         }
 
-        public DbSet<BaseProfile> UserProfiles { get; set; }
         public DbSet<ClientProfile> ClientProfiles { get; set; }
         public DbSet<AdminProfile> AdminProfiles { get; set; }
         public DbSet<ManagerProfile> ManagerProfiles { get; set; }
@@ -37,27 +36,15 @@ namespace Bon_Voyage.DB
 
             #region ClientProfile
             builder.Entity<ClientProfile>()
-                .HasOne(x => x.BaseProfile)
-                .WithOne(x => x.ClientProfile)
-                .HasForeignKey<ClientProfile>(x => x.Id);
-            builder.Entity<ClientProfile>()
                 .HasMany(x => x.Tickets)
                 .WithOne(x => x.Client)
                 .HasForeignKey(x => x.ClientId);
             #endregion
 
             #region AdminProfile
-            builder.Entity<AdminProfile>()
-                .HasOne(x => x.BaseProfile)
-                .WithOne(x => x.AdminProfile)
-                .HasForeignKey<AdminProfile>(x => x.Id);
             #endregion
 
             #region ManagerProfile
-            builder.Entity<ManagerProfile>()
-                .HasOne(x => x.BaseProfile)
-                .WithOne(x => x.ManagerProfile)
-                .HasForeignKey<ManagerProfile>(x => x.Id);
             #endregion
 
             #region City

@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bon_Voyage.DB.Entities
 {
-    public class AdminProfile
+    public class AdminProfile : BaseProfile
     {
-        [Key]
-        public string Id { get; set; }
-
-        public virtual BaseProfile BaseProfile { get; set; }
     }
 }
