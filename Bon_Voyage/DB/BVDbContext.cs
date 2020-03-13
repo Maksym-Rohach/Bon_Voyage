@@ -28,7 +28,6 @@ namespace Bon_Voyage.DB
         public DbSet<RoomType> RoomTypes { get; set; }
         public DbSet<Comfort> Comforts { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
-        public DbSet<TicketsToComforts> TicketsToComforts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
