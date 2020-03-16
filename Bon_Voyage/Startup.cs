@@ -32,12 +32,12 @@ namespace Bon_Voyage
                 configuration.RootPath = "ClientApp/build";
             });
 
-            services.AddDbContext<BVDbContext>(
+            services.AddDbContext<EFDbContext>(
                  options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<DbUser, DbRole>(options => options.Stores.MaxLengthForKeys = 128)
-                .AddEntityFrameworkStores<BVDbContext>()
+                .AddEntityFrameworkStores<EFDbContext>()
                 .AddDefaultTokenProviders()
                 .AddDefaultUI();
         }

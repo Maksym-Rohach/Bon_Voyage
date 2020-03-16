@@ -1,5 +1,5 @@
 import PersonsChartService from './PersonsChartService';
-import update from '../../helpers/update';
+import update from '../../../helpers/update';
 export const PERSONS_STARTED = "PERSONS_STARTED";
 export const PERSONS_SUCCESS = "PERSONS_SUCCESS";
 export const PERSONS_FAILED = "PERSONS_FAILED";

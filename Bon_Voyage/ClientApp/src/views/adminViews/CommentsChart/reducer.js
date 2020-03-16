@@ -1,5 +1,5 @@
 import CommentsChartService from './CommentsChartService';
-import update from '../../helpers/update';
+import update from '../../../helpers/update';
 export const COMMENTS_STARTED = "COMMENTS_STARTED";
 export const COMMENTS_SUCCESS = "COMMENTS_SUCCESS";
 export const COMMENTS_FAILED = "COMMENTS_FAILED";

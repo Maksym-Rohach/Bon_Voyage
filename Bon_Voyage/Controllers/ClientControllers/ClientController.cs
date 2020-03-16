@@ -6,12 +6,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Bon_Voyage.Controllers.AdminControllers
+namespace Bon_Voyage.Controllers.ClientControllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Client")]
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class AdminController : ControllerBase
+    public class ClientController : ControllerBase
     {
 
     }

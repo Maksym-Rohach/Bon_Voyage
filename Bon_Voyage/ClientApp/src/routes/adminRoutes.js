@@ -1,7 +1,7 @@
 import React from 'react';
 
-const PersonsChart = React.lazy(() => import("../views/PersonsChart"));
-const CommentsChart = React.lazy(() => import("../views/CommentsChart"));
+const PersonsChart = React.lazy(() => import("../views/adminViews/PersonsChart"));
+const CommentsChart = React.lazy(() => import("../views/adminViews/CommentsChart"));
 //import CommentsChart from "../views/CommentsChart";
 
 var routes = [

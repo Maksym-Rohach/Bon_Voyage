@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace Bon_Voyage.DB
 {
-    public class BVDbContext : IdentityDbContext<DbUser, DbRole, string, IdentityUserClaim<string>,
+    public class EFDbContext : IdentityDbContext<DbUser, DbRole, string, IdentityUserClaim<string>,
     DbUserRole, IdentityUserLogin<string>,
     IdentityRoleClaim<string>, IdentityUserToken<string>>
     {
-        public BVDbContext(DbContextOptions<BVDbContext> options) : base(options)
+        public EFDbContext(DbContextOptions<EFDbContext> options) : base(options)
         {
         }
 

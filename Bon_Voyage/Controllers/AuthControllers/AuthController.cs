@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Bon_Voyage.Controllers.AdminControllers
+namespace Bon_Voyage.Controllers.AuthControllers
 {
-    [Authorize(Roles = "Admin")]
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class AdminController : ControllerBase
+    public class AuthController : ControllerBase
     {
-
     }
 }

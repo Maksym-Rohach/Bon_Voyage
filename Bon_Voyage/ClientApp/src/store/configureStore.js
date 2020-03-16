@@ -4,8 +4,8 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
 
 ///reducers
-import {personsChartReducer} from '../views/PersonsChart/reducer';
-import {commentsChartReducer} from '../views/CommentsChart/reducer';
+import {personsChartReducer} from '../views/adminViews/PersonsChart/reducer';
+import {commentsChartReducer} from '../views/adminViews/CommentsChart/reducer';
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
