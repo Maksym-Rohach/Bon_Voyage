@@ -6,9 +6,9 @@ import jwt from "jsonwebtoken";
 import redirectStatusCode from "../../../services/redirectStatusCode";
 import history from "../../../utils/history";
 
-export const LOGIN_POST_STARTED = "login/LOGIN_POST_STARTED";
-export const LOGIN_POST_SUCCESS = "login/LOGIN_POST_SUCCESS";
-export const LOGIN_POST_FAILED = "login/LOGIN_POST_FAILED";
+export const LOGIN_POST_STARTED = "LOGIN_POST_STARTED";
+export const LOGIN_POST_SUCCESS = "LOGIN_POST_SUCCESS";
+export const LOGIN_POST_FAILED = "LOGIN_POST_FAILED";
 export const LOGIN_SET_CURRENT_USER = "login/SET_CURRENT_USER";
 
 const initialState = {
@@ -97,29 +97,24 @@ function getUrlToRedirect() {
   let path = "";
   if (Array.isArray(roles)) {
     for (let i = 0; i < roles.length; i++) {
-      if (roles[i] == "Company") {
-        path = "/company/employees";
-        break;
-      } else if (roles[i] === "Broker") {
-        path = "/broker/profile";
-        break;
-      } else if (roles[i] === "Client") {
+      if (roles[i] == "Client") {
         path = "/client/profile";
         break;
-      } else if (roles[i] === "Admin") {
-        path = "/admin/clients";
+      } else if (roles[i] === "Manager") {
+        path = "/manager/profile";
         break;
-      }
+      } else if (roles[i] === "Admin") {
+        path = "/admin/persons";
+        break;
+      } 
     }
   } else {
-    if (roles == "Company") {
-      path = "/company/employees";
-    } else if (roles === "Broker") {
-      path = "/broker/profile";
-    } else if (roles === "Client") {
+    if (roles == "Client") {
       path = "/client/profile";
+    } else if (roles === "Manager") {
+      path = "/manager/profile";
     } else if (roles === "Admin") {
-      path = "/admin/clients";
+      path = "/admin/persons";
     }
   }
 
@@ -170,14 +165,14 @@ export const loginByJWT = (tokens, dispatch) => {
     user.roles = Array.of(user.roles);
   }
   localStorage.setItem("jwtToken", token);
-  localStorage.setItem("refreshToken", refToken);
+  //localStorage.setItem("refreshToken", refToken);
   setAuthorizationToken(token);
   dispatch(loginActions.setCurrentUser(user));
 };
 
 export const logoutByJWT = dispatch => {
   localStorage.removeItem("jwtToken");
-  localStorage.removeItem("refreshToken");
+  //localStorage.removeItem("refreshToken");
   setAuthorizationToken(false);
   dispatch(loginActions.setCurrentUser({}));
 };

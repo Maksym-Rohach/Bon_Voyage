@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import PerfectScrollbar from "perfect-scrollbar";
-import AdminNavbar from "./AdminNavbar";
-import AdminSideBar from "./AdminSidebar";
+import AdminNavbar from "../adminLayout/AdminNavbar";
+import AdminSideBar from "../adminLayout/AdminSidebar";
 import routes from "../../routes/adminRoutes";
 
 var ps;
