@@ -13,7 +13,6 @@ namespace Bon_Voyage.DB
 {
     public class SeederDB
     {
-
         public static void SeedRoles(EFDbContext context, UserManager<DbUser> userManager,
             RoleManager<DbRole> roleManager)
         {
@@ -44,8 +43,8 @@ namespace Bon_Voyage.DB
             RoleManager<DbRole> roleManager)
         {
             var roleName = "Client";
-            
-            if(context.Users.Count() == 0)
+
+            if (context.Users.Count() == 0)
             {
                 //----------------#1--------------------
 
@@ -58,12 +57,12 @@ namespace Bon_Voyage.DB
 
                 DbUser dbUser = new DbUser
                 {
-                    Email = "client@gmail.com",
-                    UserName = "Chuck",
+                    Email = "client1@gmail.com",
+                    UserName = "client1@gmail.com",
                     ClientProfile = clientProfile
                 };
 
-                var res = userManager.CreateAsync(dbUser, "Qwerty-1").Result;
+                var res = userManager.CreateAsync(dbUser, "QWerty-1").Result;
                 res = userManager.AddToRoleAsync(dbUser, roleName).Result;
 
 
@@ -80,13 +79,12 @@ namespace Bon_Voyage.DB
                 dbUser = new DbUser
                 {
                     Email = "client2@gmail.com",
-                    UserName = "Dowww",
+                    UserName = "client2@gmail.com",
                     ClientProfile = clientProfile
                 };
 
-                res = userManager.CreateAsync(dbUser, "Qwerty-1").Result;
+                res = userManager.CreateAsync(dbUser, "QWerty-1").Result;
                 res = userManager.AddToRoleAsync(dbUser, roleName).Result;
-
 
 
 
@@ -94,44 +92,45 @@ namespace Bon_Voyage.DB
 
                 roleName = "Manager";
 
-                clientProfile = new ClientProfile
+                ManagerProfile managerProfile = new ManagerProfile
                 {
                     Name = "Lena",
                     Surname = "Golovach",
-                    DateOfBirth = new DateTime(1998, 11, 24)
+                    DateOfRegister = DateTime.Now,
+                    State = true,
+                    Salary = 1480
                 };
 
                 dbUser = new DbUser
                 {
                     Email = "manager@gmail.com",
-                    UserName = "Dowww",
-                    ClientProfile = clientProfile
+                    UserName = "manager@gmail.com",
+                    ManagerProfile = managerProfile
                 };
 
-                res = userManager.CreateAsync(dbUser, "Qwerty-1").Result;
+                res = userManager.CreateAsync(dbUser, "QWerty-1").Result;
                 res = userManager.AddToRoleAsync(dbUser, roleName).Result;
 
 
 
-
                 //----------------#4--------------------
+
                 roleName = "Admin";
 
-                clientProfile = new ClientProfile
+                AdminProfile adminProfile = new AdminProfile
                 {
                     Name = "Joe",
                     Surname = "Weider",
-                    DateOfBirth = new DateTime(1967, 8, 23)
                 };
 
                 dbUser = new DbUser
                 {
                     Email = "admin@gmail.com",
-                    UserName = "GOD",
-                    ClientProfile = clientProfile
+                    UserName = "admin@gmail.com",
+                    Admin = adminProfile
                 };
 
-                res = userManager.CreateAsync(dbUser, "Qwerty-1").Result;
+                res = userManager.CreateAsync(dbUser, "QWerty-1").Result;
                 res = userManager.AddToRoleAsync(dbUser, roleName).Result;
 
             }
@@ -222,7 +221,7 @@ namespace Bon_Voyage.DB
 
             }
         }
-        
+
 
         public static void SeedData(IServiceProvider services, IHostingEnvironment env, IConfiguration config)
         {
@@ -233,8 +232,13 @@ namespace Bon_Voyage.DB
                 var context = scope.ServiceProvider.GetRequiredService<EFDbContext>();
 
 
-                SeederDB.SeedRoles(context,manager,managerRole);
-                SeederDB.SeedUsers(context,manager,managerRole);
+                //SeederDB.SeedRoles(context,manager,managerRole); // --- DONE
+                //SeederDB.SeedUsers(context, manager, managerRole); // --- DONE
+
+                SeederDB.SeedCountries(context);
+                SeederDB.SeedCities(context);
+                SeederDB.SeedHotels(context);
+                SeederDB.SeedAirports(context);
             }
 
         }
