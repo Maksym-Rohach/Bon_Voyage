@@ -66,6 +66,11 @@ namespace Bon_Voyage
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
+
+            SeederDB.SeedData(app.ApplicationServices, env, this.Configuration);
+
+
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
