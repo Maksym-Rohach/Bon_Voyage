@@ -23,9 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\ClientControllers\" />
-    <Folder Include="Controllers\ManagerControllers\" />
-    <Folder Include="Controllers\AuthControllers\" />
+    <Folder Include="Uploaded\" />
+    <Folder Include="ViewModels\AdminViewModels\" />
+    <Folder Include="ViewModels\ClientViewModels\" />
+    <Folder Include="ViewModels\ManagerViewModels\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

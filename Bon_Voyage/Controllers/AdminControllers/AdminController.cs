@@ -10,7 +10,7 @@ namespace Bon_Voyage.Controllers.AdminControllers
 {
     [Authorize(Roles = "Admin")]
     [Produces("application/json")]
-    [Route("api/admin/[controller]")]
+    [Route("api/[controller]")]
     public class AdminController : ControllerBase
     {
 
