@@ -29,6 +29,7 @@ namespace Bon_Voyage
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddCors();
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -67,7 +68,7 @@ namespace Bon_Voyage
             app.UseSpaStaticFiles();
 
 
-            SeederDB.SeedData(app.ApplicationServices, env, this.Configuration);
+            //SeederDB.SeedData(app.ApplicationServices, env, this.Configuration);
 
 
 
