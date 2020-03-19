@@ -1,9 +1,12 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import {Redirect, Route, Switch } from "react-router-dom";
 import PerfectScrollbar from "perfect-scrollbar";
 import AdminNavbar from "../adminLayout/AdminNavbar";
 import AdminSideBar from "../adminLayout/AdminSidebar";
 import routes from "../../routes/adminRoutes";
+import { logout } from '../../views/othersViews/LoginPage/reducer';
+import { connect } from "react-redux";
+import get from 'lodash.get';
 
 var ps;
 
@@ -15,6 +18,12 @@ class AdminLayout extends React.Component {
       sidebarOpened:
         document.documentElement.className.indexOf("nav-open") !== -1
     };
+  }
+
+  signOut(e) {
+    e.preventDefault();
+    this.props.logout();
+    this.props.history.push('/login'); //// Attantion
   }
 
   componentDidUpdate(e) {
@@ -67,6 +76,19 @@ class AdminLayout extends React.Component {
   };
   render() {
    
+  const {login} = this.props;
+
+  let isAccess = false;
+
+  if(login.isAuthenticated)
+    {
+      const { roles } = login.user;
+      for (let i = 0; i < roles.length; i++) {
+        if (roles[i] === 'Admin')
+          isAccess = true;
+      }
+    }
+
     const content = (
      <React.Fragment>
       <div className="wrapper">
@@ -93,9 +115,17 @@ class AdminLayout extends React.Component {
       </React.Fragment> 
     )
     return (
-      content      
+      isAccess ? content
+        : <Redirect to="/login" />       
     );
   }
 }
 
-export default AdminLayout;
+//Get data from reducer store
+const mapStateToProps = (state) => {
+  return {
+    login: get(state, 'login')
+  };
+}
+
+export default connect(mapStateToProps, { logout }) (AdminLayout);
