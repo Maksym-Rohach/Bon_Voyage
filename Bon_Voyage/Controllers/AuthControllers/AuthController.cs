@@ -23,11 +23,13 @@ namespace Bon_Voyage.Controllers.AuthControllers
 
         public AuthController(EFDbContext context,
            UserManager<DbUser> userManager,
-           SignInManager<DbUser> signInManager)
+           SignInManager<DbUser> signInManager,
+           IJwtTokenService IJwtTokenService)
         {
             _userManager = userManager;
             _context = context;
             _signInManager = signInManager;
+            _IJwtTokenService = IJwtTokenService;
         }
 
         [HttpPost("login")]
