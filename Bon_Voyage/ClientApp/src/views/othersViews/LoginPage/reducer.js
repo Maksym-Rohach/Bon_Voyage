@@ -5,6 +5,7 @@ import setAuthorizationToken from "../../../utils/setAuthorizationToken";
 import jwt from "jsonwebtoken";
 import redirectStatusCode from "../../../services/redirectStatusCode";
 import history from "../../../utils/history";
+import {push} from "connected-react-router";
 
 export const LOGIN_POST_STARTED = "LOGIN_POST_STARTED";
 export const LOGIN_POST_SUCCESS = "LOGIN_POST_SUCCESS";
@@ -75,9 +76,8 @@ export const login = model => {
         response => {
           dispatch(loginActions.success());
           loginByJWT(response.data, dispatch);
-          const pushUrl = getUrlToRedirect();
-          ////console.log("----PushUrl----", pushUrl);
-          history.push(pushUrl);
+          const pushUrl = getUrlToRedirect();       
+          dispatch(push(pushUrl));
         },
         err => {
           throw err;
@@ -95,6 +95,7 @@ function getUrlToRedirect() {
   //let roles =[];
   let roles = user.roles;
   let path = "";
+  console.log("getUrlToRedirect", user);
   if (Array.isArray(roles)) {
     for (let i = 0; i < roles.length; i++) {
       if (roles[i] == "Client") {
@@ -137,7 +138,7 @@ export const loginActions = {
   failed: response => {
     return {
       type: LOGIN_POST_FAILED,
-      errors: response.data
+      errors: response
     };
   },
 
