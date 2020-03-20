@@ -41,7 +41,7 @@ namespace Bon_Voyage.Services
             };
             foreach (var el in roles)
             {
-                claims.Add(new Claim(ClaimTypes.Role, el));
+                claims.Add(new Claim("roles", el));
             }
 
             //var now = DateTime.UtcNow;
