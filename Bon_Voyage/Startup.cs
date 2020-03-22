@@ -103,8 +103,8 @@ namespace Bon_Voyage
             app.UseHttpsRedirection();
             
 
-
-            SeederDB.SeedData(app.ApplicationServices, env, this.Configuration);
+            // Seeder
+            //SeederDB.SeedData(app.ApplicationServices, env, this.Configuration);
 
 
 
