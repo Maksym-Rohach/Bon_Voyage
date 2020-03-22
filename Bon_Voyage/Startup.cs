@@ -104,7 +104,7 @@ namespace Bon_Voyage
             
 
 
-            //SeederDB.SeedData(app.ApplicationServices, env, this.Configuration);
+            SeederDB.SeedData(app.ApplicationServices, env, this.Configuration);
 
 
 
