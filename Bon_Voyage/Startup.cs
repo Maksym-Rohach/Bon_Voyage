@@ -89,7 +89,6 @@ namespace Bon_Voyage
                 .AddDefaultUI();
 
             services.AddScoped<IJwtTokenService, JwtTokenService>();
-            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Lesha-xoche-bytu-ymnitsej"));
 
             services.AddAuthentication(options =>
             {
