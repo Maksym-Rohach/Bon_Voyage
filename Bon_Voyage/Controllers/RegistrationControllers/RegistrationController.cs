@@ -32,7 +32,7 @@ namespace Bon_Voyage.Controllers.RegistrationControllers
             _IJwtTokenService = IJwtTokenService;
         }
 
-        [HttpPost("Registration")]
+        [HttpPost("Register")]
         public async Task<IActionResult> Registration([FromBody]RegistrationViewModels model)
         {
             var roleName = "Client";
