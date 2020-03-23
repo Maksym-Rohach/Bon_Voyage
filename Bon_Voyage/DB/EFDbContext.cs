@@ -56,7 +56,7 @@ namespace Bon_Voyage.DB
             #region Hotel
             builder.Entity<Hotel>()
                 .HasOne(x => x.City)
-                .WithOne(x => x.Hotel);
+                .WithMany(x => x.Hotels);
             builder.Entity<Hotel>()
                 .HasMany(x => x.PhotosToHotels)
                 .WithOne(x => x.Hotel)
