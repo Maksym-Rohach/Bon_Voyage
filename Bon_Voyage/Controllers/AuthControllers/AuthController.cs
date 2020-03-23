@@ -82,13 +82,18 @@ namespace Bon_Voyage.Controllers.AuthControllers
                 string url = "http://localhost:57206/Account/ChangePassword/" + user.Id;
 
                 await emailService.SendEmailAsync(model.Email, "ForgotPassword",
-                    $" Dear {userName}," + 
+                    $" Dear {userName}," +
                     $" <br/>" +
                     $" To change your password" +
                     $" <br/>" +
                     $" Зміна паролю <a href='{url}'>press</a>");
+                return Ok();
             }
-            return Ok();
+            else
+            {
+                return BadRequest("щось не так");
+            }
         }
+
     }
 }

@@ -36,7 +36,7 @@ namespace Bon_Voyage.Controllers.RegistrationControllers
         public async Task<IActionResult> Registration([FromBody]RegistrationViewModels model)
         {
             var roleName = "Client";
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var userReg = _context.Users.FirstOrDefault(x => x.Email == model.Email);
                 if (userReg != null)
@@ -95,21 +95,21 @@ namespace Bon_Voyage.Controllers.RegistrationControllers
                     UserName = model.Name,
                     ClientProfile = clientPro
                 };
-                var resault = await _userManager.CreateAsync(dbClient, model.Password);
-                resault = _userManager.AddToRoleAsync(dbClient, roleName).Result;
+                var res = await _userManager.CreateAsync(dbClient, model.Password);
+                res = _userManager.AddToRoleAsync(dbClient, roleName).Result;
 
-                if (resault.Succeeded)
+                if (res.Succeeded)
                 {
-                    await _signInManager.SignInAsync(userReg, isPersistent: false);
+                    await _signInManager.SignInAsync(dbClient, isPersistent: false);
                     return Ok(
                  new
                  {
-                     token = _IJwtTokenService.CreateToken(userReg)
+                     token = _IJwtTokenService.CreateToken(dbClient)
                  });
                 }
                 else
                 {
-                    foreach (var error in resault.Errors)
+                    foreach (var error in res.Errors)
                     {
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
