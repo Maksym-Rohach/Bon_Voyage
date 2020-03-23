@@ -6,6 +6,9 @@ import "./assets/css/black-dashboard-react.css";
 import "./assets/demo/demo.css";
 import "./assets/css/nucleo-icons.css";
 import 'font-awesome/css/font-awesome.min.css';
+import 'primereact/resources/themes/nova-light/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 
 // Layouts
 const AdminLayout = React.lazy(() => import("./layouts/adminLayout/AdminLayout"));
