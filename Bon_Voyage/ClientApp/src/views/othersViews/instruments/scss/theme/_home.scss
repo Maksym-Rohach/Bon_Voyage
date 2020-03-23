@@ -38,7 +38,7 @@
 
   &-area{
     height: 500px;
-    background: url('../../assets/images/header-bg.jpg') center center no-repeat;
+    background: url('../../img/home/header-bg.jpg') center center no-repeat;
     background-size: cover;
     position: relative;
     z-index: 1;
@@ -159,7 +159,7 @@
       border: 0;
       border: 1px solid #ECECEC;
       // border-top: 4px solid black;
-      background: #fff url('../../assets/images/down-arrow.png') no-repeat;
+      background: #fff url('../../img/home/down-arrow.png') no-repeat;
       background-size: 11px;
       background-position:  right 15px center;
       padding-left: 18px;
@@ -489,7 +489,7 @@
 
 /*=================== video section start ====================*/
 .video-area{
-  background: url('../../assets/images/video-bg.png') left center no-repeat;
+  background: url('../../img/home/video-bg.png') left center no-repeat;
   background-size: cover;
   padding: 50px 10px;
   position: relative;
