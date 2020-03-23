@@ -122,6 +122,6 @@ namespace Bon_Voyage.Controllers.RegistrationControllers
 
 
 //***********************************************************************************************
-//var EMAIL = "bonvoyagevirus @gmail.com";
+//var EMAIL = "bonvoyagevirus@gmail.com";
 //var EMAILPASSWORD = "bon123456-";
 //***********************************************************************************************
