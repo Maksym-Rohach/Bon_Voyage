@@ -13,6 +13,7 @@ const AdminLayout = React.lazy(() => import("./layouts/adminLayout/AdminLayout")
 // Pages
 const LoginPage = React.lazy(() => import("./views/othersViews/LoginPage"));
 const HomePage = React.lazy(() => import("./views/othersViews/HomePage"));
+const RegisterPage = React.lazy(() => import("./views/othersViews/RegisterPage"));
 //const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 class App extends Component {
 
@@ -28,6 +29,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" name="Home" render={ props => <HomePage { ...props } /> } />
           <Route exact path="/login" name="Login Page" render={props => <LoginPage {...props} />} />
+          <Route exact path="/Register" name="Register Page" render={props => <RegisterPage {...props} />} />
           <Route path="/admin" name="Admin" render={ props => <AdminLayout { ...props } /> } />
           {/* <Redirect from="/" to="/admin/persons" /> */}
         </Switch>

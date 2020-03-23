@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\src\layouts\registerLayout\" />
     <Folder Include="Uploaded\" />
     <Folder Include="ViewModels\AdminViewModels\" />
     <Folder Include="ViewModels\ClientViewModels\" />
