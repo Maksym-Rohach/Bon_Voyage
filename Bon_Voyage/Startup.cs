@@ -35,7 +35,13 @@ namespace Bon_Voyage
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddCors();
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/build";
+            });
+            services.AddScoped<IJwtTokenService, JwtTokenService>();
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -142,7 +148,7 @@ namespace Bon_Voyage
             }
             app.UseAuthentication();
             app.UseStaticFiles();
-            //app.UseSpaStaticFiles();
+            app.UseSpaStaticFiles();
             app.UseSession();
             app.UseHttpsRedirection();
            
