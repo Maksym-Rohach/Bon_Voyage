@@ -11,8 +11,6 @@ namespace Bon_Voyage.DB.Entities
         [Key]
         public string Id { get; set; }
         public string Name { get; set; }
-
-
         public string CountryId { get; set; }
         public virtual Country Country { get; set; }
 

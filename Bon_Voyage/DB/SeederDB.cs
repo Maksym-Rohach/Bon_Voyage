@@ -142,7 +142,7 @@ namespace Bon_Voyage.DB
             {
                 var countries = new List<Country>();
 
-                countries.Add(new Country { Name = "Єгипт" });
+                countries.Add(new Country { Name = "Єгипет" });
                 countries.Add(new Country { Name = "Туреччина" });
                 countries.Add(new Country { Name = "Греція" });
                 countries.Add(new Country { Name = "Іспанія" });
@@ -170,11 +170,11 @@ namespace Bon_Voyage.DB
                 string id = string.Empty;
 
                 //-------------------Egypt---------------------
-                id = countries.FirstOrDefault(x => x.Name == "Єгипт").Id;
+                id = countries.FirstOrDefault(x => x.Name == "Єгипет").Id;
                 
                 cities.Add(new City
                 {
-                    Name = "Шарм-еш-Шейх", // *Airport
+                    Name = "Шарм-ель Шейх ", // *Airport
                     CountryId = id
                 });
                 cities.Add(new City
@@ -388,7 +388,7 @@ namespace Bon_Voyage.DB
 
 
                 //-------------------Egypt---------------------
-                id = cities.FirstOrDefault(x => x.Name == "Шарм-еш-Шейх").Id;
+                id = cities.FirstOrDefault(x => x.Name == "Шарм-ель Шейх ").Id;
                 airoports.Add(new Airport
                 {
                     Name = "Sharm El Sheikh International Airport",
@@ -590,7 +590,7 @@ namespace Bon_Voyage.DB
                     CityId = id
                 });
                 //------ Sharm El-Sheikh
-                id = cities.FirstOrDefault(x => x.Name == "Шарм-еш-Шейх").Id;
+                id = cities.FirstOrDefault(x => x.Name == "Шарм-ель Шейх ").Id;
                 hotels.Add(new Hotel
                 {
                     Name = "REEF OASIS BEACH RESORT",
@@ -1150,11 +1150,6 @@ namespace Bon_Voyage.DB
                     CityId = id
                 });
 
-
-
-
-
-
                 context.AddRange(hotels);
                 context.SaveChanges();
             }
@@ -1169,16 +1164,12 @@ namespace Bon_Voyage.DB
                 var managerRole = scope.ServiceProvider.GetRequiredService<RoleManager<DbRole>>();
                 var context = scope.ServiceProvider.GetRequiredService<EFDbContext>();
 
-
-
                 // Roles: 3
                 // Users: 4
                 // Countries: 10
                 // Cities: 31
                 // Airports: 20
                 // Hotels: 68
-
-
 
                 //SeederDB.SeedRoles(context,manager,managerRole); // --- DONE
                 //SeederDB.SeedUsers(context, manager, managerRole); // --- DONE
