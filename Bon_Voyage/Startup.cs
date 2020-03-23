@@ -145,7 +145,9 @@ namespace Bon_Voyage
             //app.UseSpaStaticFiles();
             app.UseSession();
             app.UseHttpsRedirection();
-            
+           
+            // Seeder
+            //SeederDB.SeedData(app.ApplicationServices, env, this.Configuration);
 
             app.UseMvc(routes =>
             {
