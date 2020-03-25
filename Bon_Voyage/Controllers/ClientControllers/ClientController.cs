@@ -9,9 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Bon_Voyage.Controllers.ClientControllers
 {
     [Authorize(Roles = "Client")]
-    [Produces("application/json")]
-    [Route("api/[controller]")]
-    public class ClientController : ControllerBase
+    public class ClientController : ApiController
     {
         [HttpGet("HomeInformation")]
         public async Task<IActionResult> HomeInformation()

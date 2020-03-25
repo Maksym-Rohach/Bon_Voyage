@@ -1,24 +1,12 @@
 import React from 'react';
 
-const PersonsChart = React.lazy(() => import("../views/adminViews/PersonsChart"));
-const CommentsChart = React.lazy(() => import("../views/adminViews/CommentsChart"));
-//import CommentsChart from "../views/CommentsChart";
+const ManagerControl = React.lazy(() => import("../views/adminViews/ManagerControl"));
+const Login = React.lazy(() => import("../views/othersViews/LoginPage"));
 
-var routes = [
-  
-    {
-      path: "/persons",
-      name: "Persons",
-      icon: "tim-icons icon-single-02",
-      component: PersonsChart,
-      layout: "/admin"
-    },
-    {
-      path: "/comments",
-      name: "Comments",
-      icon: "tim-icons icon-pencil",
-      component: CommentsChart,
-      layout: "/admin"
-    }
+// https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
+const routes = [
+  { path: '/admin/manager/control', exact: true, name: 'ManagerControl', component: ManagerControl },
+  { path: '/admin/login', name: 'Login', component: Login },  
 ];
+
 export default routes;

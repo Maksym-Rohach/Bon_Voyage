@@ -106,7 +106,7 @@ function getUrlToRedirect() {
         path = "/manager/profile";
         break;
       } else if (roles[i] === "Admin") {
-        path = "/admin/persons";
+        path = "/admin/manager/control";
         break;
       } 
     }
@@ -116,7 +116,7 @@ function getUrlToRedirect() {
     } else if (roles === "Manager") {
       path = "/manager/profile";
     } else if (roles === "Admin") {
-      path = "/admin/persons";
+      path = "/admin/manager/control";
     }
   }
 

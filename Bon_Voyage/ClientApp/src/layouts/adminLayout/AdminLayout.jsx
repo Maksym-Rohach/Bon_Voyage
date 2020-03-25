@@ -1,131 +1,79 @@
-import React from "react";
-import {Redirect, Route, Switch } from "react-router-dom";
-import PerfectScrollbar from "perfect-scrollbar";
-import AdminNavbar from "../adminLayout/AdminNavbar";
-import AdminSideBar from "../adminLayout/AdminSidebar";
-import routes from "../../routes/adminRoutes";
-import { logout } from '../../views/othersViews/LoginPage/reducer';
-import { connect } from "react-redux";
-import get from 'lodash.get';
+import React, { Component, Suspense } from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import * as router from 'react-router-dom';
+import { Container } from 'reactstrap';
 
-var ps;
+import {
+  AppAside,
+  AppFooter,
+  AppHeader,
+  AppSidebar,
+  AppSidebarFooter,
+  AppSidebarForm,
+  AppSidebarHeader,
+  AppSidebarMinimizer,
+  AppBreadcrumb2 as AppBreadcrumb,
+  AppSidebarNav2 as AppSidebarNav,
+} from '@coreui/react';
 
-class AdminLayout extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      backgroundColor: "blue",
-      sidebarOpened:
-        document.documentElement.className.indexOf("nav-open") !== -1
-    };
-  }
+import navigation from '../../navs/_adminNavs';
+import routes from '../../routes/adminRoutes';
+
+
+const AdminNavbar = React.lazy(() => import('./AdminNavbar'));
+
+class AdminLayout extends Component {
+
+  loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   signOut(e) {
-    e.preventDefault();
-    this.props.logout();
-    this.props.history.push('/login'); //// Attantion
+    e.preventDefault()
+    this.props.history.push('/login')
   }
 
-  componentDidUpdate(e) {
-    if (e.history.action === "PUSH") {
-      if (navigator.platform.indexOf("Win") > -1) {
-        let tables = document.querySelectorAll(".table-responsive");
-        for (let i = 0; i < tables.length; i++) {
-          ps = new PerfectScrollbar(tables[i]); 
-        }
-      }
-      document.documentElement.scrollTop = 0;
-      document.scrollingElement.scrollTop = 0;
-      this.refs.mainPanel.scrollTop = 0;
-    }
-  }
-
-  toggleSidebar = () => {
-    document.documentElement.classList.toggle("nav-open");
-    this.setState({ sidebarOpened: !this.state.sidebarOpened });
-  };
-  getRoutes = routes => {
-    return routes.map((prop, key) => {
-      if (prop.layout === "/admin") {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
-      } else {
-        return null;
-      }
-    });
-  };
-  handleBgClick = color => {
-    this.setState({ backgroundColor: color });
-  };
-  getBrandText = path => {
-    for (let i = 0; i < routes.length; i++) {
-      if (
-        this.props.location.pathname.indexOf(
-          routes[i].layout + routes[i].path
-        ) !== -1
-      ) {
-        return routes[i].name;
-      }
-    }
-    return "Brand";
-  };
   render() {
-   
-  const {login} = this.props;
-
-  let isAccess = false;
-
-  if(login.isAuthenticated)
-    {
-      const { roles } = login.user;
-      for (let i = 0; i < roles.length; i++) {
-        if (roles[i] === 'Admin')
-          isAccess = true;
-      }
-    }
-
-    const content = (
-     <React.Fragment>
-      <div className="wrapper">
-        <AdminSideBar
-          {...this.props}
-          routes={routes}
-          bgColor={this.state.backgroundColor}
-          toggleSidebar={this.toggleSidebar}
-        />
-        <div
-          className="main-panel"
-          ref="mainPanel"
-          data={this.state.backgroundColor}
-        >
-          <AdminNavbar
-            {...this.props}
-            brandText={this.getBrandText(this.props.location.pathname)}
-            toggleSidebar={this.toggleSidebar}
-            sidebarOpened={this.state.sidebarOpened}
-          />
-          <Switch>{this.getRoutes(routes)}</Switch>
+    return (
+      <div className="app">
+        <AppHeader fixed>
+          <Suspense  fallback={this.loading()}>
+            <AdminNavbar onLogout={e=>this.signOut(e)}/>
+          </Suspense>
+        </AppHeader>
+        <div className="app-body">
+          <AppSidebar fixed display="lg">
+            <AppSidebarHeader />
+            <AppSidebarForm />
+            <Suspense>
+            <AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
+            </Suspense>
+            <AppSidebarFooter />
+            <AppSidebarMinimizer />
+          </AppSidebar>
+          <main className="main">           
+            <Container fluid>
+              <Suspense fallback={this.loading()}>
+                <Switch>
+                  {routes.map((route, idx) => {
+                    return route.component ? (
+                      <Route
+                        key={idx}
+                        path={route.path}
+                        exact={route.exact}
+                        name={route.name}
+                        render={props => (
+                          <route.component {...props} />
+                        )} />
+                    ) : (null);
+                  })}
+                  <Redirect from="/" to="/dashboard" />
+                </Switch>
+              </Suspense>
+            </Container>
+          </main>
         </div>
       </div>
-      </React.Fragment> 
-    )
-    return (
-      isAccess ? content
-        : <Redirect to="/login" />       
     );
   }
 }
 
-//Get data from reducer store
-const mapStateToProps = (state) => {
-  return {
-    login: get(state, 'login')
-  };
-}
-
-export default connect(mapStateToProps, { logout }) (AdminLayout);
+export default AdminLayout;
