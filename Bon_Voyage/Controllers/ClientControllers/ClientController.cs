@@ -13,6 +13,10 @@ namespace Bon_Voyage.Controllers.ClientControllers
     [Route("api/[controller]")]
     public class ClientController : ControllerBase
     {
-
+        [HttpGet("HomeInformation")]
+        public async Task<IActionResult> HomeInformation()
+        {
+            return Ok();
+        }
     }
 }
