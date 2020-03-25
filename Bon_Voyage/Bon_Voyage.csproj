@@ -30,7 +30,7 @@
   <ItemGroup>
     <Folder Include="ClientApp\src\layouts\registerLayout\" />
     <Folder Include="Uploaded\" />
-    <Folder Include="ViewModels\AdminViewModels\" />
+	<Folder Include="ViewModels\AdminViewModels\" />
     <Folder Include="ViewModels\ClientViewModels\" />
     <Folder Include="ViewModels\ManagerViewModels\" />
   </ItemGroup>
