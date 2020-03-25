@@ -1171,8 +1171,8 @@ namespace Bon_Voyage.DB
                 // Airports: 20
                 // Hotels: 68
 
-                //SeederDB.SeedRoles(context,manager,managerRole); // --- DONE
-                //SeederDB.SeedUsers(context, manager, managerRole); // --- DONE
+                SeederDB.SeedRoles(context,manager,managerRole); // --- DONE
+                SeederDB.SeedUsers(context, manager, managerRole); // --- DONE
 
                 SeederDB.SeedCountries(context);
                 SeederDB.SeedCities(context);
