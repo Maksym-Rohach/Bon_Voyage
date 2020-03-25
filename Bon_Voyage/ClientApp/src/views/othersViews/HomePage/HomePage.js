@@ -5,7 +5,6 @@ import Banner1 from "../../../assets/img/welcomeBanner1.png";
 import Banner2 from "../../../assets/img/welcomeBanner2.png";
 import Banner3 from "../../../assets/img/welcomeBanner3.png";
 
-
 import Header from './Header';
 import Footer from "./Footer";
 

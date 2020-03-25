@@ -1,136 +1,82 @@
-import React from "react";
-import classNames from "classnames";
-import {
-  Collapse,
-  UncontrolledDropdown,
-  Input,
-  NavbarBrand,
-  Navbar,
-  Nav,
-  Container,
-  Modal,
-} from "reactstrap";
+import React, { Component } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { Badge, UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem } from 'reactstrap';
+import PropTypes from 'prop-types';
 
-class AdminNavbar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      collapseOpen: false,
-      modalSearch: false,
-      color: "navbar-transparent"
-    };
-  }
-  componentDidMount() {
-    window.addEventListener("resize", this.updateColor);
-  }
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.updateColor);
-  }
+import { AppAsideToggler, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
+import logo from '../../assets/img/logo.svg'
+import sygnet from '../../assets/img/logo.svg'
 
-  updateColor = () => {
-    if (window.innerWidth < 993 && this.state.collapseOpen) {
-      this.setState({
-        color: "bg-white"
-      });
-    } else {
-      this.setState({
-        color: "navbar-transparent"
-      });
-    }
-  };
-  // this function opens and closes the collapse on small devices
-  toggleCollapse = () => {
-    if (this.state.collapseOpen) {
-      this.setState({
-        color: "navbar-transparent"
-      });
-    } else {
-      this.setState({
-        color: "bg-white"
-      });
-    }
-    this.setState({
-      collapseOpen: !this.state.collapseOpen
-    });
-  };
-  // this function is to open the Search modal
-  toggleModalSearch = () => {
-    this.setState({
-      modalSearch: !this.state.modalSearch
-    });
-  };
+const propTypes = {
+  children: PropTypes.node,
+};
+
+const defaultProps = {};
+
+class AdminNavbar extends Component {
   render() {
+
+    // eslint-disable-next-line
+    const { children, ...attributes } = this.props;
+
     return (
       <React.Fragment>
-        <Navbar
-          className={classNames("navbar-absolute", this.state.color)}
-          expand="lg"
-        >
-          <Container fluid>
-            <div className="navbar-wrapper">
-              <div
-                className={classNames("navbar-toggle d-inline", {
-                  toggled: this.props.sidebarOpened
-                })}
-              >
-                <button
-                  className="navbar-toggler"
-                  type="button"
-                  onClick={this.props.toggleSidebar}
-                >
-                  <span className="navbar-toggler-bar bar1" />
-                  <span className="navbar-toggler-bar bar2" />
-                  <span className="navbar-toggler-bar bar3" />
-                </button>
-              </div>
-              <NavbarBrand className="mt-lg-4" href="#pablo" onClick={e => e.preventDefault()}>
-                {this.props.brandText}
-              </NavbarBrand>
-            </div>
-            <button
-              aria-expanded={false}
-              aria-label="Toggle navigation"
-              className="navbar-toggler"
-              data-target="#navigation"
-              data-toggle="collapse"
-              id="navigation"
-              type="button"
-              onClick={this.toggleCollapse}
-            >
-              <span className="navbar-toggler-bar navbar-kebab" />
-              <span className="navbar-toggler-bar navbar-kebab" />
-              <span className="navbar-toggler-bar navbar-kebab" />
-            </button>
-            {/* <Collapse navbar isOpen={this.state.collapseOpen}>
-               <Nav className="ml-auto" navbar>              
-                <UncontrolledDropdown nav>                 
-                </UncontrolledDropdown>
-                <li className="separator d-lg-none" />
-              </Nav> 
-            </Collapse> */}
-          </Container>
-        </Navbar>
-        <Modal
-          modalClassName="modal-search"
-          isOpen={this.state.modalSearch}
-          toggle={this.toggleModalSearch}
-        >
-          <div className="modal-header">
-            <Input id="inlineFormInputGroup" placeholder="SEARCH" type="text" />
-            <button
-              aria-label="Close"
-              className="close"
-              data-dismiss="modal"
-              type="button"
-              onClick={this.toggleModalSearch}
-            >
-              <i className="tim-icons icon-simple-remove" />
-            </button>
-          </div>
-        </Modal>
+        <AppSidebarToggler className="d-lg-none" display="md" mobile />
+        <AppNavbarBrand
+          full={{ src: logo, width: 89, height: 25, alt: 'CoreUI Logo' }}
+          minimized={{ src: sygnet, width: 30, height: 30, alt: 'CoreUI Logo' }}
+        />
+        <AppSidebarToggler className="d-md-down-none" display="lg" />
+
+        <Nav className="d-md-down-none" navbar>
+          <NavItem className="px-3">
+            <NavLink to="/dashboard" className="nav-link" >Dashboard</NavLink>
+          </NavItem>
+          <NavItem className="px-3">
+            <Link to="/users" className="nav-link">Users</Link>
+          </NavItem>
+          <NavItem className="px-3">
+            <NavLink to="#" className="nav-link">Settings</NavLink>
+          </NavItem>
+        </Nav>
+        <Nav className="ml-auto" navbar>
+          <NavItem className="d-md-down-none">
+            <NavLink to="#" className="nav-link"><i className="icon-bell"></i><Badge pill color="danger">5</Badge></NavLink>
+          </NavItem>
+          <NavItem className="d-md-down-none">
+            <NavLink to="#" className="nav-link"><i className="icon-list"></i></NavLink>
+          </NavItem>
+          <NavItem className="d-md-down-none">
+            <NavLink to="#" className="nav-link"><i className="icon-location-pin"></i></NavLink>
+          </NavItem>
+          <UncontrolledDropdown nav direction="down">
+            <DropdownToggle nav>
+              <img src={'../../assets/img/avatars/6.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+            </DropdownToggle>
+            <DropdownMenu right>
+              <DropdownItem header tag="div" className="text-center"><strong>Account</strong></DropdownItem>
+              <DropdownItem><i className="fa fa-bell-o"></i> Updates<Badge color="info">42</Badge></DropdownItem>
+              <DropdownItem><i className="fa fa-envelope-o"></i> Messages<Badge color="success">42</Badge></DropdownItem>
+              <DropdownItem><i className="fa fa-tasks"></i> Tasks<Badge color="danger">42</Badge></DropdownItem>
+              <DropdownItem><i className="fa fa-comments"></i> Comments<Badge color="warning">42</Badge></DropdownItem>
+              <DropdownItem header tag="div" className="text-center"><strong>Settings</strong></DropdownItem>
+              <DropdownItem><i className="fa fa-user"></i> Profile</DropdownItem>
+              <DropdownItem><i className="fa fa-wrench"></i> Settings</DropdownItem>
+              <DropdownItem><i className="fa fa-usd"></i> Payments<Badge color="secondary">42</Badge></DropdownItem>
+              <DropdownItem><i className="fa fa-file"></i> Projects<Badge color="primary">42</Badge></DropdownItem>
+              <DropdownItem divider />
+              <DropdownItem><i className="fa fa-shield"></i> Lock Account</DropdownItem>
+              <DropdownItem onClick={e => this.props.onLogout(e)}><i className="fa fa-lock"></i> Logout</DropdownItem>
+            </DropdownMenu>
+          </UncontrolledDropdown>
+        </Nav>
+        <AppAsideToggler className="d-md-down-none" />
       </React.Fragment>
     );
   }
 }
+
+AdminNavbar.propTypes = propTypes;
+AdminNavbar.defaultProps = defaultProps;
 
 export default AdminNavbar;
