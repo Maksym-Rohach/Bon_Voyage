@@ -18,11 +18,11 @@ class ManagerControl extends Component {
         console.log("render",listManagers);
 
         return ( 
-            <DataTable value={this.state.cars}>
-            <Column field="vin" header="Vin" />
-            <Column field="year" header="Year" />
-            <Column field="brand" header="Brand" />
-            <Column field="color" header="Color" />
+            <DataTable value={listManagers}>
+            <Column field="name" header="Ім'я" />
+            <Column field="surname" header="Прізвище" />
+            <Column field="email" header="Пошта" />
+            <Column field="dateOfRegister" header="Дата реєстрації" />
         </DataTable>
          );
     }

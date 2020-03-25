@@ -36,7 +36,7 @@ export const getListActions = {
     success: (data) => {
         return {
             type: MANAGER_CONTROL_SUCCESS,
-            payload: data
+            payload: data.data
         }
     },  
     failed: (error) => {
