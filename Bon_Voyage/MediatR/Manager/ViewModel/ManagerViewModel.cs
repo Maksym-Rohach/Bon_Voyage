@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bon_Voyage.Application.Manager.ViewModel
+namespace Bon_Voyage.MediatR.Manager.ViewModel
 {
     public class ManagerViewModel
     {

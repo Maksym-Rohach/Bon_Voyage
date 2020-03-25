@@ -11,6 +11,6 @@ namespace Bon_Voyage.Controllers.ManagerControllers
     [Authorize(Roles = "Manager")]
     public class ManagerController : ApiController
     {
-
+       
     }
 }
