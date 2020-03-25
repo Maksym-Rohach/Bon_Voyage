@@ -16,8 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Bon_Voyage.Controllers.RegistrationControllers
 {
     [Route("api/[controller]")]
-    [ApiController]
-    public class RegistrationController : ControllerBase
+    public class RegistrationController : ApiController
     {
         private readonly EFDbContext _context;
         private readonly UserManager<DbUser> _userManager;
