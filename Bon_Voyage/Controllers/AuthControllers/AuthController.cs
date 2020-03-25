@@ -6,6 +6,7 @@ using Bon_Voyage.DB;
 using Bon_Voyage.DB.IdentityModels;
 using Bon_Voyage.Services;
 using Bon_Voyage.ViewModels.AuthViewModels;
+using Bon_Voyage.ViewModels.ForgotPasswordViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -62,5 +63,36 @@ namespace Bon_Voyage.Controllers.AuthControllers
                      token = _IJwtTokenService.CreateToken(user)
                  });
         }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword([FromBody]ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = _context.Users.FirstOrDefault(u => u.Email == model.Email);
+                if (user == null)
+                {
+                    return BadRequest(new { invalid = "Ця електронна почта не зареєстрована" });
+                }
+
+                var userName = user.Email;
+
+                EmailService emailService = new EmailService();
+                string url = "http://localhost:57206/Account/ChangePassword/" + user.Id;
+
+                await emailService.SendEmailAsync(model.Email, "ForgotPassword",
+                    $" Dear {userName}," +
+                    $" <br/>" +
+                    $" To change your password" +
+                    $" <br/>" +
+                    $" Зміна паролю <a href='{url}'>press</a>");
+                return Ok();
+            }
+            else
+            {
+                return BadRequest("щось не так");
+            }
+        }
+
     }
 }

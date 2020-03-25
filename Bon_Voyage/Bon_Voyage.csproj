@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\src\layouts\registerLayout\" />
     <Folder Include="Application\Manager\Queries\" />
     <Folder Include="Uploaded\" />
     <Folder Include="ViewModels\AdminViewModels\" />
