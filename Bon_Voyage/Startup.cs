@@ -1,6 +1,7 @@
 using Bon_Voyage.DB;
 using Bon_Voyage.DB.IdentityModels;
 using Bon_Voyage.Services;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,8 +41,7 @@ namespace Bon_Voyage
             {
                 configuration.RootPath = "ClientApp/build";
             });
-            services.AddScoped<IJwtTokenService, JwtTokenService>();
-            
+            services.AddScoped<IJwtTokenService, JwtTokenService>();            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -81,6 +81,7 @@ namespace Bon_Voyage
                     c.IncludeXmlComments(xmlPath);
                 }
             });
+            services.AddMediatR(typeof(Startup));
             services.AddDbContext<EFDbContext>(
                  options =>
                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -153,7 +154,7 @@ namespace Bon_Voyage
             app.UseHttpsRedirection();
            
             // Seeder
-            //SeederDB.SeedData(app.ApplicationServices, env, this.Configuration);
+            SeederDB.SeedData(app.ApplicationServices, env, this.Configuration);
 
             app.UseMvc(routes =>
             {

@@ -13,8 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Bon_Voyage.Controllers.AuthControllers
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
-    public class AuthController : ControllerBase
+    public class AuthController : ApiController
     {
         private readonly EFDbContext _context;
         private readonly UserManager<DbUser> _userManager;

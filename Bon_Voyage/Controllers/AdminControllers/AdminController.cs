@@ -9,9 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Bon_Voyage.Controllers.AdminControllers
 {
     [Authorize(Roles = "Admin")]
-    [Produces("application/json")]
-    [Route("api/[controller]")]
-    public class AdminController : ControllerBase
+    public class AdminController : ApiController
     {
 
     }
