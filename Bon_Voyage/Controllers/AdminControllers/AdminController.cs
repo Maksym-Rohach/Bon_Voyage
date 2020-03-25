@@ -28,7 +28,7 @@ namespace Bon_Voyage.Controllers.AdminControllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("GetAllManagers")]
         public async Task<ActionResult<ICollection<ManagerViewModel>>> GetAllManagers()
         {
             var res = await Mediator.Send(new GetAllManagersQuery());//calls a mediator's command
