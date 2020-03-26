@@ -19,9 +19,6 @@ namespace Bon_Voyage.MediatR.Registration
         public string Email { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string Photo { get; set; }
-        public DateTime DateofBirth { get; set; }
-        public string Telefon { get; set; }
         public string Password { get; set; }
 
         public class RegistrationCommandHandler : IRequestHandler<RegistrationCommand, RegistrationViewModel>
