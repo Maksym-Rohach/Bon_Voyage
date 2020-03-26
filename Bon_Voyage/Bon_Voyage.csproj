@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\layouts\registerLayout\" />
+    <Folder Include="MediatR\Home\Commands\" />
     <Folder Include="Uploaded\" />
 	<Folder Include="ViewModels\AdminViewModels\" />
     <Folder Include="ViewModels\ClientViewModels\" />

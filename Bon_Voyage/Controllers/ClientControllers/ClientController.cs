@@ -11,9 +11,19 @@ namespace Bon_Voyage.Controllers.ClientControllers
     [Authorize(Roles = "Client")]
     public class ClientController : ApiController
     {
-        [HttpGet("HomeInformation")]
-        public async Task<IActionResult> HomeInformation()
+        [HttpGet("GetHomeInformation")]
+        public async Task<IActionResult> GetHomeInformation()
         {
+            //var result = await Mediator.Send(command);
+            //if (result)
+            //{
+            //    return Ok();
+            //}
+            //else
+            //{
+            //    return BadRequest();
+            //}
+
             return Ok();
         }
     }
