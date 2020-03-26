@@ -76,22 +76,10 @@ namespace Bon_Voyage.MediatR.Registration
                     }
                 }
 
-                if (request.Telefon == null)
-                {
-                    //return BadRequest("Bad Model (номер телефону не вказано)");
-                }
-
-                if (request.DateofBirth == null)
-                {
-                    //return BadRequest("Bad Model (номер телефону не вказано)");
-                }
-
                 ClientProfile clientPro = new ClientProfile
                 {
                     Name = request.Name,
                     Surname = request.Surname,
-                    Photo = "",
-                    DateOfBirth = request.DateofBirth
                 };
                 DbUser dbClient = new DbUser
                 {
