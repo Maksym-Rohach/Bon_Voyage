@@ -29,8 +29,10 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\layouts\registerLayout\" />
+    <Folder Include="MediatR\Hotel\Commands\DeleteHotel\" />
+    <Folder Include="MediatR\Hotel\Commands\UpdateHotel\" />
+    <Folder Include="MediatR\Hotel\Queries\" />
     <Folder Include="Uploaded\" />
-	<Folder Include="ViewModels\AdminViewModels\" />
     <Folder Include="ViewModels\ClientViewModels\" />
     <Folder Include="ViewModels\ManagerViewModels\" />
   </ItemGroup>
