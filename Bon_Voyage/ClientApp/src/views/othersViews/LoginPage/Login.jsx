@@ -90,10 +90,10 @@ class Login extends Component {
 
     const form = (
 
-      <div className="app flex-row ">
+      <div className="app flex-row">
         <Container>
           <Row className="justify-content-center mt-5">
-            <Col md="5">
+            <Col md="6">
               <CardGroup>
                 <Card className="p-3">
                   <CardBody>
