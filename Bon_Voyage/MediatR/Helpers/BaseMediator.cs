@@ -9,7 +9,7 @@ namespace Bon_Voyage.MediatR.Helpers
     // Abstract class, for get EFDbContext
     public abstract class BaseMediator
     {
-        private readonly EFDbContext _context;
+        public readonly EFDbContext _context;
 
         public BaseMediator(EFDbContext context)
         {

@@ -12,24 +12,31 @@ using System.Threading.Tasks;
 
 namespace Bon_Voyage.MediatR.Home.Queries
 {
-    public class GetHomeInformationQuery : IRequest<ICollection<HomeInfoViewModel>>
+    public class GetHomeInformationQuery : IRequest<HomeInfoViewModel>
     {
-        public class GetHomeInformationQueryHandler : BaseMediator, IRequestHandler<GetHomeInformationQuery, ICollection<HomeInfoViewModel>>
+        public class GetHomeInformationQueryHandler : BaseMediator, IRequestHandler<GetHomeInformationQuery, HomeInfoViewModel>
         {
             public GetHomeInformationQueryHandler(EFDbContext context) : base(context)
             {
             }
 
-            public Task<ICollection<HomeInfoViewModel>> Handle(GetHomeInformationQuery request, CancellationToken cancellationToken)
+            public async Task<HomeInfoViewModel> Handle(GetHomeInformationQuery request, CancellationToken cancellationToken)
             {
-                int topHotelsCount = 3;
-                int topCountries = 3;
+                //int topHotelsPhoto = 3;
+                int topTickets = 3;
                 int maxHotTickets = 8;
-                List<Country> Countries;
 
+                var result = new HomeInfoViewModel();
+                var currentData = DateTime.Now;
 
-
-                throw new NotImplementedException();
+                result.Countries = _context.Country.ToList();
+                result.TopTickets = _context.Tickets.OrderBy(x => x.PriceFrom).Take(topTickets).ToList();
+                result.TopHotTickets = _context.Tickets.Where(x =>
+                x.DateFrom.Subtract(currentData).Days <=  3)
+                .Take(maxHotTickets)
+                .ToList();             
+               
+                return result;
             }
         }
     }
