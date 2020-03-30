@@ -93,9 +93,9 @@ class Login extends Component {
       <div className="app flex-row ">
         <Container>
           <Row className="justify-content-center mt-5">
-            <Col md="8">
+            <Col md="5">
               <CardGroup>
-                <Card className="p-4">
+                <Card className="p-3">
                   <CardBody>
                     <Form onSubmit={this.onSubmitForm}>
                       {/* {!!errorsServer.invalid ?
@@ -124,7 +124,8 @@ class Login extends Component {
                           </div> : ''}
                       </InputGroup> */}
 
-<InputGroup className="mb-3">
+<InputGroup className="mb-2">
+                      <span class="input-group-text" id="basic-addon1">@</span>
                       <Input
                         type="text"
                         placeholder="Електронна пошта"
@@ -138,7 +139,8 @@ class Login extends Component {
                       {!!errors.email ? <div className="invalid-feedback">{errors.email}</div> : ""}
                     </InputGroup>
 
-                      <InputGroup className="mb-4">
+                      <InputGroup className="mb-2">
+                        
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
                             <i className="icon-lock"></i>
@@ -161,15 +163,35 @@ class Login extends Component {
                             {errors.password}
                           </div> : ''}
                       </InputGroup>
-                      <Row>
-                        <Col xs="6">
-                          <Button color="primary" className="px-4">Вхід</Button>
-                        </Col>
-                        <Col xs="6" className="text-right">
+                      <div class="d-flex justify-content-center">
+                           <div className="p-2 bd-highlight">                    
+                       <Button color="primary" className="px-3">Вхід</Button>                     
+                            </div>
+                      {/*} <div className="p-2 bd-highlight">  
+                                        
+                          <Button color="info" className="px-4">Вхід</Button>
+                        </div>*/}
+                     <div className="p-2 bd-highlight">                    
+                     <Button color="primary" className="px-3">Реєстрація</Button>                        
+                       </div>                      
+                    </div>
+                    <Col xs="5">
                           <Link to="/forgot-password">
                             <Button color="link" className="px-0">Забули пароль?</Button>
                           </Link>
                         </Col>
+                                         
+                       {/*} <Col xs="8">
+                          <Button color="primary" className="px-4">Вхід</Button>
+                        </Col>
+                        <Col xs="4">  
+                          <Button color="primary" className="px-1">Реєстрація</Button>
+                        </Col>*/}
+                       {/* <Col xs="3">
+                          <Link to="/forgot-password">
+                            <Button color="secondary" className="px-4">Забули пароль?</Button>
+                          </Link>
+                        </Col>*}
                       </Row>
                       {/* <Row>
                       <Col xs="12" className="text-left">
