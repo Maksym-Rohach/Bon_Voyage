@@ -171,8 +171,10 @@ class Login extends Component {
                                         
                           <Button color="info" className="px-4">Вхід</Button>
                         </div>*/}
-                     <div className="p-2 bd-highlight">                    
-                     <Button color="primary" className="px-3">Реєстрація</Button>                        
+                     <div className="p-2 bd-highlight">    
+                     <Link to="/register">                
+                     <Button color="primary" className="px-3">Реєстрація</Button>    
+                     </Link>                 
                        </div>                      
                     </div>
                     <Col xs="5">
