@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -29,9 +29,12 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\layouts\registerLayout\" />
+    <Folder Include="MediatR\Country\Commands\" />
+    <Folder Include="MediatR\Home\Commands\" />
+    <Folder Include="MediatR\Hotel\Commands\" />
     <Folder Include="Uploaded\" />
 	<Folder Include="ViewModels\AdminViewModels\" />
-    <Folder Include="ViewModels\ClientViewModels\" />
+	<Folder Include="ViewModels\ClientViewModels\" />
     <Folder Include="ViewModels\ManagerViewModels\" />
   </ItemGroup>
 
