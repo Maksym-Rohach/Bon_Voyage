@@ -24,5 +24,6 @@ namespace Bon_Voyage.ViewModels.AdminViewModels
         public int Stars { get; set; }
         public string Description { get; set; }
         public City City { get; set; }
+        public ICollection<string> Photolink { get; set; }
     }
 }
