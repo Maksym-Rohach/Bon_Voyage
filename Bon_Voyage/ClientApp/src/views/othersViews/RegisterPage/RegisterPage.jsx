@@ -162,7 +162,7 @@ class RegisterPage extends Component {
                                 </InputGroup>
                                     <Row>
                                     <Col xs="6">
-                                <Button color="primary" className="px-4">Вхід</Button>
+                                <Button color="primary" className="px-4">Реєстрація</Button>
                               </Col>
                             </Row>
                           </Form>
