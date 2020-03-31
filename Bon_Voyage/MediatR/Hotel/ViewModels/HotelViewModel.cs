@@ -11,6 +11,6 @@ namespace Bon_Voyage.MediatR.Hotel.ViewModels
         public string Name { get; set; }
         public int Stars { get; set; }
         public string Description { get; set; }
-        public string CityId { get; set; }
+        public string City { get; set; }
     }
 }

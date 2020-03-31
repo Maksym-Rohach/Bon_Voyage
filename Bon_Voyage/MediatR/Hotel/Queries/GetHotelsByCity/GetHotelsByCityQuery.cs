@@ -25,7 +25,7 @@ namespace Bon_Voyage.MediatR.Hotel.Queries.GetHotelsByCity
             {
                 var hotels = _context.Hotels.Where(x => x.CityId == request.CityId).Select(x => new HotelViewModel
                 {
-                    CityId = x.CityId,
+                    City = x.City.Name,
                     Description = x.Description,
                     Id = x.Id,
                     Name = x.Name,
