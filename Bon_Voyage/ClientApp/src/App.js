@@ -13,6 +13,7 @@ import 'primeicons/primeicons.css';
 
 // Layouts
 const AdminLayout = React.lazy(() => import("./layouts/adminLayout/AdminLayout"));
+const ManagerLayout = React.lazy(() => import("./layouts/managerLayout/ManagerLayout"));
 
 // Pages
 const LoginPage = React.lazy(() => import("./views/othersViews/LoginPage"));
@@ -21,26 +22,28 @@ const RegisterPage = React.lazy(() => import("./views/othersViews/RegisterPage")
 //const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 class App extends Component {
 
-  state = {
-    isLoading: false,
-    isError: false
-  }
+    state = {
+        isLoading: false,
+        isError: false
+    }
 
-  render() { 
-    return (
-      <Router>       
-      <Suspense fallback={ <div>Загрузка...</div> }>
-        <Switch>
-          <Route exact path="/" name="Home" render={ props => <HomePage { ...props } /> } />
-          <Route exact path="/login" name="Login Page" render={props => <LoginPage {...props} />} />
-          <Route exact path="/Register" name="Register Page" render={props => <RegisterPage {...props} />} />
-          <Route path="/admin" name="Admin" render={ props => <AdminLayout { ...props } /> } />
-          {/* <Redirect from="/" to="/admin/persons" /> */}
-        </Switch>
-      </Suspense>
-   </Router>
-    );
-  }
+    render() {
+        return (
+            <Router>
+                <Suspense fallback={<div>Загрузка...</div>}>
+                    <Switch>
+                        <Route exact path="/" name="Home" render={props => <HomePage {...props} />} />
+                        <Route exact path="/login" name="Login Page" render={props => <LoginPage {...props} />} />
+                        <Route exact path="/Register" name="Register Page" render={props => <RegisterPage {...props} />} />
+                        <Route path="/admin" name="Admin" render={props => <AdminLayout {...props} />} />
+                        <Route path="/manager" name="Manager" render={props => <ManagerLayout {...props} />} />
+
+                        {/* <Redirect from="/" to="/admin/persons" /> */}
+                    </Switch>
+                </Suspense>
+            </Router>
+        );
+    }
 };
 
 export default App;
