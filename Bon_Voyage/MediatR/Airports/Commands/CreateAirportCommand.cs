@@ -36,7 +36,7 @@ namespace Bon_Voyage.MediatR.Airports.Commands
                         {
                             var airport = new Airport
                             {
-                                Name = request.Name,ы
+                                Name = request.Name,
                                 ShortName = request.ShortName,
                                 CityId = city.Id
                             };
