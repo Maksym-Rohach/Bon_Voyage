@@ -15,10 +15,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Bon_Voyage.Controllers.RegistrationControllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     public class RegistrationController : ApiController
     {
-        [HttpPost("Register")]
+        [HttpPost("register")]
         public async Task<IActionResult> Registration([FromBody]RegistrationCommand command)
         {
             if (!ModelState.IsValid)

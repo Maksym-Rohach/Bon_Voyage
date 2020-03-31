@@ -1,11 +1,6 @@
 import React, { Suspense, Component } from 'react';
 import { Route, Switch, HashRouter as Router } from "react-router-dom";
 import './App.scss';
-// import "./assets/scss/black-dashboard-react.scss";
-// import "./assets/css/black-dashboard-react.css";
-// import "./assets/demo/demo.css";
-// import "./assets/css/nucleo-icons.css";
-
 import 'font-awesome/css/font-awesome.min.css';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
@@ -19,7 +14,6 @@ const ManagerLayout = React.lazy(() => import("./layouts/managerLayout/ManagerLa
 const LoginPage = React.lazy(() => import("./views/othersViews/LoginPage"));
 const HomePage = React.lazy(() => import("./views/othersViews/HomePage"));
 const RegisterPage = React.lazy(() => import("./views/othersViews/RegisterPage"));
-//const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 class App extends Component {
 
     state = {
