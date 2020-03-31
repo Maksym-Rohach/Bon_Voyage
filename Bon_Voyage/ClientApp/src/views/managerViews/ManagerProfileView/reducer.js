@@ -47,7 +47,7 @@ export const getListActions = {
     }
   }
 
-export const personsChartReducer = (state = initialState, action) => { 
+export const managerProfileViewReducer = (state = initialState, action) => { 
   let newState = state;
 
   switch (action.type) {
