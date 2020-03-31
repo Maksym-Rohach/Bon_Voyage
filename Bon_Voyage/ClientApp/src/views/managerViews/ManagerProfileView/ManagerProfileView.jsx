@@ -17,9 +17,7 @@ import {
 } from "reactstrap";
 
 let chart3_2_options = {
-    maintainAspectRatio:
-
-        lse,
+  maintainAspectRatio: false,
   legend: {
     display: false
   },
@@ -114,7 +112,7 @@ let chart3_1_options = {
   }
 }
 
-class PersonsChart extends React.Component {
+class ManagerProfileView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -311,4 +309,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PersonsChart);
+export default connect(mapStateToProps, mapDispatchToProps)(ManagerProfileView);
