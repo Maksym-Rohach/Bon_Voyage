@@ -11,6 +11,6 @@ namespace Bon_Voyage.Controllers.ClientControllers
     [Authorize(Roles = "Client")]
     public class ClientController : ApiController
     {
-
+       
     }
 }

@@ -16,6 +16,6 @@ namespace Bon_Voyage.DB.Entities
 
         public virtual ICollection<Hotel> Hotels { get; set; }
         //public virtual Hotel Hotel { get; set; }
-        public virtual Airport Airport { get; set; }
+        public virtual ICollection<Airport> Airports { get; set; }
     }
 }

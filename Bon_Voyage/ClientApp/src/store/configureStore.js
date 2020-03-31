@@ -4,7 +4,7 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 // import { createBrowserHistory } from 'history';
 import createHistory from 'history/createHashHistory';
 ///reducers
-import {personsChartReducer} from '../views/adminViews/PersonsChart/reducer';
+import {managerProfileViewReducer } from '../views/managerViews/ManagerProfileView/reducer';
 import {commentsChartReducer} from '../views/adminViews/CommentsChart/reducer';
 import {loginReducer} from '../views/othersViews/LoginPage/reducer';
 import {managerControlReducer} from '../views/adminViews/ManagerControl/reducer';
@@ -16,9 +16,10 @@ export const history = createHistory({ basename: baseUrl });
 export default function configureStore(history, initialState) {
   const reducers = {
     login: loginReducer,
-    persons: personsChartReducer,
+    //persons: personsChartReducer,
     comments: commentsChartReducer,
-    managers: managerControlReducer
+      managers: managerControlReducer,
+      managerProfile: managerProfileViewReducer
   };
 
   const middleware = [
