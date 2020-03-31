@@ -18,10 +18,6 @@ namespace Bon_Voyage.Controllers.RegistrationControllers
     [Route("api/[controller]")]
     public class RegistrationController : ApiController
     {
-        
-
-        
-
         [HttpPost("Register")]
         public async Task<IActionResult> Registration([FromBody]RegistrationCommand command)
         {
