@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import '../instruments/css/style.scss';
+//import '../../../scss/customNav/custNavbar.scss'
+
 import Banner1 from "../../../assets/img/welcomeBanner1.png";
 import Banner2 from "../../../assets/img/welcomeBanner2.png";
 import Banner3 from "../../../assets/img/welcomeBanner3.png";
@@ -14,8 +16,8 @@ class HomePage extends Component {
     
         return (  
           <div className="home-page bg-white">
-           <header className="header_area">
-        <div className="header-top">
+            <header className="header_area">
+              {/* <div className="header-top">
             <div className="container">
                 <div className="d-flex align-items-center">
                     <div id="logo">
@@ -39,9 +41,65 @@ class HomePage extends Component {
                     </div>
                 </div>
             </div>
-        </div>
-        <div className="main_menu">
-            <nav className="navbar navbar-expand-lg navbar-light">
+        </div> */}
+              <div className="main_menu">
+
+                {/* <div class="site-wrap">
+
+                  <div class="site-mobile-menu site-navbar-target">
+                    <div class="site-mobile-menu-header">
+                      <div class="site-mobile-menu-close mt-3">
+                        <span class="icon-close2 js-menu-toggle"></span>
+                      </div>
+                    </div>
+                    <div class="site-mobile-menu-body"></div>
+                  </div>
+
+
+
+                  <div class="header-top bg-light">
+                    <div class="col-6   text-left">
+                      <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black"><span
+                        class="icon-menu h3"></span></a>
+                    </div>
+                    <div class="site-navbar py-2 js-sticky-header site-navbar-target d-none pl-0 d-lg-block" role="banner">
+                      <div class="container">
+                        <div class="d-flex align-items-center">
+                          <div class="mx-auto">
+                            <nav>
+                              <ul class="site-menu main-menu js-clone-nav mr-auto d-none pl-0 d-lg-block">
+                                <li class="active">
+                                  <a href="index.html" class="nav-link text-left">Home</a>
+                                </li>
+                                <li>
+                                  <a href="about.html" class="nav-link text-left">About Us</a>
+                                </li>
+                                <li>
+                                  <a href="services.html" class="nav-link text-left">Services</a>
+                                </li>
+                                <li>
+                                  <a href="testimonials.html" class="nav-link text-left">Testimonials</a>
+                                </li>
+                                <li><a href="blog.html" class="nav-link text-left">Blog</a></li>
+                                <li>
+                                  <a href="contact.html" class="nav-link text-left">Contact</a>
+                                </li>
+                              </ul>
+                            </nav>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>  */}
+
+
+
+
+
+
+
+                <nav className="navbar navbar-expand-lg navbar-light">
                 <div className="container">
                     <a className="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt="" /></a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -61,20 +119,13 @@ class HomePage extends Component {
                         <li className="nav-item"><a className="nav-link" href="#">Вийти</a></li>
                         <li className="nav-item">
                           <a className="nav-link" href="#">
-                          <i class="pi pi-spin pi-shopping-cart" style={{'fontSize': '3em'}}></i>
+                          <i class="pi pi-shopping-cart" style={{'fontSize': '2em'}}></i>
                           </a></li>
                         </ul>
-                    </div>
-                    {/* <ul className="nav navbar-nav menu_nav">
-                        <li className="nav-item"><a className="nav-link" href="#">Вхід</a></li>
-                        <li className="nav-item"><a className="nav-link" href="#">Реєстрація</a></li>
-                        <li className="nav-item"><a className="nav-link" href="#">Вийти</a></li>
-                        <li className="nav-item"><a className="nav-link" href="#"><i className="tim-icons icon-cart"></i></a></li>
-                       
-                    </ul> */}
+                    </div>                 
                 </div>
             </nav>
-            <div className="search_input" id="search_input_box">
+             {/* <div className="search_input" id="search_input_box">
                 <div className="container">
                     <form className="d-flex justify-content-between">
                         <input type="text" className="form-control" id="search_input" placeholder="Search Here" />
@@ -82,17 +133,17 @@ class HomePage extends Component {
                         <span className="lnr lnr-cross" id="close_search" title="Close Search"></span>
                     </form>
                 </div>
-            </div>
-        </div>
-    </header> 
+            </div>  */}
+              </div>
+            </header>
             <main className="site-main">
               <section className="home-banner-area" id="home">
                 <div className="container h-100">
                   <div className="home-banner">
                     <div className="text-center">
-                      <h4>See What a Difference a stay makes</h4>
-                      <h1>Luxury <em>is</em> personal</h1>
-                      <a className="button home-banner-btn" href="#">Book Now</a>
+                      {/* <h4>See What a Difference a stay makes</h4> */}
+                      <h1>Подорожуй <em>із</em> насолодою</h1>
+                      <a className="button home-banner-btn" href="#">Список квитків</a>
                     </div>
                   </div>
                 </div>
@@ -100,25 +151,25 @@ class HomePage extends Component {
               <form className="form-search form-search-position">
                 <div className="container">
                   <div className="row">
-                    <div className="col-lg-6 gutters-19">
+                    {/* <div className="col-lg-6 gutters-19">
                       <div className="form-group">
                         <input className="form-control" type="text" placeholder="Enter your keywords.." required />
                       </div>
-                    </div>
+                    </div> */}
                     <div className="col-lg-6 gutters-19">
                       <div className="row">
                         <div className="col-sm">
                           <div className="form-group">
-                            <div className="form-select-custom">
+                            {/* <div className="form-select-custom">
                               <select name="" id="">
                                 <option value="" disabled selected>Arrival</option>
                                 <option value="8 AM">8 AM</option>
                                 <option value="12 PM">12 PM</option>
                               </select>
-                            </div>
+                            </div> */}
                           </div>
                         </div>
-                        <div className="col-sm gutters-19">
+                        {/* <div className="col-sm gutters-19">
                           <div className="form-group">
                             <div className="form-select-custom">
                               <select name="" id="">
@@ -128,18 +179,18 @@ class HomePage extends Component {
                               </select>
                             </div>
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
                   <div className="row">
                     <div className="col-sm gutters-19">
-                      <div className="form-group">
+                      <div c  lassName="form-group">
                         <div className="form-select-custom">
-                          <select name="" id="">
-                            <option value="" disabled selected>Departure</option>
-                            <option value="8 AM">8 AM</option>
-                            <option value="12 PM">12 PM</option>
+                          <select name="CountriesSelect" id="">
+                            <option value="" disabled selected default>Країни</option>
+                            <option value="">США</option>
+                            <option value="">Італія</option>
                           </select>
                         </div>
                       </div>
@@ -147,10 +198,10 @@ class HomePage extends Component {
                     <div className="col-sm gutters-19">
                       <div className="form-group">
                         <div className="form-select-custom">
-                          <select name="" id="">
-                            <option value="" disabled selected>Adult</option>
-                            <option value="8 AM">8 AM</option>
-                            <option value="12 PM">12 PM</option>
+                          <select name="CitySelect" id="">
+                            <option value="" disabled selected default>Місто</option>
+                            <option value=""></option>
+                            <option value=""></option>
                           </select>
                         </div>
                       </div>
@@ -158,8 +209,8 @@ class HomePage extends Component {
                     <div className="col-sm gutters-19">
                       <div className="form-group">
                         <div className="form-select-custom">
-                          <select name="" id="">
-                            <option value="" disabled selected>Child</option>
+                          <select name="HotelSelect" id="">
+                            <option value="" disabled selected default>Готель</option>
                             <option value="8 AM">8 AM</option>
                             <option value="12 PM">12 PM</option>
                           </select>
@@ -168,7 +219,7 @@ class HomePage extends Component {
                     </div>
                     <div className="col-lg-4 gutters-19">
                       <div className="form-group">
-                        <button className="button button-form" type="submit">Check Availability</button>
+                        <button className="button button-form" type="submit">Пошук квитків</button>
                       </div>
                     </div>
                   </div>
@@ -329,7 +380,7 @@ class HomePage extends Component {
                   </div>
                 </div>
               </section>
-              <section className="section-margin">
+              {/* <section className="section-margin">
                 <div className="container">
                   <div className="section-intro text-center pb-20px">
                     <div className="section-intro__style">
@@ -459,8 +510,8 @@ class HomePage extends Component {
                     </div>
                   </div>
                 </div>
-              </section>
-              <section className="section-margin">
+              </section> */}
+              {/* <section className="section-margin">
                 <div className="container">
                   <div className="section-intro text-center pb-80px">
                     <div className="section-intro__style">
@@ -522,9 +573,9 @@ class HomePage extends Component {
                     </div>
                   </div>
                 </div>
-              </section>
+              </section> */}
             </main>
-            </div>                        
+          </div>                        
                          
         );
     }

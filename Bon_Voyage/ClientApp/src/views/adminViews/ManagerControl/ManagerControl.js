@@ -6,7 +6,8 @@ import {DataTable} from 'primereact/datatable';
 import {Column} from 'primereact/column';
 
 class ManagerControl extends Component {
-    state = {  }
+    state = { 
+     }
 
     componentDidMount = () => {
       this.props.getManagerControlData();

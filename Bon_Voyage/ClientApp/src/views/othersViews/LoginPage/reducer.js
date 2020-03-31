@@ -12,6 +12,8 @@ export const LOGIN_POST_SUCCESS = "LOGIN_POST_SUCCESS";
 export const LOGIN_POST_FAILED = "LOGIN_POST_FAILED";
 export const LOGIN_SET_CURRENT_USER = "login/SET_CURRENT_USER";
 
+
+
 const initialState = {
   post: {
     loading: false,
@@ -106,7 +108,7 @@ function getUrlToRedirect() {
         path = "/manager/profile";
         break;
       } else if (roles[i] === "Admin") {
-        path = "/admin/manager/control";
+        path = "/admin/persons";
         break;
       } 
     }
@@ -116,7 +118,7 @@ function getUrlToRedirect() {
     } else if (roles === "Manager") {
       path = "/manager/profile";
     } else if (roles === "Admin") {
-      path = "/admin/manager/control";
+      path = "/admin/persons";
     }
   }
 
