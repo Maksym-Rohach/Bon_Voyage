@@ -2,7 +2,7 @@ export default {
     items: [
         {
             title: true,
-            name: 'Меню',
+            name: 'РњРµРЅСЋ',
             wrapper: {            // optional wrapper object
                 element: '',        // required valid HTML5 element tag
                 attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
@@ -10,33 +10,33 @@ export default {
             class: ''             // optional class names space delimited list for title item ex: "text-center"
         },
         {
-            name: 'Профіль',
+            name: 'РџСЂРѕС„С–Р»СЊ',
             url: '/manager/profile',
             icon: 'icon-user',
         },
         {
-            name: 'Білети',
+            name: 'Р‘С–Р»РµС‚Рё',
             url: '/base/carousels',
             icon: 'icon-plane',
 
             children: [
                 {
-                    name: 'Усі білети',
+                    name: 'РЈСЃС– Р±С–Р»РµС‚Рё',
                     url: '/base/carousels',
                     icon: 'icon-list',
                 },
                 {
-                    name: 'Добавити білет',
+                    name: 'Р”РѕР±Р°РІРёС‚Рё Р±С–Р»РµС‚',
                     url: '/base/cards',
                     icon: 'icon-plus',
                 },
                 {
-                    name: 'Куплені білети',
+                    name: 'РљСѓРїР»РµРЅС– Р±С–Р»РµС‚Рё',
                     url: '/base/carousels',
                     icon: 'icon-credit-card',
                 },
                 {
-                    name: 'Гарячі пропозиції',
+                    name: 'Р“Р°СЂСЏС‡С– РїСЂРѕРїРѕР·РёС†С–С—',
                     url: '/base/carousels',
                     icon: 'icon-fire',
                 }
