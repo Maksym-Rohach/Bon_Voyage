@@ -14,6 +14,7 @@ namespace Bon_Voyage.DB.Entities
         public DateTime DateTo { get; set; }
         public bool IsBought { get; set; }
         public int CountsOfPlaces { get; set; }
+        public int Discount { get; set; }
 
         public string HotelId { get; set; }
         public virtual Hotel Hotel { get; set; }
