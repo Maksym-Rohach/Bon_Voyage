@@ -10,7 +10,7 @@ namespace Bon_Voyage.MediatR.Hotel.Commands.DeleteHotel
 {
     public class DeleteHotelCommand : IRequest<bool>
     {
-        public string id { get; set; }
+        public string Id { get; set; }
 
         public class DeleteHotelCommandHandler : IRequestHandler<DeleteHotelCommand, bool>
         {
@@ -23,7 +23,7 @@ namespace Bon_Voyage.MediatR.Hotel.Commands.DeleteHotel
 
             public async Task<bool> Handle(DeleteHotelCommand request, CancellationToken cancellationToken)
             {
-                var res = _context.Hotels.Remove(_context.Hotels.FirstOrDefault(x => x.Id == request.id)).State;
+                var res = _context.Hotels.Remove(_context.Hotels.FirstOrDefault(x => x.Id == request.Id)).State;
 
                 if (res == Microsoft.EntityFrameworkCore.EntityState.Deleted)
                     return true;
