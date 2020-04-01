@@ -15,7 +15,7 @@ namespace Bon_Voyage.Controllers.AdminControllers
     public class AdminController : ApiController
     {
         [HttpPost("CreateManager")]
-        public async Task<ActionResult<bool>> CreateManager (CreateManagerCommand command)
+        public async Task<IActionResult> CreateManager (CreateManagerCommand command)
         {
             var result = await Mediator.Send(command);
             if (result)

@@ -24,10 +24,12 @@ namespace Bon_Voyage.DB
         public DbSet<Country> Country { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Hotel> Hotels { get; set; }
+        public DbSet<PhotosToHotel> PhotosToHotels { get; set; }
         public DbSet<Airport> Airports { get; set; }
         public DbSet<RoomType> RoomTypes { get; set; }
         public DbSet<Comfort> Comforts { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
+       
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
