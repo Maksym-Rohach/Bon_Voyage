@@ -14,7 +14,7 @@ namespace Bon_Voyage.MediatR.Hotel.Commands.CreateHotel
         public string Name { get; set; }
         public int Stars { get; set; }
         public string Description { get; set; }
-        public City City { get; set; }
+        public string CityId { get; set; }
 
         public class CreateHotelCommandHandler : IRequestHandler<CreateHotelCommand, bool>
         {
@@ -27,14 +27,19 @@ namespace Bon_Voyage.MediatR.Hotel.Commands.CreateHotel
 
             public async Task<bool> Handle(CreateHotelCommand request, CancellationToken cancellationToken)
             {
+                var city = _context.Cities.FirstOrDefault(x => x.Id == request.CityId);
                 DB.Entities.Hotel hotel = new DB.Entities.Hotel
                 {
                     Name = request.Name,
-                    City = request.City,
+                    City = city,
                     Description = request.Description,
                     Stars = request.Stars
                 };
                 var res = _context.Hotels.AddAsync(hotel).IsCompletedSuccessfully;
+                if (res)
+                {
+                    _context.SaveChanges();
+                }
                 return res;
             }
         }
