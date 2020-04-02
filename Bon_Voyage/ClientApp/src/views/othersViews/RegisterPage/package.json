@@ -1,6 +1,6 @@
 {
-    "name": "Register",
+    "name": "RegisterPage",
     "version": "0.0.0",
     "private": true,
-    "main": "./Register.jsx"
+    "main": "./RegisterPage.jsx"
 }

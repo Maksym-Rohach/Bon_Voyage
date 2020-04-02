@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
@@ -152,9 +153,54 @@ namespace Bon_Voyage
             app.UseSpaStaticFiles();
             app.UseSession();
             app.UseHttpsRedirection();
-           
+
+            #region InitStaticFiles CountryImages
+            string pathcountry = InitStaticFiles
+               .CreateFolderServer(env, this.Configuration,
+                   new string[] { "ImagesPath", "ImagesPathCountry" });
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(pathcountry),
+                RequestPath = new PathString('/' + Configuration.GetValue<string>("CountryUrlImages"))
+            });
+            #endregion
+
+            #region InitStaticFiles HotelImages
+            string pathhotel = InitStaticFiles
+               .CreateFolderServer(env, this.Configuration,
+                   new string[] { "ImagesPath", "ImagesPathHotel" });
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(pathhotel),
+                RequestPath = new PathString('/' + Configuration.GetValue<string>("HotelUrlImages"))
+            });
+            #endregion
+
+            #region InitStaticFiles UserImages
+            string pathuser = InitStaticFiles
+               .CreateFolderServer(env, this.Configuration,
+                   new string[] { "ImagesPath", "ImagesPathUser" });
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(pathuser),
+                RequestPath = new PathString('/' + Configuration.GetValue<string>("UserUrlImages"))
+            });
+            #endregion
+
+            #region InitStaticFiles Images
+            string pathRoot = InitStaticFiles
+                .CreateFolderServer(env, this.Configuration,
+                    new string[] { "ImagesPath" });
+
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(pathRoot),
+                RequestPath = new PathString("/" + Configuration.GetValue<string>("UrlImages"))
+            });
+            #endregion;
+            
             // Seeder
-            SeederDB.SeedData(app.ApplicationServices, env, this.Configuration);
+            //SeederDB.SeedData(app.ApplicationServices, env, this.Configuration);
 
             app.UseMvc(routes =>
             {

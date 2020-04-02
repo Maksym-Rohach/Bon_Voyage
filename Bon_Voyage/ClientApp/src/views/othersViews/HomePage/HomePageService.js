@@ -7,10 +7,10 @@ export default class HomePageService {
     };
 
     static GetCities(CountryId) {
-        return axios.post(`${serverUrl}api/HomePage/GetHomeInformation/${CountryId}`)
+        return axios.post(`${serverUrl}api/City/GetHomeInformation/${CountryId}`)
     };
 
     static GetHotels(CityId){
-        return axios.post(`${serverUrl}api/HomePage/GetHomeInformation/${CityId}`)
+        return axios.post(`${serverUrl}api/Hotel/GetHomeInformation/${CityId}`)
     }
 }

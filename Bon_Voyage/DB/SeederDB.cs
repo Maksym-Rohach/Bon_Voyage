@@ -48,10 +48,15 @@ namespace Bon_Voyage.DB
             {
                 //----------------#1--------------------
 
-                ClientProfile clientProfile = new ClientProfile
+                BaseProfile clientBase = new BaseProfile
                 {
                     Name = "Vlad",
-                    Surname = "Montana",
+                    Surname = "Montana"
+                };
+
+                ClientProfile clientProfile = new ClientProfile
+                {
+                    BaseProfile = clientBase,
                     DateOfBirth = new DateTime(2002, 7, 5)
                 };
 
@@ -59,80 +64,96 @@ namespace Bon_Voyage.DB
                 {
                     Email = "client1@gmail.com",
                     UserName = "client1@gmail.com",
-                    ClientProfile = clientProfile
+                    BaseProfile = clientBase
                 };
 
                 var res = userManager.CreateAsync(dbUser, "QWerty-1").Result;
                 res = userManager.AddToRoleAsync(dbUser, roleName).Result;
-
+                context.ClientProfiles.Add(clientProfile);
 
 
                 //----------------#2--------------------
+                clientBase = new BaseProfile
+                {
+                    Name = "Moe",
+                    Surname = "Szyslak"
+
+                };
 
                 clientProfile = new ClientProfile
                 {
-                    Name = "Moe",
-                    Surname = "Szyslak",
+                    BaseProfile = clientBase,
                     DateOfBirth = new DateTime(1978, 2, 13)
                 };
-
+                
                 dbUser = new DbUser
                 {
                     Email = "client2@gmail.com",
                     UserName = "client2@gmail.com",
-                    ClientProfile = clientProfile
+                    BaseProfile = clientBase
                 };
 
                 res = userManager.CreateAsync(dbUser, "QWerty-1").Result;
                 res = userManager.AddToRoleAsync(dbUser, roleName).Result;
-
+                context.ClientProfiles.Add(clientProfile);
 
 
                 //----------------#3--------------------
 
                 roleName = "Manager";
 
-                ManagerProfile managerProfile = new ManagerProfile
+                BaseProfile managerBase = new BaseProfile
                 {
                     Name = "Lena",
-                    Surname = "Golovach",
+                    Surname = "Golovach"
+                };
+
+                ManagerProfile managerProfile = new ManagerProfile
+                {
                     DateOfRegister = DateTime.Now,
                     State = true,
-                    Salary = 1480
+                    Salary = 1480,
+                    BaseProfile = managerBase
                 };
 
                 dbUser = new DbUser
                 {
                     Email = "manager@gmail.com",
                     UserName = "manager@gmail.com",
-                    ManagerProfile = managerProfile
+                    BaseProfile = managerBase
                 };
 
                 res = userManager.CreateAsync(dbUser, "QWerty-1").Result;
                 res = userManager.AddToRoleAsync(dbUser, roleName).Result;
-
+                context.ManagerProfiles.Add(managerProfile);
 
 
                 //----------------#4--------------------
 
                 roleName = "Admin";
 
-                AdminProfile adminProfile = new AdminProfile
+                BaseProfile adminBase = new BaseProfile
                 {
                     Name = "Joe",
-                    Surname = "Weider",
+                    Surname = "Weider"
+                };
+
+                AdminProfile adminProfile = new AdminProfile
+                {
+                    BaseProfile = adminBase
                 };
 
                 dbUser = new DbUser
                 {
                     Email = "admin@gmail.com",
                     UserName = "admin@gmail.com",
-                    Admin = adminProfile
+                    BaseProfile = adminBase
                 };
 
                 res = userManager.CreateAsync(dbUser, "QWerty-1").Result;
                 res = userManager.AddToRoleAsync(dbUser, roleName).Result;
-
+                context.AdminProfiles.Add(adminProfile);
+                context.SaveChanges();
             }
         }
 
@@ -171,7 +192,7 @@ namespace Bon_Voyage.DB
 
                 //-------------------Egypt---------------------
                 id = countries.FirstOrDefault(x => x.Name == "Єгипет").Id;
-                
+
                 cities.Add(new City
                 {
                     Name = "Шарм-ель Шейх ", // *Airport
@@ -313,7 +334,7 @@ namespace Bon_Voyage.DB
                 cities.Add(new City
                 {
                     Name = "Верона", // *Airport
-                    CountryId = id                    
+                    CountryId = id
                 });
 
 
@@ -576,10 +597,11 @@ namespace Bon_Voyage.DB
                 //-------------------Egypt---------------------
                 //------ Hurgada
                 id = cities.FirstOrDefault(x => x.Name == "Хургада").Id;
-                hotels.Add(new Hotel {
+                hotels.Add(new Hotel
+                {
                     Name = "ROYAL LAGOONS AQUA PARK RESORT & SPA",
                     Stars = 5,
-                    Description = @"Royal Lagoons Aqua Park Resort \& Spa знаходиться в районі Villages Road, 9 км від Diving Center Hurghada і має в наявності обмін валют, камеру схову багажу і перукарню. Цей 5-зірковий готель був відкритий 2007 році.\n\nРозташування\nRoyal Lagoons Aqua Park Resort \& Spa надає кімнати з системою опалення, кондиціонером і вбиральнею та має центральне розташування поблизу до Hurghada Grand Aquarium. Гості можуть дійти до Нова пристань для яхт, подолавши відстань 8 км звідси. До океанаріуму, барів і ресторанів можна дійти за кілька хвилин.\nНомери\nНомери виходять вікнами на сад.\n\nХарчування\nУ готелі щодня подають сніданок шведський стіл. Ресторан має широкий вибір фірмових делікатесів італійської кухні. Кафе-бар подає місцеві напої кожен день.\n\nПослуги\nRoyal Lagoons Aqua Park Resort \& Spa Хургада надає гостям цілодобовий ресепшн, цілодобове обслуговування номерів і послуги носія.\n\nВідпочинок\nГості можуть насолодитися приватним басейном з водною гіркою, гідромасажною ванною і сауною. Для занять спортом є спортзал, заняття аеробікою і фітнес-центр.\n\nІнтернет\nWi-Fi доступний в в номерах готелю за додаткову плату.\n\nWi-Fi надається в зонах загального користування готелю безкоштовно.\n\nПарковка\nНа території надається безкоштовна громадська парковка.\n\nКількість номерів:   366.".Replace(@"/n","<br />"),                    
+                    Description = @"Royal Lagoons Aqua Park Resort \& Spa знаходиться в районі Villages Road, 9 км від Diving Center Hurghada і має в наявності обмін валют, камеру схову багажу і перукарню. Цей 5-зірковий готель був відкритий 2007 році.\n\nРозташування\nRoyal Lagoons Aqua Park Resort \& Spa надає кімнати з системою опалення, кондиціонером і вбиральнею та має центральне розташування поблизу до Hurghada Grand Aquarium. Гості можуть дійти до Нова пристань для яхт, подолавши відстань 8 км звідси. До океанаріуму, барів і ресторанів можна дійти за кілька хвилин.\nНомери\nНомери виходять вікнами на сад.\n\nХарчування\nУ готелі щодня подають сніданок шведський стіл. Ресторан має широкий вибір фірмових делікатесів італійської кухні. Кафе-бар подає місцеві напої кожен день.\n\nПослуги\nRoyal Lagoons Aqua Park Resort \& Spa Хургада надає гостям цілодобовий ресепшн, цілодобове обслуговування номерів і послуги носія.\n\nВідпочинок\nГості можуть насолодитися приватним басейном з водною гіркою, гідромасажною ванною і сауною. Для занять спортом є спортзал, заняття аеробікою і фітнес-центр.\n\nІнтернет\nWi-Fi доступний в в номерах готелю за додаткову плату.\n\nWi-Fi надається в зонах загального користування готелю безкоштовно.\n\nПарковка\nНа території надається безкоштовна громадська парковка.\n\nКількість номерів:   366.".Replace(@"/n", "<br />"),
                     CityId = id
                 });
                 hotels.Add(new Hotel
@@ -693,7 +715,7 @@ namespace Bon_Voyage.DB
                     Stars = 3,
                     Description = @"Маючи в розпорядженні камеру схову багажу, ліфт і газетний кіоск, Oscar Hotel знаходиться недалеко від Пагорб Лікавіт. Готель було оновлено в 2004 і складається з 6 поверхів. Зупинившись тут, ви також зможете користуватися Wi-Fi і приватний паркінг.\n\nРозташування\nПомешкання має відмінне розташування в шопінг районі поруч з портом, пропонуючи легкий доступ до Площа Синтагма, що в 25 хвилинах ходьби. Музей Тренон розташований в 1.9 км від готелю. Туристичні місця, такі як будівля парламенту, музей і церква, знаходяться неподалік готелю. Залізнична станція Athens Railway-Peloponnese знаходиться на відстані 100 метрів від готелю.\nНомери\nУ цьому готелі є номери з ванною, феном і туалетно-косметичними засобами, а також системою клімат-контролю, сейфом для ноутбука і коморою. Гарні номери мають вид на місто. В усіх номерах ви також можете користуватися власні ванними кімнатами.\n\nХарчування\nУ ресторані Dionysos представлені вишукані страви інтернаціональної кухні. У лобі-барі подають смачні страви та напої. Sablo і Garbi Restaurant пропонують величезний вибір страв у 350 метрах від готелю.\n\nПослуги\nДля усіх гостей надаються послуги лікаря за викликом, хімчистка і послуги носія.\n\nІнтернет\nWi-Fi надається у всьому готелі безкоштовно.\n\nПарковка\nНа території надається приватна парковка (може знадобитися попереднє замовлення) за EUR 7 на день.\n\nПерсонал готелю розмовляє англійською, іспанською, італійською, грецькою, російською.\n\nКількість поверхів:   6.  Кількість номерів:   124.".Replace(@"\n", " "),
                     CityId = id
-                }); 
+                });
                 hotels.Add(new Hotel
                 {
                     Name = "ATHENIAN CALLIRHOE HOTEL",
@@ -728,7 +750,7 @@ namespace Bon_Voyage.DB
                 });
 
 
-               
+
                 //-------------------Spain---------------------
                 //------ Barselona 
                 id = cities.FirstOrDefault(x => x.Name == "Барселона").Id;
@@ -795,7 +817,7 @@ namespace Bon_Voyage.DB
                     CityId = id
                 });
 
-               
+
 
 
                 //-------------------ОАЕ---------------------
@@ -901,7 +923,7 @@ namespace Bon_Voyage.DB
                 });
 
 
-                
+
                 //-------------------Italy---------------------
                 //------ Rome     
                 id = cities.FirstOrDefault(x => x.Name == "Рим").Id;
@@ -1003,7 +1025,7 @@ namespace Bon_Voyage.DB
                     CityId = id
                 });
 
-               
+
 
 
 
@@ -1101,7 +1123,7 @@ namespace Bon_Voyage.DB
                     CityId = id
                 });
 
-           
+
                 //-------------------George---------------------
                 //------ Batumi 
                 id = cities.FirstOrDefault(x => x.Name == "Батумі").Id;
@@ -1127,7 +1149,7 @@ namespace Bon_Voyage.DB
                     Stars = 4,
                     Description = @"".Replace(@"\n", " "),
                     CityId = id
-                });            
+                });
 
 
                 //-------------------Cuba---------------------
@@ -1171,7 +1193,7 @@ namespace Bon_Voyage.DB
                 // Airports: 20
                 // Hotels: 68
 
-                SeederDB.SeedRoles(context,manager,managerRole); // --- DONE
+                SeederDB.SeedRoles(context, manager, managerRole); // --- DONE
                 SeederDB.SeedUsers(context, manager, managerRole); // --- DONE
 
                 SeederDB.SeedCountries(context);

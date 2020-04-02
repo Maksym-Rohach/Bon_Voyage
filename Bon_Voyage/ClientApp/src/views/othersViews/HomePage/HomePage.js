@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import get from "lodash.get";
+import { connect } from "react-redux";
+
 import '../instruments/css/style.scss';
 //import '../../../scss/customNav/custNavbar.scss'
 
@@ -11,9 +14,20 @@ import Header from './Header';
 import Footer from "./Footer";
 
 class HomePage extends Component {
-    state = {  }
+  state = {
+    isAuth: false,
+    countries: [],
+    cities: [],
+    hotels: [],
+    //randomPhotos:[],
+    topTickets:[],
+    hotTickets:[]
+  }
+
+
+
     render() { 
-    
+        const {isAuth} = this.state;
         return (  
           <div className="home-page bg-white">
             <header className="header_area">
@@ -114,11 +128,19 @@ class HomePage extends Component {
                             <li className="nav-item"><a className="nav-link" href="about.html">About</a></li>
                             <li className="nav-item"><a className="nav-link" href="properties.html">Properties</a></li>
                             <li className="nav-item"><a className="nav-link" href="gallery.html">Gallery</a></li>
-                            <li className="nav-item"><a className="nav-link" href="/#/login">Вхід</a></li>
-                        <li className="nav-item"><a className="nav-link" href="#">Реєстрація</a></li>
-                        <li className="nav-item"><a className="nav-link" href="#">Вийти</a></li>
+                            
+                        {
+                        !isAuth ? 
+                        ( <li className="nav-item"><a className="nav-link" href="/#/login">Вхід</a></li>,
+                        <li className="nav-item"><a className="nav-link" href="#">Реєстрація</a></li>)             
+                      : (<li className="nav-item"><a className="nav-link" href="#">Вийти</a></li>)
+                      }
+                        
                         <li className="nav-item">
                           <a className="nav-link" href="#">
+                            {
+                              
+                            }
                           <i class="pi pi-shopping-cart" style={{'fontSize': '2em'}}></i>
                           </a></li>
                         </ul>
@@ -315,11 +337,11 @@ class HomePage extends Component {
               <section className="video-area">
                 <div className="container">
                   <div className="row justify-content-center align-items-center flex-column text-center">
-                    <a id="play-home-video" className="video-play-button" href="https://www.youtube.com/watch?v=vParh5wE-tM">
+                    {/* <a id="play-home-video" className="" href="">
                       <span></span>
-                    </a>
-                    <h3>Seaplace</h3>
-                    <p>View four has said does men saw find dear shy talent</p>
+                    </a> */}
+                    <h3>Ми надаємо широкий вибір квитків</h3>
+                    <p>У різні куточки світу</p>
                   </div>
                 </div>
               </section>
@@ -580,5 +602,22 @@ class HomePage extends Component {
         );
     }
 }
+
+
+function mapStateToProps(state) {
+  // console.log("mapStateToProps", state);
+  // return {
+  //   loading: get(state, 'login.post.loading'),
+  //   failed: get(state, 'login.post.failed'),
+  //   success: get(state, 'login.post.success'),
+  //   errors: get(state, 'login.post.errors')
+  // }
+}
+
+const mapDispatch = {
+  // login: (model, history) => {
+  //     return loginActions.login(model, history);
+  // }
+}
  
-export default HomePage;
+export default connect(mapStateToProps, mapDispatch)(HomePage);

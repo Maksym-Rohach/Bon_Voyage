@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Bon_Voyage.DB.Entities
 {
-    public class ClientProfile
+    public class BlockedProfile
     {
         [Key]
         public string Id { get; set; }
+        public DateTime BlockedFrom { get; set; }
+        public DateTime BlockedTo { get; set; }
+        public string Reason { get; set; }
 
-        public DateTime DateOfBirth { get; set; }
-
-        public BaseProfile BaseProfile { get; set; }
-        public virtual ICollection<Ticket> Tickets { get; set; }
+        public virtual BaseProfile BaseProfile { get; set; }
     }
 }
