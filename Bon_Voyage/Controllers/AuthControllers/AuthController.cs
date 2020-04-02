@@ -10,6 +10,7 @@ using Bon_Voyage.ViewModels.ForgotPasswordViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bon_Voyage.Controllers.AuthControllers
 {
@@ -41,7 +42,8 @@ namespace Bon_Voyage.Controllers.AuthControllers
                 return BadRequest("Bad Model");
             }
 
-            var user = _context.Users.FirstOrDefault(u => u.Email == model.Email);
+            var user = _context.Users.Include(u=>u.BaseProfile)
+                .FirstOrDefault(u => u.Email == model.Email);
             if(user == null)
             {
                 return BadRequest(new { invalid = "Користувача із вказаними обліковими даними не знайдено" });
