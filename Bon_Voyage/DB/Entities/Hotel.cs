@@ -13,6 +13,7 @@ namespace Bon_Voyage.DB.Entities
         public string Name { get; set; }
         public int Stars { get; set; }
         public string Description { get; set; }
+        public bool IsClosed { get; set; }
 
         public string CityId { get; set; }
         public virtual City City { get; set; }

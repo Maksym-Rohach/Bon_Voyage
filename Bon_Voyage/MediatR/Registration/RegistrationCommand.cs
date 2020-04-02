@@ -73,22 +73,29 @@ namespace Bon_Voyage.MediatR.Registration
                     }
                 }
 
-                ClientProfile clientPro = new ClientProfile
+                BaseProfile baseProfile = new BaseProfile
                 {
                     Name = request.Name,
-                    Surname = request.Surname,
+                    Surname = request.Surname
+                };
+
+                ClientProfile clientPro = new ClientProfile
+                {
+                    BaseProfile = baseProfile
                 };
                 DbUser dbClient = new DbUser
                 {
                     Email = request.Email,
                     UserName = request.Name,
-                    ClientProfile = clientPro
+                    BaseProfile = baseProfile   
                 };
                 var res = await _userManager.CreateAsync(dbClient, request.Password);
                 res = _userManager.AddToRoleAsync(dbClient, roleName).Result;
 
                 if (res.Succeeded)
                 {
+                    _context.ClientProfiles.Add(clientPro);
+                    _context.SaveChanges();
                     await _signInManager.SignInAsync(dbClient, isPersistent: false);
                     return new RegistrationViewModel { Status = true, Tokken = _IJwtTokenService.CreateToken(dbClient) };
                 }
