@@ -5,7 +5,13 @@ export const INFO_STARTED = "INFO_STARTED";
 export const INFO_SUCCESS = "INFO_SUCCESS";
 export const INFO_FAILED = "INFO_FAILED";
 
+// export const CITY_STARTED = "CITY_STARTED";
+// export const CITY_SUCCESS = "CITY_SUCCESS";
+// export const CITY_FAILED = "CITY_FAILED";
 
+// export const INFO_STARTED = "INFO_STARTED";
+// export const INFO_SUCCESS = "INFO_SUCCESS";
+// export const INFO_FAILED = "INFO_FAILED";
 
 const initialState = {
     list: {
@@ -14,60 +20,64 @@ const initialState = {
         success: false,
         failed: false,
     },   
+    cities: [],
+    hotels: []
+
 }
 
-export const getCommentsData = () => {
+export const getHomeData = () => {
     return (dispatch) => {
         dispatch(getListActions.started());
-        CommentsChartService.getComments()
+        HomePageService.GetHomeInfo()
             .then((response) => {            
                 dispatch(getListActions.success(response));               
             }, err=> { throw err; })
             .catch(err=> {
               dispatch(getListActions.failed(err));
             });
+            
     }
 }
 
 export const getListActions = {
     started: () => {
         return {
-            type: COMMENTS_STARTED
+            type: INFO_STARTED
         }
     },  
     success: (data) => {
         return {
-            type: COMMENTS_SUCCESS,
+            type: INFO_SUCCESS,
             payload: data
         }
     },  
     failed: (error) => {
         return {           
-            type: COMMENTS_FAILED,
+            type: INFO_FAILED,
             error: error,
         }
     }
   }
 
-export const commentsChartReducer = (state = initialState, action) => { 
+export const homePageReducer = (state = initialState, action) => { 
   let newState = state;
 
   switch (action.type) {
 
-      case COMMENTS_STARTED: {
+      case INFO_STARTED: {
           newState = update.set(state, 'list.loading', true);
           newState = update.set(newState, 'list.success', false);
           newState = update.set(newState, 'list.failed', false);
           break;
       }
-      case COMMENTS_SUCCESS: {
+      case INFO_SUCCESS: {
           newState = update.set(state, 'list.loading', false);
           newState = update.set(newState, 'list.failed', false);
           newState = update.set(newState, 'list.success', true);
           newState = update.set(newState, 'list.data', action.payload);         
           break;
       }
-      case COMMENTS_FAILED: {
+      case INFO_FAILED: {
           newState = update.set(state, 'list.loading', false);
           newState = update.set(newState, 'list.success', false);
           newState = update.set(newState, 'list.failed', true);
