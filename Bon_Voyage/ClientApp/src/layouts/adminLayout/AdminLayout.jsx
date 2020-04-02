@@ -2,6 +2,10 @@ import React, { Component, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import * as router from 'react-router-dom';
 import { Container } from 'reactstrap';
+import { connect } from "react-redux";
+import get from 'lodash.get';
+import { logout } from '../../views/othersViews/LoginPage/reducer';
+import {serverUrl} from '../../config';
 
 import {
   AppAside,
@@ -32,11 +36,29 @@ class AdminLayout extends Component {
   }
 
   render() {
+    const { login } = this.props;
+    console.log(login);
+    let isAccess = false;
+    if(login.isAuthenticated===undefined){
+        return (
+            <Redirect to="/login" />  
+          );
+    }
+    if(login.isAuthenticated)
+    {
+      const { roles } = login.user;
+      for (let i = 0; i < roles.length; i++) {
+        if (roles[i] === 'Admin')
+          isAccess = true;
+      }
+    }
     return (
       <div className="app">
         <AppHeader fixed>
           <Suspense  fallback={this.loading()}>
-            <AdminNavbar onLogout={e=>this.signOut(e)}/>
+            <AdminNavbar onLogout={e=>this.signOut(e)}
+            image={`${serverUrl}UserImages/50_${login.user.image}`}
+            />
           </Suspense>
         </AppHeader>
         <div className="app-body">
@@ -76,4 +98,9 @@ class AdminLayout extends Component {
   }
 }
 
-export default AdminLayout;
+const mapStateToProps = (state) => {
+  return {
+    login: get(state, 'login')
+  };
+}
+export default connect(mapStateToProps, { logout }) (AdminLayout);
