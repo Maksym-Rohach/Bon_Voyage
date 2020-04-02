@@ -31,20 +31,25 @@ namespace Bon_Voyage.MediatR.Manager.Commands.CreateManager
 
             public async Task<bool> Handle(CreateManagerCommand request, CancellationToken cancellationToken)
             {
-                ManagerProfile managerProfile = new ManagerProfile
+                BaseProfile baseProfile = new BaseProfile
                 {
                     Name = request.Name,
                     Surname = request.Surname,
+                    Photo = ""
+                };
+
+                ManagerProfile managerProfile = new ManagerProfile
+                {
+                    BaseProfile = baseProfile,
                     Salary = request.Salary,
-                    State = true,
-                    Photo = "",
+                    State = true,                    
                     DateOfRegister = DateTime.Now
                 };
                 DbUser user = new DbUser
                 {
                     UserName = request.Email,
                     Email = request.Email,
-                    ManagerProfile = managerProfile
+                    BaseProfile = baseProfile
                 };
 
                 var res = await _userManager.CreateAsync(user, "QWerty-1");

@@ -1,6 +1,7 @@
 ﻿using Bon_Voyage.DB;
 using Bon_Voyage.DB.IdentityModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -34,11 +35,20 @@ namespace Bon_Voyage.Services
         {
             var roles = _userManager.GetRolesAsync(user).Result;
             roles = roles.OrderBy(x => x).ToList();
+            var query = _context.Users.AsQueryable();
+            var image = user.BaseProfile.Photo;
+           
+                if (image == null)
+                {
+                    image = _configuration.GetValue<string>("DefaultImage");
+                }
+                    
+            
             List<Claim> claims = new List<Claim>()
             {
                 new Claim("id",user.Id),
-                new Claim(ClaimTypes.Name,user.UserName),
-                //new Claim("image",Image)
+                new Claim("name",user.UserName),
+                new Claim("image",image)
             };
             foreach (var el in roles)
             {
