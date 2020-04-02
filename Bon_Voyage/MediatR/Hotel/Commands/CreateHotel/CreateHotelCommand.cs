@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace Bon_Voyage.MediatR.Hotel.Commands.CreateHotel
 {
-    public class CreateHotelCommand : IRequest<bool>
+    public class CreateHotelCommand : IRequest<CreateHotelViewModel>
     {
         public string Name { get; set; }
         public int Stars { get; set; }
         public string Description { get; set; }
         public string CityId { get; set; }
 
-        public class CreateHotelCommandHandler : IRequestHandler<CreateHotelCommand, bool>
+        public class CreateHotelCommandHandler : IRequestHandler<CreateHotelCommand, CreateHotelViewModel>
         {
             private readonly EFDbContext _context;
 
@@ -25,22 +25,30 @@ namespace Bon_Voyage.MediatR.Hotel.Commands.CreateHotel
                 _context = context;
             }
 
-            public async Task<bool> Handle(CreateHotelCommand request, CancellationToken cancellationToken)
+            public async Task<CreateHotelViewModel> Handle(CreateHotelCommand request, CancellationToken cancellationToken)
             {
                 var city = _context.Cities.FirstOrDefault(x => x.Id == request.CityId);
-                DB.Entities.Hotel hotel = new DB.Entities.Hotel
+                if (city != null)
                 {
-                    Name = request.Name,
-                    City = city,
-                    Description = request.Description,
-                    Stars = request.Stars
-                };
-                var res = _context.Hotels.AddAsync(hotel).IsCompletedSuccessfully;
-                if (res)
-                {
-                    _context.SaveChanges();
+                    try
+                    {
+                        DB.Entities.Hotel hotel = new DB.Entities.Hotel
+                        {
+                            Name = request.Name,
+                            City = city,
+                            Description = request.Description,
+                            Stars = request.Stars
+                        };
+                        await _context.Hotels.AddAsync(hotel);
+                        _context.SaveChanges();
+                        return new CreateHotelViewModel { Status = true };
+                    }
+                    catch (Exception e)
+                    {
+                        return new CreateHotelViewModel { Status = false, ErrorMessage = e.Message };
+                    }
                 }
-                return res;
+                return new CreateHotelViewModel { Status = false, ErrorMessage = "Місто не знайдено" };
             }
         }
     }

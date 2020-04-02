@@ -15,9 +15,15 @@ namespace Bon_Voyage.Controllers.AdminControllers
         [HttpPost("add")]
         public async Task<IActionResult> AddHotel([FromBody]CreateHotelCommand command)
         {
-            await Mediator.Send(command);
-
-            return Ok();
+            var res = await Mediator.Send(command);
+            if (res.Status)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(res.ErrorMessage);
+            }
         }
         [HttpPost("delete")]
         public async Task<IActionResult> DeleteHotel([FromBody]DeleteHotelModel model)

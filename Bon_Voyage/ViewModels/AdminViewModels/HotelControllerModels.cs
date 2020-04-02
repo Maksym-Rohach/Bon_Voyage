@@ -11,19 +11,19 @@ namespace Bon_Voyage.ViewModels.AdminViewModels
         public string Name { get; set; }
         public int Stars { get; set; }
         public string Description { get; set; }
-        public City City { get; set; }
+        public string CityId { get; set; }
     }
     public class DeleteHotelModel
     {
-        public string id { get; set; }
+        public string Id { get; set; }
     }
     public class UpdateHotelModel
     {
-        public string id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public int Stars { get; set; }
         public string Description { get; set; }
-        public City City { get; set; }
+        public string CityId { get; set; }
         public ICollection<string> Photolink { get; set; }
     }
 }
