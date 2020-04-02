@@ -17,8 +17,10 @@ namespace Bon_Voyage.DB
         public EFDbContext(DbContextOptions<EFDbContext> options) : base(options)
         {
         }
-
+        
+        public DbSet<BaseProfile> BaseProfiles { get; set; }
         public DbSet<ClientProfile> ClientProfiles { get; set; }
+        public DbSet<BlockedProfile> BlockedProfiles { get; set; }
         public DbSet<AdminProfile> AdminProfiles { get; set; }
         public DbSet<ManagerProfile> ManagerProfiles { get; set; }
         public DbSet<Country> Country { get; set; }
@@ -40,12 +42,31 @@ namespace Bon_Voyage.DB
                 .HasMany(x => x.Tickets)
                 .WithOne(x => x.Client)
                 .HasForeignKey(x => x.ClientId);
+            builder.Entity<ClientProfile>()
+                .HasOne(x => x.BaseProfile)
+                .WithOne(x => x.ClientProfile)
+                .HasForeignKey<ClientProfile>(x => x.Id);
             #endregion
 
             #region AdminProfile
+            builder.Entity<AdminProfile>()
+                .HasOne(x => x.BaseProfile)
+                .WithOne(x => x.AdminProfile)
+                .HasForeignKey<AdminProfile>(x => x.Id);
             #endregion
 
             #region ManagerProfile
+            builder.Entity<ManagerProfile>()
+                .HasOne(x => x.BaseProfile)
+                .WithOne(x => x.ManagerProfile)
+                .HasForeignKey<ManagerProfile>(x => x.Id);
+            #endregion
+
+            #region BlockedProfile
+            builder.Entity<BlockedProfile>()
+                .HasOne(x => x.BaseProfile)
+                .WithOne(x => x.BlockedProfile)
+                .HasForeignKey<BlockedProfile>(x => x.Id);
             #endregion
 
             #region City
