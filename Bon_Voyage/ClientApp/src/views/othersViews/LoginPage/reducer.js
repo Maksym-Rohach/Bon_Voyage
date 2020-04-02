@@ -162,7 +162,7 @@ export function logout() {
 
 export const loginByJWT = (tokens, dispatch) => {
   const { token, refToken } = tokens;
-  ////console.log('Hello app Token: ', token);
+  console.log('Hello app Token: ', token);
   var user = jwt.decode(token);
   console.log('Hello app User: ', user);
   if (!Array.isArray(user.roles)) {

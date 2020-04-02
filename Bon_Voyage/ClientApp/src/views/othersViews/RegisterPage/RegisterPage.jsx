@@ -119,8 +119,8 @@ class RegisterPage extends Component {
                                 </InputGroup>
                                 <InputGroup className="mb-3">
                                     <Input
-                                        type="name"
-                                        placeholder="Електронна пошта"
+                                        type="text"
+                                        placeholder="Імя"
                                         //className={classnames("form-control", { "is-invalid": !!errors.name })}
                                         id="name"
                                         autocomplete="new-password"
@@ -132,8 +132,8 @@ class RegisterPage extends Component {
                                 </InputGroup>
                                 <InputGroup className="mb-3">
                                     <Input
-                                        type="surname"
-                                        placeholder="Електронна пошта"
+                                        type="text"
+                                        placeholder="Прізвище"
                                         //className={classnames("form-control", { "is-invalid": !!errors.surname })}
                                         id="surname"
                                         autocomplete="new-password"
