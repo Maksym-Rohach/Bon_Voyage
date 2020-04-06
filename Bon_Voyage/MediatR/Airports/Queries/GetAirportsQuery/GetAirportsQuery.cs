@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Bon_Voyage.MediatR.Airports.Queries
+namespace Bon_Voyage.MediatR.Airports.Queries.GetAirportsQuery
 {
     public class GetAirportsQuery : IRequest<ICollection<AirportViewModel>>
     {

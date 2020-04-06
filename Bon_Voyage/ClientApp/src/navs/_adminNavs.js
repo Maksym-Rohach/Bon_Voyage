@@ -35,6 +35,11 @@ export default {
       name: 'ManagerControl',
       url: '/admin/manager/control',
       icon: 'icon-cursor',
+    },
+    {
+      name: 'AirportControl',
+      url: '/admin/airport/control',
+      icon: 'icon-cursor',
     }
   ]
 };
