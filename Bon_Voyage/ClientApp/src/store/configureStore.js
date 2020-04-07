@@ -8,7 +8,7 @@ import {managerProfileViewReducer } from '../views/managerViews/ManagerProfileVi
 import {commentsChartReducer} from '../views/adminViews/CommentsChart/reducer';
 import {loginReducer} from '../views/othersViews/LoginPage/reducer';
 import {managerControlReducer} from '../views/adminViews/ManagerControl/reducer';
-import {airportControlReducer} from '../views/adminViews/AirportControl/reducer';
+import {airportControlReducer, countryControlReducer} from '../views/adminViews/AirportControl/reducer';
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
@@ -21,7 +21,8 @@ export default function configureStore(history, initialState) {
     comments: commentsChartReducer,
       managers: managerControlReducer,
       managerProfile: managerProfileViewReducer,
-      airports: airportControlReducer
+      airports: airportControlReducer,
+      countries: countryControlReducer
   };
 
   const middleware = [

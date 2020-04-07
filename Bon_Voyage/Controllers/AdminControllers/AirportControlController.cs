@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Bon_Voyage.Controllers.AdminControllers
 {
+
     public class AirportControlController : ApiController
     {
         [HttpGet("GetAirports")]
