@@ -3,14 +3,14 @@ import {serverUrl} from '../../../config';
 
 export default class HomePageService {
     static GetHomeInfo() {
-        return axios.post(`${serverUrl}api/HomePage/GetHomeInformation`)
+        return axios.get(`${serverUrl}api/HomePage/GetHomeInformation`)
     };
 
     static GetCities(CountryId) {
-        return axios.post(`${serverUrl}api/HomePage/GetHomeInformation/${CountryId}`)
+        return axios.get(`${serverUrl}api/City/GetCitiesByCountry/${CountryId}`)
     };
 
     static GetHotels(CityId){
-        return axios.post(`${serverUrl}api/HomePage/GetHomeInformation/${CityId}`)
+        return axios.get(`${serverUrl}api/Hotel/GetHotelByCity/${CityId}`)
     }
 }
