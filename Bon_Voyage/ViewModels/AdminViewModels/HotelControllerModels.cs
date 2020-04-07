@@ -13,10 +13,6 @@ namespace Bon_Voyage.ViewModels.AdminViewModels
         public string Description { get; set; }
         public string CityId { get; set; }
     }
-    //public class DeleteHotelModel
-    //{
-    //    public string Id { get; set; }
-    //}
     public class UpdateHotelModel
     {
         public string Id { get; set; }

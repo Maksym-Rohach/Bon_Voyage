@@ -26,13 +26,6 @@ namespace Bon_Voyage.Controllers.AdminControllers
                 return BadRequest(res.ErrorMessage);
             }
         }
-        //[HttpPost("delete")]
-        //public async Task<IActionResult> DeleteHotel([FromBody]DeleteHotelModel model)
-        //{
-
-        //    return Ok();
-        //}
-
         [HttpPost("update")]
         public async Task<IActionResult> UpdateHotel([FromBody]UpdateHotelCommand command)
         {
