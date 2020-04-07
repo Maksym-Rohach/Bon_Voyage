@@ -32,7 +32,6 @@
     <Folder Include="ClientApp\src\layouts\registerLayout\" />
     <Folder Include="MediatR\Country\Commands\" />
     <Folder Include="MediatR\Home\Commands\" />
-    <Folder Include="MediatR\Hotel\Commands\" />
     <Folder Include="Uploaded\HotelImages\" />
     <Folder Include="Uploaded\CountryImages\" />
     <Folder Include="Uploaded\UserImages\" />
