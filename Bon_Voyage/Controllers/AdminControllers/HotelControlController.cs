@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bon_Voyage.MediatR.Hotel.Commands.CreateHotel;
+using Bon_Voyage.MediatR.Hotel.Commands.UpdateHotel;
 using Bon_Voyage.ViewModels.AdminViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,18 +26,25 @@ namespace Bon_Voyage.Controllers.AdminControllers
                 return BadRequest(res.ErrorMessage);
             }
         }
-        [HttpPost("delete")]
-        public async Task<IActionResult> DeleteHotel([FromBody]DeleteHotelModel model)
-        {
+        //[HttpPost("delete")]
+        //public async Task<IActionResult> DeleteHotel([FromBody]DeleteHotelModel model)
+        //{
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
 
         [HttpPost("update")]
-        public async Task<IActionResult> UpdateHotel([FromBody]UpdateHotelModel model)
+        public async Task<IActionResult> UpdateHotel([FromBody]UpdateHotelCommand command)
         {
-
-            return Ok();
+            var res = await Mediator.Send(command);
+            if (res.Status)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(res.ErrorMessage);
+            }
         }
     }
 }

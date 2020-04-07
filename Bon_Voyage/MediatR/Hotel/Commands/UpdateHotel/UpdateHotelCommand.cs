@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace Bon_Voyage.MediatR.Hotel.Commands.UpdateHotel
 {
-    public class UpdateHotelCommand : IRequest<bool>
+    public class UpdateHotelCommand : IRequest<UpdateHotelViewModel>
     {
         public string Id { get; set; }
         public string Name { get; set; }
         public int Stars { get; set; }
         public string Description { get; set; }
-        public City City { get; set; }
+        public string CityId { get; set; }
         //public ICollection<string> Photolinks { get; set; }
 
-        public class UpdateHotelCommandHandler : IRequestHandler<UpdateHotelCommand, bool>
+        public class UpdateHotelCommandHandler : IRequestHandler<UpdateHotelCommand, UpdateHotelViewModel>
         {
             private readonly EFDbContext _context;
 
@@ -27,7 +27,7 @@ namespace Bon_Voyage.MediatR.Hotel.Commands.UpdateHotel
                 _context = context;
             }
 
-            public async Task<bool> Handle(UpdateHotelCommand request, CancellationToken cancellationToken)
+            public async Task<UpdateHotelViewModel> Handle(UpdateHotelCommand request, CancellationToken cancellationToken)
             {
                 //List<PhotosToHotel> photos=new List<PhotosToHotel>();
 
@@ -40,26 +40,30 @@ namespace Bon_Voyage.MediatR.Hotel.Commands.UpdateHotel
                 //    });
                 //}
 
-                DB.Entities.Hotel hotel = new DB.Entities.Hotel
+                var city = _context.Cities.FirstOrDefault(x => x.Id == request.CityId);
+                if (city != null)
                 {
-                    Id = request.Id,
-                    Name = request.Name,
-                    Stars = request.Stars,
-                    Description = request.Description,
-                    City = request.City,
-                    //PhotosToHotels=photos
-                };
-                var res = _context.Hotels.Update(hotel).State;
-
-                if (res == Microsoft.EntityFrameworkCore.EntityState.Modified)
-                {
-                    await _context.SaveChangesAsync();
-                    return true;
+                    try
+                    {
+                        DB.Entities.Hotel hotel = new DB.Entities.Hotel
+                        {
+                            Id = request.Id,
+                            Name = request.Name,
+                            Stars = request.Stars,
+                            Description = request.Description,
+                            City = city,
+                            //PhotosToHotels=photos
+                        };
+                        _context.Hotels.Update(hotel);
+                        await _context.SaveChangesAsync();
+                        return new UpdateHotelViewModel { Status = true };
+                    }
+                    catch (Exception e)
+                    {
+                        return new UpdateHotelViewModel { Status = false, ErrorMessage = e.Message };
+                    }
                 }
-                else
-                {
-                    return false;
-                }
+                return new UpdateHotelViewModel { Status = false, ErrorMessage = "Місто не знайдено" };
             }
         }
     }
