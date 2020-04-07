@@ -18,6 +18,7 @@ namespace Bon_Voyage.Services
     {
         string CreateToken(DbUser user);
     }
+
     public class JwtTokenService : IJwtTokenService
     {
         private readonly UserManager<DbUser> _userManager;

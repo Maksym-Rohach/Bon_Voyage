@@ -8,6 +8,7 @@ import {managerProfileViewReducer } from '../views/managerViews/ManagerProfileVi
 import {commentsChartReducer} from '../views/adminViews/CommentsChart/reducer';
 import {loginReducer} from '../views/othersViews/LoginPage/reducer';
 import {managerControlReducer} from '../views/adminViews/ManagerControl/reducer';
+import {homePageReducer} from '../views/othersViews/HomePage/reducer';
 import {changeImageReducer} from '../components/ChangeImage/reducer';
 
 // Create browser history to use in the Redux store
@@ -17,6 +18,7 @@ export const history = createHistory({ basename: baseUrl });
 export default function configureStore(history, initialState) {
   const reducers = {
     login: loginReducer,
+    home: homePageReducer,
     //persons: personsChartReducer,
     comments: commentsChartReducer,
       managers: managerControlReducer,
