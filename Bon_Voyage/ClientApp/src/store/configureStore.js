@@ -8,6 +8,7 @@ import {managerProfileViewReducer } from '../views/managerViews/ManagerProfileVi
 import {commentsChartReducer} from '../views/adminViews/CommentsChart/reducer';
 import {loginReducer} from '../views/othersViews/LoginPage/reducer';
 import {managerControlReducer} from '../views/adminViews/ManagerControl/reducer';
+import {changeImageReducer} from '../components/ChangeImage/reducer';
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
@@ -19,7 +20,8 @@ export default function configureStore(history, initialState) {
     //persons: personsChartReducer,
     comments: commentsChartReducer,
       managers: managerControlReducer,
-      managerProfile: managerProfileViewReducer
+      managerProfile: managerProfileViewReducer,
+      changeImage: changeImageReducer
   };
 
   const middleware = [

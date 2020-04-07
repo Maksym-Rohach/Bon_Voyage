@@ -21,10 +21,10 @@ namespace Bon_Voyage.Controllers.ChangeControllers
 
         [HttpPost("change-image")]
         [RequestSizeLimit(100 * 1024 * 1024)]
-        public async Task<IActionResult> ChangeImage([FromBody] string photo)
+        public async Task<IActionResult> ChangeImage([FromBody] ChangeImageCommand command)
         {
             var id = User.Claims.ToList()[0].Value;
-            var res = await Mediator.Send(new ChangeImageCommand { Photo = photo, Id = id });
+            var res = await Mediator.Send(new ChangeImageCommand { Photo = command.Photo, Id = id });
             return Ok(res);
         }
     }
