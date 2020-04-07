@@ -34,7 +34,7 @@ class HomePage extends Component {
     this.props.getCityData(e.target.value);
     setTimeout(() => {
       this.props.getHotelData(this.state.cities[0].id);
-    }, 200);
+    }, 500);
     // const {id} = e.target.dataSet;
     // this.props.cities = this.props.getCityData({id});
   }
@@ -80,11 +80,11 @@ class HomePage extends Component {
                     {
                       !isAuthenticated ?
                         <li className="nav-item"><a className="nav-link" href="/#/login">Вхід</a></li>
-                        : <li className="nav-item"><a className="nav-link" href="#">Вийти</a></li>
+                        : <li className="nav-item"><a className="nav-link" href="#/">Вийти</a></li>
                     }
                     {
                       !isAuthenticated ?
-                        <li className="nav-item"><a className="nav-link" href="#">Реєстрація</a></li>
+                        <li className="nav-item"><a className="nav-link" href="#/Register">Реєстрація</a></li>
                         : <div></div>
                     }
 
