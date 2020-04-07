@@ -57,7 +57,7 @@ class AdminLayout extends Component {
         <AppHeader fixed>
           <Suspense  fallback={this.loading()}>
             <AdminNavbar onLogout={e=>this.signOut(e)}
-            image={`${serverUrl}UserUrlImages/50_${login.user.image}`}
+            image={`${serverUrl}UserImages/50_${login.user.image}`}
             />
           </Suspense>
         </AppHeader>

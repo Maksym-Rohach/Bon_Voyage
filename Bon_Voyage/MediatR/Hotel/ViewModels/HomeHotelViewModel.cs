@@ -5,12 +5,10 @@ using System.Threading.Tasks;
 
 namespace Bon_Voyage.MediatR.Hotel.ViewModels
 {
-    public class HotelViewModel
+    public class HomeHotelViewModel
     {
         public string Id { get; set; }
-        public string Name { get; set; }
-        public int Stars { get; set; }
-        public string Description { get; set; }
-        public string City { get; set; }
+        public string Name { get; set; }      
+        public string CityId { get; set; }
     }
 }
