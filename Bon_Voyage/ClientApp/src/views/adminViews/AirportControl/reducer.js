@@ -49,20 +49,6 @@ export const createAirport = (model) => {
     }
 }
 
-export const getCountries = () => {
-    return (dispatch) => {
-        dispatch(getAirportListActions.started);
-        AirportControlService.getCountries()
-            .then((response) => {
-                console.log(response)
-                dispatch(getCountryListActions.success(response));
-            })
-            .catch(err => {
-                dispatch(getCountryListActions.failed(err));
-            })
-    }
-}
-
 export const getAirportListActions = {
     started: () => {
         return {
@@ -83,45 +69,45 @@ export const getAirportListActions = {
     }
 }
 
-export const getCountryListActions = {
-    started: () => {
-        return {
-            type: COUNTRY_CONTROL_STARTED
-        }
-    },
-    success: (data) => {
-        return {
-            type: CITY_CONTROL_SUCCESS,
-            payload: data.data
-        }
-    },
-    failed: (error) => {
-        return {
-            type: CITY_CONTROL_FAILED,
-            error: error,
-        }
-    }
-}
+// export const getCountryListActions = {
+//     started: () => {
+//         return {
+//             type: COUNTRY_CONTROL_STARTED
+//         }
+//     },
+//     success: (data) => {
+//         return {
+//             type: CITY_CONTROL_SUCCESS,
+//             payload: data.data
+//         }
+//     },
+//     failed: (error) => {
+//         return {
+//             type: CITY_CONTROL_FAILED,
+//             error: error,
+//         }
+//     }
+// }
 
-export const getCityListActions = {
-    started: () => {
-        return {
-            type: CITY_CONTROL_STARTED
-        }
-    },
-    success: (data) => {
-        return {
-            type: CITY_CONTROL_SUCCESS,
-            payload: data.data
-        }
-    },
-    failed: (error) => {
-        return {
-            type: CITY_CONTROL_FAILED,
-            error: error,
-        }
-    }
-}
+// export const getCityListActions = {
+//     started: () => {
+//         return {
+//             type: CITY_CONTROL_STARTED
+//         }
+//     },
+//     success: (data) => {
+//         return {
+//             type: CITY_CONTROL_SUCCESS,
+//             payload: data.data
+//         }
+//     },
+//     failed: (error) => {
+//         return {
+//             type: CITY_CONTROL_FAILED,
+//             error: error,
+//         }
+//     }
+// }
 
 export const airportControlReducer = (state = initialState, action) => {
     let newState = state;
@@ -142,37 +128,6 @@ export const airportControlReducer = (state = initialState, action) => {
             break;
         }
         case AIRPORT_CONTROL_FAILED: {
-            newState = update.set(state, 'list.loading', false);
-            newState = update.set(newState, 'list.success', false);
-            newState = update.set(newState, 'list.failed', true);
-            break;
-        }
-        default: {
-            return newState;
-        }
-    }
-    return newState;
-}
-
-export const countryControlReducer = (state = initialState, action) => {
-    let newState = state;
-
-    switch (action.type) {
-
-        case COUNTRY_CONTROL_STARTED: {
-            newState = update.set(state, 'list.loading', true);
-            newState = update.set(newState, 'list.success', false);
-            newState = update.set(newState, 'list.failed', false);
-            break;
-        }
-        case COUNTRY_CONTROL_SUCCESS: {
-            newState = update.set(state, 'list.loading', false);
-            newState = update.set(newState, 'list.failed', false);
-            newState = update.set(newState, 'list.success', true);
-            newState = update.set(newState, 'list.data', action.payload);
-            break;
-        }
-        case COUNTRY_CONTROL_FAILED: {
             newState = update.set(state, 'list.loading', false);
             newState = update.set(newState, 'list.success', false);
             newState = update.set(newState, 'list.failed', true);

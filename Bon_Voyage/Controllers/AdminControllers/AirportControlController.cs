@@ -13,10 +13,10 @@ namespace Bon_Voyage.Controllers.AdminControllers
 
     public class AirportControlController : ApiController
     {
-        [HttpGet("GetAirports")]
-        public async Task<IActionResult> GetAirports()
+        [HttpGet("GetAirportsData")]
+        public async Task<IActionResult> GetAirportsData()
         {
-            var res = await Mediator.Send(new GetAirportsQuery());
+            var res = await Mediator.Send(new GetAirportControlDataQuery());
             if (res == null)
             {
                 return BadRequest("Something went wrong");

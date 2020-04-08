@@ -24,10 +24,9 @@ export default function configureStore(history, initialState) {
     comments: commentsChartReducer,
       managers: managerControlReducer,
       managerProfile: managerProfileViewReducer,
-      changeImage: changeImageReducer
+      changeImage: changeImageReducer,
       managerProfile: managerProfileViewReducer,
-      airports: airportControlReducer,
-      countries: countryControlReducer
+      airports: airportControlReducer
   };
 
   const middleware = [
