@@ -10,7 +10,7 @@ namespace Bon_Voyage.MediatR.Home.ViewModel
     {
         public List<Bon_Voyage.DB.Entities.Country> Countries { get; set; }
         //public string Top3Photos { get; set; }
-        public List<Ticket> TopTickets { get; set; }
-        public List<Ticket> TopHotTickets { get; set; }
+        public List<Bon_Voyage.DB.Entities.Ticket> TopTickets { get; set; }
+        public List<Bon_Voyage.DB.Entities.Ticket> TopHotTickets { get; set; }
     }
 }
