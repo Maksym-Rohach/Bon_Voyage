@@ -10,26 +10,24 @@ using System.Threading.Tasks;
 
 namespace Bon_Voyage.MediatR.Hotel.Queries.GetHotelsByCity
 {
-    public class GetHotelsByCityQuery : IRequest<ICollection<HotelViewModel>>
+    public class GetHotelsByCityQuery : IRequest<ICollection<HomeHotelViewModel>>
     {
         public string CityId { get; set; }
 
 
-        public class GetHotelsByCityQueryHandler : BaseMediator, IRequestHandler<GetHotelsByCityQuery, ICollection<HotelViewModel>>
+        public class GetHotelsByCityQueryHandler : BaseMediator, IRequestHandler<GetHotelsByCityQuery, ICollection<HomeHotelViewModel>>
         {
             public GetHotelsByCityQueryHandler(EFDbContext context) : base(context)
             {
             }
 
-            public async Task<ICollection<HotelViewModel>> Handle(GetHotelsByCityQuery request, CancellationToken cancellationToken)
+            public async Task<ICollection<HomeHotelViewModel>> Handle(GetHotelsByCityQuery request, CancellationToken cancellationToken)
             {
-                var hotels = _context.Hotels.Where(x => x.CityId == request.CityId).Select(x => new HotelViewModel
+                var hotels = _context.Hotels.Where(x => x.CityId == request.CityId).Select(x => new HomeHotelViewModel
                 {
-                    CityId = x.CityId,
-                    Description = x.Description,
+                    CityId = x.City.Id,                
                     Id = x.Id,
                     Name = x.Name,
-                    Stars = x.Stars
                 }).ToList();
 
                 return hotels;
