@@ -27,8 +27,8 @@ namespace Bon_Voyage.MediatR.Ticket.Queries.GetBoughtTicketsQuery
                     {
                         Id = x.Id,
                         Price = x.PriceFrom,
-                        DataTo = x.DateTo,
-                        DateFrom = x.DateFrom,
+                        DateTo = x.DateTo.ToString("dd.MM.yyyy"),
+                        DateFrom = x.DateFrom.ToString("dd.MM.yyyy"),
                         CountOfPlaces = x.CountsOfPlaces,
                         Client = new ClientViewModel
                         {
