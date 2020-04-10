@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Bon_Voyage.DB;
-using Bon_Voyage.DB.IdentityModels;
-using Bon_Voyage.MediatR.Change;
-using Bon_Voyage.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,32 +12,21 @@ namespace Bon_Voyage.Controllers.ChangeControllers
     [Route("api/[controller]")]
     public class ChangeController : ApiController
     {
-        [HttpPost("changePassword")]
-        public async Task<IActionResult> ChangePassword([FromBody]ChangePasswordCommand command)
+        [HttpGet("get-image")]
+        public async Task<IActionResult> GetImage()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-            try
-            {
-                command.Id = User.Claims.ToList()[0].Value;
-                var res = await Mediator.Send(command);
-                if (res.Status)
-                {
-                    return Ok(res);
-                }
-                else
-                {
-                    return BadRequest(res.ErrorMessage);
-                }
-            }
-            catch (Exception e)
-            {
+            var id = User.Claims.ToList()[0].Value;
+            var res = await Mediator.Send(new GetImageQuery { Id = id });
+            return Ok(res);
+        }
 
-                return BadRequest(e.Message);
-            }
-            
+        [HttpPost("change-image")]
+        [RequestSizeLimit(100 * 1024 * 1024)]
+        public async Task<IActionResult> ChangeImage([FromBody] ChangeImageCommand command)
+        {
+            var id = User.Claims.ToList()[0].Value;
+            var res = await Mediator.Send(new ChangeImageCommand { Photo = command.Photo, Id = id });
+            return Ok(res);
         }
     }
 }
