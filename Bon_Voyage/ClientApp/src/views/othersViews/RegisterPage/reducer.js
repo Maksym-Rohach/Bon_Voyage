@@ -27,7 +27,7 @@ const initialState = {
       id: "",
       name: "",
       image: "",
-      roles: []
+      roles: {}
     }
   };
   

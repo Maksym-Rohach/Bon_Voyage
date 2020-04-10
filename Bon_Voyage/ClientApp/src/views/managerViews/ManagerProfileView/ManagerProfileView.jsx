@@ -5,6 +5,7 @@ import * as getListActions from "./reducer";
 import { connect } from "react-redux";
 import get from "lodash.get";
 import ChangeImage from "../../../components/ChangeImage/ChangeImage.jsx";
+import ChangePassword from "../../../components/ChangePassword/ChangePassword.jsx";
 
 import {
   Button,
@@ -36,9 +37,15 @@ class ManagerProfileView extends React.Component {
       <div className="app flex-row">
         <Container>
           <Row className="justify-content-center mt-5">
+            <Card>
             <Col>
               <CardGroup>
                 <ChangeImage />
+              </CardGroup>
+            </Col>
+            <Col>
+              <CardGroup>
+                <ChangePassword />
               </CardGroup>
             </Col>
             <Col className="col-6">
@@ -137,6 +144,7 @@ class ManagerProfileView extends React.Component {
                 </Card>
               </CardGroup>
             </Col>
+            </Card>
           </Row>
         </Container>
       </div>

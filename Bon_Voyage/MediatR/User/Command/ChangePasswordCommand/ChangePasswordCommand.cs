@@ -27,12 +27,24 @@ namespace Bon_Voyage.MediatR.Change
                 _userManager = userManager;
             }
 
-            public Task<ChangePasswordViewModel> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
+            public async Task<ChangePasswordViewModel> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
             {
-
-
-                throw new NotImplementedException();
+                var user = _context.Users.FirstOrDefault(x => x.Id == request.Id);
+                if (user != null)
+                {
+                    var result = await _userManager.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
+                    if (result.Succeeded)
+                    {
+                        return new ChangePasswordViewModel { Status = true };
+                    }
+                    else
+                    {
+                        return new ChangePasswordViewModel { Status = false, ErrorMessage="Перевірте правильність введення данних"};
+                    }
+                }
+                return new ChangePasswordViewModel { Status = false, ErrorMessage="заплати 20$ !!! :)" };
             }
+
         }
     }
 }
