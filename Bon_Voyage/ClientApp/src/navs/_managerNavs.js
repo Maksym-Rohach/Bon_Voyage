@@ -15,23 +15,23 @@ export default {
             icon: 'icon-user',
         },
         {
-            name: 'Білети',
+            name: 'Квитки',
             url: '/base/carousels',
             icon: 'icon-plane',
 
             children: [
                 {
-                    name: 'Усі білети',
+                    name: 'Усі квитки',
                     url: '/base/carousels',
                     icon: 'icon-list',
                 },
                 {
-                    name: 'Добавити білет',
-                    url: '/base/cards',
+                    name: 'Додати квитки',
+                    url: '/manager/ticket/add',
                     icon: 'icon-plus',
                 },
                 {
-                    name: 'Куплені білети',
+                    name: 'Куплені квитки',
                     url: '/base/carousels',
                     icon: 'icon-credit-card',
                 },
