@@ -32,7 +32,7 @@ export default {
                 },
                 {
                     name: 'Куплені білети',
-                    url: '/base/carousels',
+                    url: '/manager/tickets/bought-tickets',
                     icon: 'icon-credit-card',
                 },
                 {
