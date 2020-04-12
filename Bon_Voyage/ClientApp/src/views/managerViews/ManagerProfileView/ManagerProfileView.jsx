@@ -38,6 +38,7 @@ class ManagerProfileView extends React.Component {
         <Container>
           <Row className="justify-content-center mt-5">
             <Card>
+            <Row className="justify-content-center mt-5">
             <Col>
               <CardGroup>
                 <ChangeImage />
@@ -48,6 +49,7 @@ class ManagerProfileView extends React.Component {
                 <ChangePassword />
               </CardGroup>
             </Col>
+            </Row>
             <Col className="col-6">
               <CardGroup>
                 <Card className="p-2">

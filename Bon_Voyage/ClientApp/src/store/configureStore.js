@@ -26,8 +26,7 @@ export default function configureStore(history, initialState) {
       managers: managerControlReducer,
       managerProfile: managerProfileViewReducer,
       changeImage: changeImageReducer,
-      changePassword: changePasswordReducer
-      changeImage: changeImageReducer,
+      changePassword: changePasswordReducer,
       boughtTickets: boughtTicketsReducer,
   };
 
