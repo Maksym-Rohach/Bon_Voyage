@@ -37,7 +37,7 @@ namespace Bon_Voyage.MediatR.Registration
             }
 
             public async Task<RegistrationViewModel> Handle(RegistrationCommand request, CancellationToken cancellationToken)
-            {
+            {               
                 var roleName = "Client";
                 var userReg = _context.Users.FirstOrDefault(x => x.Email == request.Email);
                 if (userReg != null)

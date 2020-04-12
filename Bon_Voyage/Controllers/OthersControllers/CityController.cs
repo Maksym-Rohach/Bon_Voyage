@@ -25,7 +25,6 @@ namespace Bon_Voyage.Controllers.OthersControllers
             return Ok(result);
         }
 
-
         [HttpGet("GetAllCities")]
         public async Task<IActionResult> GetAllCities()
         {

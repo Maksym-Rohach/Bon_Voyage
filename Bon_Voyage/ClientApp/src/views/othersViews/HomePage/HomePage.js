@@ -24,6 +24,7 @@ class HomePage extends Component {
     hotTickets: [],
   }
 
+  
   //3
   // Call reducer
   componentWillMount = () => {
@@ -50,6 +51,8 @@ class HomePage extends Component {
       hotels: nextProps.hotelsReducer
     });
   }
+
+
 
   render() {
 

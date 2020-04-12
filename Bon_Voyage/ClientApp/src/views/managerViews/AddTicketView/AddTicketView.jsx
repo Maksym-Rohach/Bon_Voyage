@@ -3,12 +3,10 @@ import { InputText } from "primereact/inputtext";
 import { InputMask } from "primereact/inputmask";
 import { InputSwitch } from "primereact/inputswitch";
 import { Dropdown } from "primereact/dropdown";
-import {Growl} from 'primereact/growl';
+import { Growl } from "primereact/growl";
 import { Button } from "primereact/button";
-import {ProgressSpinner} from 'primereact/progressspinner';
-import {FileUpload} from 'primereact/fileupload';
-
-
+import { ProgressSpinner } from "primereact/progressspinner";
+import { FileUpload } from "primereact/fileupload";
 
 class AddTicket extends Component {
   state = {
@@ -17,14 +15,14 @@ class AddTicket extends Component {
     country: null,
     countries: [],
 
+    airport: null,
+    airports: [],
+
     city: null,
     cities: [],
 
     hotel: null,
     hotels: [],
-
-    airport: null,
-    airports: [],
 
     roomType: null,
     roomTypes: [],
@@ -53,11 +51,9 @@ class AddTicket extends Component {
       { percent: "95%", value: 95 },
       { percent: "100%", value: 100 },
     ],
+
+    isLoad: false,
   };
-
-
-
-
 
   //------------------------CHANGE--------------------------
 
@@ -85,6 +81,10 @@ class AddTicket extends Component {
     this.setState({ percent: e.value });
   };
 
+  show = (e) => {
+    //console.log(e.target.className);
+  };
+
   //-------------------------SHOW--------------------------------
 
   showSuccess() {
@@ -103,10 +103,9 @@ class AddTicket extends Component {
     });
   }
 
-
-
-
   render() {
+    const { isLoad } = this.state;
+
     return (
       <div className="mt-3 container">
         <h3 style={{ fontSize: "2.3rem" }}>Сворити квиток</h3>
@@ -115,142 +114,219 @@ class AddTicket extends Component {
           className="card p-2 row flex-row d-flex justify-content-between "
           style={{ background: "#f7f1e3" }}
         >
-          <div className="card m-3 p-2 col-sm">
-            <h6>Початкова ціна</h6>
-            <div className="input-group mb-3">
-              <div className="input-group-prepend">
-                <span className="input-group-text">$</span>
+          <form>
+            <div className="card m-3 p-2 col-sm">
+              <h6>Початкова ціна</h6>
+              <div className="input-group">
+                <div className="input-group-prepend">
+                  <span className="input-group-text">₴</span>
+                </div>
+                <input
+                  id="PriceFromInput"
+                  type="number"
+                  min="0"
+                  className="form-control"
+                  aria-label="Amount (to the nearest dollar)"
+                />
+                <div className="input-group-append">
+                  <span className="input-group-text">.00</span>
+                </div>
+                <div
+                  id="PriceFromErrorMessage"
+                  class="invalid-feedback mb-3"
+                  style={{ fontSize: "0.8rem", fontWeight: "500" }}
+                ></div>
               </div>
-              <input
-                type="number"
-                min="0"
-                className="form-control"
-                aria-label="Amount (to the nearest dollar)"
+
+              <h6>Кількість ночей</h6>
+              <InputText
+                id="CountsOfNightInput"
+                className="is-invalid is-valid"
+                type="text"
+                keyfilter="pint"
+                onChange={(e) => this.show(e)}
               />
-              <div className="input-group-append">
-                <span className="input-group-text">.00</span>
+              <div
+                id="CountsOfNightErrorMessage"
+                class="invalid-feedback mb-3"
+                style={{ fontSize: "0.8rem", fontWeight: "500" }}
+              ></div>
+
+              <h6>Дата відльоту</h6>
+              <div>
+                <InputMask
+                  id="DateFromInput"
+                  style={{ width: "100%" }}
+                  mask="99/99/9999"
+                  placeholder="99/99/9999"
+                  slotChar="мм/дд/рррр"
+                  className="p-error"
+                ></InputMask>
+              </div>
+              <div
+                id="DateFromErrorMessage"
+                class="invalid-feedback mb-3"
+                style={{ fontSize: "0.8rem", fontWeight: "500" }}
+              ></div>
+
+              <h6>Дата прильоту</h6>
+              <div>
+                <InputMask
+                  id="DateToInput"
+                  style={{ width: "100%" }}
+                  mask="99/99/9999"
+                  placeholder="99/99/9999"
+                  slotChar="мм/дд/рррр"
+                ></InputMask>
+              </div>
+              <div
+                id="DateToErrorMessage"
+                class="invalid-feedback mb-3"
+                style={{ fontSize: "0.8rem", fontWeight: "500" }}
+              ></div>
+
+              <h6>Кількість місць</h6>
+              <InputText
+                id="CountsOfPlacesInput"
+                type="text"
+                keyfilter="pint"
+              />
+              <div
+                id="CountsOfPlacesErrorMessage"
+                class="invalid-feedback mb-3"
+                style={{ fontSize: "0.8rem", fontWeight: "500" }}
+              ></div>
+
+              <h6>Знижка</h6>
+              <div className="d-flex flex-row">
+                <InputSwitch
+                  tooltip="Додати знижку"
+                  tooltipOptions={{ position: "top" }}
+                  className="mt-1 mr-3"
+                  checked={this.state.percentState}
+                  onChange={(e) => this.setState({ percentState: e.value })}
+                />
+                <Dropdown
+                  id="DiscountInput"
+                  value={this.state.percent}
+                  options={this.state.percents}
+                  onChange={(e) => this.onPercentChange(e)}
+                  placeholder="Виберіть знижку"
+                  optionLabel="percent"
+                  style={{ width: "12em" }}
+                  disabled={!this.state.percentState}
+                  className="mb-2"
+                />
               </div>
             </div>
 
-            <h6>Кількість ночей</h6>
-            <InputText className="mb-3" type="text" keyfilter="pint" />
+            {/*-----------------2------------------  */}
 
-            <h6>Дата відльоту</h6>
-            <div className="mb-3">
-              <InputMask
-                style={{ width: "100%" }}
-                mask="99/99/9999"
-                placeholder="99/99/9999"
-                slotChar="мм/дд/рррр"
-                className="p-error"
-              ></InputMask>
-            </div>
+            <Growl
+              ref={(el) => (this.growl = el)}
+              style={{ marginTop: "3rem" }}
+            />
 
-            <h6>Дата прильоту</h6>
-            <div className="mb-3">
-              <InputMask
-                style={{ width: "100%" }}
-                mask="99/99/9999"
-                placeholder="99/99/9999"
-                slotChar="мм/дд/рррр"
-              ></InputMask>
-            </div>
-
-            <h6>Кількість місць</h6>
-            <InputText type="text" keyfilter="pint" className="mb-3" />
-
-            <h6>Знижка </h6>
-            <div className="d-flex flex-row">
-              <InputSwitch
-                tooltip="Додати знижку"
-                tooltipOptions={{ position: "top" }}
-                className="mt-1 mr-3"
-                checked={this.state.percentState}
-                onChange={(e) => this.setState({ percentState: e.value })}
-              />
+            <div className="card m-3 p-2 col-sm">
+              <h6>Країна</h6>
               <Dropdown
-                value={this.state.percent}
-                options={this.state.percents}
-                onChange={(e) => this.onPercentChange(e)}
-                placeholder="Виберіть знижку"
-                optionLabel="percent"
-                style={{ width: "12em" }}
-                disabled={!this.state.percentState}
-                className="mb-3"
+                id="CountryDropdown"
+                value={this.state.country}
+                options={this.state.countries}
+                onChange={(e) => this.onCountryChange(e)}
+                placeholder="Виберіть країну"
+                optionLabel="name"
+                style={{ width: "100%" }}
+                className="is-invalid"
               />
+              <div
+                id="CountryErrorMessage"
+                class="invalid-feedback mb-3"
+                style={{ fontSize: "0.8rem", fontWeight: "500" }}
+              ></div>
+
+              <h6>Аеропорт </h6>
+              <Dropdown
+                value={this.state.airport}
+                options={this.state.airports}
+                onChange={(e) => this.onAirportChange(e)}
+                placeholder="Виберіть аеропорт"
+                optionLabel="name"
+                style={{ width: "100%" }}
+              />
+              <div
+                id="CountryErrorMessage"
+                class="invalid-feedback mb-3"
+                style={{ fontSize: "0.8rem", fontWeight: "500" }}
+              ></div>
+
+              <h6>Місто</h6>
+              <Dropdown
+                value={this.state.city}
+                options={this.state.cities}
+                onChange={(e) => this.onCityChangeChange(e)}
+                placeholder="Виберіть місто"
+                optionLabel="name"
+                style={{ width: "100%" }}
+              />
+              <div
+                id="CountryErrorMessage"
+                class="invalid-feedback mb-3"
+                style={{ fontSize: "0.8rem", fontWeight: "500" }}
+              ></div>
+
+              <h6>Готель </h6>
+              <Dropdown
+                value={this.state.hotel}
+                options={this.state.hotels}
+                onChange={(e) => this.onHotelChange(e)}
+                placeholder="Виберіть готель"
+                optionLabel="name"
+                style={{ width: "100%" }}
+              />
+              <div
+                id="CountryErrorMessage"
+                class="invalid-feedback mb-3"
+                style={{ fontSize: "0.8rem", fontWeight: "500" }}
+              ></div>
+
+              <h6>Тип кімнати </h6>
+              <Dropdown
+                value={this.state.roomType}
+                options={this.state.roomTypes}
+                onChange={(e) => this.onRoomTypeChange(e)}
+                placeholder="Виберіть тип кімнати"
+                optionLabel="name"
+                style={{ width: "100%" }}
+              />
+              <div
+                id="CountryErrorMessage"
+                class="invalid-feedback mb-3"
+                style={{ fontSize: "0.8rem", fontWeight: "500" }}
+              ></div>
+
+              <div
+                className="d-flex align-items-end justify-content-end m-2"
+                style={{ height: "100%" }}
+              >
+                <Button
+                  onClick={(e) => this.showSuccess(e)}
+                  label="Створити"
+                  className="p-button-success"
+                />
+
+                {isLoad && (
+                  <ProgressSpinner
+                    style={{ width: "2rem", margin: "0", height: "auto" }}
+                    className="ml-2"
+                    strokeWidth="8"
+                    //fill="#EEEEEE"
+                    animationDuration="9.7s"
+                  />
+                )}
+              </div>
             </div>
-          </div>          
-
-          {/*-----------------2------------------  */}
-
-          <Growl
-            ref={(el) => (this.growl = el)}
-            style={{ marginTop: "3rem" }}
-          />
-
-          <div className="card m-3 p-2 col-sm">
-            <h6>Країна</h6>
-            <Dropdown
-              value={this.state.country}
-              options={this.state.countries}
-              onChange={(e) => this.onCountryChange(e)}
-              placeholder="Виберіть країну"
-              optionLabel="name"
-              style={{ width: "100%" }}
-              className="mb-3"
-            />
-
-            <h6>Місто</h6>
-            <Dropdown
-              value={this.state.city}
-              options={this.state.cities}
-              onChange={(e) => this.onCityChangeChange(e)}
-              placeholder="Виберіть місто"
-              optionLabel="name"
-              style={{ width: "100%" }}
-              className="mb-3"
-            />
-
-            <h6>Готель </h6>
-            <Dropdown
-              value={this.state.hotel}
-              options={this.state.hotels}
-              onChange={(e) => this.onHotelChange(e)}
-              placeholder="Виберіть готель"
-              optionLabel="name"
-              style={{ width: "100%" }}
-              className="mb-3"
-            />
-
-            <h6>Аеропорт </h6>
-            <Dropdown
-              value={this.state.airport}
-              options={this.state.airports}
-              onChange={(e) => this.onAirportChange(e)}
-              placeholder="Виберіть аеропорт"
-              optionLabel="name"
-              style={{ width: "100%" }}
-              className="mb-3"
-            />
-
-            <div
-              className="d-flex align-items-end justify-content-end m-2"
-              style={{ height: "100%" }}
-            >
-              <Button
-                onClick={(e) => this.showSuccess(e)}
-                label="Створити"
-                className="p-button-success"
-              />
-              <ProgressSpinner
-                style={{ width: "2rem", margin: "0", height: "auto" }}
-                className="ml-2"
-                strokeWidth="8"
-                //fill="#EEEEEE"
-                animationDuration="9.7s"
-              />
-            </div>
-          </div>
+          </form>
         </div>
       </div>
     );
