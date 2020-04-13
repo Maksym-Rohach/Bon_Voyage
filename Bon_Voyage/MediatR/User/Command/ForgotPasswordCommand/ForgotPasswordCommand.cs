@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Bon_Voyage.MediatR.Account.Commands.ForgotPassword
+namespace Bon_Voyage.MediatR.User.Command.ForgotPasswordCommand
 {
     public class ForgotPasswordCommand : IRequest<ForgotPasswordViewModel>
     {
@@ -25,13 +25,13 @@ namespace Bon_Voyage.MediatR.Account.Commands.ForgotPassword
                 var user = _context.Users.FirstOrDefault(u => u.Email == request.Email);
                 if (user == null)
                 {
-                    return new ForgotPasswordViewModel { Status = false, ErrorMessage = "Цей Емейл вже існує" };
+                    return new ForgotPasswordViewModel { Status = false, ErrorMessage = "Ця електронна пошта не дійсна" };
                 }
 
                 var userName = user.Email;
 
                 EmailService emailService = new EmailService();
-                string url = "http://localhost:57206/Account/ChangePassword/" + user.Id;
+                string url = "http://localhost:3000/#/login";//user.Id;
 
                 await emailService.SendEmailAsync(request.Email, "ForgotPassword",
                     $" Dear {userName}," +

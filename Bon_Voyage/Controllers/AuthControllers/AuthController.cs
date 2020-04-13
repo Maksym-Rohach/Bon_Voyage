@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bon_Voyage.DB;
 using Bon_Voyage.DB.IdentityModels;
-using Bon_Voyage.MediatR.Account.Commands.ForgotPassword;
+using Bon_Voyage.MediatR.User.Command.ForgotPasswordCommand;
 using Bon_Voyage.Services;
 using Bon_Voyage.ViewModels.AuthViewModels;
 using Bon_Voyage.ViewModels.ForgotPasswordViewModel;
@@ -67,7 +67,7 @@ namespace Bon_Voyage.Controllers.AuthControllers
                  });
         }
 
-        [HttpPost]
+        [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPassword([FromBody]ForgotPasswordCommand command)
         {
             if (ModelState.IsValid)
