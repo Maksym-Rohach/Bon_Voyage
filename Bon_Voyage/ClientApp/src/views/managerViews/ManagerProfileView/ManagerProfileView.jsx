@@ -22,6 +22,7 @@ import {
   InputGroupText,
   Row,
 } from "reactstrap";
+import ChangeInfo from "../../../components/ChangeInfo";
 
 class ManagerProfileView extends React.Component {
   state = {};
@@ -49,8 +50,13 @@ class ManagerProfileView extends React.Component {
                 <ChangePassword />
               </CardGroup>
             </Col>
+            <Col>
+              <CardGroup>
+                <ChangeInfo />
+              </CardGroup>
+            </Col>
             </Row>
-            <Col className="col-6">
+            {/* <Col className="col-6">
               <CardGroup>
                 <Card className="p-2">
                   <CardBody>
@@ -144,8 +150,8 @@ class ManagerProfileView extends React.Component {
                     </Form>
                   </CardBody>
                 </Card>
-              </CardGroup>
-            </Col>
+              </CardGroup> */}
+            {/* </Col> */}
             </Card>
           </Row>
         </Container>

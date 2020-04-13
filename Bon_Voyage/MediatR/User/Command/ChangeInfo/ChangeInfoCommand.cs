@@ -34,21 +34,20 @@ namespace Bon_Voyage.MediatR.User.Command.ChangeInfo
 
             public async Task<ChangeInfoViewModel> Handle(ChangeInfoCommand request, CancellationToken cancellationToken)
             {
-
                 var user = _context.BaseProfiles.FirstOrDefault(x => x.Id == request.Id);
                 if (user != null)
                 {
                     var use = _context.Users.FirstOrDefault(x => x.Id == request.Id);
                     if (request.NewPhoneNumber != "")
                     {
-                        var result = await _userManager.ChangePhoneNumberAsync(use, request.NewPhoneNumber, _IJwtTokenService.CreateToken(use));
+                        use.PhoneNumber = request.NewPhoneNumber;
                     }
                     if (request.NewEmail != "")
                     {
                         var testmail = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
                         if (testmail.IsMatch(request.NewEmail))
                         {
-                            var result = await _userManager.ChangeEmailAsync(use, request.NewEmail, _IJwtTokenService.CreateToken(use));
+                            use.Email = request.NewEmail;
                         }
                         else
                         {
@@ -60,11 +59,17 @@ namespace Bon_Voyage.MediatR.User.Command.ChangeInfo
                         user.Name=request.NewName;
                         user.Surname = request.NewSurName;
                     }
-                    
+
+                    var updateResult = await _userManager.UpdateAsync(use);
+
+                    if (!updateResult.Succeeded)
+                    {
+                        return new ChangeInfoViewModel { Status = false, ErrorMessage = "Невдалося змінити дані" };
+                    }
+
                     _context.Update(user);
                     _context.SaveChanges();
                     return new ChangeInfoViewModel { Status = true };
-
                 }
                 return new ChangeInfoViewModel { Status = false, ErrorMessage = "Щось пішло не так" };
             }

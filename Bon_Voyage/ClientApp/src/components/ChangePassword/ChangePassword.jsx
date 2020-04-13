@@ -43,7 +43,7 @@ class ChangePassword extends Component {
     render() {
         return (
                     <form onSubmit={this.onSubmitForm}>
-                    <label className="p-float-label m-3 d-flex justify-content-center">Change Password</label>
+                    <label className="p-float-label m-3 d-flex justify-content-center">Зміна паролю</label>
                         <span className="p-float-label m-3">
                             <InputText id="float-input" type="text" size="30" value={this.state.oldPassword} onChange={(e) => this.setState({ oldPassword: e.target.value })} />
                             <label htmlFor="float-input">Старий пароль</label>
