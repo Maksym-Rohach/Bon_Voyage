@@ -5,20 +5,24 @@ export default class AddTicketService {
     static GetCountries() {
         return axios.get(`${serverUrl}api/Country/GetAllCountry`);
     }
+
     static GetCities(countryId) {
         return axios.get(`${serverUrl}api/City/GetCitiesByCountry/${countryId}`);
     }
-    static GetAirports(countryId)
-    {
+
+    static GetAirports(countryId) {
         return axios.get(`${serverUrl}api/Airport/GetAirportsByCountry/${countryId}`);
     }
-    static GetHotels(cityId)
-    {
+
+    static GetHotels(cityId) {
         return axios.get(`${serverUrl}api/Hotel/GetHotelByCity/${cityId}`);
     }
-    static GetRoomTypes()
-    {
+
+    static GetRoomTypes() {
         return axios.get(`${serverUrl}api/RoomType/GetAllRoomTypes`);
     }
-    
+
+    static CreateTicket(ticket) {
+        return axios.post(`${serverUrl}api/Ticket/CreateTicket`, ticket);
+    }
 }

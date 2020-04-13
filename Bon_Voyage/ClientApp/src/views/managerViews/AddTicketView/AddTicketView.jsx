@@ -8,6 +8,10 @@ import { Button } from "primereact/button";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { FileUpload } from "primereact/fileupload";
 
+import get from "lodash.get";
+import { connect } from "react-redux";
+import * as reducer from "./reducer";
+
 class AddTicket extends Component {
   state = {
     currentData: null,
@@ -81,10 +85,6 @@ class AddTicket extends Component {
     this.setState({ percent: e.value });
   };
 
-  show = (e) => {
-    //console.log(e.target.className);
-  };
-
   //-------------------------SHOW--------------------------------
 
   showSuccess() {
@@ -103,21 +103,95 @@ class AddTicket extends Component {
     });
   }
 
+  //-------------------------Validation--------------------------------
+
+  onSubmit = (e) => {
+    
+    
+    this.setState({
+      isLoad:true
+    });
+    this.clear();
+
+    if (this.firstValidation() && this.secondValidation()) {
+
+    }
+
+
+  };
+
+  clear = () => {};
+
+  firstValidation = () => {
+    let flag = true;
+
+    let priceFrom = document.getElementById("PriceFromInput");
+    if (priceFrom.value == "") {
+      let errorMessage = document.getElementById("PriceFromErrorMessage");
+      priceFrom.classList.add("is-invalid");
+      errorMessage.innerHTML = "Введіть ціну";
+      flag = false;
+    }
+
+    let countsOfNight = document.getElementById("CountsOfNightInput");
+    if (priceFrom.value == "") {
+      countsOfNight.classList.add("p-error");
+      let errorMessage = document.getElementById("CountsOfNightErrorMessage");
+      errorMessage.innerHTML = "Введіть кількість ночей";
+      flag = false;
+    }
+
+    return flag;
+  };
+
+  secondValidation = () => {};
+
+
+
+  //-------------------------Redux--------------------------------
+
+
+
+  //3
+  // Call reducer
+  componentWillMount = () => {
+  }
+
+
+  componentWillReceiveProps = (nextProps) => { //- Binding 
+    console.log(nextProps);   
+    // if(nextProps != this.props){
+    //   this.setState({
+    //   });
+    // }
+  }
+
+
+
   render() {
     const { isLoad } = this.state;
 
     return (
+
+
+      // {!!errors.phone ? // !! - !
+      //   <div className="invalid-feedback">
+      //     {errors.phone}
+      //   </div> : ''}
+
+      // <FormFeedback>{errors.oldPassword}</FormFeedback>
+
+
       <div className="mt-3 container">
+        <Growl ref={(el) => (this.growl = el)} style={{ marginTop: "3rem" }} />
+
         <h3 style={{ fontSize: "2.3rem" }}>Сворити квиток</h3>
 
-        <div
-          className="card p-2 row flex-row d-flex justify-content-between "
-          style={{ background: "#f7f1e3" }}
-        >
-          <form>
+        <div className="card p-2 " style={{ background: "#f7f1e3" }}>
+          <form onSubmit={this.onSubmit} className="row flex-row d-flex justify-content-between">
             <div className="card m-3 p-2 col-sm">
               <h6>Початкова ціна</h6>
-              <div className="input-group">
+              <div className="input-group mb-3">
                 <div className="input-group-prepend">
                   <span className="input-group-text">₴</span>
                 </div>
@@ -133,7 +207,7 @@ class AddTicket extends Component {
                 </div>
                 <div
                   id="PriceFromErrorMessage"
-                  class="invalid-feedback mb-3"
+                  class="invalid-feedback"
                   style={{ fontSize: "0.8rem", fontWeight: "500" }}
                 ></div>
               </div>
@@ -222,11 +296,6 @@ class AddTicket extends Component {
 
             {/*-----------------2------------------  */}
 
-            <Growl
-              ref={(el) => (this.growl = el)}
-              style={{ marginTop: "3rem" }}
-            />
-
             <div className="card m-3 p-2 col-sm">
               <h6>Країна</h6>
               <Dropdown
@@ -310,7 +379,7 @@ class AddTicket extends Component {
                 style={{ height: "100%" }}
               >
                 <Button
-                  onClick={(e) => this.showSuccess(e)}
+                  type="submit"
                   label="Створити"
                   className="p-button-success"
                 />
@@ -333,4 +402,19 @@ class AddTicket extends Component {
   }
 }
 
-export default AddTicket;
+
+
+
+// 2
+// GetReducerData
+function mapStateToProps(state) {
+
+}
+
+//1
+//Call reducer
+const mapDispatch = {
+  
+}
+
+export default connect(mapStateToProps, mapDispatch)(AddTicket);

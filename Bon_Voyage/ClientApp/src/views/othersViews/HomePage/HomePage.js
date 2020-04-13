@@ -76,18 +76,24 @@ class HomePage extends Component {
                 <div className="collapse navbar-collapse offset" id="navbarSupportedContent">
                   <ul className="nav navbar-nav menu_nav">
                     <li className="nav-item active"><a className="nav-link" href="index.html">Home</a></li>
-                    <li className="nav-item"><a className="nav-link" href="about.html">About</a></li>
+                    <li className="nav-item"> <Link className="nav-link" to="">Про нас</Link></li>
                     <li className="nav-item"><a className="nav-link" href="properties.html">Properties</a></li>
                     <li className="nav-item"><a className="nav-link" href="gallery.html">Gallery</a></li>
-
+              
                     {
                       !isAuthenticated ?
-                        <li className="nav-item"><a className="nav-link" href="/#/login">Вхід</a></li>
-                        : <li className="nav-item"><a className="nav-link" href="#/">Вийти</a></li>
+                      <li className="nav-item">
+                      <Link className="nav-link" to="/login">Вхід</Link>
+                     </li>
+                        : <li className="nav-item">
+                          <Link className="nav-link" to="/login">Вхід</Link>
+                        </li>
                     }
                     {
                       !isAuthenticated ?
-                        <li className="nav-item"><a className="nav-link" href="#/Register">Реєстрація</a></li>
+                      <li className="nav-item">
+                      <Link className="nav-link" to="/Register">Реєстрація</Link>                   
+                     </li>
                         : <div></div>
                     }
 
