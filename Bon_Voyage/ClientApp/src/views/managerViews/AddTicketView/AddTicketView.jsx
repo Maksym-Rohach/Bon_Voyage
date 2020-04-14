@@ -6,7 +6,7 @@ import { Dropdown } from "primereact/dropdown";
 import { Growl } from "primereact/growl";
 import { Button } from "primereact/button";
 import { ProgressSpinner } from "primereact/progressspinner";
-import { FileUpload } from "primereact/fileupload";
+
 
 import get from "lodash.get";
 import { connect } from "react-redux";
@@ -57,32 +57,60 @@ class AddTicket extends Component {
     ],
 
     isLoad: false,
+    isSuccess:false,
+    errors:{
+      priceFrom:"",
+      countsOfNight:"",
+      dateFrom:"",
+      dateTo:"",
+      countOfPlaces:"",
+      country:"",
+      airport:"",
+      city:"",
+      hotel:"",
+      roomType:""
+    },
+    fields:{
+      priceFrom:"",
+      countsOfNight:"",
+      dateFrom:"",
+      dateTo:"",
+      countOfPlaces:"",
+      discount:"",
+      // country:"",
+      // airport:"",
+      // city:"",
+      // hotel:"",
+      // roomType:""
+    }
   };
 
   //------------------------CHANGE--------------------------
 
   onCountryChange = (e) => {
     this.setState({ country: e.value });
+    this.props.getAirportData(e.value.id);
+    this.props.getCityData(e.value.id);
+    this.props.getHotelData(0);
+
+
+  };
+
+  onAirportChange = (e) => {
+    this.setState({ airport: e.value });
   };
 
   onCityChange = (e) => {
     this.setState({ city: e.value });
+    this.props.getHotelData(e.value.id);
   };
 
   onHotelChange = (e) => {
     this.setState({ hotel: e.value });
   };
 
-  onAirportChange = (e) => {
-    this.setState({ roomType: e.value });
-  };
-
   onRoomTypeChange = (e) => {
     this.setState({ roomType: e.value });
-  };
-
-  onPercentChange = (e) => {
-    this.setState({ percent: e.value });
   };
 
   //-------------------------SHOW--------------------------------
@@ -106,40 +134,36 @@ class AddTicket extends Component {
   //-------------------------Validation--------------------------------
 
   onSubmit = (e) => {
-    
-    
-    this.setState({
-      isLoad:true
-    });
+    e.preventDefault();
     this.clear();
+    // if (this.firstValidation() && this.secondValidation()) {
 
-    if (this.firstValidation() && this.secondValidation()) {
-
-    }
+    // }
 
 
   };
 
-  clear = () => {};
+  clear = () => {
+    this.setState({
+      errors:{
+        priceFrom:"",
+        countsOfNight:"",
+        dateFrom:"",
+        dateTo:"",
+        countOfPlaces:"",
+        country:"",
+        airport:"",
+        city:"",
+        hotel:"",
+        roomType:""
+      }
+    });
+  };
 
   firstValidation = () => {
     let flag = true;
-
-    let priceFrom = document.getElementById("PriceFromInput");
-    if (priceFrom.value == "") {
-      let errorMessage = document.getElementById("PriceFromErrorMessage");
-      priceFrom.classList.add("is-invalid");
-      errorMessage.innerHTML = "Введіть ціну";
-      flag = false;
-    }
-
-    let countsOfNight = document.getElementById("CountsOfNightInput");
-    if (priceFrom.value == "") {
-      countsOfNight.classList.add("p-error");
-      let errorMessage = document.getElementById("CountsOfNightErrorMessage");
-      errorMessage.innerHTML = "Введіть кількість ночей";
-      flag = false;
-    }
+    
+    
 
     return flag;
   };
@@ -155,121 +179,116 @@ class AddTicket extends Component {
   //3
   // Call reducer
   componentWillMount = () => {
+    this.props.getCountryData();
   }
 
 
-  componentWillReceiveProps = (nextProps) => { //- Binding 
-    console.log(nextProps);   
-    // if(nextProps != this.props){
-    //   this.setState({
-    //   });
-    // }
+  componentWillReceiveProps = (nextProps) => { //- Binding     
+    if(nextProps != this.props){
+      this.setState({
+        countries : nextProps.countryReducer,
+        airports : nextProps.airportReducer,
+        cities : nextProps.cityReducer,
+        hotels : nextProps.hotelReducer,
+        roomTypes : nextProps.roomTypeReducer
+      });
+    }
   }
 
 
 
   render() {
-    const { isLoad } = this.state;
+    const { isLoad,errors,fields } = this.state;
 
     return (
-
-
-      // {!!errors.phone ? // !! - !
-      //   <div className="invalid-feedback">
-      //     {errors.phone}
-      //   </div> : ''}
-
-      // <FormFeedback>{errors.oldPassword}</FormFeedback>
-
-
       <div className="mt-3 container">
         <Growl ref={(el) => (this.growl = el)} style={{ marginTop: "3rem" }} />
 
         <h3 style={{ fontSize: "2.3rem" }}>Сворити квиток</h3>
 
         <div className="card p-2 " style={{ background: "#f7f1e3" }}>
-          <form onSubmit={this.onSubmit} className="row flex-row d-flex justify-content-between">
+          <form
+            onSubmit={this.onSubmit}
+            className="row flex-row d-flex justify-content-between"
+          >
             <div className="card m-3 p-2 col-sm">
               <h6>Початкова ціна</h6>
-              <div className="input-group mb-3">
+              <div className={errors.priceFrom == "" ? "input-group mb-3" : "input-group mb-2" } >
                 <div className="input-group-prepend">
                   <span className="input-group-text">₴</span>
                 </div>
                 <input
-                  id="PriceFromInput"
                   type="number"
-                  min="0"
-                  className="form-control"
+                  min="0"                                 
+                  className= {errors.priceFrom == "" ? "form-control" : "form-control is-invalid"}
                   aria-label="Amount (to the nearest dollar)"
+                  onChange={e => this.fields.priceFrom = e.target.value }
                 />
                 <div className="input-group-append">
                   <span className="input-group-text">.00</span>
                 </div>
                 <div
-                  id="PriceFromErrorMessage"
                   class="invalid-feedback"
                   style={{ fontSize: "0.8rem", fontWeight: "500" }}
-                ></div>
+                >{errors.priceFrom}</div>
               </div>
 
               <h6>Кількість ночей</h6>
               <InputText
-                id="CountsOfNightInput"
-                className="is-invalid is-valid"
+                className={errors.countsOfNight == "" ? "mb-3" : "is-invalid p-error"}
                 type="text"
                 keyfilter="pint"
-                onChange={(e) => this.show(e)}
+                onChange={e => this.fields.countsOfNight = e.target.value }
               />
               <div
-                id="CountsOfNightErrorMessage"
-                class="invalid-feedback mb-3"
+                class="invalid-feedback mb-2"
                 style={{ fontSize: "0.8rem", fontWeight: "500" }}
-              ></div>
+              >{errors.countsOfNight}</div>
 
               <h6>Дата відльоту</h6>
               <div>
                 <InputMask
-                  id="DateFromInput"
                   style={{ width: "100%" }}
+                  className={errors.dateFrom == "" ? "mb-3" : "is-invalid p-error"}
                   mask="99/99/9999"
                   placeholder="99/99/9999"
                   slotChar="мм/дд/рррр"
-                  className="p-error"
+                  onChange={e => this.fields.dateFrom = e.target.value }
                 ></InputMask>
-              </div>
-              <div
-                id="DateFromErrorMessage"
-                class="invalid-feedback mb-3"
+                <div
+                class="invalid-feedback mb-2"
                 style={{ fontSize: "0.8rem", fontWeight: "500" }}
-              ></div>
+              >{errors.dateFrom}</div>
+              </div>
+              
 
               <h6>Дата прильоту</h6>
               <div>
                 <InputMask
-                  id="DateToInput"
+                  className={errors.dateTo == "" ? "mb-3" : "is-invalid p-error"}
                   style={{ width: "100%" }}
                   mask="99/99/9999"
                   placeholder="99/99/9999"
                   slotChar="мм/дд/рррр"
+                  onChange={e => this.fields.dateTo = e.target.value }
                 ></InputMask>
               </div>
               <div
-                id="DateToErrorMessage"
-                class="invalid-feedback mb-3"
+                class="invalid-feedback mb-2"
                 style={{ fontSize: "0.8rem", fontWeight: "500" }}
-              ></div>
+              >{errors.dateTo}</div>
 
               <h6>Кількість місць</h6>
               <InputText
-                id="CountsOfPlacesInput"
+                className={errors.countOfPlaces == "" ? "mb-3" : "is-invalid p-error"}
                 type="text"
                 keyfilter="pint"
+                onChange={e => this.fields.countOfPlaces = e.target.value }
               />
               <div
-                id="CountsOfPlacesErrorMessage"
                 class="invalid-feedback mb-3"
                 style={{ fontSize: "0.8rem", fontWeight: "500" }}
-              ></div>
+              >{errors.countOfPlaces}</div>
 
               <h6>Знижка</h6>
               <div className="d-flex flex-row">
@@ -281,10 +300,9 @@ class AddTicket extends Component {
                   onChange={(e) => this.setState({ percentState: e.value })}
                 />
                 <Dropdown
-                  id="DiscountInput"
                   value={this.state.percent}
                   options={this.state.percents}
-                  onChange={(e) => this.onPercentChange(e)}
+                  onChange={(e) => this.setState({percent: e.value})}
                   placeholder="Виберіть знижку"
                   optionLabel="percent"
                   style={{ width: "12em" }}
@@ -299,20 +317,18 @@ class AddTicket extends Component {
             <div className="card m-3 p-2 col-sm">
               <h6>Країна</h6>
               <Dropdown
-                id="CountryDropdown"
                 value={this.state.country}
                 options={this.state.countries}
                 onChange={(e) => this.onCountryChange(e)}
                 placeholder="Виберіть країну"
                 optionLabel="name"
                 style={{ width: "100%" }}
-                className="is-invalid"
+                className={errors.country == "" ? "mb-3" : "is-invalid p-error"}
               />
               <div
-                id="CountryErrorMessage"
-                class="invalid-feedback mb-3"
+                class="invalid-feedback mb-2"
                 style={{ fontSize: "0.8rem", fontWeight: "500" }}
-              ></div>
+              >{errors.country}</div>
 
               <h6>Аеропорт </h6>
               <Dropdown
@@ -322,27 +338,27 @@ class AddTicket extends Component {
                 placeholder="Виберіть аеропорт"
                 optionLabel="name"
                 style={{ width: "100%" }}
+                className={errors.airport == "" ? "mb-3" : "is-invalid p-error"}
               />
               <div
-                id="CountryErrorMessage"
-                class="invalid-feedback mb-3"
+                class="invalid-feedback mb-2"
                 style={{ fontSize: "0.8rem", fontWeight: "500" }}
-              ></div>
+              >{errors.airport}</div>
 
               <h6>Місто</h6>
               <Dropdown
                 value={this.state.city}
                 options={this.state.cities}
-                onChange={(e) => this.onCityChangeChange(e)}
+                onChange={(e) => this.onCityChange(e)}
                 placeholder="Виберіть місто"
                 optionLabel="name"
                 style={{ width: "100%" }}
+                className={errors.city == "" ? "mb-3" : "is-invalid p-error"}
               />
               <div
-                id="CountryErrorMessage"
-                class="invalid-feedback mb-3"
+                class="invalid-feedback mb-2"
                 style={{ fontSize: "0.8rem", fontWeight: "500" }}
-              ></div>
+              >{errors.city}</div>
 
               <h6>Готель </h6>
               <Dropdown
@@ -352,12 +368,12 @@ class AddTicket extends Component {
                 placeholder="Виберіть готель"
                 optionLabel="name"
                 style={{ width: "100%" }}
+                className={errors.hotel == "" ? "mb-3" : "is-invalid p-error"}
               />
               <div
-                id="CountryErrorMessage"
-                class="invalid-feedback mb-3"
+                class="invalid-feedback mb-2"
                 style={{ fontSize: "0.8rem", fontWeight: "500" }}
-              ></div>
+              >{errors.hotel}</div>
 
               <h6>Тип кімнати </h6>
               <Dropdown
@@ -367,12 +383,12 @@ class AddTicket extends Component {
                 placeholder="Виберіть тип кімнати"
                 optionLabel="name"
                 style={{ width: "100%" }}
+                className={errors.roomType == "" ? "mb-3" : "is-invalid p-error"}
               />
               <div
-                id="CountryErrorMessage"
                 class="invalid-feedback mb-3"
                 style={{ fontSize: "0.8rem", fontWeight: "500" }}
-              ></div>
+              >{errors.roomType}</div>
 
               <div
                 className="d-flex align-items-end justify-content-end m-2"
@@ -408,13 +424,38 @@ class AddTicket extends Component {
 // 2
 // GetReducerData
 function mapStateToProps(state) {
-
+  return{
+    ticketReducer: get(state, 'addTicketReducer.ticketStat'),
+    countryReducer: get(state,'addTicketReducer.countries'),
+    airportReducer: get(state,'addTicketReducer.airports'),
+    cityReducer: get(state,'addTicketReducer.cities'),
+    hotelReducer: get(state,'addTicketReducer.hotels'),
+    roomTypeReducer: get(state,'addTicketReducer.roomTypes'),
+  }
 }
 
 //1
 //Call reducer
 const mapDispatch = {
-  
+  addTicket: (ticket) => {
+    return reducer.addTicket(ticket);
+  },
+  getCountryData: () => {
+    return reducer.getCountryData();
+  },
+  getAirportData: (countryId) => {
+    return reducer.getAirportData(countryId);
+  },
+  getCityData: (countryId) => {
+    return reducer.getCityData(countryId);
+  },
+  getHotelData: (cityId) => {
+    return reducer.getHotelData(cityId);
+  },
+  getRoomTypeData: () => {
+    return reducer.getRoomTypeData();
+  }
+
 }
 
 export default connect(mapStateToProps, mapDispatch)(AddTicket);

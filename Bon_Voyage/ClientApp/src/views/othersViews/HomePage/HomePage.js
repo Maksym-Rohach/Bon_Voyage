@@ -79,21 +79,21 @@ class HomePage extends Component {
                     <li className="nav-item"> <Link className="nav-link" to="">Про нас</Link></li>
                     <li className="nav-item"><a className="nav-link" href="properties.html">Properties</a></li>
                     <li className="nav-item"><a className="nav-link" href="gallery.html">Gallery</a></li>
-              
+
                     {
                       !isAuthenticated ?
-                      <li className="nav-item">
-                      <Link className="nav-link" to="/login">Вхід</Link>
-                     </li>
+                        <li className="nav-item">
+                          <Link className="nav-link" to="/login">Вхід</Link>
+                        </li>
                         : <li className="nav-item">
                           <Link className="nav-link" to="/login">Вхід</Link>
                         </li>
                     }
                     {
                       !isAuthenticated ?
-                      <li className="nav-item">
-                      <Link className="nav-link" to="/Register">Реєстрація</Link>                   
-                     </li>
+                        <li className="nav-item">
+                          <Link className="nav-link" to="/Register">Реєстрація</Link>
+                        </li>
                         : <div></div>
                     }
 

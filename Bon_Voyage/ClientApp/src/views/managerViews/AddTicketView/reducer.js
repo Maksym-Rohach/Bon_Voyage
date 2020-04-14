@@ -62,7 +62,7 @@ export const getCountryData = () => {
     }
 }
 
-export const getAirportsData = (countryId) => {
+export const getAirportData = (countryId) => {
     return (dispatch) => {
         AddTicketService.GetAirports(countryId)
             .then((response) => {
@@ -74,9 +74,9 @@ export const getAirportsData = (countryId) => {
     }
 }
 
-export const getCitiesData = (countryId) => {
+export const getCityData = (countryId) => {
     return (dispatch) => {
-        AddTicketService.getCitiesData(countryId)
+        AddTicketService.GetCities(countryId)
             .then((response) => {
                 dispatch(CitiesActions.success(response));
             }, err => { throw err; })
@@ -86,9 +86,9 @@ export const getCitiesData = (countryId) => {
     }
 }
 
-export const getHotelsData = (cityId) => {
+export const getHotelData = (cityId) => {
     return (dispatch) => {
-        AddTicketService.getHotelsData(cityId)
+        AddTicketService.GetHotels(cityId)
             .then((response) => {
                 dispatch(HotelsActions.success(response));
             }, err => { throw err; })
@@ -98,9 +98,9 @@ export const getHotelsData = (cityId) => {
     }
 }
 
-export const getRoomTypesData = () => {
+export const getRoomTypeData = () => {
     return (dispatch) => {
-        AddTicketService.getRoomTypesData()
+        AddTicketService.getRoomTypes()
             .then((response) => {
                 dispatch(roomTypesAction.success(response));
             }, err => { throw err; })
@@ -185,7 +185,7 @@ export const roomTypesAction = {
 
 
 
-export const homePageReducer = (state = initialState, action) => { 
+export const addTicketReducer = (state = initialState, action) => { 
   let newState = state;
   switch (action.type) {
       case TICKET_STARTED: {

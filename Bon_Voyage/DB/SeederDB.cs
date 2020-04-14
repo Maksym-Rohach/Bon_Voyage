@@ -1177,6 +1177,23 @@ namespace Bon_Voyage.DB
             }
         }
 
+        public static void SeedRoomTypes(EFDbContext context)
+        {
+            if(context.RoomTypes.Count() == 0)
+            {
+                var roomTypes = new List<RoomType>();
+
+                roomTypes.Add(new RoomType { Name = "Одномітний" });
+                roomTypes.Add(new RoomType { Name = "Двухмісний" });
+                roomTypes.Add(new RoomType { Name = "Трьохмісний" });
+                roomTypes.Add(new RoomType { Name = "Апартаменти" });
+                roomTypes.Add(new RoomType { Name = "Делюкс" });
+                roomTypes.Add(new RoomType { Name = "Президентський" });
+
+                context.AddRange(roomTypes);
+                context.SaveChanges();
+            }
+        }
 
         public static void SeedData(IServiceProvider services, IHostingEnvironment env, IConfiguration config)
         {
@@ -1192,6 +1209,7 @@ namespace Bon_Voyage.DB
                 // Cities: 31
                 // Airports: 20
                 // Hotels: 68
+                // RommTypes: 6
 
                 SeederDB.SeedRoles(context, manager, managerRole); // --- DONE
                 SeederDB.SeedUsers(context, manager, managerRole); // --- DONE
@@ -1200,6 +1218,7 @@ namespace Bon_Voyage.DB
                 SeederDB.SeedCities(context);
                 SeederDB.SeedAirports(context);
                 SeederDB.SeedHotels(context);
+                SeederDB.SeedRoomTypes(context);
             }
 
         }
