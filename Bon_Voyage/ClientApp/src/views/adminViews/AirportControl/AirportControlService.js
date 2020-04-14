@@ -9,4 +9,8 @@ export default class AirportControlService {
    static createAirport(model){
     return axios.post(`${serverUrl}/api/AirportControl/CreateAirport`,model);
    }
+
+   static getCityByCountry(countryId){
+      return axios.get(`${serverUrl}/api/City/GetCitiesByCountry/${countryId}`);
+   }
 }

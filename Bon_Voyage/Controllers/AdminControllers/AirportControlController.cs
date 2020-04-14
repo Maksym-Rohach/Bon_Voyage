@@ -34,7 +34,7 @@ namespace Bon_Voyage.Controllers.AdminControllers
             }
             else
             {
-                return BadRequest(res.ErrorMessage);
+                return BadRequest(res);
             }
         }
     }
