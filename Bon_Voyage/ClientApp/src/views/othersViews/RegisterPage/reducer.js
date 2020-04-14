@@ -27,7 +27,7 @@ const initialState = {
       id: "",
       name: "",
       image: "",
-      roles: []
+      roles: {}
     }
   };
   
@@ -96,6 +96,7 @@ export function Register(data) {
     return dispatch => {
         return axios.post(url, data)
             .then(res => {
+              console.log("res.data", res.data);
               Login.loginByJWT(res.data, dispatch);
             });
     }
