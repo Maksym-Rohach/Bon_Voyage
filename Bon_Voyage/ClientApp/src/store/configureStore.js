@@ -13,6 +13,8 @@ import {changeImageReducer} from '../components/ChangeImage/reducer';
 import {changePasswordReducer} from '../components/ChangePassword/reducer';
 import {changeInfoReducer} from '../components/ChangeInfo/reducer';
 import { boughtTicketsReducer } from '../views/managerViews/BoughtTickets/reducer';
+import { hotDealTicketsReducer } from '../views/managerViews/HotDealTickets/reducer';
+
 
 
 // Create browser history to use in the Redux store
@@ -31,6 +33,7 @@ export default function configureStore(history, initialState) {
       changePassword: changePasswordReducer,
       changeInfoReducer: changeInfoReducer,
       boughtTickets: boughtTicketsReducer,
+      hotDealTickets: hotDealTicketsReducer,
   };
 
   const middleware = [
