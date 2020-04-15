@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bon_Voyage.MediatR.Account.Commands.ForgotPassword
+namespace Bon_Voyage.MediatR.User.Command.ForgotPasswordCommand
 {
     public class ForgotPasswordViewModel
     {
