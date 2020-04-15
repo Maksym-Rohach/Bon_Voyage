@@ -7,7 +7,7 @@ namespace Bon_Voyage.MediatR.Comfort.ViewModels
 {
     public class ComfortViewModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
     }
 }

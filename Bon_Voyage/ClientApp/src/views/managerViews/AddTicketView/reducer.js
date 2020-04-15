@@ -10,6 +10,7 @@ export const AIRPORTS_SUCCESS = "AIRPORTS_SUCCESS";
 export const CITIES_SUCCESS = "CITIES_SUCCESS";
 export const HOTELS_SUCCESS = "HOTELS_SUCCESS";
 export const ROOM_TYPES_SUCCESS = "ROOM_TYPE_SUCCESS";
+export const COMFORTS_SUCCESS = "COMFORTS_SUCCESS";
 
 
 
@@ -25,7 +26,8 @@ const initialState = {
     airports:[],
     cities:[],
     hotels:[],
-    roomTypes:[]
+    roomTypes:[],
+    comforts:[]
 }
 
 
@@ -110,6 +112,18 @@ export const getRoomTypeData = () => {
     }
 }
 
+export const getComfortData = () => {
+    return (dispatch) => {
+        AddTicketService.GetComforts()
+            .then((response) => {
+                dispatch(comfortsAction.success(response));
+            }, err => { throw err; })
+            .catch(err => {
+                console.log('GetComfortsData error - ' + err);
+            });
+    }
+}
+
 
 //--------------------Actions----------------------
 
@@ -179,6 +193,15 @@ export const roomTypesAction = {
     }
 }
 
+export const comfortsAction = {
+    success: (data) => {
+        return {
+            type: COMFORTS_SUCCESS,
+            payload: data.data
+        }
+    }
+}
+
 
 
 //--------------------Reducer----------------------
@@ -228,7 +251,10 @@ export const addTicketReducer = (state = initialState, action) => {
           newState = update.set(newState, 'roomTypes', action.payload);
           break;
       }
-
+      case COMFORTS_SUCCESS: {
+          newState = update.set(newState, 'comforts', action.payload);
+          break;
+      }
 
       default: {
           return newState;

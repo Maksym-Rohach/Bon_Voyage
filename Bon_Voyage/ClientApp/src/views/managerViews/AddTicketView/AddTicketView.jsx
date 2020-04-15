@@ -6,6 +6,7 @@ import { Dropdown } from "primereact/dropdown";
 import { Growl } from "primereact/growl";
 import { Button } from "primereact/button";
 import { ProgressSpinner } from "primereact/progressspinner";
+import {MultiSelect} from 'primereact/multiselect';
 
 
 import get from "lodash.get";
@@ -30,6 +31,9 @@ class AddTicket extends Component {
 
     roomType: null,
     roomTypes: [],
+
+    comfortsSelected: [],
+    comforts: [],
 
     percentState: false,
     percent: null,

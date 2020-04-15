@@ -21,6 +21,9 @@ export default class AddTicketService {
     static GetRoomTypes() {
         return axios.get(`${serverUrl}api/RoomType/GetAllRoomTypes`);
     }
+    static GetComforts() {
+        return axios.get(`${serverUrl}api/Comfort/GetAllComforts`);
+    }
 
     static CreateTicket(ticket) {
         return axios.post(`${serverUrl}api/Ticket/CreateTicket`, ticket);
