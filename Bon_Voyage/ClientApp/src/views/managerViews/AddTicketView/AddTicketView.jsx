@@ -72,7 +72,8 @@ class AddTicket extends Component {
       airport:"",
       city:"",
       hotel:"",
-      roomType:""
+      roomType:"",
+      comforts:""
     },
     fields:{
       priceFrom:"",
@@ -81,11 +82,6 @@ class AddTicket extends Component {
       dateTo:"",
       countOfPlaces:"",
       discount:"",
-      // country:"",
-      // airport:"",
-      // city:"",
-      // hotel:"",
-      // roomType:""
     }
   };
 
@@ -185,6 +181,7 @@ class AddTicket extends Component {
   componentWillMount = () => {
     this.props.getCountryData();
     this.props.getRoomTypeData();
+    this.props.getComfortData();
   }
 
 
@@ -195,7 +192,8 @@ class AddTicket extends Component {
         airports : nextProps.airportReducer,
         cities : nextProps.cityReducer,
         hotels : nextProps.hotelReducer,
-        roomTypes : nextProps.roomTypeReducer
+        roomTypes : nextProps.roomTypeReducer,
+        comforts : nextProps.comfortReducer
       });
     }
   }
@@ -218,16 +216,26 @@ class AddTicket extends Component {
           >
             <div className="card m-3 p-2 col-sm">
               <h6>Початкова ціна</h6>
-              <div className={errors.priceFrom == "" ? "input-group mb-3" : "input-group mb-2" } >
+              <div
+                className={
+                  errors.priceFrom == ""
+                    ? "input-group mb-3"
+                    : "input-group mb-2"
+                }
+              >
                 <div className="input-group-prepend">
                   <span className="input-group-text">₴</span>
                 </div>
                 <input
                   type="number"
-                  min="0"                                 
-                  className= {errors.priceFrom == "" ? "form-control" : "form-control is-invalid"}
+                  min="0"
+                  className={
+                    errors.priceFrom == ""
+                      ? "form-control"
+                      : "form-control is-invalid"
+                  }
                   aria-label="Amount (to the nearest dollar)"
-                  onChange={e => this.fields.priceFrom = e.target.value }
+                  onChange={(e) => (this.fields.priceFrom = e.target.value)}
                 />
                 <div className="input-group-append">
                   <span className="input-group-text">.00</span>
@@ -235,65 +243,82 @@ class AddTicket extends Component {
                 <div
                   class="invalid-feedback"
                   style={{ fontSize: "0.8rem", fontWeight: "500" }}
-                >{errors.priceFrom}</div>
+                >
+                  {errors.priceFrom}
+                </div>
               </div>
 
               <h6>Кількість ночей</h6>
               <InputText
-                className={errors.countsOfNight == "" ? "mb-3" : "is-invalid p-error"}
+                className={
+                  errors.countsOfNight == "" ? "mb-3" : "is-invalid p-error"
+                }
                 type="text"
                 keyfilter="pint"
-                onChange={e => this.fields.countsOfNight = e.target.value }
+                onChange={(e) => (this.fields.countsOfNight = e.target.value)}
               />
               <div
                 class="invalid-feedback mb-2"
                 style={{ fontSize: "0.8rem", fontWeight: "500" }}
-              >{errors.countsOfNight}</div>
+              >
+                {errors.countsOfNight}
+              </div>
 
               <h6>Дата відльоту</h6>
               <div>
                 <InputMask
                   style={{ width: "100%" }}
-                  className={errors.dateFrom == "" ? "mb-3" : "is-invalid p-error"}
+                  className={
+                    errors.dateFrom == "" ? "mb-3" : "is-invalid p-error"
+                  }
                   mask="99/99/9999"
                   placeholder="99/99/9999"
                   slotChar="мм/дд/рррр"
-                  onChange={e => this.fields.dateFrom = e.target.value }
+                  onChange={(e) => (this.fields.dateFrom = e.target.value)}
                 ></InputMask>
                 <div
-                class="invalid-feedback mb-2"
-                style={{ fontSize: "0.8rem", fontWeight: "500" }}
-              >{errors.dateFrom}</div>
+                  class="invalid-feedback mb-2"
+                  style={{ fontSize: "0.8rem", fontWeight: "500" }}
+                >
+                  {errors.dateFrom}
+                </div>
               </div>
-              
 
               <h6>Дата прильоту</h6>
               <div>
                 <InputMask
-                  className={errors.dateTo == "" ? "mb-3" : "is-invalid p-error"}
+                  className={
+                    errors.dateTo == "" ? "mb-3" : "is-invalid p-error"
+                  }
                   style={{ width: "100%" }}
                   mask="99/99/9999"
                   placeholder="99/99/9999"
                   slotChar="мм/дд/рррр"
-                  onChange={e => this.fields.dateTo = e.target.value }
+                  onChange={(e) => (this.fields.dateTo = e.target.value)}
                 ></InputMask>
               </div>
               <div
                 class="invalid-feedback mb-2"
                 style={{ fontSize: "0.8rem", fontWeight: "500" }}
-              >{errors.dateTo}</div>
+              >
+                {errors.dateTo}
+              </div>
 
               <h6>Кількість місць</h6>
               <InputText
-                className={errors.countOfPlaces == "" ? "mb-3" : "is-invalid p-error"}
+                className={
+                  errors.countOfPlaces == "" ? "mb-3" : "is-invalid p-error"
+                }
                 type="text"
                 keyfilter="pint"
-                onChange={e => this.fields.countOfPlaces = e.target.value }
+                onChange={(e) => (this.fields.countOfPlaces = e.target.value)}
               />
               <div
                 class="invalid-feedback mb-3"
                 style={{ fontSize: "0.8rem", fontWeight: "500" }}
-              >{errors.countOfPlaces}</div>
+              >
+                {errors.countOfPlaces}
+              </div>
 
               <h6>Знижка</h6>
               <div className="d-flex flex-row">
@@ -307,7 +332,7 @@ class AddTicket extends Component {
                 <Dropdown
                   value={this.state.percent}
                   options={this.state.percents}
-                  onChange={(e) => this.setState({percent: e.value})}
+                  onChange={(e) => this.setState({ percent: e.value })}
                   placeholder="Виберіть знижку"
                   optionLabel="percent"
                   style={{ width: "12em" }}
@@ -333,7 +358,9 @@ class AddTicket extends Component {
               <div
                 class="invalid-feedback mb-2"
                 style={{ fontSize: "0.8rem", fontWeight: "500" }}
-              >{errors.country}</div>
+              >
+                {errors.country}
+              </div>
 
               <h6>Аеропорт </h6>
               <Dropdown
@@ -348,7 +375,9 @@ class AddTicket extends Component {
               <div
                 class="invalid-feedback mb-2"
                 style={{ fontSize: "0.8rem", fontWeight: "500" }}
-              >{errors.airport}</div>
+              >
+                {errors.airport}
+              </div>
 
               <h6>Місто</h6>
               <Dropdown
@@ -363,7 +392,9 @@ class AddTicket extends Component {
               <div
                 class="invalid-feedback mb-2"
                 style={{ fontSize: "0.8rem", fontWeight: "500" }}
-              >{errors.city}</div>
+              >
+                {errors.city}
+              </div>
 
               <h6>Готель </h6>
               <Dropdown
@@ -378,7 +409,9 @@ class AddTicket extends Component {
               <div
                 class="invalid-feedback mb-2"
                 style={{ fontSize: "0.8rem", fontWeight: "500" }}
-              >{errors.hotel}</div>
+              >
+                {errors.hotel}
+              </div>
 
               <h6>Тип кімнати </h6>
               <Dropdown
@@ -388,12 +421,38 @@ class AddTicket extends Component {
                 placeholder="Виберіть тип кімнати"
                 optionLabel="name"
                 style={{ width: "100%" }}
-                className={errors.roomType == "" ? "mb-3" : "is-invalid p-error"}
+                className={
+                  errors.roomType == "" ? "mb-3" : "is-invalid p-error"
+                }
               />
               <div
                 class="invalid-feedback mb-3"
                 style={{ fontSize: "0.8rem", fontWeight: "500" }}
-              >{errors.roomType}</div>
+              >
+                {errors.roomType}
+              </div>
+
+              <h6>Комфорт</h6>
+              <MultiSelect
+                value={this.state.comfortsSelected}
+                options={this.state.comforts}
+                onChange={(e) => this.setState({ comfortsSelected: e.value })}
+                // style={{ width: "100%" }}
+                selectedItemsLabel = "{0} вибрано"
+                filter={true}
+                optionLabel="name"
+                filterPlaceholder="Пошук"
+                placeholder="Виберіть комфорти"
+                className={
+                  errors.comforts == "" ? "mb-3" : "is-invalid p-error"
+                }
+              />
+              <div
+                class="invalid-feedback mb-3"
+                style={{ fontSize: "0.8rem", fontWeight: "500" }}
+              >
+                {errors.comforts}
+              </div>
 
               <div
                 className="d-flex align-items-end justify-content-end m-2"
@@ -436,6 +495,7 @@ function mapStateToProps(state) {
     cityReducer: get(state,'addTicketReducer.cities'),
     hotelReducer: get(state,'addTicketReducer.hotels'),
     roomTypeReducer: get(state,'addTicketReducer.roomTypes'),
+    comfortReducer: get(state,'addTicketReducer.comforts')
   }
 }
 
@@ -459,6 +519,9 @@ const mapDispatch = {
   },
   getRoomTypeData: () => {
     return reducer.getRoomTypeData();
+  },
+  getComfortData: () => {
+    return reducer.getComfortData();
   }
 
 }
