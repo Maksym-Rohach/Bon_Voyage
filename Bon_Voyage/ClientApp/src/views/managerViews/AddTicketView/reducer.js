@@ -100,7 +100,7 @@ export const getHotelData = (cityId) => {
 
 export const getRoomTypeData = () => {
     return (dispatch) => {
-        AddTicketService.getRoomTypes()
+        AddTicketService.GetRoomTypes()
             .then((response) => {
                 dispatch(roomTypesAction.success(response));
             }, err => { throw err; })

@@ -180,6 +180,7 @@ class AddTicket extends Component {
   // Call reducer
   componentWillMount = () => {
     this.props.getCountryData();
+    this.props.getRoomTypeData();
   }
 
 
