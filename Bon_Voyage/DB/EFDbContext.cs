@@ -92,7 +92,6 @@ namespace Bon_Voyage.DB
                 .WithMany(x=>x.Airports)
                 .HasForeignKey(x=>x.CityId);
             #endregion
-
             #region Ticket
             builder.Entity<Ticket>()
                 .HasOne(x => x.Airport)

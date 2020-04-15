@@ -10,7 +10,7 @@ import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
-import {Growl} from 'primereact/growl';
+import { Growl } from 'primereact/growl';
 import { Form } from 'reactstrap';
 class AirportControl extends Component {
     state = {
@@ -20,26 +20,25 @@ class AirportControl extends Component {
         shortName: undefined,
         isSelectCities: true,
         visible: false,
-        errorsList: {},
-        refreshForm: false
+        errorsList: undefined
     }
-    initialState = {
-        cityId: undefined,
-        countryId: null,
-        name: undefined,
-        shortName: undefined,
-        isSelectCities: true,
-        visible: false,
-        errorsList: {},
-        refreshForm: false
+    initialState = () => {
+        return {
+            cityId: undefined,
+            countryId: null,
+            name: undefined,
+            shortName: undefined,
+            isSelectCities: true,
+            visible: false,
+            errorsList: undefined
+        }
     }
     componentWillMount = () => {
         this.props.getAirportControlData();
     }
-
     componentWillReceiveProps = (nextProps) => {
-        if(nextProps!==this.props){
-            this.setState({errorsList: nextProps.errorsList});
+        if (nextProps !== this.props) {
+            this.setState({ errorsList: nextProps.errorsList });
         }
     }
 
@@ -63,23 +62,25 @@ class AirportControl extends Component {
             this.setState({ errorsList: { errorMessage: "Заповніть будь ласка всі поля" } });
         }
         else {
+            this.setState({ errorsList: { status: true, errorMessage: '' } });
             let model = {
                 name: this.state.name,
                 shortName: this.state.shortName,
                 cityId: this.state.cityId
             }
             this.props.createAirport(model);
-            this.setState({visible: false});
+            
         }
 
     }
 
-    dialogHide=(e)=>{
+    dialogHide = (e) => {
         this.setState({ visible: false });
     }
 
-    clear = () => {        
-        this.state = this.initialState;
+    clear = () => {
+        this.setState(this.initialState);
+        this.props.clearErrors();
     }
 
     render() {
@@ -87,7 +88,9 @@ class AirportControl extends Component {
         if (errorsList === undefined) {
             errorsList = this.state.errorsList;
         }
-
+        if (errorsList !== undefined && errorsList.status === true) {
+            this.clear();
+        }
         let cities = [
             { label: '', value: '' }
         ]
@@ -109,7 +112,7 @@ class AirportControl extends Component {
                     <Column field="shortName" header="Коротке ім'я" sortable={true} />
                     <Column field="cityName" header="Назва міста" sortable={true} />
                 </DataTable>
-                <Dialog header="Додавання аеропорту" position="right" visible={this.state.visible} style={{ width: '50vw' }} modal={true} onHide={ e => this.dialogHide(e) }>
+                <Dialog header="Додавання аеропорту" position="right" visible={this.state.visible} style={{ width: '50vw' }} modal={true} onHide={e => this.dialogHide(e)}>
                     <Form onSubmit={(e) => { this.submitForm(e) }} style={{ height: '15vw' }}>
                         <Dropdown style={{ margin: '1rem' }}
                             value={this.state.countryId}
@@ -130,16 +133,16 @@ class AirportControl extends Component {
                             <InputText id="in" value={this.state.shortName} onChange={(e) => this.setState({ shortName: e.target.value })} />
                             <label htmlFor="in">Коротке ім'я аеропорту</label>
                         </span>
-                        {!!errorsList?
-                        <label style={{ color: 'red', padding: '0.1rem 1rem' }}>{errorsList.errorMessage}</label>:
-                        <label></label>}
+                        {!!errorsList ?
+                            <label style={{ color: 'red', padding: '0.1rem 1rem' }}>{errorsList.errorMessage}</label> :
+                            <label></label>}
                         <div>
                             <Button label="Додати" style={{ margin: '1rem' }} color="secondary"></Button>
                         </div>
                     </Form>
                 </Dialog>
                 <Button label="Додати аеропорт" className="p-button-primary btn-block p-button-raised" onClick={(e) => this.setState({ visible: true })} />
-                <Growl/>
+                <Growl />
             </div>
         );
     }
@@ -165,6 +168,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         createAirport: (model) => {
             dispatch(createAirportListActions.createAirport(model));
+        },
+        clearErrors: () => {
+            dispatch(createAirportListActions.clearErrors());
         }
     }
 }

@@ -8,6 +8,7 @@ export const AIRPORT_CONTROL_FAILED = "AIRPORT_CONTROL_FAILED";
 export const CREATE_AIRPORT_STARTED = "CREATE_AIRPORT_STARTED";
 export const CREATE_AIRPORT_SUCESS = "CREATE_AIRPORT_SUCESS";
 export const CREATE_AIRPORT_FAILED = "CREATE_AIRPORT_FAILED";
+export const CREATE_AIRPORT_CLEAR ="CREATE_AIRPORT_CLEAR";
 
 export const CITY_CONTROL_STARTED = "CITY_CONTROL_STARTED";
 export const CITY_CONTROL_SUCCESS = "CITY_CONTROL_SUCCESS";
@@ -27,6 +28,13 @@ const initialState = {
         success: false,
         failed: false,
     }
+}
+
+export const clearErrors = () =>{
+    return (dispatch) => {
+        dispatch(createAirportListActions.clear());
+    }
+    
 }
 
 export const getAirportControlData = () => {
@@ -53,7 +61,7 @@ export const createAirport = (model) => {
                     }, err => { throw err; })
                     .catch(err => {
                         dispatch(getAirportListActions.failed(err));
-                    });                
+                    });          
             }, err => { throw err; })
             .catch((err) => {
                 if (err.response !== undefined)
@@ -112,6 +120,11 @@ export const createAirportListActions = {
         return {
             type: CREATE_AIRPORT_FAILED,
             error: error,
+        }
+    },
+    clear:()=>{
+        return{
+            type:CREATE_AIRPORT_CLEAR
         }
     }
 }
@@ -178,6 +191,13 @@ export const airportControlReducer = (state = initialState, action) => {
             newState = update.set(newState, 'list.success', false);
             newState = update.set(newState, 'list.failed', true);
             newState = update.set(newState, 'list.errors', action.error);
+            break;
+        }
+        case CREATE_AIRPORT_CLEAR: {
+            newState = update.set(state, 'list.loading', false);
+            newState = update.set(newState, 'list.success', false);
+            newState = update.set(newState, 'list.failed', false);
+            newState = update.set(newState, 'list.errors', undefined);
             break;
         }
         case CITY_CONTROL_STARTED: {
