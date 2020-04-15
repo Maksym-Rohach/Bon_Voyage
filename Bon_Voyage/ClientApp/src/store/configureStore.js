@@ -11,6 +11,7 @@ import {managerControlReducer} from '../views/adminViews/ManagerControl/reducer'
 import {homePageReducer} from '../views/othersViews/HomePage/reducer';
 import {changeImageReducer} from '../components/ChangeImage/reducer';
 import { boughtTicketsReducer } from '../views/managerViews/BoughtTickets/reducer';
+import {hotelControlReducer} from '../views/adminViews/HotelControl/reducer';
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
@@ -26,6 +27,7 @@ export default function configureStore(history, initialState) {
       managerProfile: managerProfileViewReducer,
       changeImage: changeImageReducer,
       boughtTickets: boughtTicketsReducer,
+      hotels: hotelControlReducer,
   };
 
   const middleware = [
