@@ -21,6 +21,7 @@ namespace Bon_Voyage.MediatR.Tickets.Queries.GetTicketsInfoQuery
             public async Task<ICollection<TicketViewModel>> Handle(GetTicketsInfoQuery request, CancellationToken cancellationToken)
             {
                 var tickets = _context.Tickets.Select(x => new TicketViewModel
+                //var tickets = _context.Tickets.Where(x=>x.IsBought).Select(x => new TicketViewModel
                 {
                     Id = x.Id,
                     CountOfNights = x.CountsOfNight,
