@@ -31,14 +31,14 @@ namespace Bon_Voyage.MediatR.User.Command.ForgotPasswordCommand
                 var userName = user.Email;
 
                 EmailService emailService = new EmailService();
-                string url = "http://localhost:3000/#/login";//user.Id;
+                string url = "https://localhost:44365/#/new-password"+"/"+ "ID="+user.Id;//user.Id;
 
                 await emailService.SendEmailAsync(request.Email, "ForgotPassword",
                     $" Dear {userName}," +
                     $" <br/>" +
                     $" To change your password" +
                     $" <br/>" +
-                    $" Зміна паролю <a href='{url}'>press</a>");
+                    $" Change Password <a href='{url}'>Press on click</a>");
                 return new ForgotPasswordViewModel { Status = true };
             }
         }

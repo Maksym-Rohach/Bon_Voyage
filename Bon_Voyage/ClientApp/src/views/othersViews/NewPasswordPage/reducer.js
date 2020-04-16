@@ -1,10 +1,10 @@
 import update from "../../../helpers/update";
-import ForgotPasswordService from "./ForgotPasswordService";
+import NewPasswordService from "../NewPasswordPage/NewPasswordService";
 
 
-export const FORGOT_POST_STARTED = "FORGOT_POST_STARTED";
-export const FORGOT_POST_SUCCESS = "FORGOT_POST_SUCCESS";
-export const FORGOT_POST_FAILED = "FORGOT_POST_FAILED";
+export const NEW_PASSWORD_POST_STARTED = "NEW_PASSWORD_POST_STARTED";
+export const NEW_PASSWORD_POST_SUCCESS = "NEW_PASSWORD_POST_SUCCESS";
+export const NEW_PASSWORD_POST_FAILED = "NEW_PASSWORD_POST_FAILED";
 
 const initialState = {
     post: {
@@ -15,24 +15,24 @@ const initialState = {
     } 
   };
   
-  export const ForgotPasswordReducer = (state = initialState, action) => {
+  export const NewPasswordReducer = (state = initialState, action) => {
     let newState = state;
     switch (action.type) {
-      case FORGOT_POST_STARTED: {
+      case NEW_PASSWORD_POST_STARTED: {
         newState = update.set(state, "post.loading", true);
         newState = update.set(newState, "post.success", false);
         newState = update.set(newState, "post.errors", {});
         newState = update.set(newState, "post.failed", false);
         break;        
       }
-      case FORGOT_POST_SUCCESS: {
+      case NEW_PASSWORD_POST_SUCCESS: {
         newState = update.set(state, "post.loading", false);
         newState = update.set(newState, "post.failed", false);
         newState = update.set(newState, "post.errors", {});
         newState = update.set(newState, "post.success", true);
         break;
       }
-      case FORGOT_POST_FAILED: {
+      case NEW_PASSWORD_POST_FAILED: {
         newState = update.set(state, "post.loading", false);
         newState = update.set(newState, "post.success", false);
         newState = update.set(newState, "post.errors", action.errors);
@@ -50,28 +50,28 @@ const initialState = {
   export const getListActions = {
     started: () => {
         return {
-            type: FORGOT_POST_STARTED
+            type: NEW_PASSWORD_POST_STARTED
         }
     },  
     success: () => {
         return {
-            type: FORGOT_POST_SUCCESS,      
+            type: NEW_PASSWORD_POST_SUCCESS,      
         }
     },  
     failed: (error) => {
       console.log("Error : ",error)
         return {           
-            type: FORGOT_POST_FAILED,
+            type: NEW_PASSWORD_POST_FAILED,
             errors: error.data
         }
     }
   }
   
 
-export function ForgotPassword(data) {
+export function newPassword(data) {
   return (dispatch) => {
     dispatch(getListActions.started());
-    ForgotPasswordService.forgotPassword(data)
+    NewPasswordService.newPassword(data)
         .then((response) => {
           console.log("response",response);
             dispatch(getListActions.success(response));               
