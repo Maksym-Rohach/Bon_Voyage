@@ -12,6 +12,7 @@ import get from "lodash.get";
 class NewPasswordPage extends Component {
 
     state = {
+      id:'',
       newPassword: '',
       confirmPassword:'',
       errors: {},
@@ -20,6 +21,11 @@ class NewPasswordPage extends Component {
       isSuccess:false,
       errorsServer: {}
     }
+ componentDidMount(){
+   let tmp=this.props.match.params.id;
+   let id=tmp.split("=").splice(1,1).toString();
+  this.setState({id:id});
+ }   
    
     setStateByErrors = (name, value) => {
       if (!!this.state.errors[name]) {
@@ -51,12 +57,12 @@ class NewPasswordPage extends Component {
     }
     onSubmitForm = (e) => {
       e.preventDefault();
-      const { newPassword,confirmPassword} = this.state;
+      const { newPassword,confirmPassword,id} = this.state;
   
       let errors = {};
   
       if (newPassword === '' || confirmPassword==='') errors.newPassword = "Поле є обов'язковим";
-      
+      if(newPassword!==confirmPassword) errors.confirmPassword="Паролі не співпадають";
       
   
       const isValid = Object.keys(errors).length === 0
@@ -64,7 +70,7 @@ class NewPasswordPage extends Component {
         this.setState({ isLoading: true });
         const model = {
           newPassword: newPassword,
-          confirmPassword:confirmPassword,
+          id:id,
           };
   
           
@@ -85,8 +91,8 @@ class NewPasswordPage extends Component {
     }
 
     render() { 
-        const { errors, isLoading, profileUrl, visible, errorsServer } = this.state;
-
+        const { errors, isLoading, profileUrl, visible, errorsServer,id } = this.state;
+        console.log("id : ",id);
       if(this.state.isSuccess){
         console.log("success");
         this.showSuccess();
@@ -165,7 +171,7 @@ function mapStateToProps(state) {
 
 
 const mapDispatch = {
-  NewPassword: (model) => {
+  newPassword: (model) => {
       return reducer.newPassword(model);
   } 
   

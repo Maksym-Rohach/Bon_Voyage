@@ -33,7 +33,7 @@ class App extends Component {
                         <Route exact path="/login" name="Login Page" render={props => <LoginPage {...props} />} />
                         <Route exact path="/register" name="Register Page" render={props => <RegisterPage {...props} />} /> 
                         <Route exact path="/forgot-password" name="ForgotPassword Page" render={props => <ForgotPasswordPage {...props} />} /> 
-                        <Route exact path="/new-password" name="NewPassword Page" render={props => <NewPasswordPage {...props} />} />                       
+                        <Route exact path="/new-password/:id" name="NewPassword Page" render={props => <NewPasswordPage {...props} />} />                       
                         <Route path="/admin" name="Admin" render={props => <AdminLayout {...props} />} />
                         <Route path="/manager" name="Manager" render={props => <ManagerLayout {...props} />} />
                         {/* <Redirect from="/" to="/admin/persons" /> */}

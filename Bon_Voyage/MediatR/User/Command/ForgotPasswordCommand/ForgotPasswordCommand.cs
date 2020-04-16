@@ -31,7 +31,7 @@ namespace Bon_Voyage.MediatR.User.Command.ForgotPasswordCommand
                 var userName = user.Email;
 
                 EmailService emailService = new EmailService();
-                string url = "https://localhost:44365/#/new-password";//user.Id;
+                string url = "https://localhost:44365/#/new-password"+"/"+ "ID="+user.Id;//user.Id;
 
                 await emailService.SendEmailAsync(request.Email, "ForgotPassword",
                     $" Dear {userName}," +
