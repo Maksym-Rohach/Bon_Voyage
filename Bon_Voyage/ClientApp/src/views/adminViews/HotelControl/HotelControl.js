@@ -5,6 +5,7 @@ import get from "lodash.get";
 import {DataTable} from 'primereact/datatable';
 import {Column} from 'primereact/column';
 import {Button} from 'primereact/button';
+import {Dialog} from 'primereact/dialog';
 
 class HotelControl extends Component {
     state = { 
@@ -16,8 +17,16 @@ class HotelControl extends Component {
 
     actionTemplate(rowData, column) {
         return <div>
-            <Button type="button" icon="pi pi-cog" className="p-button-secondary p-button-rounded"></Button>
+            <Button type="button" icon="pi pi-cog" className="p-button-secondary p-button-rounded" onClick={(e) => this.setState({visible: true})}></Button>
+
+        <Dialog header="" visible={this.state.visible} style={{width: '50vw'}} modal={true} onHide={() => this.setState({visible: false})}>
+        </Dialog>
         </div>;
+    }
+
+    dialogTemplate(rowData, column){
+        return <Dialog header="" visible={this.state.visible} style={{width: '50vw'}} modal={true} onHide={() => this.setState({visible: false})}>
+        </Dialog>;
     }
 
     render() { 
@@ -33,7 +42,7 @@ class HotelControl extends Component {
             <Column field="stars" header="Кількість *" />
             <Column field="city.name" header="Місто" />
             <Column field="isClosed" header="Працює" />
-            <Column body={this.actionTemplate} style={{textAlign:'center', width: '6em'}}/>
+            <Column header="Змінити" body={this.actionTemplate} style={{textAlign:'center', width: '6em'}}/>
         </DataTable>
          );
     }
