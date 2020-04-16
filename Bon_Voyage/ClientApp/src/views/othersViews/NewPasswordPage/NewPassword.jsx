@@ -1,33 +1,26 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Card, CardBody, CardFooter, CardGroup,
+import { Button, Card, CardBody, CardGroup,
          Col, Container, Form, Input, InputGroup,
-         InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-
+         Row } from 'reactstrap';
 import { connect } from "react-redux";
 import * as reducer from './reducer';
 import {Growl} from 'primereact/growl';
-
 import get from "lodash.get";
 
-class ForgotPasswordPage extends Component {
+
+class NewPasswordPage extends Component {
 
     state = {
-      email: '',
+      newPassword: '',
+      confirmPassword:'',
       errors: {},
       done: false,
       isLoading: false,
       isSuccess:false,
       errorsServer: {}
     }
-  
    
-  
-  //   static getDerivedStateFromProps(nextProps, prevState) {
-    
-  //     return { isLoading: nextProps.loading, errorsServer: nextProps.errors };
-  // }
-  
     setStateByErrors = (name, value) => {
       if (!!this.state.errors[name]) {
         let errors = Object.assign({}, this.state.errors);
@@ -44,10 +37,12 @@ class ForgotPasswordPage extends Component {
           { [name]: value })
       }
     }
+
   
     showSuccess = () => {
-      this.growl.show({severity: 'success', summary: 'Перейдіть на свою пошту для зміни паролю', detail:'',sticky:true});
+      this.growl.show({severity: 'success', summary: 'Ви успішно змінили свій пароль', detail:'',sticky:true});
   }
+
 
 
     handleChange = (e) => {
@@ -56,13 +51,11 @@ class ForgotPasswordPage extends Component {
     }
     onSubmitForm = (e) => {
       e.preventDefault();
-      const { email} = this.state;
-  
-      //const regex_phone = /^(?=\+?([0-9]{2})\(?([0-9]{3})\)?([0-9]{3})-?([0-9]{2})-?([0-9]{2})).{17}$/;
+      const { newPassword,confirmPassword} = this.state;
   
       let errors = {};
   
-      if (email === '') errors.email = "Поле є обов'язковим";
+      if (newPassword === '' || confirmPassword==='') errors.newPassword = "Поле є обов'язковим";
       
       
   
@@ -70,20 +63,19 @@ class ForgotPasswordPage extends Component {
       if (isValid) {
         this.setState({ isLoading: true });
         const model = {
-          email: email,
+          newPassword: newPassword,
+          confirmPassword:confirmPassword,
           };
   
-          console.log("Forgot Password",model)
-        this.props.ForgotPassword(model);     
+          
+        this.props.newPassword(model);     
       }
       else {
         this.setState({ errors });
       }
     }
 
-
     componentWillReceiveProps = (nextProps) => {
-    // console.log("nextProps",nextProps);
       if(this.props != nextProps){
         this.setState({
           isSuccess : nextProps.successReducer
@@ -111,30 +103,36 @@ class ForgotPasswordPage extends Component {
                       <Card className="p-4">
                         <CardBody>
                           <Form onSubmit={this.onSubmitForm}>
-                            <h1>Забули Пароль?</h1>
-                            <p className="text-muted">Вкажіть свою електронну пошту</p>
+                            <h1>Змінити пароль</h1>
+                            <p className="text-muted">Вкажіть новий пароль</p>
                                 <InputGroup className="mb-2">
                                     <Input
-                                        type="email"
-                                        placeholder="Електронна пошта"
+                                        type="text"
+                                        placeholder="Новий пароль"
                                        
-                                        id="email"
+                                        id="newPassword"
                                         autocomplete="new-password"
-                                        name="email"
-                                        value={this.state.email}
+                                        name="newPassword"
+                                        value={this.state.newPassword}
                                         onChange={this.handleChange}
-                                    />                       
-                                   
-                                </InputGroup>                                                                                      
+                                    />                                                         
+                                </InputGroup> 
+                                <InputGroup className="mb-2">
+                                    <Input
+                                        type="text"
+                                        placeholder="Підтвердіть новий пароль"                                       
+                                        id="confirmPassword"
+                                        autocomplete="confirm-password"
+                                        name="confirmPassword"
+                                        value={this.state.confirmPassword}
+                                        onChange={this.handleChange}
+                                    />                                                         
+                                </InputGroup>                                                                                       
                                     <Row>
-                                    <Col xs="4">
-                                    <Link to="/login"> 
-                                                   
-                                <Button color="primary" className="px-4">Назад</Button>    
-                                    </Link>
+                                    <Col xs="4">                                 
                                     </Col> 
                                     <Col xs="4">
-                                <Button color="primary" className="px-4">Відправити пароль</Button>                              
+                                <Button color="primary" className="px-4">Змінити пароль</Button>                              
                               </Col>                            
                             </Row>
                           </Form>
@@ -157,20 +155,20 @@ class ForgotPasswordPage extends Component {
 function mapStateToProps(state) {
   console.log("mapStateToProps", state);
   return {
-    loading: get(state, 'forgotPassword.post.loading'),
-    failed: get(state, 'forgotPassword.post.failed'),
-    successReducer: get(state, 'forgotPassword.post.success'),
-    errors: get(state, 'forgotPassword.post.errors')
+    loading: get(state, 'newPassword.post.loading'),
+    failed: get(state, 'newPassword.post.failed'),
+    successReducer: get(state, 'newPassword.post.success'),
+    errors: get(state, 'newPassword.post.errors')
   }
 }
 
 
 
 const mapDispatch = {
-  ForgotPassword: (model) => {
-      return reducer.ForgotPassword(model);
+  NewPassword: (model) => {
+      return reducer.newPassword(model);
   } 
   
 }
 
-export default connect(mapStateToProps, mapDispatch)(ForgotPasswordPage);
+export default connect(mapStateToProps, mapDispatch)(NewPasswordPage);

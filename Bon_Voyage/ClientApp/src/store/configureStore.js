@@ -13,6 +13,9 @@ import {changeImageReducer} from '../components/ChangeImage/reducer';
 import {changePasswordReducer} from '../components/ChangePassword/reducer';
 import {changeInfoReducer} from '../components/ChangeInfo/reducer';
 import { boughtTicketsReducer } from '../views/managerViews/BoughtTickets/reducer';
+import {ForgotPasswordReducer} from '../views/othersViews/ForgotPasswordPage/reducer';
+import { NewPasswordReducer } from '../views/othersViews/NewPasswordPage/reducer';
+
 
 
 // Create browser history to use in the Redux store
@@ -23,6 +26,7 @@ export default function configureStore(history, initialState) {
   const reducers = {
     login: loginReducer,
     home: homePageReducer,
+    forgotPassword: ForgotPasswordReducer,
     //persons: personsChartReducer,
     comments: commentsChartReducer,
       managers: managerControlReducer,
@@ -31,6 +35,7 @@ export default function configureStore(history, initialState) {
       changePassword: changePasswordReducer,
       changeInfoReducer: changeInfoReducer,
       boughtTickets: boughtTicketsReducer,
+      newPassword:NewPasswordReducer,
   };
 
   const middleware = [
