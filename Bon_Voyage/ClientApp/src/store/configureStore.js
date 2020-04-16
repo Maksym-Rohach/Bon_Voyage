@@ -15,6 +15,9 @@ import {changeInfoReducer} from '../components/ChangeInfo/reducer';
 import { boughtTicketsReducer } from '../views/managerViews/BoughtTickets/reducer';
 import { hotDealTicketsReducer } from '../views/managerViews/HotDealTickets/reducer';
 import {hotelControlReducer} from '../views/adminViews/HotelControl/reducer';
+import {ForgotPasswordReducer} from '../views/othersViews/ForgotPasswordPage/reducer';
+import { NewPasswordReducer } from '../views/othersViews/NewPasswordPage/reducer';
+
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
@@ -24,6 +27,7 @@ export default function configureStore(history, initialState) {
   const reducers = {
     login: loginReducer,
     home: homePageReducer,
+    forgotPassword: ForgotPasswordReducer,
     //persons: personsChartReducer,
     comments: commentsChartReducer,
       managers: managerControlReducer,
@@ -33,6 +37,7 @@ export default function configureStore(history, initialState) {
       changeInfoReducer: changeInfoReducer,
       boughtTickets: boughtTicketsReducer,
       hotDealTickets: hotDealTicketsReducer,
+      newPassword:NewPasswordReducer,
       hotels: hotelControlReducer,
   };
 
