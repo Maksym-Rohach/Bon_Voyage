@@ -15,11 +15,11 @@ class BoughtTickets extends Component {
 
     renderDateFilter() {
         return (
-            <Calendar value={this.state.dateFilter} onChange={this.onDateFilterChange} placeholder="Registration Date" dateFormat="dd.mm.yy" className="p-column-filter" />
+            <Calendar value={this.state.dateFilter} onChange={this.onDateFilterChange} placeholder="Вибрати дату" dateFormat="dd.mm.yy" className="p-column-filter" />
         );
     }
-    // onDateFilterChange(event) {
-    //     console.log(event)
+    // onDateFilterChange = (event) => {
+    //     console.log("Format ", this.formatDate(event.value));
     //     if (event.value !== null)
     //         this.dt.filter(this.formatDate(event.value), 'date', 'equals');
     //     else
@@ -28,32 +28,32 @@ class BoughtTickets extends Component {
     //     this.setState({dateFilter: event.value});   
     // }
 
-    filterDate(value, filter) {
-        if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
-            return true;
-        }
+    // filterDate = (value, filter) => {
+    //     console.log("Filter", this.filterDate(value.filter));
+    //     if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
+    //         return true;
+    //     }
 
-        if (value === undefined || value === null) {
-            return false;
-        }
+    //     if (value === undefined || value === null) {
+    //         return false;
+    //     }
+       
+    //     return value === this.formatDate(filter);
+    // }
 
-        return value === this.formatDate(filter);
-    }
+    // formatDate = (date) => {
+    //     let month = date.getMonth() + 1;
+    //     let day = date.getDate();
 
-    formatDate(date) {
-        let month = date.getMonth() + 1;
-        let day = date.getDate();
+    //     if (month < 10) {
+    //         month = '0' + month;
+    //     }
 
-        if (month < 10) {
-            month = '0' + month;
-        }
-
-        if (day < 10) {
-            day = '0' + day;
-        }
-
-        return date.getFullYear() + '-' + month + '-' + day;
-    }
+    //     if (day < 10) {
+    //         day = '0' + day;
+    //     }
+    //     return day + '.' + month + '.' + date.getFullYear();
+    // }
     componentDidMount = () => {
         this.props.getBoughtTicketsData();
     }
@@ -67,8 +67,9 @@ class BoughtTickets extends Component {
             <Card className="mt-5">                       
                 <DataTable value={listBoughtTickets} paginator={true} ref={(el) => this.dt = el} rows={10} first={this.state.first} onPage={(e) => this.setState({first: e.first})}>
                     <Column sortable={true} field="client.fullName" filter={true} filterPlaceholder="Search" style={{textAlign:'center'}} header="Ім'я покупця" />
-                    <Column sortable={true} field="dateTo" header="Дата вильоту" filter={true} sortable filter filterMatchMode="custom" style={{textAlign:'center'}} filterFunction={this.filterDate} filterElement={dateFilter} />              
-                    <Column sortable={true} field="dateFrom" header="Дата повернення" filter={true} sortable filter filterMatchMode="custom" style={{textAlign:'center'}} filterFunction={this.filterDate} filterElement={dateFilter} />
+                    <Column field="dateTo" header="Date" sortable filter filterMatchMode="custom" filterFunction={this.filterDate} filterElement={dateFilter} />            
+                    {/* <Column sortable={true} field="dateFrom" header="Дата повернення" filter={true} sortable filter filterMatchMode="contains" style={{textAlign:'center'}} filterFunction={this.filterDate} filterElement={dateFilter} /> */}
+                    <Column sortable={true} field="dateFrom" filter={true} filterMatchMode="contains" filterPlaceholder="Search" style={{textAlign:'center'}} header="Дата прибуття" />
                     <Column sortable={true} field="country.name" filter={true} filterMatchMode="contains" filterPlaceholder="Search" style={{textAlign:'center'}} header="Країна" />
                     <Column sortable={true} field="countOfPlaces" filter={true} filterMatchMode="contains" filterPlaceholder="Search" style={{textAlign:'center'}} header="Кількість місць" />
                     <Column sortable={true} field="price" filter={true} filterMatchMode="contains" filterPlaceholder="Search" style={{textAlign:'center'}} header="Ціна" />
