@@ -37,7 +37,7 @@ export default {
                 },
                 {
                     name: 'Гарячі пропозиції',
-                    url: '/base/carousels',
+                    url: '/manager/tickets/hot-deal-tickets',
                     icon: 'icon-fire',
                 }
             ]

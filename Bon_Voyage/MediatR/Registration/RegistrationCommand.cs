@@ -66,10 +66,21 @@ namespace Bon_Voyage.MediatR.Registration
                 else
                 {
                     var nameANDsurnameREGEX = new Regex(@"[A-Za-z0-9._()\[\]-]{3,15}$");
-
                     if (!nameANDsurnameREGEX.IsMatch(request.Name))
                     {
                         return new RegistrationViewModel { Status = false, ErrorMessage = ("Bad Model (мінімум 3 символи максимум 15 символів)") };
+                    }
+                }
+                if (request.Email == null)
+                {
+                    return new RegistrationViewModel { Status = false, ErrorMessage = ("Bad Model (Вкажіть пошту)") };
+                }
+                else
+                {
+                    var testmail = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+                    if (!testmail.IsMatch(request.Email))
+                    {
+                        return new RegistrationViewModel { Status = false, ErrorMessage = ("Bad Model (Невірно вказана почта)") };
                     }
                 }
 
