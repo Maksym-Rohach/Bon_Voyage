@@ -12,8 +12,7 @@ const routes = [
     { path: '/manager/login', name: 'Login', component: Login },
     { path: '/manager/profile', exact: true, name: 'ManagerProfileView', component: ManagerProfileView },
     { path: '/manager/tickets/bought-tickets', name: 'BoughtTickets', component: BoughtTickets },
-    { path: '/manager/tickets/hot-deal-tickets', name: 'HotDealTickets', component: HotDealTickets }
-
+    { path: '/manager/tickets/hot-deal-tickets', name: 'HotDealTickets', component: HotDealTickets },
     { path: '/manager/ticket/add',exact:true,name: 'AddTicketView', component: AddTicketView },
 ];
 

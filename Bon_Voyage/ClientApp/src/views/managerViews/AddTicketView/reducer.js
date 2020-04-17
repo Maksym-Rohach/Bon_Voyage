@@ -12,12 +12,14 @@ export const HOTELS_SUCCESS = "HOTELS_SUCCESS";
 export const ROOM_TYPES_SUCCESS = "ROOM_TYPE_SUCCESS";
 export const COMFORTS_SUCCESS = "COMFORTS_SUCCESS";
 
+export const CLEAR_SUCCESS = "CLEAR_SUCCESS";
 
 
 
 const initialState = {
     ticketStat: {
-        answer: [],
+        answer: {},
+        errors:{},
         loading: false,
         success: false,
         failed: false,
@@ -31,7 +33,6 @@ const initialState = {
 }
 
 
-
 //--------------------Methods----------------------
 
 
@@ -39,12 +40,13 @@ const initialState = {
 export const addTicket = (ticket) => {
     return (dispatch) => {
         dispatch(TicketActions.started()); // Set started action
-        AddTicketService.addTicket(ticket) // Get data from service
+        AddTicketService.CreateTicket(ticket) // Get data from service
             .then((response) => {       
                 console.log("Add ticket - ",response);
                 dispatch(TicketActions.success(response)); // Set success action
             }, err=> { throw err; })
             .catch(err=> {            
+                console.log("Add ticket error - ",err);
               dispatch(TicketActions.failed(err));
             });
             
@@ -121,6 +123,12 @@ export const getComfortData = () => {
             .catch(err => {
                 console.log('GetComfortsData error - ' + err);
             });
+    }
+}
+
+export const clearInit = () => {
+    return (dispatch) => {
+        dispatch(clearActions.success);
     }
 }
 
@@ -202,7 +210,13 @@ export const comfortsAction = {
     }
 }
 
-
+export const clearActions = {
+    success: () => {
+        return{
+            type : CLEAR_SUCCESS
+        }
+    }
+};
 
 //--------------------Reducer----------------------
 
@@ -221,13 +235,15 @@ export const addTicketReducer = (state = initialState, action) => {
           newState = update.set(state, 'ticketStat.loading', false);
           newState = update.set(newState, 'ticketStat.failed', false);
           newState = update.set(newState, 'ticketStat.success', true);
+          newState = update.set(newState, 'ticketStat.answer',action.payload);
           break;
       }
       case TICKET_FAILED: {
+          console.log(action.errors);
           newState = update.set(state, 'list.loading', false);
           newState = update.set(newState, 'list.success', false);
           newState = update.set(newState, 'list.failed', true);
-          newState = update.set(newState, 'ticketStat.answer', action.payload);         
+          newState = update.set(newState, 'ticketStat.errors', action.errors);         
           break;
       }
 
@@ -253,6 +269,15 @@ export const addTicketReducer = (state = initialState, action) => {
       }
       case COMFORTS_SUCCESS: {
           newState = update.set(newState, 'comforts', action.payload);
+          break;
+      }
+      case CLEAR_SUCCESS: {
+          newState = update.set(newState,'countries',undefined);
+          newState = update.set(newState,'airports',undefined);
+          newState = update.set(newState,'cities',[]);
+          newState = update.set(newState,'hotels',undefined);
+          newState = update.set(newState,'roomTypes',undefined);
+          newState = update.set(newState,'comforts',undefined);
           break;
       }
 

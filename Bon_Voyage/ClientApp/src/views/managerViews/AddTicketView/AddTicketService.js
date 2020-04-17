@@ -26,6 +26,6 @@ export default class AddTicketService {
     }
 
     static CreateTicket(ticket) {
-        return axios.post(`${serverUrl}api/Ticket/CreateTicket`, ticket);
+        return axios.post(`${serverUrl}api/TicketControl/CreateTicket`, ticket);
     }
 }

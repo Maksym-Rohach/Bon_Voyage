@@ -14,6 +14,7 @@ import {changePasswordReducer} from '../components/ChangePassword/reducer';
 import {changeInfoReducer} from '../components/ChangeInfo/reducer';
 import { boughtTicketsReducer } from '../views/managerViews/BoughtTickets/reducer';
 import { hotDealTicketsReducer } from '../views/managerViews/HotDealTickets/reducer';
+import {addTicketReducer} from '../views/managerViews/AddTicketView/reducer'
 
 
 
@@ -25,7 +26,7 @@ export default function configureStore(history, initialState) {
   const reducers = {
     login: loginReducer,
     home: homePageReducer,
-    addTicketReducer: addTicketReducer,
+    addTicket: addTicketReducer,
     //persons: personsChartReducer,
     comments: commentsChartReducer,
       managers: managerControlReducer,
