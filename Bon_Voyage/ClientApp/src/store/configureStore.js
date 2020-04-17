@@ -19,6 +19,7 @@ import {ForgotPasswordReducer} from '../views/othersViews/ForgotPasswordPage/red
 import { NewPasswordReducer } from '../views/othersViews/NewPasswordPage/reducer';
 
 
+import {airportControlReducer, countryControlReducer} from '../views/adminViews/AirportControl/reducer';
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
@@ -33,6 +34,9 @@ export default function configureStore(history, initialState) {
     comments: commentsChartReducer,
       managers: managerControlReducer,
       managerProfile: managerProfileViewReducer,
+      changeImage: changeImageReducer,
+      managerProfile: managerProfileViewReducer,
+      airports: airportControlReducer,
       changeImage: changeImageReducer,
       changePassword: changePasswordReducer,
       changeInfoReducer: changeInfoReducer,

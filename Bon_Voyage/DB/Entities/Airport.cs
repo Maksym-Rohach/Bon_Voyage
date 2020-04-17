@@ -16,6 +16,6 @@ namespace Bon_Voyage.DB.Entities
         public string CityId { get; set; }
         public virtual City City { get; set; }
 
-        public virtual Ticket Ticket { get; set; }
+        public virtual ICollection<Ticket> Tickets { get; set; }
     }
 }
