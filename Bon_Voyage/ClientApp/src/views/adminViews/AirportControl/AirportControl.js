@@ -56,13 +56,12 @@ class AirportControl extends Component {
     submitForm = (e) => {
         e.preventDefault();
         if (this.state.cityId === undefined) {
-            this.setState({ errorsList: { errorMessage: "Оберіть будь ласка місто" } });
+            this.setState({ errorsList: { status:false, errorMessage: "Оберіть будь ласка місто" } });
         }
         else if (this.state.name === undefined || this.state.name === "" || this.state.shortName === undefined || this.state.shortName === "") {
-            this.setState({ errorsList: { errorMessage: "Заповніть будь ласка всі поля" } });
+            this.setState({ errorsList: { status:false,errorMessage: "Заповніть будь ласка всі поля" } });
         }
         else {
-            this.setState({ errorsList: { status: true, errorMessage: '' } });
             let model = {
                 name: this.state.name,
                 shortName: this.state.shortName,
@@ -88,7 +87,7 @@ class AirportControl extends Component {
         if (errorsList === undefined) {
             errorsList = this.state.errorsList;
         }
-        if (errorsList !== undefined && errorsList.status === true) {
+        if(errorsList!==undefined&&errorsList.status){
             this.clear();
         }
         let cities = [

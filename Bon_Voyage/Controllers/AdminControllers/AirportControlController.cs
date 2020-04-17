@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 using Bon_Voyage.MediatR.Airports.Commands;
 using Bon_Voyage.MediatR.Airports.Commands.CreateAirportCommand;
 using Bon_Voyage.MediatR.Airports.Queries.GetAirportsQuery;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bon_Voyage.Controllers.AdminControllers
 {
-
+    [Authorize(Roles = "Admin")]
     public class AirportControlController : ApiController
     {
         [HttpGet("GetAirportsData")]

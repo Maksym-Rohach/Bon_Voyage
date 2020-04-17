@@ -95,14 +95,16 @@ namespace Bon_Voyage.DB
             #region Ticket
             builder.Entity<Ticket>()
                 .HasOne(x => x.Airport)
-                .WithOne(x => x.Ticket);
+                .WithMany(x=>x.Tickets)
+                .HasForeignKey(x=>x.AirportId);
             builder.Entity<Ticket>()
                 .HasOne(x => x.Hotel)
                 .WithMany(x => x.Tickets)
                 .HasForeignKey(x=>x.HotelId);
             builder.Entity<Ticket>()
                 .HasOne(x => x.RoomType)
-                .WithOne(x => x.Ticket);
+                .WithMany(x => x.Tickets)
+                .HasForeignKey(x=>x.RoomTypeId);
             #endregion
 
             #region TicketsToComforts

@@ -61,7 +61,8 @@ export const createAirport = (model) => {
                     }, err => { throw err; })
                     .catch(err => {
                         dispatch(getAirportListActions.failed(err));
-                    });          
+                    });
+                    dispatch(createAirportListActions.success(response))
             }, err => { throw err; })
             .catch((err) => {
                 if (err.response !== undefined)
@@ -183,7 +184,7 @@ export const airportControlReducer = (state = initialState, action) => {
             newState = update.set(state, 'list.loading', true);
             newState = update.set(newState, 'list.failed', false);
             newState = update.set(newState, 'list.success', true);
-            newState = update.set(newState, 'list.errors', undefined);
+            newState = update.set(newState, 'list.errors', {status:true});
             break;
         }
         case CREATE_AIRPORT_FAILED: {

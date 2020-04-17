@@ -12,6 +12,6 @@ namespace Bon_Voyage.DB.Entities
         public string Id { get; set; }
         public string Name { get; set; }
 
-        public virtual Ticket Ticket { get; set; }
+        public virtual ICollection<Ticket> Tickets { get; set; }
     }
 }
