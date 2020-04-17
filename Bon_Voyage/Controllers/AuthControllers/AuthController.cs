@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Bon_Voyage.DB;
 using Bon_Voyage.DB.IdentityModels;
 using Bon_Voyage.MediatR.User.Command.ForgotPasswordCommand;
+using Bon_Voyage.MediatR.User.Command.NewPasswordCommand;
 using Bon_Voyage.Services;
 using Bon_Voyage.ViewModels.AuthViewModels;
 using Bon_Voyage.ViewModels.ForgotPasswordViewModel;
@@ -88,6 +89,28 @@ namespace Bon_Voyage.Controllers.AuthControllers
                 return BadRequest("щось не так");
             }
         }
+        [HttpPost("new-password")]
+        public async Task<IActionResult> NewPassword([FromBody]NewPasswordCommand command)
+        {
+            if (ModelState.IsValid)
+            {
+                var res = await Mediator.Send(command);
+                if (res.Status)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest(res.ErrorMessage);
+                }
+            }
+
+            else
+            {
+                return BadRequest("щось не так");
+            }
+        }
+
 
     }
 }
