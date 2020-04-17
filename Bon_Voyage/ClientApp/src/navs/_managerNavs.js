@@ -32,12 +32,12 @@ export default {
                 },
                 {
                     name: 'Куплені білети',
-                    url: '/base/carousels',
+                    url: '/manager/tickets/bought-tickets',
                     icon: 'icon-credit-card',
                 },
                 {
                     name: 'Гарячі пропозиції',
-                    url: '/base/carousels',
+                    url: '/manager/tickets/hot-deal-tickets',
                     icon: 'icon-fire',
                 }
             ]
