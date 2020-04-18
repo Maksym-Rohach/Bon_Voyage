@@ -15,7 +15,5 @@ namespace Bon_Voyage.MediatR.Ticket.Queries.GetBoughtTicketsQuery
         public float Price { get; set; }
         public CountryViewModel Country { get; set; }
         public ClientViewModel Client { get; set; }
-
-
     }
 }

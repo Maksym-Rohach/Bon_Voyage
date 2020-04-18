@@ -1,13 +1,6 @@
 import update from "../../../helpers/update";
 import ForgotPasswordService from "./ForgotPasswordService";
-import isEmpty from "lodash/isEmpty";
-import setAuthorizationToken from "../../../utils/setAuthorizationToken";
-import jwt from "jsonwebtoken";
-import redirectStatusCode from "../../../services/redirectStatusCode";
-import {push} from "connected-react-router";
-import * as Login from "../LoginPage/reducer";
-import {serverUrl} from '../../../config';
-import axios from "axios";
+
 
 export const FORGOT_POST_STARTED = "FORGOT_POST_STARTED";
 export const FORGOT_POST_SUCCESS = "FORGOT_POST_SUCCESS";
@@ -24,7 +17,6 @@ const initialState = {
   
   export const ForgotPasswordReducer = (state = initialState, action) => {
     let newState = state;
-  
     switch (action.type) {
       case FORGOT_POST_STARTED: {
         newState = update.set(state, "post.loading", true);
@@ -81,6 +73,7 @@ export function ForgotPassword(data) {
     dispatch(getListActions.started());
     ForgotPasswordService.forgotPassword(data)
         .then((response) => {
+          console.log("response",response);
             dispatch(getListActions.success(response));               
         }, err=> { throw err; })
         .catch(err=> {

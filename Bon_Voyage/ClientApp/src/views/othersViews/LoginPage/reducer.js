@@ -108,7 +108,7 @@ function getUrlToRedirect() {
         path = "/manager/profile";
         break;
       } else if (roles[i] === "Admin") {
-        path = "/admin/manager/control";
+        path = "/admin";
         break;
       } 
     }
@@ -118,7 +118,7 @@ function getUrlToRedirect() {
     } else if (roles === "Manager") {
       path = "/manager/profile";
     } else if (roles === "Admin") {
-      path = "/admin/manager/control";
+      path = "/admin";
     }
   }
 
@@ -164,12 +164,14 @@ export const loginByJWT = (tokens, dispatch) => {
   const { token, refToken } = tokens;
   console.log('Hello app Token: ', tokens);
   var user = jwt.decode(token);
-  //console.log('Hello app User: ', user);
+
+
+  console.log("token -",jwt.decode(token));
   if (!Array.isArray(user.roles)) {
     user.roles = Array.of(user.roles);
   }
+
   localStorage.setItem("jwtToken", token);
-  //localStorage.setItem("refreshToken", refToken);
   setAuthorizationToken(token);
   dispatch(loginActions.setCurrentUser(user));
 };

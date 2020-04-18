@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { Button, Card, CardBody, CardFooter, CardGroup,
          Col, Container, Form, Input, InputGroup,
          InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-import classnames from 'classnames';
-import PropTypes from 'prop-types';
+
 import { connect } from "react-redux";
-import {ForgotPassword} from './reducer';
+import * as reducer from './reducer';
+import {Growl} from 'primereact/growl';
 
 import get from "lodash.get";
 
@@ -17,6 +17,7 @@ class ForgotPasswordPage extends Component {
       errors: {},
       done: false,
       isLoading: false,
+      isSuccess:false,
       errorsServer: {}
     }
   
@@ -42,6 +43,11 @@ class ForgotPasswordPage extends Component {
       }
     }
   
+    showSuccess = () => {
+      this.growl.show({severity: 'success', summary: 'Перейдіть на свою пошту для зміни паролю', detail:'',sticky:true});
+  }
+
+
     handleChange = (e) => {
       this.setStateByErrors(e.target.name, e.target.value);
   
@@ -56,7 +62,7 @@ class ForgotPasswordPage extends Component {
   
       if (email === '') errors.email = "Поле є обов'язковим";
       
-  
+      
   
       const isValid = Object.keys(errors).length === 0
       if (isValid) {
@@ -73,6 +79,17 @@ class ForgotPasswordPage extends Component {
       }
     }
 
+
+    componentWillReceiveProps = (nextProps) => {
+    // console.log("nextProps",nextProps);
+      if(this.props != nextProps){
+        this.setState({
+          isSuccess : nextProps.successReducer
+        });
+      }
+
+    }
+
     componentDidMount(){
       const paramId= this.props.match.params.id;
       let id = paramId.split('=').splice(1,1).toString();
@@ -81,10 +98,17 @@ class ForgotPasswordPage extends Component {
 
     render() { 
         const { errors, isLoading, profileUrl, visible, errorsServer } = this.state;
-        
+
+      if(this.state.isSuccess){
+        console.log("success");
+        this.showSuccess();
+        this.setState({isSuccess: false});
+      }
+
         const form = (
             <div className="app flex-row">
               <Container>
+              <Growl ref={(el) => this.growl = el} />
                 <Row className="justify-content-center mt-5">
                   <Col md="8">
                     <CardGroup>
@@ -93,7 +117,7 @@ class ForgotPasswordPage extends Component {
                           <Form onSubmit={this.onSubmitForm}>
                             <h1>Забули Пароль?</h1>
                             <p className="text-muted">Вкажіть свою електронну пошту</p>
-                                <InputGroup className="mb-3">
+                                <InputGroup className="mb-2">
                                     <Input
                                         type="email"
                                         placeholder="Електронна пошта"
@@ -108,8 +132,14 @@ class ForgotPasswordPage extends Component {
                                 </InputGroup>                                                                                      
                                     <Row>
                                     <Col xs="4">
-                                <Button color="primary" className="px-4">Відправити пароль</Button>
-                              </Col>
+                                    <Link to="/login"> 
+                                                   
+                                <Button color="primary" className="px-4">Назад</Button>    
+                                    </Link>
+                                    </Col> 
+                                    <Col xs="4">
+                                <Button color="primary" className="px-4">Відправити пароль</Button>                              
+                              </Col>                            
                             </Row>
                           </Form>
                         </CardBody>               
@@ -131,10 +161,10 @@ class ForgotPasswordPage extends Component {
 function mapStateToProps(state) {
   console.log("mapStateToProps", state);
   return {
-    loading: get(state, 'login.post.loading'),
-    failed: get(state, 'login.post.failed'),
-    success: get(state, 'login.post.success'),
-    errors: get(state, 'login.post.errors')
+    loading: get(state, 'forgotPassword.post.loading'),
+    failed: get(state, 'forgotPassword.post.failed'),
+    successReducer: get(state, 'forgotPassword.post.success'),
+    errors: get(state, 'forgotPassword.post.errors')
   }
 }
 
@@ -142,8 +172,9 @@ function mapStateToProps(state) {
 
 const mapDispatch = {
   ForgotPassword: (model) => {
-      return ForgotPassword(model);
-  }
+      return reducer.ForgotPassword(model);
+  } 
+  
 }
 
 export default connect(mapStateToProps, mapDispatch)(ForgotPasswordPage);

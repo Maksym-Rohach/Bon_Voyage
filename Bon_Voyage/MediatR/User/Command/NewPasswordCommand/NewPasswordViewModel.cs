@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bon_Voyage.MediatR.Airports.Commands
+namespace Bon_Voyage.MediatR.User.Command.NewPasswordCommand
 {
-    public class CreateAirportViewModel
+    public class NewPasswordViewModel
     {
         public bool Status { get; set; }
-        public string ErrorMessage { get; set; }
+        public string ErrorMessage { get; set;}
     }
 }

@@ -13,8 +13,15 @@ import {changeImageReducer} from '../components/ChangeImage/reducer';
 import {changePasswordReducer} from '../components/ChangePassword/reducer';
 import {changeInfoReducer} from '../components/ChangeInfo/reducer';
 import { boughtTicketsReducer } from '../views/managerViews/BoughtTickets/reducer';
+import { hotDealTicketsReducer } from '../views/managerViews/HotDealTickets/reducer';
+import {addTicketReducer} from '../views/managerViews/AddTicketView/reducer'
 import { registerReducer } from '../views/othersViews/RegisterPage/reducer';
 
+import {ForgotPasswordReducer} from '../views/othersViews/ForgotPasswordPage/reducer';
+import { NewPasswordReducer } from '../views/othersViews/NewPasswordPage/reducer';
+
+
+import {airportControlReducer, countryControlReducer} from '../views/adminViews/AirportControl/reducer';
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
@@ -24,14 +31,21 @@ export default function configureStore(history, initialState) {
   const reducers = {
     login: loginReducer,
     home: homePageReducer,
+    forgotPassword: ForgotPasswordReducer,
+    addTicket: addTicketReducer,
     //persons: personsChartReducer,
     comments: commentsChartReducer,
       managers: managerControlReducer,
       managerProfile: managerProfileViewReducer,
       changeImage: changeImageReducer,
+      managerProfile: managerProfileViewReducer,
+      airports: airportControlReducer,
+      changeImage: changeImageReducer,
       changePassword: changePasswordReducer,
       changeInfoReducer: changeInfoReducer,
       boughtTickets: boughtTicketsReducer,
+      hotDealTickets: hotDealTicketsReducer,
+      newPassword:NewPasswordReducer,
       register: registerReducer
   };
 
