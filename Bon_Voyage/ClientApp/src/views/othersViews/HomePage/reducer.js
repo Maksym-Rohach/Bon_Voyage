@@ -13,6 +13,8 @@ export const HOTEL_STARTED = "HOTEL_STARTED";
 export const HOTEL_SUCCESS = "HOTEL_SUCCESS";
 export const HOTEL_FAILED = "HOTEL_FAILED";
 
+export const CLEAR_SUCCESS = "CLEAR_SUCCESS";
+
 const initialState = {
     list: {
         data: [],
@@ -56,7 +58,6 @@ export const getCityData = (countryId) =>{
 }
 
 export const getHotelData = (cityId) =>{
-    console.log(cityId);
     return (dispatch) => {
         HomePageService.GetHotels(cityId)     
             .then((response) => {                        
@@ -67,6 +68,12 @@ export const getHotelData = (cityId) =>{
               //dispatch(getCityListActions.failed(err));
             });
             
+    }
+}
+
+export const clearData = () => {
+    return (dispatch) => {
+       dispatch(clearListActions.success());
     }
 }
 
@@ -120,6 +127,15 @@ export const getHotelListActions = {
     }
 }
 
+export const clearListActions = {
+    success: () => {
+        return {
+            type: CLEAR_SUCCESS,
+        }
+    }
+}
+
+
 export const homePageReducer = (state = initialState, action) => { 
   let newState = state;
   switch (action.type) {
@@ -149,7 +165,14 @@ export const homePageReducer = (state = initialState, action) => {
       }
 
       case HOTEL_SUCCESS: {
-        newState = update.set(newState, 'hotels', action.payload);            
+          newState = update.set(newState, 'hotels', action.payload);
+          break;
+      }
+
+      case CLEAR_SUCCESS: {
+        //   newState = update.set(newState, 'list.data', []);
+          newState = update.set(newState, 'cities', []);
+          newState = update.set(newState, 'hotels', []);
           break;
       }
 

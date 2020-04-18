@@ -32,12 +32,14 @@ class HomePage extends Component {
   }
 
   countrySelectEvent = e => {
+    this.props.clearData();
+
     this.props.getCityData(e.target.value);
-    setTimeout(() => {
-      this.props.getHotelData(this.state.cities[0].id);
-    }, 500);
-    // const {id} = e.target.dataSet;
-    // this.props.cities = this.props.getCityData({id});
+    if(this.state.cities.length > 0) {
+      this.props.getHotelData(this.state.cities[0].id);   
+    }
+    
+    this.setState({hotels:[]});
   }
 
   citySelectEvent = e => {
@@ -117,7 +119,7 @@ class HomePage extends Component {
             <div className="container h-100">
               <div className="home-banner">
                 <div className="text-center">
-                  {/* <h4>See What a Difference a stay makes</h4> */}
+                  <h4>Влаштуй собі відпочинок</h4>
                   <h1>Подорожуй <em>із</em> насолодою</h1>
                   <a className="button home-banner-btn" href="#">Список квитків</a>
                 </div>
@@ -127,35 +129,12 @@ class HomePage extends Component {
           <form className="form-search form-search-position">
             <div className="container">
               <div className="row">
-                {/* <div className="col-lg-6 gutters-19">
-                      <div className="form-group">
-                        <input className="form-control" type="text" placeholder="Enter your keywords.." required />
-                      </div>
-                    </div> */}
                 <div className="col-lg-6 gutters-19">
                   <div className="row">
                     <div className="col-sm">
                       <div className="form-group">
-                        {/* <div className="form-select-custom">
-                              <select name="" id="">
-                                <option value="" disabled selected>Arrival</option>
-                                <option value="8 AM">8 AM</option>
-                                <option value="12 PM">12 PM</option>
-                              </select>
-                            </div> */}
                       </div>
                     </div>
-                    {/* <div className="col-sm gutters-19">
-                          <div className="form-group">
-                            <div className="form-select-custom">
-                              <select name="" id="">
-                                <option value="" disabled selected>Number of room</option>
-                                <option value="8 AM">8 AM</option>
-                                <option value="12 PM">12 PM</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div> */}
                   </div>
                 </div>
               </div>
@@ -194,12 +173,13 @@ class HomePage extends Component {
                   <div className="form-group">
                     <div className="form-select-custom">
                       <select name="HotelSelect">
-                        <option disabled selected default>Виберіть готель</option>
+                        {/* <option disabled selected default>Виберіть готель</option> */}
                         {
                           hotels.length > 0 ?
                           (hotels.map(item => {
                             return (<option key={item.id} value={item.id} >{item.name}</option>)
-                          })) : <div></div>
+                          })) :                         <option disabled selected default>Виберіть готель</option>
+
                         }
                       </select>
                     </div>
@@ -390,16 +370,21 @@ function mapStateToProps(state) {
 
 //1
 //Call reducer
-const mapDispatch = {
-  getHomeData: () => {
-    return reducer.getHomeData();
-  },
-  getCityData: (countryId) => {
-    return reducer.getCityData(countryId);
-  },
-  getHotelData: (cityId) => {
-    return reducer.getHotelData(cityId);
-  }
+const mapDispatch = (dispatch) => {
+   return {
+    getHomeData: () => {
+     dispatch(reducer.getHomeData());
+    },
+    getCityData: (countryId) => {
+      dispatch(reducer.getCityData(countryId));
+    },
+    getHotelData: (cityId) => {
+      dispatch(reducer.getHotelData(cityId));
+    },
+    clearData: () => {
+      dispatch(reducer.clearData());
+    }
+   }
 }
 
 export default connect(mapStateToProps, mapDispatch)(HomePage);
