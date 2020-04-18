@@ -9,6 +9,6 @@ namespace Bon_Voyage.MediatR.Registration
     {
         public bool Status { get; set; }
         public string ErrorMessage { get; set; }
-        public string Tokken { get; set; }
+        public string Token { get; set; }
     }
 }

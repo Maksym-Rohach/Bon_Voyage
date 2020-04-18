@@ -20,8 +20,6 @@ class ForgotPasswordPage extends Component {
       errorsServer: {}
     }
   
-   
-  
     static getDerivedStateFromProps(nextProps, prevState) {
     
       return { isLoading: nextProps.loading, errorsServer: nextProps.errors };
@@ -75,8 +73,15 @@ class ForgotPasswordPage extends Component {
       }
     }
 
+    componentDidMount(){
+      const paramId= this.props.match.params.id;
+      let id = paramId.split('=').splice(1,1).toString();
+      console.log("QQQidQQQ", id);
+    }
+
     render() { 
         const { errors, isLoading, profileUrl, visible, errorsServer } = this.state;
+        
         const form = (
             <div className="app flex-row">
               <Container>

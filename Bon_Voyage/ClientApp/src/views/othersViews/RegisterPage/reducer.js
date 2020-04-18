@@ -31,7 +31,7 @@ const initialState = {
     }
   };
   
-  export const RegisterReducer = (state = initialState, action) => {
+  export const registerReducer = (state = initialState, action) => {
     let newState = state;
   
     switch (action.type) {
@@ -96,7 +96,7 @@ export function Register(data) {
     return dispatch => {
         return axios.post(url, data)
             .then(res => {
-              console.log("res.data", res.data);
+              console.log("res.data", res);
               Login.loginByJWT(res.data, dispatch);
             });
     }
