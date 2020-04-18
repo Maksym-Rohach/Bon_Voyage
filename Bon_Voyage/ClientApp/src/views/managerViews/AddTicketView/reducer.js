@@ -46,8 +46,8 @@ export const addTicket = (ticket) => {
                 dispatch(TicketActions.success(response)); // Set success action
             }, err=> { throw err; })
             .catch(err=> {            
-                console.log("Add ticket error - ",err);
-              dispatch(TicketActions.failed(err));
+                console.log("Add ticket error - ",err.response);
+              dispatch(TicketActions.failed(err.response));
             });
             
     }
@@ -126,9 +126,9 @@ export const getComfortData = () => {
     }
 }
 
-export const clearInit = () => {
+export const clearTicketState = () => {
     return (dispatch) => {
-        dispatch(clearActions.success);
+        dispatch(clearActions.success());
     }
 }
 
@@ -151,7 +151,7 @@ export const TicketActions = {
     failed: (error) => {
         return {
             type: TICKET_FAILED,
-            error: error,
+            error: error.data,
         }
     }
 }
@@ -224,11 +224,12 @@ export const clearActions = {
 
 export const addTicketReducer = (state = initialState, action) => { 
   let newState = state;
+
   switch (action.type) {
       case TICKET_STARTED: {
-          newState = update.set(state, 'list.loading', true);
-          newState = update.set(newState, 'list.success', false);
-          newState = update.set(newState, 'list.failed', false);
+          newState = update.set(state, 'ticketStat.loading', true);
+          newState = update.set(newState, 'ticketStat.success', false);
+          newState = update.set(newState, 'ticketStat.failed', false);
           break;
       }
       case TICKET_SUCCESS: {
@@ -239,11 +240,10 @@ export const addTicketReducer = (state = initialState, action) => {
           break;
       }
       case TICKET_FAILED: {
-          console.log(action.errors);
-          newState = update.set(state, 'list.loading', false);
-          newState = update.set(newState, 'list.success', false);
-          newState = update.set(newState, 'list.failed', true);
-          newState = update.set(newState, 'ticketStat.errors', action.errors);         
+          newState = update.set(state, 'ticketStat.loading', false);
+          newState = update.set(newState, 'ticketStat.success', false);
+          newState = update.set(newState, 'ticketStat.failed', true);
+          newState = update.set(newState, 'ticketStat.errors', action.error);         
           break;
       }
 
@@ -272,12 +272,11 @@ export const addTicketReducer = (state = initialState, action) => {
           break;
       }
       case CLEAR_SUCCESS: {
-          newState = update.set(newState,'countries',undefined);
-          newState = update.set(newState,'airports',undefined);
-          newState = update.set(newState,'cities',[]);
-          newState = update.set(newState,'hotels',undefined);
-          newState = update.set(newState,'roomTypes',undefined);
-          newState = update.set(newState,'comforts',undefined);
+          console.log("clear");
+          newState = update.set(state, 'ticketStat.loading', false);
+          newState = update.set(newState, 'ticketStat.success', false);
+          newState = update.set(newState, 'ticketStat.failed', false);
+          newState = update.set(newState, 'ticketStat.errors', {});
           break;
       }
 

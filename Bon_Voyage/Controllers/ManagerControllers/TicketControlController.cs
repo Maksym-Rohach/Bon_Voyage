@@ -65,7 +65,6 @@ namespace Bon_Voyage.Controllers.ManagerControllers
             }
             catch (Exception e)
             {
-
                 return BadRequest(e.Message);
             }
         }

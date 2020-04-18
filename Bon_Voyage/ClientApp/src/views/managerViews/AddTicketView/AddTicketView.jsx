@@ -6,7 +6,9 @@ import { Dropdown } from "primereact/dropdown";
 import { Growl } from "primereact/growl";
 import { Button } from "primereact/button";
 import { ProgressSpinner } from "primereact/progressspinner";
-import {MultiSelect} from 'primereact/multiselect';
+import { MultiSelect } from "primereact/multiselect";
+import { Calendar } from "primereact/calendar";
+
 
 
 import get from "lodash.get";
@@ -61,6 +63,7 @@ class AddTicket extends Component {
     isLoad: false,
     isSuccess:false,
     isFailed:false,
+    minDate: null,
     errors:{
       priceFrom:"",
       countsOfNight:"",
@@ -80,7 +83,8 @@ class AddTicket extends Component {
       dateTo:"",
       countOfPlaces:"",
       discount:"",
-    }
+    },
+    growlError:"",
   };
 
 
@@ -111,23 +115,52 @@ class AddTicket extends Component {
     this.setState({ roomType: e.value });
   };
 
+  onDateFromChange = (e) => {    
+    this.state.fields.dateFrom = this.assemblyDate(e.value);
+  }
+
+  onDateToChange = (e) => {
+    
+    this.state.fields.dateTo = this.assemblyDate(e.value);
+  }
+
+  //-------------------------Other-------------------------------
+
+  assemblyDate = (date) => {
+    let myDate = new Date(date);
+    let res = "";
+    console.log(myDate);
+    myDate.getDate() < 10 ? res+= '0' + myDate.getDate() : res += myDate.getDate();
+    res += '.';
+    myDate.getMonth() < 10 ? res+= '0' + (myDate.getMonth()+1) : res += (myDate.getMonth()+1);
+    res += '.';
+    res += myDate.getFullYear();
+
+    console.log(res);
+    return res;
+  }
 
   //-------------------------SHOW--------------------------------
 
   showSuccess() {
+    this.setState({isSuccess:false});
     this.growl.show({
       severity: "success",
       summary: "Квиток створенний",
-      // detail: "Order submitted",
+      life:10000
     });
+    this.props.clearTicketState();
   }
 
   showError() {
+    this.setState({isFailed:false});
     this.growl.show({
       severity: "error",
       summary: "Помилка",
-      //detail: "Validation failed",
+      detail: this.state.growlError,
+      life:8000
     });
+    this.props.clearTicketState();
   }
 
   //-------------------------Validation--------------------------------
@@ -185,7 +218,7 @@ class AddTicket extends Component {
     });
     document.getElementById("mainForm").reset();
 
-    this.props.clearInit();
+    // this.props.clearTicketState();
     this.props.getCountryData();
     this.props.getRoomTypeData();
     this.props.getComfortData(); 
@@ -340,6 +373,15 @@ class AddTicket extends Component {
     this.props.getCountryData();
     this.props.getRoomTypeData();
     this.props.getComfortData();
+
+    let today = new Date();
+    let month = today.getMonth();
+    let year = today.getFullYear();
+    let minDate = new Date();
+    minDate.setMonth(month);
+    minDate.setFullYear(year);
+
+    this.setState({minDate:minDate});
   }
 
 
@@ -353,7 +395,9 @@ class AddTicket extends Component {
         roomTypes : nextProps.roomTypeReducer,
         comforts : nextProps.comfortReducer,
         isLoad : nextProps.ticketReducer.loading,
-        isSuccess : nextProps.ticketReducer.success,
+        isSuccess:nextProps.ticketReducer.success,
+        isFailed: nextProps.ticketReducer.failed,
+        growlError: nextProps.ticketReducer.errors.errorMessage,
       });
     }
   }
@@ -361,21 +405,19 @@ class AddTicket extends Component {
 
 
   render() {
-    const { isLoad,errors,isSuccess,isFailed } = this.state;
+    const { isLoad,errors,isSuccess,isFailed,minDate } = this.state;
 
-    if(isSuccess){
-      this.setState({isSuccess:false});
+    if (isSuccess) {
       this.showSuccess();
       this.clear();
     }
     if(isFailed){
-      this.setState({isFailed:false});
       this.showError();
     }
 
     return (
       <div className="mt-3 container">
-        <Growl ref={(el) => (this.growl = el)} life={8} style={{ marginTop: "3rem" }} />
+        <Growl ref={(el) => (this.growl = el)} style={{ marginTop: "3rem" }} />
 
         <h3 style={{ fontSize: "2.3rem" }}>Сворити квиток</h3>
 
@@ -439,19 +481,21 @@ class AddTicket extends Component {
                 {errors.countsOfNight}
               </div>
 
-              <h6>Дата відльоту</h6>
+              <h6>Дата відльоту</h6>              
               <div>
-                <InputMask
+                <Calendar
+                    dateFormat="dd/mm/yy"
+                  readOnlyInput={true}
                   style={{ width: "100%" }}
+                  inputStyle={{ minWidth: "100%" }}
+                  minDate={minDate}
+                  placeholder="Ведіть дату"
+                  onSelect ={(e) => this.onDateFromChange(e)}
                   className={
                     errors.dateFrom == "" ? "mb-3" : "is-invalid p-error"
                   }
-                  mask="99.99.9999"
-                  placeholder="дд.мм.рррр"
-                  slotChar="дд.мм.рррр"
-                  value={this.state.fields.dateFrom}
-                  onComplete={(e) => (this.state.fields.dateFrom = e.value.toString())}
-                ></InputMask>
+                  showButtonBar={true}
+                />
                 <div
                   className="invalid-feedback mb-2"
                   style={{ fontSize: "0.8rem", fontWeight: "500" }}
@@ -462,22 +506,25 @@ class AddTicket extends Component {
 
               <h6>Дата прильоту</h6>
               <div>
-                <InputMask
+              <Calendar
+                  dateFormat="dd/mm/yy"
+                  readOnlyInput={true}
+                  style={{ width: "100%" }}
+                  inputStyle={{ minWidth: "100%" }}
+                  minDate={minDate}
+                  placeholder="Ведіть дату"
+                  onSelect ={(e) => this.onDateToChange(e)}
                   className={
                     errors.dateTo == "" ? "mb-3" : "is-invalid p-error"
                   }
-                  style={{ width: "100%" }}
-                  mask="99.99.9999"
-                  placeholder="дд.мм.рррр"
-                  slotChar="дд.мм.рррр"
-                  onChange={(e) => (this.state.fields.dateTo = e.value.toString())}
-                ></InputMask>
-              </div>
-              <div
-                className="invalid-feedback mb-2"
-                style={{ fontSize: "0.8rem", fontWeight: "500" }}
-              >
-                {errors.dateTo}
+                  showButtonBar={true}
+                />
+                <div
+                  className="invalid-feedback mb-2"
+                  style={{ fontSize: "0.8rem", fontWeight: "500" }}
+                >
+                  {errors.dateTo}
+                </div>
               </div>
 
               <h6>Кількість місць</h6>
@@ -623,7 +670,6 @@ class AddTicket extends Component {
                 placeholder="Виберіть комфорти"
                 className="mb-3"
               />
-        
 
               <div
                 className="d-flex align-items-end justify-content-end m-2"
@@ -672,32 +718,33 @@ function mapStateToProps(state) {
 
 //1
 //Call reducer
-const mapDispatch = {
-  addTicket: (ticket) => {
-    return reducer.addTicket(ticket);
-  },
-  getCountryData: () => {
-    return reducer.getCountryData();
-  },
-  getAirportData: (countryId) => {
-    return reducer.getAirportData(countryId);
-  },
-  getCityData: (countryId) => {
-    return reducer.getCityData(countryId);
-  },
-  getHotelData: (cityId) => {
-    return reducer.getHotelData(cityId);
-  },
-  getRoomTypeData: () => {
-    return reducer.getRoomTypeData();
-  },
-  getComfortData: () => {
-    return reducer.getComfortData();
-  },
-  clearInit: () => {
-    return reducer.clearInit();
-  }
-
+const mapDispatch = (dispatch) => {
+  return {
+    addTicket: (ticket) => {
+      dispatch(reducer.addTicket(ticket));
+    },
+    getCountryData: () => {
+      dispatch(reducer.getCountryData());
+    },
+    getAirportData: (countryId) => {
+      dispatch(reducer.getAirportData(countryId));
+    },
+    getCityData: (countryId) => {
+      dispatch(reducer.getCityData(countryId));
+    },
+    getHotelData: (cityId) => {
+      dispatch(reducer.getHotelData(cityId));
+    },
+    getRoomTypeData: () => {
+      dispatch(reducer.getRoomTypeData());
+    },
+    getComfortData: () => {
+      dispatch(reducer.getComfortData());
+    },
+    clearTicketState: () => {
+      dispatch(reducer.clearTicketState());
+    },
+  };
 }
 
 export default connect(mapStateToProps, mapDispatch)(AddTicket);

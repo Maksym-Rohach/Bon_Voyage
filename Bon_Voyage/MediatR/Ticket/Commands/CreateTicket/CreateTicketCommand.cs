@@ -96,8 +96,6 @@ namespace Bon_Voyage.MediatR.Ticket.Commands.CreateTicket
                         ErrorMessage = "Кількість ночей не може бути менше однієї ночі"
                     };
                 }
-                var res = DateTime.ParseExact(request.DateFrom, "dd.mm.yyyy", null);
-                res = DateTime.Parse(request.DateFrom);
                 if (DateTime.Parse(request.DateFrom) <= DateTime.Now)
                 {
                     return new AddTicketRequest
