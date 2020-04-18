@@ -92,12 +92,15 @@ const initialState = {
 //};
 export function Register(data) {
     const url = 'https://localhost:44365/api/registration/register';
-    console.log("sssss", data);
+    console.log("Return token - ", data);
     return dispatch => {
         return axios.post(url, data)
             .then(res => {
-              console.log("res.data", res.data);
+              console.log("Register data - ",res.data);
               Login.loginByJWT(res.data, dispatch);
+            })
+            .catch(err => {
+              console.log("ERROR",err);
             });
     }
 }
