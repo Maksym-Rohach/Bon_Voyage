@@ -30,14 +30,14 @@ export const getHomeData = () => {
     return (dispatch) => {
         dispatch(getHomeListActions.started()); // Set started action
         HomePageService.GetHomeInfo() // Get data from service
-            .then((response) => {   
-                console.log("RESPONSE!!!")    
+            .then((response) => {       
                 dispatch(getHomeListActions.success(response)); // Set success action
             }, err=> { throw err; })
             .catch(err=> {
                 console.log(`Error - ${err}`);
               dispatch(getHomeListActions.failed(err));
-            });           
+            });
+            
     }
 }
 

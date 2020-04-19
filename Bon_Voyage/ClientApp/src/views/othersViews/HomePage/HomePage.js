@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import * as reducer from "./reducer";
 import * as login from "../LoginPage/reducer";
 import '../instruments/css/style.scss';
-import Loader from '../../../components/Loader';
 //import '../../../scss/customNav/custNavbar.scss'
 
 import Banner1 from "../../../assets/img/welcomeBanner1.png";
@@ -58,12 +57,9 @@ class HomePage extends Component {
   render() {
 
     const { countries, cities, hotels } = this.state;
-    const { isAuthenticated, isLoading} = this.props;
-console.log("RENDER", countries);
-    if(countries!==undefined)
+    const {isAuthenticated} = this.props;
+
     return (
-      <React.Fragment>
-        {isLoading && <Loader/>}
       <div className="home-page bg-white">
         <header className="header_area">
 
@@ -108,7 +104,7 @@ console.log("RENDER", countries);
                         {
 
                         }
-                        <i class="pi pi-shopping-cart" style={{ 'fontSize': '2em' }}></i>
+                        <i className="pi pi-shopping-cart" style={{ 'fontSize': '2em' }}></i>
                       </a></li>
                   </ul>
                 </div>
@@ -374,7 +370,7 @@ console.log("RENDER", countries);
           </section>
         </main>
       </div>
-      </React.Fragment>
+
     );
   }
 }
@@ -384,40 +380,26 @@ console.log("RENDER", countries);
 // 2
 // GetReducerData
 function mapStateToProps(state) {
-  console.log("mapStateToProps", state);
   return {
     countriesReducer: get(state, 'home.list.data.countries'),
     citiesReducer: get(state, 'home.cities'),
     hotelsReducer: get(state, 'home.hotels'),
-    isLoading: get(state, 'home.list.loading')
   };
+
 }
 
-const mapDispatch = (dispatch) => {
-  return {
-    getHomeData: () => {
-      dispatch(reducer.getHomeData());
-    },
-    getCityData: (countryId) => {
-      dispatch(reducer.getCityData(countryId));
-    },
-    getHotelData: (cityId) => {
-      dispatch(reducer.getHotelData(cityId));
-    }
-  };
-};
 //1
 //Call reducer
-// const mapDispatch = {
-//   getHomeData: () => {
-//     return reducer.getHomeData();
-//   },
-//   getCityData: (countryId) => {
-//     return reducer.getCityData(countryId);
-//   },
-//   getHotelData: (cityId) => {
-//     return reducer.getHotelData(cityId);
-//   }
-// }
+const mapDispatch = {
+  getHomeData: () => {
+    return reducer.getHomeData();
+  },
+  getCityData: (countryId) => {
+    return reducer.getCityData(countryId);
+  },
+  getHotelData: (cityId) => {
+    return reducer.getHotelData(cityId);
+  }
+}
 
 export default connect(mapStateToProps, mapDispatch)(HomePage);
