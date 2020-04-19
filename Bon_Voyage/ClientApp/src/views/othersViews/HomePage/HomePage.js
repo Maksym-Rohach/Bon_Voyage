@@ -104,7 +104,7 @@ class HomePage extends Component {
                         {
 
                         }
-                        <i class="pi pi-shopping-cart" style={{ 'fontSize': '2em' }}></i>
+                        <i className="pi pi-shopping-cart" style={{ 'fontSize': '2em' }}></i>
                       </a></li>
                   </ul>
                 </div>
