@@ -15,6 +15,7 @@ import {changeInfoReducer} from '../components/ChangeInfo/reducer';
 import { boughtTicketsReducer } from '../views/managerViews/BoughtTickets/reducer';
 import { hotDealTicketsReducer } from '../views/managerViews/HotDealTickets/reducer';
 import {addTicketReducer} from '../views/managerViews/AddTicketView/reducer'
+import { registerReducer } from '../views/othersViews/RegisterPage/reducer';
 
 import {ForgotPasswordReducer} from '../views/othersViews/ForgotPasswordPage/reducer';
 import { NewPasswordReducer } from '../views/othersViews/NewPasswordPage/reducer';
@@ -45,6 +46,7 @@ export default function configureStore(history, initialState) {
       boughtTickets: boughtTicketsReducer,
       hotDealTickets: hotDealTicketsReducer,
       newPassword:NewPasswordReducer,
+      register: registerReducer
   };
 
   const middleware = [

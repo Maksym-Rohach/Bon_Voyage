@@ -234,6 +234,157 @@ class HomePage extends Component {
                   </div>
                   <h2>Explore Our Rooms</h2>
                 </div>
+                        }
+                        <i className="pi pi-shopping-cart" style={{ 'fontSize': '2em' }}></i>
+                      </a></li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </header>
+        <main className="site-main">
+          <section className="home-banner-area" id="home">
+            <div className="container h-100">
+              <div className="home-banner">
+                <div className="text-center">
+                  {/* <h4>See What a Difference a stay makes</h4> */}
+                  <h1>Подорожуй <em>із</em> насолодою</h1>
+                  <a className="button home-banner-btn" href="#">Список квитків</a>
+                </div>
+              </div>
+            </div>
+          </section>
+          <form className="form-search form-search-position">
+            <div className="container">
+              <div className="row">
+                {/* <div className="col-lg-6 gutters-19">
+                      <div className="form-group">
+                        <input className="form-control" type="text" placeholder="Enter your keywords.." required />
+                      </div>
+                    </div> */}
+                <div className="col-lg-6 gutters-19">
+                  <div className="row">
+                    <div className="col-sm">
+                      <div className="form-group">
+                        {/* <div className="form-select-custom">
+                              <select name="" id="">
+                                <option value="" disabled selected>Arrival</option>
+                                <option value="8 AM">8 AM</option>
+                                <option value="12 PM">12 PM</option>
+                              </select>
+                            </div> */}
+                      </div>
+                    </div>
+                    {/* <div className="col-sm gutters-19">
+                          <div className="form-group">
+                            <div className="form-select-custom">
+                              <select name="" id="">
+                                <option value="" disabled selected>Number of room</option>
+                                <option value="8 AM">8 AM</option>
+                                <option value="12 PM">12 PM</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div> */}
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-sm gutters-19">
+                  <div c lassName="form-group">
+                    <div className="form-select-custom">
+                      <select name="CountriesSelect" onChange={e => this.countrySelectEvent(e)}>
+                        <option disabled selected default>Виберіть країну</option>
+                        {
+                          countries.map(item => {
+                            return (<option key={item.id} value={item.id} >{item.name}</option>)
+                          })
+                        }
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-sm gutters-19">
+                  <div className="form-group">
+                    <div className="form-select-custom">
+                      <select name="CitySelect" onChange={e => this.citySelectEvent(e)}>
+                      <option disabled selected default>Виберіть місто</option>
+                        {
+                          cities.length > 0 ?
+                            (cities.map(item => {
+                              return (<option key={item.id} value={item.id} >{item.name}</option>)
+                            }))
+                            : <div></div>
+                        }
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-sm gutters-19">
+                  <div className="form-group">
+                    <div className="form-select-custom">
+                      <select name="HotelSelect">
+                        <option disabled selected default>Виберіть готель</option>
+                        {
+                          hotels.length > 0 ?
+                          (hotels.map(item => {
+                            return (<option key={item.id} value={item.id} >{item.name}</option>)
+                          })) : <div></div>
+                        }
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-4 gutters-19">
+                  <div className="form-group">
+                    <button className="button button-form" type="submit">Пошук квитків</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <section className="welcome">
+            <div className="container">
+              <div className="row align-items-center">
+                <div className="col-lg-5 mb-4 mb-lg-0">
+                  <div className="row no-gutters welcome-images">
+                    <div className="col-sm-7">
+                      <div className="card">
+                        <img className="" src={Banner1} alt="Card image cap" />
+                      </div>
+                    </div>
+                    <div className="col-sm-5">
+                      <div className="card">
+                        <img className="" src={Banner2} alt="Card image cap" />
+                      </div>
+                    </div>
+                    <div className="col-lg-12">
+                      <div className="card">
+                        <img className="" src={Banner3} alt="Card image cap" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-7">
+                  <div className="welcome-content">
+                    <h2 className="mb-4"><span className="d-block">Welcome</span> to our residence</h2>
+                    <p>Beginning blessed second a creepeth. Darkness wherein fish years good air whose after seed appear midst evenin, appear void give third bearing divide one so blessed moved firmament gathered </p>
+                    <p>Beginning blessed second a creepeth. Darkness wherein fish years good air whose after seed appear midst evenin, appear void give third bearing divide one so blessed</p>
+                    <a className="button button--active home-banner-btn mt-4" href="#">Learn More</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section className="section-margin">
+            <div className="container">
+              <div className="section-intro text-center pb-80px">
+                <div className="section-intro__style">
+                  <img src="img/home/bed-icon.png" alt="" />
+                </div>
+                <h2>Explore Our Rooms</h2>
+              </div>
 
                 <div className="row">
                   <div className="col-md-6 col-lg-4 mb-4 mb-lg-0">

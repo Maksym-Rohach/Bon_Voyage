@@ -31,7 +31,7 @@ const initialState = {
     }
   };
   
-  export const RegisterReducer = (state = initialState, action) => {
+  export const registerReducer = (state = initialState, action) => {
     let newState = state;
   
     switch (action.type) {

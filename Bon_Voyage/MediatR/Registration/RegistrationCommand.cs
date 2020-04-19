@@ -97,10 +97,10 @@ namespace Bon_Voyage.MediatR.Registration
                 DbUser dbClient = new DbUser
                 {
                     Email = request.Email,
-                    UserName = request.Name,
+                    UserName = request.Email,
                     BaseProfile = baseProfile   
                 };
-                var res = await _userManager.CreateAsync(dbClient, request.Password);
+                var res = _userManager.CreateAsync(dbClient, request.Password).Result;
                 res = _userManager.AddToRoleAsync(dbClient, roleName).Result;
 
                 if (res.Succeeded)
@@ -108,7 +108,7 @@ namespace Bon_Voyage.MediatR.Registration
                     _context.ClientProfiles.Add(clientPro);
                     _context.SaveChanges();
                     await _signInManager.SignInAsync(dbClient, isPersistent: false);
-                    return new RegistrationViewModel { Status = true, Tokken = _IJwtTokenService.CreateToken(dbClient) };
+                    return new RegistrationViewModel { Status = true, Token = _IJwtTokenService.CreateToken(dbClient) };
                 }
                 return new RegistrationViewModel { Status = false, ErrorMessage = ("") };
             }
