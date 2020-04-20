@@ -15,8 +15,8 @@ namespace Bon_Voyage.Controllers.AdminControllers
     public class CountryControlController : ApiController
     {
         // DONE
-        [HttpPost("AddCountry")]
-        public async Task<IActionResult> AddCountry([FromBody]AddCountryCommand command)
+        [HttpPost("CreateCountry")]
+        public async Task<IActionResult> CreateCountry([FromBody]AddCountryCommand command)
         {
             var res = await Mediator.Send(command);
             if (res.Status)
