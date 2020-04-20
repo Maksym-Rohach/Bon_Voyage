@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { InputText } from "primereact/inputtext";
-import { InputMask } from "primereact/inputmask";
 import { InputSwitch } from "primereact/inputswitch";
 import { Dropdown } from "primereact/dropdown";
 import { Growl } from "primereact/growl";
@@ -8,7 +7,7 @@ import { Button } from "primereact/button";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { MultiSelect } from "primereact/multiselect";
 import { Calendar } from "primereact/calendar";
-
+import Loader from '../../../components/Loader/index';
 
 
 import get from "lodash.get";
@@ -60,6 +59,7 @@ class AddTicket extends Component {
       { percent: "100%", value: 100 },
     ],
 
+    isPageLoad:true,
     isLoad: false,
     isSuccess:false,
     isFailed:false,
@@ -388,12 +388,13 @@ class AddTicket extends Component {
   componentWillReceiveProps = (nextProps) => { //- Binding     
     if(nextProps != this.props){
       this.setState({
-        countries : nextProps.countryReducer,
+        countries : nextProps.countryReducer.data,
         airports : nextProps.airportReducer,
         cities : nextProps.cityReducer,
         hotels : nextProps.hotelReducer,
         roomTypes : nextProps.roomTypeReducer,
         comforts : nextProps.comfortReducer,
+        isPageLoad: nextProps.countryReducer.loading,
         isLoad : nextProps.ticketReducer.loading,
         isSuccess:nextProps.ticketReducer.success,
         isFailed: nextProps.ticketReducer.failed,
@@ -405,7 +406,7 @@ class AddTicket extends Component {
 
 
   render() {
-    const { isLoad,errors,isSuccess,isFailed,minDate } = this.state;
+    const { isLoad,errors,isSuccess,isFailed,minDate,isPageLoad } = this.state;
 
     if (isSuccess) {
       this.showSuccess();
@@ -415,8 +416,13 @@ class AddTicket extends Component {
       this.showError();
     }
 
-    return (
-      <div className="mt-3 container">
+
+    const page = (
+      <React.Fragment>
+        {
+          isPageLoad ? <Loader/> : null
+        }
+        <div className="mt-3 container">
         <Growl ref={(el) => (this.growl = el)} style={{ marginTop: "3rem" }} />
 
         <h3 style={{ fontSize: "2.3rem" }}>Сворити квиток</h3>
@@ -695,7 +701,12 @@ class AddTicket extends Component {
           </form>
         </div>
       </div>
-    );
+      </React.Fragment>
+      );
+
+
+    // return isPageLoad ? <Loader/> : page;
+    return page;
   }
 }
 

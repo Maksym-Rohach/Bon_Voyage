@@ -5,7 +5,10 @@ export const TICKET_STARTED = "TICKET_STARTED";
 export const TICKET_SUCCESS = "TICKET_SUCCESS";
 export const TICKET_FAILED = "TICKET_FAILED";
 
+export const COUNTRIES_STARTED = "COUNTRIES_STARTED";
 export const COUNTRIES_SUCCESS = "COUTRIES_SUCCESS";
+export const COUNTRIES_FAILED = "COUNTRIES_FAILED";
+
 export const AIRPORTS_SUCCESS = "AIRPORTS_SUCCESS";
 export const CITIES_SUCCESS = "CITIES_SUCCESS";
 export const HOTELS_SUCCESS = "HOTELS_SUCCESS";
@@ -24,7 +27,12 @@ const initialState = {
         success: false,
         failed: false,
     },   
-    countries:[],
+    countries: {
+        data:[],
+        loading: false,
+        success: false,
+        failed: false,
+    },
     airports:[],
     cities:[],
     hotels:[],
@@ -55,12 +63,14 @@ export const addTicket = (ticket) => {
 
 export const getCountryData = () => {
     return (dispatch) => {
+        dispatch(CountriesActions.started());
         AddTicketService.GetCountries()     
             .then((response) => {            
                 dispatch(CountriesActions.success(response));               
             }, err=> { throw err; })
             .catch(err=> {
                 console.log('GetCountryData error - ' + err);
+                dispatch(CountriesActions.failed(err.response));
             });
             
     }
@@ -157,10 +167,21 @@ export const TicketActions = {
 }
 
 export const CountriesActions = {
+    started: () => {
+        return {
+            type: COUNTRIES_STARTED
+        }
+    },
     success: (data) => {
         return {
             type: COUNTRIES_SUCCESS,
             payload: data.data
+        }
+    },
+    failed: (error) => {
+        return {
+            type: COUNTRIES_FAILED,
+            error: error,
         }
     }
 }
@@ -247,10 +268,25 @@ export const addTicketReducer = (state = initialState, action) => {
           break;
       }
 
-      case COUNTRIES_SUCCESS: {
-          newState = update.set(newState,'countries',action.payload);
+      case COUNTRIES_STARTED: {
+          newState = update.set(state, 'countries.loading', true);
+          newState = update.set(newState, 'countries.success', false);
+          newState = update.set(newState, 'countries.failed', false);
           break;
       }
+      case COUNTRIES_SUCCESS: {
+          newState = update.set(state, 'countries.loading', false);
+          newState = update.set(newState, 'countries.success', true);
+          newState = update.set(newState, 'countries.failed', false);
+          newState = update.set(newState,'countries.data',action.payload);
+          break;
+      }
+      case COUNTRIES_FAILED: {
+        newState = update.set(state, 'countries.loading', false);
+        newState = update.set(newState, 'countries.success', false);
+        newState = update.set(newState, 'countries.failed', true);
+      }
+
       case AIRPORTS_SUCCESS: {
           newState = update.set(newState, 'airports', action.payload);
           break;
