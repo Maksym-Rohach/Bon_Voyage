@@ -394,6 +394,3 @@ const mapDispatch = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatch)(HomePage);
-
-
-
