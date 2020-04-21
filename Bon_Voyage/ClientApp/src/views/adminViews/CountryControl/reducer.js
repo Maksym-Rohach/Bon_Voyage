@@ -79,10 +79,10 @@ export const createCountry = (country) => {
     }
 }
 
-export const createCountry = (country) => {
+export const changeCountry = (country) => {
     return (dispatch) => {
         dispatch(changeCountryListActions.started()); // Set started action
-        CountryControlService.createCountry(country) // Get data from service
+        CountryControlService.changeCountry(country) // Get data from service
             .then((response) => {       
                 dispatch(changeCountryListActions.success(response)); // Set success action
             }, err => { throw err; })
