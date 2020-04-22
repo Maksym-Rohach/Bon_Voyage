@@ -141,7 +141,6 @@ class AirportControl extends Component {
                     </Form>
                 </Dialog>
                 <Button label="Додати аеропорт" className="p-button-primary btn-block p-button-raised" onClick={(e) => this.setState({ visible: true })} />
-                <Growl />
             </div>
         );
     }
