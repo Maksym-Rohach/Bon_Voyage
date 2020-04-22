@@ -16,12 +16,11 @@ import { boughtTicketsReducer } from '../views/managerViews/BoughtTickets/reduce
 import { hotDealTicketsReducer } from '../views/managerViews/HotDealTickets/reducer';
 import {addTicketReducer} from '../views/managerViews/AddTicketView/reducer'
 import { registerReducer } from '../views/othersViews/RegisterPage/reducer';
-
 import {ForgotPasswordReducer} from '../views/othersViews/ForgotPasswordPage/reducer';
 import { NewPasswordReducer } from '../views/othersViews/NewPasswordPage/reducer';
+import {countryControlReducer} from '../views/adminViews/CountryControl/reducer'
 
-
-import {airportControlReducer, countryControlReducer} from '../views/adminViews/AirportControl/reducer';
+import {airportControlReducer} from '../views/adminViews/AirportControl/reducer';
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
@@ -33,6 +32,7 @@ export default function configureStore(history, initialState) {
     home: homePageReducer,
     forgotPassword: ForgotPasswordReducer,
     addTicket: addTicketReducer,
+    countryControl: countryControlReducer,
     //persons: personsChartReducer,
     comments: commentsChartReducer,
       managers: managerControlReducer,
