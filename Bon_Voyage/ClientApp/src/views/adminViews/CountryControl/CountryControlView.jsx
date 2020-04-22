@@ -10,218 +10,385 @@ import {InputText} from 'primereact/inputtext';
 import {Dialog} from 'primereact/dialog';
 import {Column} from 'primereact/column';
 import {Button} from 'primereact/button';
-
+import {ProgressSpinner} from 'primereact/progressspinner';
+import {Growl} from 'primereact/growl';
+import Loader from '../../../components/Loader/index';
 
 
 class CountryControl extends Component {
   state = {
-    cars: [
-        {vin: "123", year: "2020", brand: "Mercedes", color: "Black"},
-        {vin: "123123", year: "2019", brand: "BMW", color: "White"},
-    ],
-    selectedCar: null,
-    car: null,
+    countries: [],
+    selectedCountry: null,
+    Country: null,
     displayDialog: false,
-    newCar:false,
+    newCountry: false,
+
+    isLoadPage: false,
+    isUpdateNameLoad: false,
+    isDeleteLoad: false,
+    isAddLoad: false,
+
+    isUpdateNameSuccess: false,
+    isDeleteSuccess:false,
+    isAddSuccess:false,
+
+    isCreateCountry:false,
+
+    errors:{
+        updateDialogError:{},
+        deleteDialogError:{},
+        addDialogError:{},
+    },
+    growlSuccessMessage: "",
+
+    dialogTitle:"Опції країни",
   };
-
-  componentDidMount= () => {
-    // this.carservice.getCarsSmall().then(data => this.setState({cars: data}));
-  }
-
-  save= () => {
-    let cars = [...this.state.cars];
-
-    if (this.state.newCar) {
-      cars.push(this.state.car);
-    } else {
-      cars[this.findSelectedCarIndex()] = this.state.car;
-    }
-
-    this.setState({
-      cars: cars,
-      selectedCar: null,
-      car: null,
-      displayDialog: false,
-    });
-  }
-
-
 
   //------------------ACTIONS------------------------
 
-  delete= () => {
-    let index = this.findSelectedCarIndex();
-    this.setState({
-      cars: this.state.cars.filter((val, i) => i !== index),
-      selectedCar: null,
-      car: null,
-      displayDialog: false,
-    });
-  }
+  save = () => {
+    let countries = [...this.state.countries];
 
-  findSelectedCarIndex= () => {
-    return this.state.cars.indexOf(this.state.selectedCar);
-  }
+    // Add new
+    if (this.state.newCountry) {
+        const model = {
+            name:this.state.Country.name
+        }
+        this.props.createCountry(model);
+    } else {
+        console.log("Save",this.state.Country);
+        const {Country} = this.state;
+        const model = {
+            id: Country.id,
+            newName: Country.name
+        }
+        this.props.changeCountry(model);
+    }
+
+    this.setState({
+      countries: countries,
+      selectedCountry: null,
+      isCreateCountry:false,
+    //   Country: null,
+    //   displayDialog: false,
+    });
+  };
+
+  delete = () => {  
+    const model = {
+        id: this.state.selectedCountry.id
+    }
+    this.props.deleteCountry(model);
+  };
 
   // Update property in state
   updateProperty(property, value) {
-    let car = this.state.car;
-    car[property] = value;
-    this.setState({ car: car });
+    let Country = this.state.Country;
+    Country[property] = value;
+    this.setState({ Country: Country });
   }
 
   // When click on row
-  onCarSelect = (e) => {
-    this.state.newCar = false;
+  onCountrySelect = (e) => {
+    // console.log(e.data);
+
+    this.state.newCountry = false;
     this.setState({
       displayDialog: true,
-      car: Object.assign({}, e.data),
+      isCreateCountry:false,
+      Country: Object.assign({}, e.data),
+      dialogTitle:"Опції країни"
     });
-  }
+  };
 
   addNew = () => {
-    this.state.newCar = true;
+    this.state.newCountry = true;
     this.setState({
-      car: { vin: "", year: "", brand: "", color: "" },
+      Country: { name: "" },
+      isCreateCountry:true,
       displayDialog: true,
+      dialogTitle:"Створити країну"
     });
-  }
+  };
 
   updateCountries = () => {
+    this.props.getCountries();
+  };
+
+  onDialogHide = () => {
+    let errors = {
+        updateDialogError:{},
+        deleteDialogError:{},
+        addDialogError:{},
+    }
+
+    this.setState({
+      displayDialog: false,
+      errors,
+    });
 
   }
 
+  //-------------------GROWL------------------------
+
+  showSuccess = () => {
+    if (this.state.isDeleteSuccess) {
+      this.growl.show({
+        severity: "warn",
+        summary: this.state.growlSuccessMessage,
+        life:6000
+      });
+    } else {
+      this.growl.show({
+        severity: "success",
+        summary: this.state.growlSuccessMessage,
+        life: 10000,
+      });
+    }
+
+
+    this.setState({
+      isUpdateNameSuccess: false,
+      isDeleteSuccess: false,
+      isAddSuccess: false,
+      displayDialog: false,
+    }); 
+    this.props.clearState();
+  }
   //------------------RENDER------------------------
 
-  renderHeader= () => {
-      return ( <div className="p-clearfix" style={{'lineHeight':'1.87em'}}>Керування країнами<Button onClick={e => this.updateCountries()} icon="pi pi-refresh" style={{'float':'right'}}/></div>);
-  }
-
-  renderFooter= () => {
-      return (
-        <div className="p-clearfix" style={{width:'100%'}}>
-            <Button style={{float:'left'}} label="Add" icon="pi pi-plus" onClick={e => this.addNew()}/>
+  renderHeader = () => {
+    return (
+      <div
+        className=" d-flex justify-content-between align-content-center"
+        style={{ lineHeight: "1.90em" }}
+      >
+        <label
+          style={{
+            fontSize: "1.3rem",
+            marginBottom: "0",
+            marginTop: "0.3rem",
+            verticalAlign: "middle",
+          }}
+        >
+          Список країн
+        </label>
+        <div style={{ textAlign: "left" }}>
+          <Button
+            onClick={(e) => this.updateCountries()}
+            className="ml-2 p-button-warning"
+            icon="pi pi-refresh"
+            tooltip="Перезавантажити"
+            tooltipOptions={{ position: "top" }}
+            style={{ float: "right" }}
+          />
+          <Button
+            style={{ float: "right" }}
+            className="p-button-success"
+            tooltip="Створити нову країну"
+            tooltipOptions={{ position: "top" }}
+            label="Створити"
+            icon="pi pi-plus"
+            onClick={(e) => this.addNew()}
+          />
         </div>
-      );
-  }
+      </div>
+    );
+  };
 
-  renderDialogFooter= () => {
-      return (
-        <div className="ui-dialog-buttonpane p-clearfix">
-          <Button label="Delete" icon="pi pi-times" onClick={this.delete} />
-          <Button label="Save" icon="pi pi-check" onClick={this.save} />
-        </div>
-      );
-  }
-
-  render= () => {   
-
+  renderDialogFooter = () => {
+    const { isUpdateNameLoad, isDeleteLoad, isAddLoad,isCreateCountry } = this.state;
 
     return (
-      <React.Fragment>
-        <div className="ml-2 mr-2 m-2">
-          {/* <DataTableSubmenu /> */}
+      <div className="ui-dialog-buttonpane p-clearfix d-flex justify-content-end">
+        {!isCreateCountry ? (
+          <Button
+            label="Видалити"
+            icon="pi pi-times"
+            className="p-button-danger"
+            onClick={(e) => this.delete()}
+          />
+        ) : (
+          <div></div>
+        )}
+        <Button
+          label="Зберегти"
+          icon="pi pi-check"
+          className="p-button-success"
+          onClick={(e) => this.save()}
+        />
+        {isUpdateNameLoad || isDeleteLoad || isAddLoad ? (
+          <ProgressSpinner
+            style={{ width: "2rem", margin: "0", height: "auto" }}
+            className="ml-2"
+            strokeWidth="8"
+            //fill="#EEEEEE"
+            animationDuration="9.7s"
+          />
+        ) : (
+          <div />
+        )}
+      </div>
+    );
+  };
 
+  //------------------REDUX-------------------------
+
+  componentDidMount = () => {
+    this.updateCountries();
+  };
+
+  componentWillReceiveProps = (nextProps) => {
+    //- Binding
+    this.setState({
+      isLoadPage: nextProps.getCountryReducer.loading,
+      isUpdateNameLoad: nextProps.changeCountryReducer.loading,
+      isDeleteLoad: nextProps.deleteCountryReducer.loading,
+      isAddLoad: nextProps.createCountryReducer.loading,
+      countries: nextProps.getCountryReducer.data,
+
+      isUpdateNameSuccess: nextProps.changeCountryReducer.success,
+      isDeleteSuccess: nextProps.deleteCountryReducer.success,
+      isAddSuccess: nextProps.createCountryReducer.success,
+
+      isCreateCountry:true,
+      
+      errors: {
+        updateDialogError: nextProps.changeCountryReducer.error,
+        deleteDialogError: nextProps.deleteCountryReducer.error,
+        addDialogError: nextProps.createCountryReducer.error,
+      },
+    });
+  };
+
+  render = () => {
+    const { isLoadPage,dialogTitle,isUpdateNameSuccess,isDeleteSuccess,isAddSuccess,errors } = this.state;
+
+    if (isUpdateNameSuccess || isDeleteSuccess || isAddSuccess) {
+        
+      if (isUpdateNameSuccess) {
+        this.state.growlSuccessMessage = "Місто змінено";
+      } else if (isDeleteSuccess) {
+        this.state.growlSuccessMessage = "Місто видалено";
+      } else if (isAddSuccess) {
+        this.state.growlSuccessMessage = "Місто створено";
+      }
+      
+
+      this.updateCountries();
+      this.showSuccess();
+    }
+
+    const page = (
+      <React.Fragment>
+        <Growl ref={(el) => (this.growl = el)} style={{ marginTop: "3rem" }} />
+        <div className="ml-2 mr-2 m-2">
           <div className="content-section introduction">
             <div className="feature-intro">
-              <h1>DataTable</h1>
-              <p>
-                This samples demonstrates a CRUD implementation using various
-                PrimeReact components.
-              </p>
+              <h1>Керування країнами</h1>             
             </div>
           </div>
 
           <div className="content-section implementation">
             <DataTable
-              value={this.state.cars}
+              value={this.state.countries}
               paginator={true}
-              rows={15}
+              rows={25}
               header={this.renderHeader()}
-              footer={this.renderFooter()}
               selectionMode="single"
-              selection={this.state.selectedCar}
-              onSelectionChange={(e) => this.setState({ selectedCar: e.value })}
-              onRowSelect={(e) => this.onCarSelect(e)}
+              selection={this.state.selectedCountry}
+              onSelectionChange={(e) =>
+                this.setState({ selectedCountry: e.value })
+              }
+              onRowSelect={(e) => this.onCountrySelect(e)}
             >
-              <Column field="vin" header="Vin" sortable={true} />
-              <Column field="year" header="Year" sortable={true} />
-              <Column field="brand" header="Brand" sortable={true} />
-              <Column field="color" header="Color" sortable={true} />
+              <Column field="name" header="Назва" sortable={true} />
+              <Column
+                field="cityCount"
+                header="Кількість міст"
+                sortable={true}
+              />
             </DataTable>
 
             <Dialog
-              visible={this.state.displayDialog}             
-              style={{width:"20rem"}}
-              header="Car Details"
+              visible={this.state.displayDialog}
+              style={{ width: "20rem" }}
+              header={dialogTitle}
               modal={true}
               footer={this.renderDialogFooter()}
-              onHide={() => this.setState({ displayDialog: false })}
-            >
-              {this.state.car && (
-                <div className="p-grid p-fluid">
-                  <div className="p-col-4" style={{ padding: ".75em" }}>
-                    <label htmlFor="vin">Vin</label>
-                  </div>
-                  <div className="p-col-8" style={{ padding: ".5em" }}>
-                    <InputText
-                      id="vin"
-                      onChange={(e) => {
-                        this.updateProperty("vin", e.target.value);
-                      }}
-                      value={this.state.car.vin}
-                    />
-                  </div>
-
-                  <div className="p-col-4" style={{ padding: ".75em" }}>
-                    <label htmlFor="year">Year</label>
-                  </div>
-                  <div className="p-col-8" style={{ padding: ".5em" }}>
-                    <InputText
-                      id="year"
-                      onChange={(e) => {
-                        this.updateProperty("year", e.target.value);
-                      }}
-                      value={this.state.car.year}
-                    />
-                  </div>
-
-                  <div className="p-col-4" style={{ padding: ".75em" }}>
-                    <label htmlFor="brand">Brand</label>
-                  </div>
-                  <div className="p-col-8" style={{ padding: ".5em" }}>
-                    <InputText
-                      id="brand"
-                      onChange={(e) => {
-                        this.updateProperty("brand", e.target.value);
-                      }}
-                      value={this.state.car.brand}
-                    />
-                  </div>
-
-                  <div className="p-col-4" style={{ padding: ".75em" }}>
-                    <label htmlFor="color">Color</label>
-                  </div>
-                  <div className="p-col-8" style={{ padding: ".5em" }}>
-                    <InputText
-                      id="color"
-                      onChange={(e) => {
-                        this.updateProperty("color", e.target.value);
-                      }}
-                      value={this.state.car.color}
-                    />
-                  </div>
+              onHide={(e) => this.onDialogHide()}
+            >            
+              {this.state.Country && (
+                <div>
+                  <label className="mr-3" htmlFor="name">
+                    Назва країни
+                  </label>             
+                  <InputText
+                    id="name"
+                    className = {Object.keys(errors.addDialogError).length > 0 ||
+                    Object.keys(errors.updateDialogError).length > 0 ||
+                    Object.keys(errors.deleteDialogError).length > 0 ? "p-error is-invalid" : "" }
+                    onChange={(e) => {
+                      this.updateProperty("name", e.target.value);
+                    }}
+                    value={this.state.Country.Name}
+                  />
+                  <div
+                  className="invalid-feedback d-flex justify-content-end"
+                  style={{ fontSize: "0.85rem", fontWeight: "600",float:"right",marginRight:"1.5rem" }}
+                >
+                    {errors.addDialogError?.errorMessage}
+                    {errors.updateDialogError?.errorMessage}
+                    {errors.deleteDialogError?.errorMessage}
                 </div>
+                </div>                
               )}
             </Dialog>
           </div>
-
-          {/* <DataTableCrudDoc /> */}
         </div>
       </React.Fragment>
     );
-  }
+
+    return isLoadPage ? <Loader /> : page;
+  };
 }
 
-export default CountryControl;
+
+
+
+
+// 2
+// GetReducerData
+function mapStateToProps(state) {
+    return {
+      getCountryReducer: get(state, 'countryControl.countries'),
+      createCountryReducer: get(state, 'countryControl.createCountry'),
+      changeCountryReducer: get(state, 'countryControl.changeCountry'),
+      deleteCountryReducer: get(state, 'countryControl.deleteCountry'),    
+    };
+  }
+
+
+//1
+//Call reducer
+const mapDispatch = (dispatch) => {
+  return {
+    getCountries: () => {
+      dispatch(reducer.getCountries());
+    },
+    createCountry: (country) => {
+        dispatch(reducer.createCountry(country));
+    },
+    changeCountry: (country) => {
+        dispatch(reducer.changeCountry(country));
+    },
+    deleteCountry: (country) => {
+        dispatch(reducer.deleteCountry(country));
+    },
+    clearState: () => {
+        dispatch(reducer.clearState());
+    },
+  };
+};
+
+  export default connect(mapStateToProps, mapDispatch)(CountryControl);

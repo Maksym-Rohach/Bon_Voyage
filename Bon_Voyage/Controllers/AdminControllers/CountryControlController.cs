@@ -18,14 +18,25 @@ namespace Bon_Voyage.Controllers.AdminControllers
         [HttpPost("CreateCountry")]
         public async Task<IActionResult> CreateCountry([FromBody]AddCountryCommand command)
         {
-            var res = await Mediator.Send(command);
-            if (res.Status)
+            if (!ModelState.IsValid)
             {
-                return Ok();
+                return BadRequest();
             }
-            else
+            try
             {
-                return BadRequest(res);
+                var res = await Mediator.Send(command);
+                if (res.Status)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest(res);
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
 
@@ -34,14 +45,25 @@ namespace Bon_Voyage.Controllers.AdminControllers
         [HttpPost("ChangeCountry")]
         public async Task<IActionResult> ChangeCountry([FromBody]ChangeCountryCommand command)
         {
-            var res = await Mediator.Send(command);
-            if (res.Status)
+            if (!ModelState.IsValid)
             {
-                return Ok();
+                return BadRequest();
             }
-            else
+            try
             {
-                return BadRequest(res);
+                var res = await Mediator.Send(command);
+                if (res.Status)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest(res);
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
 
@@ -49,14 +71,25 @@ namespace Bon_Voyage.Controllers.AdminControllers
         [HttpPost("DeleteCountry")]
         public async Task<IActionResult> DeleteCountry([FromBody]DeleteCountryCommand command)
         {
-            var res = await Mediator.Send(command);
-            if (res.Status)
+            if (!ModelState.IsValid)
             {
-                return Ok();
+                return BadRequest();
             }
-            else
+            try
             {
-                return BadRequest(res);
+                var res = await Mediator.Send(command);
+                if (res.Status)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest(res);
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
     }

@@ -31,7 +31,7 @@ namespace Bon_Voyage.MediatR.Country.Commands.AddCountry
 
                 if (request.Name == null
                  || request.Name == ""
-                 || !Regex.IsMatch(request.Name, @"(?i)^[a-z]+")) return new ResponseViewModel
+                 || !Regex.IsMatch(request.Name, @"(?i)^[а-я]+")) return new ResponseViewModel
                  {
                      Status = false,
                      ErrorMessage = "Введіть коректну назву"

@@ -57,10 +57,9 @@ export const getCountries = () => {
                 dispatch(getCountriesListActions.success(response)); // Set success action
             }, err => { throw err; })
             .catch(err => {
-                console.log(`GetCountries error`,err);
+                console.log(`GetCountries error`,err.response);
                 dispatch(getCountriesListActions.failed(err.response));
             });
-            
     }
 }
 
@@ -72,7 +71,7 @@ export const createCountry = (country) => {
                 dispatch(createCountryListActions.success(response)); // Set success action
             }, err => { throw err; })
             .catch(err => {
-                console.log(`Create country error`,err);
+                console.log(`Create country error`,err.response);
                 dispatch(createCountryListActions.failed(err.response));
             });
             
@@ -111,6 +110,7 @@ export const deleteCountry = (country) => {
 
 
 export const clearState = () => {
+    console.log("Clear state");
     return (dispatch) => {
        dispatch(clearListActions.success());
     }
@@ -152,10 +152,10 @@ export const createCountryListActions = {
             payload: data.data
         }
     },
-    failed: (error) => {
+    failed: (error) => {       
         return {
             type: CREATE_COUNTRY_FAILED,
-            error: error,
+            error: error.data,
         }
     }
 }
@@ -175,7 +175,7 @@ export const changeCountryListActions = {
     failed: (error) => {
         return {
             type: CHANGE_COUNTRY_FAILED,
-            error: error,
+            error: error.data,
         }
     }
 }
@@ -195,7 +195,7 @@ export const deleteCountryListActions = {
     failed: (error) => {
         return {
             type: DELETE_COUNTRY_FAILED,
-            error: error,
+            error: error.data,
         }
     }
 }
@@ -214,7 +214,7 @@ export const clearListActions = {
 //----------------------------REDUCER-------------------------------
 
 
-export const homePageReducer = (state = initialState, action) => { 
+export const countryControlReducer = (state = initialState, action) => { 
   let newState = state;
   switch (action.type) {
       case GET_COUNTRY_STARTED: {
@@ -301,19 +301,19 @@ export const homePageReducer = (state = initialState, action) => {
       }
       
       case CLEAR_SUCCESS: {
-          newState = update.set(state, 'countries.loading', false);
+          newState = update.set(newState, 'countries.loading', false);
           newState = update.set(newState, 'countries.success', false);
           newState = update.set(newState, 'countries.failed', false);
 
-          newState = update.set(state, 'createCountry.loading', false);
+          newState = update.set(newState, 'createCountry.loading', false);
           newState = update.set(newState, 'createCountry.success', false);
           newState = update.set(newState, 'createCountry.failed', false);
 
-          newState = update.set(state, 'changeCountry.loading', false);
+          newState = update.set(newState, 'changeCountry.loading', false);
           newState = update.set(newState, 'changeCountry.success', false);
           newState = update.set(newState, 'changeCountry.failed', false);
 
-          newState = update.set(state, 'deleteCountry.loading', false);
+          newState = update.set(newState, 'deleteCountry.loading', false);
           newState = update.set(newState, 'deleteCountry.success', false);
           newState = update.set(newState, 'deleteCountry.failed', false);
           break;

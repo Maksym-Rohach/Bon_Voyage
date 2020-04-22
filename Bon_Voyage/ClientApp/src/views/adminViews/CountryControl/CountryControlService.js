@@ -3,7 +3,7 @@ import { serverUrl } from '../../../config';
 
 export default class AirportControlService {
     static getAllCountry() {
-        return axios.get(`${serverUrl}/api/Country/GetAllCountry`)
+        return axios.get(`${serverUrl}/api/Country/GetAllCountryWithCityCount`)
     }
 
     static createCountry(country) {
