@@ -175,7 +175,6 @@ class RegisterPage extends Component {
         </Container>
       </div>
     );
-    console.log("TTTTTTTTT", this.props.success);
     return (
       this.props.success ? <Redirect to='/login' /> : form
     );
