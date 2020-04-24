@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import * as loginActions from './reducer';
 // import InputMask from 'react-input-mask';
 import get from "lodash.get";
+import Loader from '../../../components/Loader';
 
 
 class Login extends Component {
@@ -86,11 +87,12 @@ class Login extends Component {
   
   render() {
 
-    const { errors, isLoading, profileUrl, visible, errorsServer } = this.state;
+    const { errors, loading, profileUrl, visible, errorsServer } = this.state;
 
     const form = (
 
       <div className="app flex-row">
+        {loading && <Loader/>}
         <Container>
           <Row className="justify-content-center mt-5">
             <Col md="6">
@@ -125,7 +127,7 @@ class Login extends Component {
                       </InputGroup> */}
 
 <InputGroup className="mb-2">
-                      <span class="input-group-text" id="basic-addon1">@</span>
+                      <span className="input-group-text" id="basic-addon1">@</span>
                       <Input
                         type="text"
                         placeholder="Електронна пошта"
@@ -163,7 +165,7 @@ class Login extends Component {
                             {errors.password}
                           </div> : ''}
                       </InputGroup>
-                      <div class="d-flex justify-content-center">
+                      <div className="d-flex justify-content-center">
                            <div className="p-2 bd-highlight">                    
                        <Button color="primary" className="px-3">Вхід</Button>                     
                             </div>

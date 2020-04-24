@@ -1177,6 +1177,44 @@ namespace Bon_Voyage.DB
             }
         }
 
+        public static void SeedRoomTypes(EFDbContext context)
+        {
+            if(context.RoomTypes.Count() == 0)
+            {
+                var roomTypes = new List<RoomType>();
+
+                roomTypes.Add(new RoomType { Name = "Одномітний" });
+                roomTypes.Add(new RoomType { Name = "Двухмісний" });
+                roomTypes.Add(new RoomType { Name = "Трьохмісний" });
+                roomTypes.Add(new RoomType { Name = "Апартаменти" });
+                roomTypes.Add(new RoomType { Name = "Делюкс" });
+                roomTypes.Add(new RoomType { Name = "Президентський" });
+
+                context.AddRange(roomTypes);
+                context.SaveChanges();
+            }
+        }
+
+        public static void SeedComforts(EFDbContext context)
+        {
+            if(context.Comforts.Count() == 0)
+            {
+                var comforts = new List<Comfort>();
+
+                comforts.Add(new Comfort { Name = "WI-FI" });
+                comforts.Add(new Comfort { Name = "Ресторан" });
+                comforts.Add(new Comfort { Name = "Все включено" });
+                comforts.Add(new Comfort { Name = "Спа центр" });
+                comforts.Add(new Comfort { Name = "Трансфер до/з аеропорту" });
+                comforts.Add(new Comfort { Name = "Басейн" });
+                comforts.Add(new Comfort { Name = "Автостоянка" });
+                comforts.Add(new Comfort { Name = "Обслуговування номерів" });
+                comforts.Add(new Comfort { Name = "Станція для зарядки електромобілів" });
+
+                context.AddRange(comforts);
+                context.SaveChanges();
+            }
+        }
 
         public static void SeedData(IServiceProvider services, IHostingEnvironment env, IConfiguration config)
         {
@@ -1192,6 +1230,8 @@ namespace Bon_Voyage.DB
                 // Cities: 31
                 // Airports: 20
                 // Hotels: 68
+                // RoomTypes: 6
+                // Comforts: 9
 
                 SeederDB.SeedRoles(context, manager, managerRole); // --- DONE
                 SeederDB.SeedUsers(context, manager, managerRole); // --- DONE
@@ -1200,6 +1240,8 @@ namespace Bon_Voyage.DB
                 SeederDB.SeedCities(context);
                 SeederDB.SeedAirports(context);
                 SeederDB.SeedHotels(context);
+                SeederDB.SeedRoomTypes(context);
+                SeederDB.SeedComforts(context);
             }
 
         }

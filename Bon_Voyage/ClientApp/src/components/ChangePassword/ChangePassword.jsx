@@ -41,23 +41,45 @@ class ChangePassword extends Component {
     }
 
     render() {
+        const {errors} = this.props;
+        console.log("RENDER", errors);
         return (
-                    <form onSubmit={this.onSubmitForm}>
-                    <label className="p-float-label m-3 d-flex justify-content-center">Зміна паролю</label>
-                        <span className="p-float-label m-3">
-                            <InputText id="float-input" type="text" size="30" value={this.state.oldPassword} onChange={(e) => this.setState({ oldPassword: e.target.value })} />
-                            <label htmlFor="float-input">Старий пароль</label>
-                        </span>
-                        <span className="p-float-label  m-3">
-                            <InputText id="float-input" type="text" size="30" value={this.state.newPassword} onChange={(e) => this.setState({ newPassword: e.target.value })} />
-                            <label htmlFor="float-input">Новий пароль</label>
-                        </span>
-                        <span className="p-float-label  m-3">
-                            <InputText id="float-input" type="text" size="30" value={this.state.confPassword} onChange={(e) => this.setState({ confPassword: e.target.value })} />
-                            <label htmlFor="float-input">Підтвердіть пароль</label>
-                        </span>
-                        <Button className="p-float-label m-3" label="Save" icon="pi pi-check" />
-                    </form>
+          <form onSubmit={this.onSubmitForm}>
+            
+            <label className="p-float-label m-3 d-flex justify-content-center">Зміна паролю</label>
+            <span className="p-float-label m-3">
+              <InputText
+                id="float-input"
+                type="text"
+                size="30"
+                value={this.state.oldPassword}
+                onChange={(e) => this.setState({ oldPassword: e.target.value })}
+              />
+              <label htmlFor="float-input">Старий пароль</label>
+            </span>
+            <span className="p-float-label  m-3">
+              <InputText
+                id="float-input"
+                type="text"
+                size="30"
+                value={this.state.newPassword}
+                onChange={(e) => this.setState({ newPassword: e.target.value })}
+              />
+              <label htmlFor="float-input">Новий пароль</label>
+            </span>
+            <span className="p-float-label  m-3">
+              <InputText
+                id="float-input"
+                type="text"
+                size="30"
+                value={this.state.confPassword}
+                onChange={(e) => this.setState({ confPassword: e.target.value })}
+              />
+              <label htmlFor="float-input">Підтвердіть пароль</label>
+            </span>
+            {!!errors ? <div className="invalid-feedback">{errors}</div> : ""}
+            <Button className="p-float-label m-3" label="Save" icon="pi pi-check" />
+          </form>
         );
     }
 }

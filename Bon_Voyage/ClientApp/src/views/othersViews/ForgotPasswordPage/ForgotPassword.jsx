@@ -21,12 +21,10 @@ class ForgotPasswordPage extends Component {
       errorsServer: {}
     }
   
-   
-  
-  //   static getDerivedStateFromProps(nextProps, prevState) {
+    static getDerivedStateFromProps(nextProps, prevState) {
     
-  //     return { isLoading: nextProps.loading, errorsServer: nextProps.errors };
-  // }
+      return { isLoading: nextProps.loading, errorsServer: nextProps.errors };
+  }
   
     setStateByErrors = (name, value) => {
       if (!!this.state.errors[name]) {
@@ -90,6 +88,12 @@ class ForgotPasswordPage extends Component {
         });
       }
 
+    }
+
+    componentDidMount(){
+      const paramId= this.props.match.params.id;
+      let id = paramId.split('=').splice(1,1).toString();
+      console.log("QQQidQQQ", id);
     }
 
     render() { 

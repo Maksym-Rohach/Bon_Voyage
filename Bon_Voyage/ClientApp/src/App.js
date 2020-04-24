@@ -1,5 +1,6 @@
 import React, { Suspense, Component } from 'react';
 import { Route, Switch, HashRouter as Router } from "react-router-dom";
+//import './views/othersViews/instruments/vendors/magnefic-popup/jquery.magnific-popup.min';
 import './App.scss';
 import 'font-awesome/css/font-awesome.min.css';
 import 'primereact/resources/themes/nova-light/theme.css';

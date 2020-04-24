@@ -9,6 +9,7 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { Register } from './reducer';
+import { Redirect } from 'react-router-dom'
 
 import get from "lodash.get";
 
@@ -162,7 +163,7 @@ class RegisterPage extends Component {
                       </InputGroup>
                       <Row>
                         <Col xs="6">
-                          <Button color="primary" className="px-4">Реєстрація</Button>
+                          <Button type="submit" color="primary" className="px-4">Реєстрація</Button>
                         </Col>
                       </Row>
                     </Form>
@@ -172,37 +173,24 @@ class RegisterPage extends Component {
             </Col>
           </Row>
         </Container>
-
       </div>
     );
+    console.log("TTTTTTTTT", this.props.success);
     return (
-      form
+      this.props.success ? <Redirect to='/login' /> : form
     );
   }
 }
-
-// Register.propTypes =
-//   {
-//     Register: PropTypes.func.isRequired
-//   }
 
 function mapStateToProps(state) {
   console.log("mapStateToProps", state);
   return {
-    loading: get(state, 'login.post.loading'),
-    failed: get(state, 'login.post.failed'),
-    success: get(state, 'login.post.success'),
-    errors: get(state, 'login.post.errors')
+    loading: get(state, 'register.post.loading'),
+    failed: get(state, 'register.post.failed'),
+    success: get(state, 'register.post.success'),
+    errors: get(state, 'register.post.errors')
   }
 }
-
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         Register: filter => {
-//         dispatch(getListActions.Register(filter));
-//       }
-//     }
-//   }
 
 const mapDispatch = {
   Register: (model) => {

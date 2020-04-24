@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Bon_Voyage.MediatR.Airports.Commands
+namespace Bon_Voyage.MediatR.Airports.Commands.CreateAirportCommand
 {
     public class CreateAirportCommand : IRequest<CreateAirportViewModel>
     {

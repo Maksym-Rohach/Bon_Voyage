@@ -31,7 +31,7 @@ const initialState = {
     }
   };
   
-  export const RegisterReducer = (state = initialState, action) => {
+  export const registerReducer = (state = initialState, action) => {
     let newState = state;
   
     switch (action.type) {
@@ -70,36 +70,42 @@ const initialState = {
   
     return newState;
   };
-  
-//   export const Register = model => {
-//     return dispatch => {
-//       //dispatch(RegisterActions.started());
-//       RegisterService.Register(model)
-//         .then(
-//           response => {
-//             Login.loginByJWT(response.data,dispatch);
-//           },
-//           err => {
-//             throw err;
-//           }
-//         )
-//         .catch(err => {
-//           //dispatch(RegisterActions.failed(err.response));
-//           //console.log(err);
-//           //redirectStatusCode(err.response.status);
-//         });
-//     };
-//};
+
 export function Register(data) {
     const url = 'https://localhost:44365/api/registration/register';
-    console.log("sssss", data);
+    console.log("Return token - ", data);
     return dispatch => {
+      dispatch(registerListActions.started());
         return axios.post(url, data)
             .then(res => {
-              console.log("res.data", res.data);
+              dispatch(registerListActions.success());
+              console.log("Register data - ",res.data);
               Login.loginByJWT(res.data, dispatch);
+            })
+            .catch(err => {
+              console.log("ERROR",err);
+              dispatch(registerListActions.failed(err));
             });
     }
 }
 
   
+
+export const registerListActions = {
+    started: () => {
+        return {
+            type:  REGISTER_POST_STARTED
+        }
+    },  
+    success: () => {
+        return {
+            type:  REGISTER_POST_SUCCESS,      
+        }
+    },  
+    failed: (error) => {
+        return {           
+            type:  REGISTER_POST_FAILED,
+            errors: error.data
+        }
+    }
+  }

@@ -7,7 +7,7 @@ export const PASSWORD_FAILED = "PASSWORD_FAILED";
 
 const initialState = {
     list: {
-        errors:{},
+        errors:'',
         loading: false,
         success: false,
         failed: false,
@@ -39,6 +39,7 @@ export const getListActions = {
         }
     },  
     failed: (error) => {
+        console.log("error", error);
         return {           
             type: PASSWORD_FAILED,
             errors: error.data
