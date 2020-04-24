@@ -31,7 +31,7 @@ namespace Bon_Voyage.Controllers.RegistrationControllers
                 var res = await Mediator.Send(command);
                 if (res.Status)
                 {
-                    return Ok(res.Tokken);
+                    return Ok(res.Token);
                 }
                 else
                 {

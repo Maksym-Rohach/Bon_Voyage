@@ -30,14 +30,17 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\layouts\registerLayout\" />
-    <Folder Include="MediatR\Country\Commands\" />
+    <Folder Include="MediatR\Comfort\Commands\" />
     <Folder Include="MediatR\Home\Commands\" />
+    <Folder Include="MediatR\RoomType\Commands\" />
+    <Folder Include="MediatR\Ticket\Queries\" />
     <Folder Include="Uploaded\HotelImages\" />
     <Folder Include="Uploaded\CountryImages\" />
     <Folder Include="Uploaded\UserImages\" />
 	<Folder Include="ViewModels\AdminViewModels\" />
 	<Folder Include="ViewModels\ClientViewModels\" />
     <Folder Include="ViewModels\ManagerViewModels\" />
+    <Folder Include="ViewModels\TicketViewModels\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
