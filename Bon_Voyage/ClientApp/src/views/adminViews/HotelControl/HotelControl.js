@@ -17,16 +17,9 @@ class HotelControl extends Component {
 
     actionTemplate(rowData, column) {
         return <div>
-            <Button type="button" icon="pi pi-cog" className="p-button-secondary p-button-rounded" onClick={(e) => this.setState({visible: true})}></Button>
+            <Button type="button" icon="pi pi-cog" className="p-button-secondary p-button-rounded"></Button>
 
-        <Dialog header="" visible={this.state.visible} style={{width: '50vw'}} modal={true} onHide={() => this.setState({visible: false})}>
-        </Dialog>
         </div>;
-    }
-
-    dialogTemplate(rowData, column){
-        return <Dialog header="" visible={this.state.visible} style={{width: '50vw'}} modal={true} onHide={() => this.setState({visible: false})}>
-        </Dialog>;
     }
 
     render() { 
