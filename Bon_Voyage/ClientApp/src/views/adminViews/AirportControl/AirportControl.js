@@ -10,7 +10,6 @@ import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
-import { Growl } from 'primereact/growl';
 import { Form } from 'reactstrap';
 class AirportControl extends Component {
     state = {
@@ -67,8 +66,7 @@ class AirportControl extends Component {
                 shortName: this.state.shortName,
                 cityId: this.state.cityId
             }
-            this.props.createAirport(model);
-            
+            this.props.createAirport(model);            
         }
 
     }
