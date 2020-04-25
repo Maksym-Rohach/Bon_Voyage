@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Bon_Voyage.MediatR.Manager.Commands.CreateManager;
 using Bon_Voyage.MediatR.Manager.Queries.GetAllManagersQuery;
 using Bon_Voyage.MediatR.Manager.ViewModel;
+using Bon_Voyage.MediatR.Seeder;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +33,14 @@ namespace Bon_Voyage.Controllers.AdminControllers
         public async Task<ActionResult<ICollection<ManagerViewModel>>> GetAllManagers()
         {
             var res = await Mediator.Send(new GetAllManagersQuery());//calls a mediator's command
+            return Ok(res);
+        }
+
+        [HttpPost("GenerateHotelPhotoSeeder")]
+        public async Task<IActionResult> GenerateHotelPhotoSeeder([FromBody]GenerateHotelPhotoSeederCommand command)
+        {
+            var res = await Mediator.Send(command);
+
             return Ok(res);
         }
     }
