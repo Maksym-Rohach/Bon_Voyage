@@ -10,6 +10,7 @@ import 'primeicons/primeicons.css';
 // Layouts
 const AdminLayout = React.lazy(() => import("./layouts/adminLayout/AdminLayout"));
 const ManagerLayout = React.lazy(() => import("./layouts/managerLayout/ManagerLayout"));
+const ClientLayout = React.lazy(() => import("./layouts/clientLayout/ClientLayout"));
 
 // Pages
 const LoginPage = React.lazy(() => import("./views/othersViews/LoginPage"));
@@ -41,6 +42,7 @@ class App extends Component {
                         <Route exact path="/new-password/:id" name="NewPassword Page" render={props => <NewPasswordPage {...props} />} />                       
                         <Route path="/admin" name="Admin" render={props => <AdminLayout {...props} />} />
                         <Route path="/manager" name="Manager" render={props => <ManagerLayout {...props} />} />
+                        <Route path="/client" name="Client" render={props => <ClientLayout {...props} />} />
                         {/* <Redirect from="/" to="/admin/persons" /> */}
                     </Switch>
                 </Suspense>
