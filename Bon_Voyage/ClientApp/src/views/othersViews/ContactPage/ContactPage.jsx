@@ -1,30 +1,31 @@
 import React, { Component } from 'react';
 import '../instruments/css/style.scss';
-
+import '../instruments/vendors/linericon/style.css'
+import mylogo from '../../../assets/img/Logo.png';
 
 class Contact extends Component {
   state={}
   render(){
     return(
-      <React.Fragment >
-
-    <header className="header_area">
+      
+<div className="home-page bg-white">
+<header className="header_area">
     <div className="header-top">
       <div className="container">
         <div className="d-flex align-items-center">
           <div id="logo">
-            <a href="index.html"><img src="img/Logo.png" alt="" title=""/></a>
+            <a href="/#/"><img src={mylogo} height="50px" alt="" title=""/></a>
           </div>
           <div className="ml-auto d-none d-md-block d-md-flex" >
             <div className="media header-top-info">
-              <span className="header-top-info__icon"><i className="fas fa-phone-volume"></i></span>
+              <span className="header-top-info__icon"><i className="fa fa-phone"></i></span>
               <div className="media-body">
                 <p>Have any question?</p>
                 <p>Free: <a href="tel:+12 365 5233">+12 365 5233</a></p>
               </div>
             </div>
             <div className="media header-top-info">
-              <span className="header-top-info__icon"><i className="ti-email"></i></span>
+              <span className="header-top-info__icon"><i className="fa fa-email"></i></span>
               <div className="media-body">
                 <p>Have any question?</p>
                 <p>Free: <a href="tel:+12 365 5233">+12 365 5233</a></p>
@@ -213,7 +214,7 @@ class Contact extends Component {
       </div>
     </div>
   </footer>
-  </React.Fragment>
+  </div>
 
     );
   }
