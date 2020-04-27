@@ -17,6 +17,7 @@ import { boughtTicketsReducer } from '../views/managerViews/BoughtTickets/reduce
 import { hotDealTicketsReducer } from '../views/managerViews/HotDealTickets/reducer';
 import {addTicketReducer} from '../views/managerViews/AddTicketView/reducer'
 import { registerReducer } from '../views/othersViews/RegisterPage/reducer';
+import {hotelControlReducer} from '../views/adminViews/HotelControl/reducer';
 import {ForgotPasswordReducer} from '../views/othersViews/ForgotPasswordPage/reducer';
 import { NewPasswordReducer } from '../views/othersViews/NewPasswordPage/reducer';
 import {countryControlReducer} from '../views/adminViews/CountryControl/reducer'
@@ -47,6 +48,7 @@ export default function configureStore(history, initialState) {
       boughtTickets: boughtTicketsReducer,
       hotDealTickets: hotDealTicketsReducer,
       newPassword:NewPasswordReducer,
+      hotels: hotelControlReducer,
       register: registerReducer
   };
 
