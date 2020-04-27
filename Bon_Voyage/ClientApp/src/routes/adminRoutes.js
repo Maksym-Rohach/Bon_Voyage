@@ -10,7 +10,7 @@ const HotelControl = React.lazy(() => import("../views/adminViews/HotelControl")
 const routes = [
   { path: '/admin/manager/control', exact: true, name: 'ManagerControl', component: ManagerControl },
   { path: '/admin/login', name: 'Login', component: Login },  
-  { path: '/admin/hotel/control', exact: true, name: 'HotelControl',component: HotelControl }
+  { path: '/admin/hotel/control', exact: true, name: 'HotelControl',component: HotelControl },
   { path: '/admin', exact: true, name: 'ManagerControl', component: ManagerControl },
   { path: '/admin/airport/control', name: 'AirportControl', component: AirportControl },
   { path: '/admin/country/control', name: 'CountryControl', component: CountryControl},
