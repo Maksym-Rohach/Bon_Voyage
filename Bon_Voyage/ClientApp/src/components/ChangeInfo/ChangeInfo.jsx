@@ -57,7 +57,8 @@ class ChangeInfo extends Component {
     render() {
 
         const { Name,SurName,Email,Phone } = this.state;
-
+        const {errors} = this.props;
+        console.log("RENDER", errors);
         return (
             <form onSubmit={this.onSubmitForm}>
                 <label className="p-float-label m-3 d-flex justify-content-center">Зміна данних</label>
@@ -88,6 +89,7 @@ class ChangeInfo extends Component {
 // state - це весь store зі всіма редюсерами
 function mapStateToProps(state) {
     return {
+        errors: get(state, 'changePassword.list.errors'),
         getInfoReducer: get(state, 'changeInfoReducer.infoList.data')
     };
 
