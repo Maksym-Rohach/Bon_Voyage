@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bon_Voyage.MediatR.Client.Queries.GetAllClients;
+using Bon_Voyage.MediatR.Client.ViewModels;
 using Bon_Voyage.MediatR.Hotel.Queries.GetAllHotels;
 using Bon_Voyage.MediatR.Hotel.ViewModels;
 using Bon_Voyage.MediatR.Manager.Commands.CreateManager;
@@ -41,6 +43,13 @@ namespace Bon_Voyage.Controllers.AdminControllers
         public async Task<ActionResult<ICollection<HotelViewModel>>> GetAllHotels()
         {
             var res = await Mediator.Send(new GetAllHotels());//calls a mediator's command
+            return Ok(res);
+        }
+
+        [HttpGet("GetAllClients")]
+        public async Task<ActionResult<ICollection<ClientViewModel>>> GetAllClients()
+        {
+            var res = await Mediator.Send(new GetAllClients());//calls a mediator's command
             return Ok(res);
         }
     }
