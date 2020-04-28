@@ -39,6 +39,11 @@ namespace Bon_Voyage.Controllers.AdminControllers
         [HttpPost("GenerateHotelPhotoSeeder")]
         public async Task<IActionResult> GenerateHotelPhotoSeeder([FromBody]GenerateHotelPhotoSeederCommand command)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             var res = await Mediator.Send(command);
 
             return Ok(res);

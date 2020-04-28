@@ -3,41 +3,34 @@ using Bon_Voyage.MediatR.Helpers;
 using MediatR;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Bon_Voyage.MediatR.Seeder
 {
-    public class GenerateHotelPhotoSeederCommand : IRequest<List<string>>
+    public class GenerateHotelPhotoSeederCommand : IRequest<string>
     {
-        public string HotelId { get; set; }
         public List<string> PhotosBase64 { get; set; }
 
-        public class AddHotelPhotoSeederCommandHandler : BaseMediator, IRequestHandler<GenerateHotelPhotoSeederCommand, List<string>>
+        public class AddHotelPhotoSeederCommandHandler : BaseMediator, IRequestHandler<GenerateHotelPhotoSeederCommand, string>
         {
             public AddHotelPhotoSeederCommandHandler(EFDbContext context) : base(context)
             {
             }
 
-            public async Task<List<string>> Handle(GenerateHotelPhotoSeederCommand request, CancellationToken cancellationToken)
+            public async Task<string> Handle(GenerateHotelPhotoSeederCommand request, CancellationToken cancellationToken)
             {
-                List<string> res = new List<string>();
-                string buf = "";
-                request.PhotosBase64.ForEach(x =>
+                string res = "var photosBase64 = new List<string>\n{\n";
+                for (int i = 0; i < request.PhotosBase64.Count(); i++)
                 {
-                    buf += "photos.Add(new AddHotelPhotoCommand\n";
-                    buf += "{\n";
-                    buf += $"HotelId = \"{request.HotelId}\",\n";
-                    buf += "PhotosBase64 = new List<string>\n";
-                    buf += "{\n";
-                    buf += $"\"{x}\"\n";
-                    buf += "},\n";
-                    buf += "});\n";
-                    res.Add(buf);
-                });
+                    res += $"\"{request.PhotosBase64[i]}\",\n";
+                }
 
-                return res;
+                res += "};\n";
+                File.WriteAllText(@"C:\Users\Vlad\Desktop\res.txt", res);
+                return string.Empty;
             }
         }
 
