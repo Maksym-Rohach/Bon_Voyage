@@ -87,13 +87,12 @@ class ForgotPasswordPage extends Component {
           isSuccess : nextProps.successReducer
         });
       }
-
     }
 
     componentDidMount(){
-      const paramId= this.props.match.params.id;
-      let id = paramId.split('=').splice(1,1).toString();
-      console.log("QQQidQQQ", id);
+      // const paramId= this.props.match.params.id;
+      // let id = paramId.split('=').splice(1,1).toString();
+      // console.log("QQQidQQQ", id);
     }
 
     render() { 
