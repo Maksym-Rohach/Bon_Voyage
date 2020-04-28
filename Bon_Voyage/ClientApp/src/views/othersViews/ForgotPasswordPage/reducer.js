@@ -66,18 +66,18 @@ const initialState = {
         }
     }
   }
-  
+
 
 export function ForgotPassword(data) {
   return (dispatch) => {
     dispatch(getListActions.started());
     ForgotPasswordService.forgotPassword(data)
-        .then((response) => {
-          console.log("response",response);
-            dispatch(getListActions.success(response));               
-        }, err=> { throw err; })
-        .catch(err=> {
-          dispatch(getListActions.failed(err.response));
-        });
-}
+      .then((response) => {
+        console.log("response", response);
+        dispatch(getListActions.success(response));
+      }, err => { throw err; })
+      .catch(err => {
+        dispatch(getListActions.failed(err.response));
+      });
+  }
 }

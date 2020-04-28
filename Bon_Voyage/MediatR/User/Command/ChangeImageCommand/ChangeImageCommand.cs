@@ -33,20 +33,20 @@ namespace Bon_Voyage.MediatR.User.Command.ChangeImageCommand
             {
                 string image = null;
 
-                var user = _context.BaseProfiles.FirstOrDefault(u => u.Id == request.Id);
+                var user = _context.BaseProfiles.FirstOrDefault(u => u.Id == request.Id); // Search user
                 if (user != null)
                 {
-                    string imageName = user.Photo ?? Guid.NewGuid().ToString() + ".jpg";
-                    string pathSaveImages = InitStaticFiles
+                    string imageName = user.Photo ?? Guid.NewGuid().ToString() + ".jpg"; // 1. Create photo name
+                    string pathSaveImages = InitStaticFiles  // 2. Save photo
                         .CreateImageByFileName(_env, _configuration,
-                        new string[] { "ImagesPath", "ImagesPathUser" },
-                        imageName, request.Photo);
+                        new string[] { "ImagesPath", "ImagesPathUser" }, // 3. Send path
+                        imageName, request.Photo); // 4. Send imageName and photo
 
-                    if (pathSaveImages != null)
+                    if (pathSaveImages != null) // 5. If photo is created
                     {
-                        image = imageName;
+                        image = imageName; 
                         user.Photo = image;
-                        await _context.SaveChangesAsync();
+                        await _context.SaveChangesAsync(); // 6. Add photo to user
                     }
                     else
                     {
