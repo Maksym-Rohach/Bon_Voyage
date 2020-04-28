@@ -9,6 +9,7 @@ using Bon_Voyage.MediatR.Hotel.ViewModels;
 using Bon_Voyage.MediatR.Manager.Commands.CreateManager;
 using Bon_Voyage.MediatR.Manager.Queries.GetAllManagersQuery;
 using Bon_Voyage.MediatR.Manager.ViewModel;
+using Bon_Voyage.MediatR.Seeder;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -43,6 +44,19 @@ namespace Bon_Voyage.Controllers.AdminControllers
         public async Task<ActionResult<ICollection<HotelViewModel>>> GetAllHotels()
         {
             var res = await Mediator.Send(new GetAllHotels());//calls a mediator's command
+            return Ok(res);
+        }
+
+        [HttpPost("GenerateHotelPhotoSeeder")]
+        public async Task<IActionResult> GenerateHotelPhotoSeeder([FromBody]GenerateHotelPhotoSeederCommand command)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var res = await Mediator.Send(command);
+
             return Ok(res);
         }
 
