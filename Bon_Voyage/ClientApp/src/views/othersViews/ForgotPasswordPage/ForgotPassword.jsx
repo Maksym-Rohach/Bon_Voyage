@@ -21,8 +21,6 @@ class ForgotPasswordPage extends Component {
       errorsServer: {}
     }
   
-  
-  
     setStateByErrors = (name, value) => {
       if (!!this.state.errors[name]) {
         let errors = Object.assign({}, this.state.errors);
@@ -84,11 +82,8 @@ class ForgotPasswordPage extends Component {
           isSuccess : nextProps.successReducer
         });
       }
-
     }
-
-     
-
+    
     render() { 
         const { errors, isLoading, profileUrl, visible, errorsServer } = this.state;
 
