@@ -6,6 +6,9 @@ import {DataTable} from 'primereact/datatable';
 import {Column} from 'primereact/column';
 import {Button} from 'primereact/button';
 import {Dialog} from 'primereact/dialog';
+import Modal from '@trendmicro/react-modal';
+import '@trendmicro/react-modal/dist/react-modal.css';
+import {Label, Input, InputGroup} from 'reactstrap';
 
 class HotelControl extends Component {
     state = { 
@@ -22,12 +25,20 @@ class HotelControl extends Component {
         </div>;
     }
 
+    addTemplate(){
+      return(
+        <Dialog header='Додати новий готель'>
+
+        </Dialog>
+      );
+    }
+
     render() { 
 
         const { listHotels }= this.props;
         console.log("render",listHotels);
 
-        var header = <div className="p-clearfix" style={{'lineHeight':'1.87em'}}>Список готелів<Button icon="pi pi-refresh" style={{'float':'right'}}/></div>;
+        var header = <div className="p-clearfix" style={{'lineHeight':'1.87em'}}>Список готелів<Button icon="pi pi-refresh" style={{'float':'right'}} onClick={this.addTemplate}/></div>;
 
         return ( 
             <DataTable value={listHotels} header={header}>
