@@ -48,7 +48,7 @@ namespace Bon_Voyage.Controllers.AuthControllers
                 .FirstOrDefault(u => u.Email == model.Email);
             if(user == null)
             {
-                return BadRequest(new { invalid = "Користувача із вказаними обліковими даними не знайдено" });
+                return BadRequest(new { invalid = "Даний користувач не знайденний" });
             }
 
             var result = _signInManager
@@ -56,7 +56,7 @@ namespace Bon_Voyage.Controllers.AuthControllers
 
             if (!result.Succeeded)
             {
-                return BadRequest(new { invalid = "Користувача із вказаними обліковими даними не знайдено" });
+                return BadRequest(new { invalid = "Невірно введений пароль" });
             }
 
             await _signInManager.SignInAsync(user, isPersistent: false);

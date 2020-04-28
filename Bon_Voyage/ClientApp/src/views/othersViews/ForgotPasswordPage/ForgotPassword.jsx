@@ -115,13 +115,11 @@ class ForgotPasswordPage extends Component {
                                         name="email"
                                         value={this.state.email}
                                         onChange={this.handleChange}
-                                    />                       
-                                   
+                                    />                                                          
                                 </InputGroup>                                                                                      
                                     <Row>
                                     <Col xs="4">
-                                    <Link to="/login"> 
-                                                   
+                                    <Link to="/login">                                                  
                                 <Button color="primary" className="px-4">Назад</Button>    
                                     </Link>
                                     </Col> 
