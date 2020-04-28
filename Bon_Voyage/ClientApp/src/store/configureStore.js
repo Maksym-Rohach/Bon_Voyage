@@ -5,6 +5,7 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import createHistory from 'history/createHashHistory';
 ///reducers
 import {managerProfileViewReducer } from '../views/managerViews/ManagerProfileView/reducer';
+import {clientProfileViewReducer } from '../views/clientViews/ClientProfileView/reducer';
 import {commentsChartReducer} from '../views/adminViews/CommentsChart/reducer';
 import {loginReducer} from '../views/othersViews/LoginPage/reducer';
 import {managerControlReducer} from '../views/adminViews/ManagerControl/reducer';
@@ -16,6 +17,7 @@ import { boughtTicketsReducer } from '../views/managerViews/BoughtTickets/reduce
 import { hotDealTicketsReducer } from '../views/managerViews/HotDealTickets/reducer';
 import {addTicketReducer} from '../views/managerViews/AddTicketView/reducer'
 import { registerReducer } from '../views/othersViews/RegisterPage/reducer';
+import {hotelControlReducer} from '../views/adminViews/HotelControl/reducer';
 import {ForgotPasswordReducer} from '../views/othersViews/ForgotPasswordPage/reducer';
 import { NewPasswordReducer } from '../views/othersViews/NewPasswordPage/reducer';
 import {countryControlReducer} from '../views/adminViews/CountryControl/reducer'
@@ -37,8 +39,8 @@ export default function configureStore(history, initialState) {
     comments: commentsChartReducer,
       managers: managerControlReducer,
       managerProfile: managerProfileViewReducer,
+      clientProfile: clientProfileViewReducer,
       changeImage: changeImageReducer,
-      managerProfile: managerProfileViewReducer,
       airports: airportControlReducer,
       changeImage: changeImageReducer,
       changePassword: changePasswordReducer,
@@ -46,6 +48,7 @@ export default function configureStore(history, initialState) {
       boughtTickets: boughtTicketsReducer,
       hotDealTickets: hotDealTicketsReducer,
       newPassword:NewPasswordReducer,
+      hotels: hotelControlReducer,
       register: registerReducer
   };
 
