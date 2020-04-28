@@ -67,5 +67,10 @@ export default {
         }
       ]
     },
+    // {
+    //   name: '$HOTEL PHOTOS SEEDER',
+    //   url: '/admin/seeder/hotelPhotos',
+    //   icon: 'icon-user',
+    // }, 
   ]
 };
