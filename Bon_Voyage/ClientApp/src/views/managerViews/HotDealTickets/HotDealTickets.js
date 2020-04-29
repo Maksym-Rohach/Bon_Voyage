@@ -70,7 +70,7 @@ class HotDealTickets extends Component {
 
         return (
             <Card className="mt-5">
-                <DataTable value={listHotDealTickets}>
+                <DataTable value={listHotDealTickets} paginator={true} ref={(el) => this.dt = el} rows={10} first={this.state.first} onPage={(e) => this.setState({ first: e.first })}>
                     <Column sortable={true} field="dateFrom" header="Date From" />
                     <Column sortable={true} field="dateTo" header="Date To" />
                     <Column sortable={true} field="country.name" header="Country Name" />
