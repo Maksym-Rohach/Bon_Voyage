@@ -13,6 +13,31 @@ export default {
             name: 'Профіль',
             url: '/client/profile',
             icon: 'icon-user',
+        },
+        {
+            name: 'Гарячі тури',
+            url: '/client/hottravel',
+            icon: 'icon-fire',
+        },
+        {
+            name: 'Обрані тури',
+            url: '/client/selectedtravel',
+            icon: 'icon-star',
+        },
+        {
+            name: 'Галерея',
+            url: '/client/galery',
+            icon: 'icon-grid',
+        },
+        {
+            name: 'Мапа',
+            url: '/client/map',
+            icon: 'icon-map',
+        },
+        {
+            name: 'Написати нам',
+            url: '/client/message',
+            icon: 'icon-envelope',
         }
     ]
 };
