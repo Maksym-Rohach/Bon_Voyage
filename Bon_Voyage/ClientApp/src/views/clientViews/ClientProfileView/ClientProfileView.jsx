@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import get from "lodash.get";
 import ChangeImage from "../../../components/ChangeImage/ChangeImage.jsx";
 import ChangePassword from "../../../components/ChangePassword/ChangePassword.jsx";
+import ChangeInfo from "../../../components/ChangeInfo";
 
 import {
   Button,
@@ -22,7 +23,6 @@ import {
   InputGroupText,
   Row,
 } from "reactstrap";
-import ChangeInfo from "../../../components/ChangeInfo";
 
 class ClientProfileView extends React.Component {
   state = {};
@@ -30,7 +30,7 @@ class ClientProfileView extends React.Component {
   componentDidMount = () => {
     this.props.getClientProfileViewData();
   };
-
+  //style={{backgroundColor:'rgba(52, 52, 52, 0.8)'}}
   render() {
     const { clientProfile } = this.props;
     console.log("render", clientProfile);

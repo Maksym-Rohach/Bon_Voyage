@@ -23,6 +23,7 @@
     "enzyme-adapter-react-16": "^1.14.0",
     "flag-icon-css": "^3.3.0",
     "font-awesome": "^4.7.0",
+    "google-maps-react": "^2.0.6",
     "immutability-helper": "^3.0.1",
     "jquery": "^3.4.1",
     "jsonwebtoken": "^8.5.1",
