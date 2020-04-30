@@ -197,7 +197,7 @@ class Contact extends Component {
                   </div>
               </div>
               <div class="col-md-12 text-right">
-              <Link to="/client-profile"> 
+              <Link to="/client/message"> 
                   <button type="submit" value="submit" class="button-contact"><span>Відправити</span></button>
                   </Link>
               </div>
