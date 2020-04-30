@@ -34,6 +34,7 @@ class ClientMessageView extends React.Component {
         const form = (
             <div className="app flex-row">
                 <Container>
+                    <div className="content-align-center">
                     <Form>
                         <FormGroup>
                             <Label for="exampleEmail">Введіть Email</Label>
@@ -61,13 +62,9 @@ class ClientMessageView extends React.Component {
                                 This is some placeholder block-level help text for the above input.
                         It's a bit lighter and easily wraps to a new line.</FormText>
                         </FormGroup>
-                        <FormGroup check>
-                            <Label check>
-                                <Input type="checkbox" />{' '}
-                                Check me out</Label>
-                        </FormGroup>
                         <Button>Submit</Button>
                     </Form>
+                    </div>
                 </Container>
             </div>
         );
