@@ -32,7 +32,7 @@ class ClientMessageView extends React.Component {
         const { clientMessage } = this.props;
         console.log("render", clientMessage);
         const form = (
-            <div className="app flex-row">
+            <div className="app flex-row" style={{position: 'absolute', left: '15%', top: '10%',}}>
                 <Container>
                     <div className="content-align-center">
                     <Form>
@@ -62,7 +62,7 @@ class ClientMessageView extends React.Component {
                                 This is some placeholder block-level help text for the above input.
                         It's a bit lighter and easily wraps to a new line.</FormText>
                         </FormGroup>
-                        <Button>Submit</Button>
+                        <Button>Відправити</Button>
                     </Form>
                     </div>
                 </Container>

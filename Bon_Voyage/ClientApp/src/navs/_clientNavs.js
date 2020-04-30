@@ -25,11 +25,6 @@ export default {
             icon: 'icon-star',
         },
         {
-            name: 'Галерея',
-            url: '/client/galery',
-            icon: 'icon-grid',
-        },
-        {
             name: 'Мапа',
             url: '/client/map',
             icon: 'icon-map',
