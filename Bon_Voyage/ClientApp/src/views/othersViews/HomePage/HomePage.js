@@ -80,13 +80,14 @@ class HomePage extends Component {
                   <span className="icon-bar"></span>
                   <span className="icon-bar"></span>
                 </button>
-                <div className="collapse navbar-collapse offset" id="navbarSupportedContent">
-                  <ul className="nav navbar-nav menu_nav">
+                <div className="collapse navbar-collapse offset ml-5" id="navbarSupportedContent">
+                  <ul className="nav navbar-nav menu_nav ml-5">
                     <li className="nav-item active"><a className="nav-link" href="index.html">Home</a></li>
                     <li className="nav-item"> <Link className="nav-link" to="/contact-page">Про нас</Link></li>
                     <li className="nav-item"><a className="nav-link" href="properties.html">Properties</a></li>
                     <li className="nav-item"><a className="nav-link" href="gallery.html">Gallery</a></li>
 
+                    
                     {
                       !isAuthenticated ?
                         <li className="nav-item">
