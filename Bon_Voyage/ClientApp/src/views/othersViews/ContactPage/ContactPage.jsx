@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Iframe from 'react-iframe'
 import { Link } from 'react-router-dom';
 import '../instruments/css/style.scss';
 import '../instruments/vendors/linericon/style.css'
@@ -92,25 +93,25 @@ class Contact extends Component {
       </button>
       <div className="collapse navbar-collapse offset" id="navbarSupportedContent">
         <ul className="nav navbar-nav menu_nav">
-          <li className="nav-item active"><a className="nav-link" href="index.html">Home</a></li>
-          <li className="nav-item"> <Link className="nav-link" to="/contact-page">Про нас</Link></li>
+          <li className="nav-item active"><a className="nav-link" href="index.html">Головна</a></li>
+          <li className="nav-item"> <Link className="nav-link" to="/contact-page">Контакти</Link></li>
           <li className="nav-item"><a className="nav-link" href="properties.html">Properties</a></li>
-          <li className="nav-item"><a className="nav-link" href="gallery.html">Gallery</a></li>
+          <li className="nav-item"><a className="nav-link" href="gallery.html">Галерея</a></li>
         </ul>       
       </div>
       <div className="ml-auto d-none d-md-block d-md-flex" >
             <div className="media header-top-info">
               <span className="header-top-info__icon"><i className="fa fa-phone"></i></span>
               <div className="media-body">
-                <p>Have any question?</p>
-                <p>Free: <a href="tel:+12 365 5233">+12 365 5233</a></p>
+                <p>Маєте питання?</p>
+                <p>Free: <a href="tel:++38 096 6666666">++38 096 6666666</a></p>
               </div>
             </div>
             <div className="media header-top-info">
-              <span className="header-top-info__icon"><i className="fa fa-email"></i></span>
+              <span className="header-top-info__icon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
               <div className="media-body">
                 <p>Have any question?</p>
-                <p>Free: <a href="tel:+12 365 5233">+12 365 5233</a></p>
+                <p>Free: <a href="tel:+38 096 6666666">+38 096 6666666</a></p>
               </div>
             </div>
           </div>
@@ -124,11 +125,11 @@ class Contact extends Component {
     <div className="container h-100">
       <div className="contact-banner">
         <div className="text-center">
-          <h1>Contact Us</h1>
+          <h1>Контакти</h1>
           <nav aria-label="breadcrumb" className="banner-breadcrumb">
             <ol className="breadcrumb">
-              <li className="breadcrumb-item"><a href="#">Home</a></li>
-              <li className="breadcrumb-item active" aria-current="page">Contact Us</li>
+              <li className="breadcrumb-item"><a href="#">Головна</a></li>
+              <li className="breadcrumb-item active" aria-current="page">Контакти</li>
             </ol>
           </nav>
         </div>
@@ -138,52 +139,73 @@ class Contact extends Component {
    
   
   
-      <div className="row" />
-        <div className="col-md-4 col-lg-3 mb-4 mb-md-0">
-          <div className="media contact-info">
-            <span className="contact-info__icon"><i className="ti-home"></i></span>
-            <div className="media-body">
-              <h3>California United States</h3>
-              <p>Santa monica bullevard</p>
+  <section class="section-margin">
+    <div class="container">
+   
+      <div class="d-none d-sm-block mb-5 pb-4">
+        <div id="map" style={{height: '420px'}}>
+        <Iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3580.155688092591!2d26.25886499832669!3d50.61685488613916!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x472f134609e1331f:0x4b4b27390f364d81!2z0JrQvtC80L8n0Y7RgtC10YDQvdCwINCQ0LrQsNC00LXQvNGW0Y8g0KjQkNCT!5e0!3m2!1sru!2sua!4v1588261875083!5m2!1sru!2sua" 
+        width="1100" height="480" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></Iframe>
+        </div>
+        
+       
+      </div>
+     
+
+
+      <div class="row">
+        <div class="col-md-4 col-lg-3 mb-4 mb-md-0">
+          <div class="media contact-info">
+            <span class="contact-info__icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+            <div class="media-body">
+              <h3>Україна</h3>
+              <p>м.Рівне , вул.Соборна 666</p>
             </div>
           </div>
-          <div className="media contact-info">
-            <span className="contact-info__icon"><i className="ti-headphone"></i></span>
-            <div className="media-body">
-              <h3><a href="tel:454545654">00 (440) 9865 562</a></h3>
-              <p>Mon to Fri 9am to 6pm</p>
+          <div class="media contact-info">
+            <span class="contact-info__icon"><i class="fa fa-headphones" aria-hidden="true"></i></span>
+            <div class="media-body">
+              <h3><a href="tel:+38 096 6666666">+38 096 6666666</a></h3>
+              <p>З понеділка по пятницю з 8:00 До 20:00</p>
             </div>
           </div>
-          <div className="media contact-info">
-            <span className="contact-info__icon"><i className="ti-email"></i></span>
-            <div className="media-body">
-              <h3><a href="mailto:support@colorlib.com">support@colorlib.com</a></h3>
-              <p>Send us your query anytime!</p>
+          <div class="media contact-info">
+            <span class="contact-info__icon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+            <div class="media-body">
+              <h3><a href="mailto:support@colorlib.com">bonvoyagevirus@gmail.com</a></h3>
+              <p>Присилайте нам на електронну пошту свої питання</p>
             </div>
           </div>
         </div>
-        <div className="col-md-8 col-lg-9"/>
-          <form className="row contact_form" id="contactForm">
-              <div className="col-md-6" />
-                  <div className="form-group" />
-                      <input type="text" className="form-control" id="name" name="name" placeholder="Enter your name"/> 
-                  
-                  <div className="form-group" />
-                      <input type="email" className="form-control" id="email" name="email" placeholder="Enter email address"/>
-                 
-                  <div className="form-group" />
-                      <input type="text" className="form-control" id="subject" name="subject" placeholder="Enter Subject"/> 
-                 
-              
-              <div className="col-md-6">
-                  <div className="form-group">
-                      <textarea className="form-control different-control" name="message" id="message" rows="5" placeholder="Enter Message"></textarea>
+        <div class="col-md-8 col-lg-9">
+          <form class="row contact_form" action="contact_process.php" method="post" id="contactForm"
+              novalidate="novalidate">
+              <div class="col-md-6">
+                  <div class="form-group" >
+                      <input type="text" class="form-control" id="name" name="name" placeholder="Введіть своє ім`я" />
+                  </div>
+                  <div class="form-group">
+                      <input type="email" class="form-control" id="email" name="email" placeholder="Введіть свою електронну пошту" />
+                  </div>
+                  <div class="form-group">
+                      <input type="text" class="form-control" id="subject" name="subject" placeholder="Введіть тему" />
                   </div>
               </div>
-              <div className="col-md-12 text-right">
-                  <button type="submit" value="submit" className="button-contact"><span>Send Message</span></button>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <textarea class="form-control different-control" name="message" id="message" rows="5" placeholder="Напишіть своє питання"></textarea>
+                  </div>
+              </div>
+              <div class="col-md-12 text-right">
+              <Link to="/client/message"> 
+                  <button type="submit" value="submit" class="button-contact"><span>Відправити</span></button>
+                  </Link>
               </div>
           </form>
+        </div>
+      </div>
+    </div>
+  </section>
     
     
   
@@ -192,68 +214,21 @@ class Contact extends Component {
     <div className="container">
       <div className="row">
         <div className="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget">
-          <h4>Top Products</h4>
-          <ul>
-            <li><a href="/#/">Managed Website</a></li>
-            <li><a href="/#/">Manage Reputation</a></li>
-            <li><a href="/#/">Power Tools</a></li>
-            <li><a href="/#/">Marketing Service</a></li>
-          </ul>
+         
+          
         </div>
         <div className="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget">
-          <h4>Quick Links</h4>
-          <ul>
-            <li><a href="/#/">Jobs</a></li>
-            <li><a href="/#/">Brand Assets</a></li>
-            <li><a href="/#/">Investor Relations</a></li>
-            <li><a href="/#/">Terms of Service</a></li>
-          </ul>
+        
         </div>
         <div className="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget">
-          <h4>Features</h4>
-          <ul>
-            <li><a href="/#/">Jobs</a></li>
-            <li><a href="/#/">Brand Assets</a></li>
-            <li><a href="/#/">Investor Relations</a></li>
-            <li><a href="/#/">Terms of Service</a></li>
-          </ul>
+        
         </div>
         <div className="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget">
-          <h4>Resources</h4>
-          <ul>
-            <li><a href="/#/">Guides</a></li>
-            <li><a href="/#/">Research</a></li>
-            <li><a href="/#/">Experts</a></li>
-            <li><a href="/#/">Agencies</a></li>
-          </ul>
+        
         </div>
         <div className="col-xl-4 col-md-8 mb-4 mb-xl-0 single-footer-widget">
-          <h4>Newsletter</h4>
-          <p>You can trust us. we only send promo offers,</p>
-          <div className="form-wrap" id="mc_embed_signup">
-            <form target="_blank" 
-             method="get" className="form-inline">
-              <input className="form-control" name="EMAIL" placeholder="Your Email Address"
-                type="email" /> 
-              <button className="click-btn btn btn-default text-uppercase">subscribe</button>
-              <div style={{position : 'absolute'}}>
-                <input name="b_36c4fd991d266f23781ded980_aefe40901a" type="text" /> 
-               
-              </div>
-  
-              <div className="info"></div>
-            </form>
-          </div>
-        </div>
-      </div>
-      <div className="footer-bottom row align-items-center text-center text-lg-left">
-  
-  
-        <div className="col-lg-4 col-md-12 text-center text-lg-right footer-social">
-          <a href="/#/"><i className="fab fa-facebook-f"></i></a>
-          <a href="/#/"><i className="fab fa-twitter"></i></a>
-          <a href="/#/"><i className="fab fa-dribbble"></i></a>
-          <a href="/#/"><i className="fab fa-behance"></i></a>
+          
+          
         </div>
       </div>
     </div>
