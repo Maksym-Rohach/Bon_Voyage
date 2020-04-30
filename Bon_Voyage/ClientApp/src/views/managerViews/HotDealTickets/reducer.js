@@ -4,6 +4,9 @@ export const HOT_DEAL_STARTED = "HOT_DEAL_STARTED";
 export const HOT_DEAL_SUCCESS = "HOT_DEAL_SUCCESS";
 export const HOT_DEAL_FAILED = "HOT_DEAL_FAILED";
 
+export const UPDATE_DISCOUNT_STARTED = "UPDATE_DISCOUNT_STARTED";
+export const UPDATE_DISCOUNT_SUCCESS = "UPDATE_DISCOUNT_SUCCESS";
+export const UPDATE_DISCOUNT_FAILED = "UPDATE_DISCOUNT_FAILED";
 
 const initialState = {
     list: {
@@ -12,6 +15,21 @@ const initialState = {
         success: false,
         failed: false,
     },
+}
+
+export const updateTicketDiscountData = (model) => {
+    return (dispatch) => {
+        dispatch(getUpdateDiscountListActions.started());
+        HotDealTicketsService.updateTicketDiscount(model)
+            .then((response) => {
+                dispatch(getUpdateDiscountListActions.success(response));
+            }, err => { throw err; })
+            .catch(err => {
+                dispatch(getUpdateDiscountListActions.failed(err));
+            });
+
+
+    }
 }
 
 export const getHotDealTicketsData = () => {
@@ -46,6 +64,24 @@ export const getListActions = {
         }
     }
 }
+export const getUpdateDiscountListActions = {
+    started: () => {
+        return {
+            type: UPDATE_DISCOUNT_STARTED
+        }
+    },
+    success: () => {
+        return {
+            type: UPDATE_DISCOUNT_SUCCESS,
+        }
+    },
+    failed: (error) => {
+        return {
+            type: UPDATE_DISCOUNT_FAILED,
+            error: error.data,
+        }
+    }
+}
 
 export const hotDealTicketsReducer = (state = initialState, action) => {
     let newState = state;
@@ -69,6 +105,28 @@ export const hotDealTicketsReducer = (state = initialState, action) => {
             newState = update.set(state, 'list.loading', false);
             newState = update.set(newState, 'list.success', false);
             newState = update.set(newState, 'list.failed', true);
+            break;
+        }
+        case UPDATE_DISCOUNT_STARTED: {
+            newState = update.set(state, 'updateDiscount.loading', true);
+            newState = update.set(newState, 'updateDiscount.success', false);
+            newState = update.set(newState, 'updateDiscount.failed', false);
+            newState = update.set(newState, 'updateDiscount.answer', action.payload);
+            break;
+        }
+        case UPDATE_DISCOUNT_SUCCESS: {
+            newState = update.set(state, 'updateDiscount.loading', false);
+            newState = update.set(newState, 'updateDiscount.failed', false);
+            newState = update.set(newState, 'updateDiscount.success', true);
+            newState = update.set(newState, 'updateDiscount.data', action.payload);
+            break;
+        }
+        case UPDATE_DISCOUNT_FAILED: {
+            newState = update.set(state, 'updateDiscount.loading', false);
+            newState = update.set(newState, 'updateDiscount.success', false);
+            newState = update.set(newState, 'updateDiscount.failed', true);
+            newState = update.set(newState, 'updateDiscount.answer', action.payload);
+
             break;
         }
         default: {
