@@ -24,11 +24,13 @@ namespace Bon_Voyage.MediatR.Home.Queries
 
             public async Task<HomeInfoViewModel> Handle(GetHomeInformationQuery request, CancellationToken cancellationToken)
             {
-                //int topHotelsPhoto = 3;
-                int topTickets = 3;
-                int maxHotTickets = 8;
+                int HotelsPhotoCount = 3;
 
                 var result = new HomeInfoViewModel();
+                result.Random3Photos = new List<string>();
+                result.HotTickets = new List<HomeTicketViewModel>();
+                result.TopHotels = new List<HomeHotelViewModel>();
+
                 var currentData = DateTime.Now;
 
                 result.Countries = _context.Country.Select(x => new CountryViewModel
@@ -37,34 +39,44 @@ namespace Bon_Voyage.MediatR.Home.Queries
                     Name = x.Name
                 }).ToList();
 
-                result.TopTickets = _context.Tickets
-                    .OrderBy(x => x.PriceFrom)
-                    .Take(topTickets)
-                    .Select(x => new HomeTicketViewModel
-                {
-                        Id = x.Id,
-                        City = x.Hotel.City.Name,
-                        Country = x.Hotel.City.Country.Name,
-                        CountsOfNight = x.CountsOfNight,
-                        Description = x.Hotel.Description,
-                        Photo = "null",
-                        PriceFrom = Convert.ToInt32(x.PriceFrom)
-                }).ToList();
+                //result.Random3Photos.AddRange(_context.PhotosToHotels
+                //    .Take(HotelsPhotoCount)
+                //    .Where(x => x.Id == new Random().Next(0, _context.PhotosToHotels.Count() - 1).ToString())
+                //    .Select(x => x.id));
 
-                result.TopHotTickets = _context.Tickets.Where(x => x.Discount != null)
-                .Take(maxHotTickets)
-                .Select(x => new HomeTicketViewModel
+                for (int i = 0; i < HotelsPhotoCount; i++)
                 {
-                    Id = x.Id,
-                    City = x.Hotel.City.Name,
-                    Country = x.Hotel.City.Country.Name,
-                    CountsOfNight = x.CountsOfNight,
-                    Description = x.Hotel.Description,
-                    Photo = "null",
-                    PriceFrom = Convert.ToInt32(x.PriceFrom)
-                })
-                .ToList();             
-               
+                    result.Random3Photos.Add("1280_" + _context
+                        .PhotosToHotels
+                        .ToList()
+                        [new Random().Next(0, _context.PhotosToHotels.Count() - 1)]
+                        .PhotoLink);
+                }
+
+                result.TopHotels.AddRange(
+                    _context.Hotels.OrderBy(x => x.Stars).Take(3).Select(x => new HomeHotelViewModel
+                    {
+                        Id = x.Id,
+                        Stars = x.Stars,
+                        Name = x.Name,
+                        Description = x.Description,
+                        Photo = "250_" + _context.PhotosToHotels.FirstOrDefault(y => y.HotelId == x.Id).PhotoLink
+                    })
+                    );
+
+                result.HotTickets.AddRange(
+                    _context.Tickets
+                    .Where(x => x.Discount != 0)
+                    .OrderBy(x => x.Hotel.Stars)
+                    .Take(3)
+                    .Select(x => new HomeTicketViewModel
+                    {
+                        Id = x.Id,
+                        Photo = "250_" + _context.PhotosToHotels.FirstOrDefault(y => y.HotelId == x.HotelId).PhotoLink,
+                        Price = x.PriceFrom
+                    })
+                    );
+
                 return result;
             }
         }

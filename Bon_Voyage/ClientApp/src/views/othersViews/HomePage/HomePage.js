@@ -7,6 +7,7 @@ import * as login from "../LoginPage/reducer";
 import '../instruments/css/style.scss';
 import mylogo from '../../../assets/img/Logo.png';
 import Loader from '../../../components/Loader/index'
+import {serverUrl} from '../../../config';
 
 //import '../../../scss/customNav/custNavbar.scss'
 
@@ -22,7 +23,7 @@ class HomePage extends Component {
     countries: undefined,
     cities: undefined,
     hotels: undefined,
-    //randomPhotos:[],
+    randomPhotos:[],
     topTickets: [],
     hotTickets: [],
     isLoad:true,
@@ -51,10 +52,16 @@ class HomePage extends Component {
   }
 
   componentWillReceiveProps = (nextProps) => { //- Binding    
+    console.log(nextProps);
     this.setState({
       countries: nextProps.countriesReducer,
       cities: nextProps.citiesReducer,
       hotels: nextProps.hotelsReducer,
+
+      randomPhotos: nextProps.randomPhotosReducer,
+      topTickets: nextProps.topHotelsReducer,
+      hotTickets: nextProps.hotTicketsReducer,
+
       isLoad: nextProps.loadingReducer,
     });
   }
@@ -62,7 +69,7 @@ class HomePage extends Component {
 
 
   render() {
-    const { countries, cities, hotels, isLoad } = this.state;
+    const { countries, cities, hotels, isLoad, randomPhotos } = this.state;
     const { isAuthenticated } = this.props;
 
     const page = (
@@ -112,7 +119,7 @@ class HomePage extends Component {
                         {
 
                         }
-                        <i class="pi pi-shopping-cart" style={{ 'fontSize': '2em' }}></i>
+                        <i className="pi pi-shopping-cart" style={{ 'fontSize': '2em' }}></i>
                       </a></li>
                   </ul>
                 </div>
@@ -146,7 +153,7 @@ class HomePage extends Component {
               </div>
               <div className="row">
                 <div className="col-sm gutters-19">
-                  <div c lassName="form-group">
+                  <div className="form-group">
                     <div className="form-select-custom">
                       <select name="CountriesSelect" onChange={e => this.countrySelectEvent(e)}>
                         <option disabled selected default>Виберіть країну</option>
@@ -207,27 +214,27 @@ class HomePage extends Component {
                   <div className="row no-gutters welcome-images">
                     <div className="col-sm-7">
                       <div className="card">
-                        <img className="" src={Banner1} alt="Card image cap" />
+                        <img className="" src={`${serverUrl}HotelImages/${randomPhotos[0]}`} alt="Card image cap" />
                       </div>
                     </div>
                     <div className="col-sm-5">
                       <div className="card">
-                        <img className="" src={Banner2} alt="Card image cap" />
+                        <img className="" src={`${serverUrl}HotelImages/${randomPhotos[1]}`} alt="Card image cap" />
                       </div>
                     </div>
                     <div className="col-lg-12">
                       <div className="card">
-                        <img className="" src={Banner3} alt="Card image cap" />
+                        <img className="" src={`${serverUrl}HotelImages/${randomPhotos[2]}`} alt="Card image cap" />
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="col-lg-7">
                   <div className="welcome-content">
-                    <h2 className="mb-4"><span className="d-block">Welcome</span> to our residence</h2>
-                    <p>Beginning blessed second a creepeth. Darkness wherein fish years good air whose after seed appear midst evenin, appear void give third bearing divide one so blessed moved firmament gathered </p>
-                    <p>Beginning blessed second a creepeth. Darkness wherein fish years good air whose after seed appear midst evenin, appear void give third bearing divide one so blessed</p>
-                    <a className="button button--active home-banner-btn mt-4" href="#">Learn More</a>
+                    <h2 className="mb-4"><span className="d-block"></span>Виберіть подорож на свій смак</h2>
+                    {/* <p>Beginning blessed second a creepeth. Darkness wherein fish years good air whose after seed appear midst evenin, appear void give third bearing divide one so blessed moved firmament gathered </p>
+                    <p>Beginning blessed second a creepeth. Darkness wherein fish years good air whose after seed appear midst evenin, appear void give third bearing divide one so blessed</p> */}
+                    <a className="button button--active home-banner-btn mt-4" href="#">Дізнатися більше</a>
                   </div>
                 </div>
               </div>
@@ -239,7 +246,7 @@ class HomePage extends Component {
                 <div className="section-intro__style">
                   <img src="img/home/bed-icon.png" alt="" />
                 </div>
-                <h2>Explore Our Rooms</h2>
+                <h2>Вигідні пропозиції</h2>
               </div>
 
               <div className="row">
@@ -251,6 +258,20 @@ class HomePage extends Component {
                     <div className="card-body">
                       <h3 className="card-explore__price">$150.00 <sub>/ Per Night</sub></h3>
                       <h4 className="card-explore__title"><a href="#">Classic Bed Room</a></h4>
+                      <p>Beginning fourth dominion creeping god was. Beginning, which fly yieldi dry beast moved blessed </p>
+                      <a className="card-explore__link" href="#">Book Now <i className="ti-arrow-right"></i></a>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-md-6 col-lg-4 mb-4 mb-lg-0">
+                  <div className="card card-explore">
+                    <div className="card-explore__img">
+                      <img className="card-img" src="img/home/explore2.png" alt="" />
+                    </div>
+                    <div className="card-body">
+                      <h3 className="card-explore__price">$170.00 <sub>/ Per Night</sub></h3>
+                      <h4 className="card-explore__title"><a href="#">Premium Room</a></h4>
                       <p>Beginning fourth dominion creeping god was. Beginning, which fly yieldi dry beast moved blessed </p>
                       <a className="card-explore__link" href="#">Book Now <i className="ti-arrow-right"></i></a>
                     </div>
@@ -301,7 +322,7 @@ class HomePage extends Component {
                 <div className="section-intro__style">
                   <img src="img/home/bed-icon.png" alt="" />
                 </div>
-                <h2>Special Facilities</h2>
+                <h2>Гарячі квитки</h2>
               </div>
               <div className="special-img mb-30px">
                 <img className="img-fluid" src="img/home/special.png" alt="" />
@@ -368,10 +389,14 @@ class HomePage extends Component {
 // GetReducerData
 function mapStateToProps(state) {
   return {
-    countriesReducer: get(state, 'home.list.data.countries'),
+    countriesReducer: get(state, 'home.list.data'),
     loadingReducer: get(state, 'home.list.loading'),
     citiesReducer: get(state, 'home.cities'),
     hotelsReducer: get(state, 'home.hotels'),
+
+    randomPhotosReducer: get(state, 'home.randomPhotos'),
+    topHotelsReducer: get(state, 'home.topHotels'),
+    hotTicketsReducer: get(state, 'home.hotTickets'),
   };
 
 }
