@@ -5,7 +5,8 @@ export default class ManagerControlService {
     static getHotDealTickets() {
         return axios.get(`${serverUrl}/api/TicketControl/getHotDealTickets`)
     };
-    //static updateTickets() {
-    //    return axios.get(`${serverUrl}/api/TicketControl/updateTickets`)
-    //};
+    static updateTicketDiscount(model) {
+        console.log('123');
+        return axios.post(`${serverUrl}/api/TicketControl/updateTicketDiscount`, model)
+    };
 }
