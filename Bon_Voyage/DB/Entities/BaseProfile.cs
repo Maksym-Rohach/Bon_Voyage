@@ -22,6 +22,8 @@ namespace Bon_Voyage.DB.Entities
         public virtual AdminProfile AdminProfile { get; set; }
         public virtual BlockedProfile BlockedProfile { get; set; }
 
+        public virtual ICollection<Feedback> Feedbacks { get; set; }
+
         public virtual DbUser User { get; set; }
     }
 }
