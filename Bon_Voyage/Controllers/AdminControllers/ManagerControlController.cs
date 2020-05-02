@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bon_Voyage.MediatR.Manager.Commands.CreateManager;
 using Bon_Voyage.ViewModels.AdminViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bon_Voyage.Controllers.AdminControllers
@@ -12,14 +12,20 @@ namespace Bon_Voyage.Controllers.AdminControllers
     [Authorize(Roles = "Admin")]
     [Produces("application/json")]
     [Route("api/[controller]")]
-    public class ManagerControlController : ControllerBase
+    public class ManagerControlController : ApiController
     {
-        [HttpPost("add")]
-        public IActionResult AddManager([FromBody]AddManagerModel model)
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateManager(CreateManagerCommand command)
         {
-
-
-            return Ok();
+            var result = await Mediator.Send(command);
+            if (result.Status)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(result.ErrorsMessages);
+            }
         }
         [HttpPost("delete")]
         public IActionResult DeleteManager([FromBody]DeleteManagerModel model)
