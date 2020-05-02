@@ -273,7 +273,7 @@ class HomePage extends Component {
                                 <h3 className="card-explore__price">₴ {item.price}<sub>/ За Ніч</sub></h3>
                                 <h4 className="card-explore__title"><a href="#">{item.hotelName}</a></h4>
                                 <p>{item.description}</p>
-                                <a className="card-explore__link" href="#">Book Now <i className="ti-arrow-right"></i></a>
+                                <a className="card-explore__link" href="#">Переглянути<i className="ti-arrow-right"></i></a>
                               </div>
                             </div>
                           </div>

@@ -9,8 +9,10 @@ using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bon_Voyage.MediatR.Home.Queries
 {
@@ -62,7 +64,7 @@ namespace Bon_Voyage.MediatR.Home.Queries
                 //    }
                 //});
 
-               
+
                 result.TopHotels.AddRange(
                     _context.Hotels.OrderBy(x => x.Stars).Take(3).Select(x => new HomeHotelViewModel
                     {
@@ -74,20 +76,30 @@ namespace Bon_Voyage.MediatR.Home.Queries
                     })
                     );
 
+                var desc = _context.Hotels.ToArray()[3].Description;
+
                 result.HotTickets.AddRange(
-                    _context.Tickets
-                    .Where(x => x.Discount != 0)
-                    .OrderBy(x => x.Hotel.Stars)
-                    .Take(3)
-                    .Select(x => new HomeTicketViewModel
-                    {
-                        Id = x.Id,
-                        Photo = "1280_" + _context.PhotosToHotels.FirstOrDefault(y => y.HotelId == x.HotelId).PhotoLink,
-                        Price = x.PriceFrom,
-                        HotelName = x.Hotel.Name,
-                        Description = "asdasd",
-                    })
-                    );
+                   _context.Tickets
+                   .AsNoTracking()
+                   .Where(x => x.Discount != 0)
+                   .OrderBy(x => x.Hotel.Stars)
+                   .Take(3)
+                   .Select(x => new HomeTicketViewModel
+                   {
+                       Id = x.Id,
+                       Photo = "1280_" + _context.PhotosToHotels.FirstOrDefault(y => y.HotelId == x.HotelId).PhotoLink,
+                       Price = x.PriceFrom,
+                       HotelName = x.Hotel.Name,
+                       Description = x.Hotel.Description
+                   })
+                   );
+
+                result.HotTickets.ForEach(x =>
+                x.Description = String.Join(". ",
+                      x.Description
+                       .Split(". ", StringSplitOptions.None)
+                       .Take(3).ToArray())
+                );
 
                 return result;
             }
