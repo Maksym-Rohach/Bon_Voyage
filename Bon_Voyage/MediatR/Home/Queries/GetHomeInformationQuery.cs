@@ -66,15 +66,22 @@ namespace Bon_Voyage.MediatR.Home.Queries
 
 
                 result.TopHotels.AddRange(
-                    _context.Hotels.OrderBy(x => x.Stars).Take(3).Select(x => new HomeHotelViewModel
+                    _context.Hotels.OrderByDescending(x => x.Stars).Take(3).Select(x => new HomeHotelViewModel
                     {
                         Id = x.Id,
-                        Stars = x.Stars,
                         Name = x.Name,
                         Description = x.Description,
-                        Photo = "1280_" + _context.PhotosToHotels.FirstOrDefault(y => y.HotelId == x.Id).PhotoLink
+                        Photo = "1280_" + _context.PhotosToHotels.FirstOrDefault(y => y.HotelId == x.Id).PhotoLink,
+                        Country = x.City.Country.Name,
+                        City = x.City.Name
                     })
                     );
+                result.TopHotels.ForEach(x =>
+                x.Description = String.Join(". ",
+                      x.Description
+                       .Split(". ", StringSplitOptions.None)
+                       .Take(3).ToArray())
+                );
 
                 var desc = _context.Hotels.ToArray()[3].Description;
 
@@ -82,7 +89,7 @@ namespace Bon_Voyage.MediatR.Home.Queries
                    _context.Tickets
                    .AsNoTracking()
                    .Where(x => x.Discount != 0)
-                   .OrderBy(x => x.Hotel.Stars)
+                   .OrderByDescending(x => x.Hotel.Stars)
                    .Take(3)
                    .Select(x => new HomeTicketViewModel
                    {

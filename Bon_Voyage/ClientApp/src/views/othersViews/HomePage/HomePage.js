@@ -8,6 +8,7 @@ import '../instruments/css/style.scss';
 import mylogo from '../../../assets/img/Logo.png';
 import Loader from '../../../components/Loader/index'
 import { serverUrl } from '../../../config';
+import bedIcon from '../../../assets/img/bed-icon.png'
 
 //import '../../../scss/customNav/custNavbar.scss'
 
@@ -249,17 +250,6 @@ class HomePage extends Component {
                   <h2>Вигідні пропозиції</h2>
                 </div>
 
-
-
-
-
-
-
-
-
-
-
-
                 <div className="row">
                   {
                     hotTickets.map(item => {
@@ -282,14 +272,6 @@ class HomePage extends Component {
                   }
                 </div>
 
-
-
-
-
-
-
-
-
               </div>
             </section>
             <section className="video-area">
@@ -300,63 +282,51 @@ class HomePage extends Component {
                 </div>
               </div>
             </section>
-            <section className="section-padding bg-porcelain">
-              <div className="container">
-                <div className="section-intro text-center pb-80px">
-                  <div className="section-intro__style">
-                    <img src="img/home/bed-icon.png" alt="" />
+            
+          
+
+
+            <section class="section-margin">
+              <div class="container">
+                <div class="section-intro text-center pb-80px">
+                  <div class="section-intro__style">
+                    <img src={bedIcon} alt="" />
                   </div>
-                  <h2>Гарячі квитки</h2>
+                  <h2>Популярні готелі</h2>
                 </div>
-                <div className="special-img mb-30px">
-                  <img className="img-fluid" src="img/home/special.png" alt="" />
-                </div>
+                <div class="row">
+                  {
+                    topHotels.map(item => {
+                      return (
 
-                <div className="row">
-                  <div className="col-md-6 col-lg-4 mb-4 mb-lg-0">
-                    <div className="card card-special">
-                      <div className="media align-items-center mb-1">
-                        <span className="card-special__icon"><i className="ti-home"></i></span>
-                        <div className="media-body">
-                          <h4 className="card-special__title">Conference Room</h4>
+                        <div class="col-md-6 col-lg-4 mb-4 mb-md-0">
+                          <div class="card card-news">
+                            <div class="card-news__img">
+                              <img class="card-img" src={`${serverUrl}HotelImages/${item.photo}`} alt="" />
+                            </div>
+                            <div class="card-body">
+                              <h4 class="card-news__title"><a href="#">{item.name}</a></h4>
+                              <ul class="card-news__info">
+                                <li><a href="#"><span class="news-icon"><i class="ti-notepad"></i></span>{item.country},</a></li>
+                                <li><a href="#"><span class="news-icon"><i class="ti-notepad"></i></span>{item.city}</a></li>
+                              </ul>
+                              <p>{item.description}</p>
+                              <a class="card-news__link" href="#">Дізнатись більше<i class="ti-arrow-right"></i></a>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                      <div className="card-body">
-                        <p>Built purse maids cease her ham new seven among and. Pulled coming wooded tended it answer remain</p>
-                      </div>
-                    </div>
-                  </div>
+                      )
+                    })
+                  }
 
-                  <div className="col-md-6 col-lg-4 mb-4 mb-lg-0">
-                    <div className="card card-special">
-                      <div className="media align-items-center mb-1">
-                        <span className="card-special__icon"><i className="ti-bell"></i></span>
-                        <div className="media-body">
-                          <h4 className="card-special__title">Swimming Pool</h4>
-                        </div>
-                      </div>
-                      <div className="card-body">
-                        <p>Built purse maids cease her ham new seven among and. Pulled coming wooded tended it answer remain</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-md-6 col-lg-4 mb-4 mb-lg-0">
-                    <div className="card card-special">
-                      <div className="media align-items-center mb-1">
-                        <span className="card-special__icon"><i className="ti-car"></i></span>
-                        <div className="media-body">
-                          <h4 className="card-special__title">Sports Culb</h4>
-                        </div>
-                      </div>
-                      <div className="card-body">
-                        <p>Built purse maids cease her ham new seven among and. Pulled coming wooded tended it answer remain</p>
-                      </div>
-                    </div>
-                  </div>
+             
+                                  
                 </div>
               </div>
             </section>
+
+          
+          
           </main>
         </div>
       </React.Fragment>
