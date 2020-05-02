@@ -46,13 +46,23 @@ namespace Bon_Voyage.MediatR.Home.Queries
 
                 for (int i = 0; i < HotelsPhotoCount; i++)
                 {
-                    result.Random3Photos.Add("1280_" + _context
+                    result.Random3Photos.Add("250_" + _context
                         .PhotosToHotels
                         .ToList()
                         [new Random().Next(0, _context.PhotosToHotels.Count() - 1)]
                         .PhotoLink);
                 }
 
+                //----------------FOR TEST-----------------
+                //_context.Hotels.ToList().ForEach(x => 
+                //{
+                //    if (_context.PhotosToHotels.FirstOrDefault(y => y.HotelId == x.Id) == null)
+                //    {
+                //        var res = x;
+                //    }
+                //});
+
+               
                 result.TopHotels.AddRange(
                     _context.Hotels.OrderBy(x => x.Stars).Take(3).Select(x => new HomeHotelViewModel
                     {
@@ -60,7 +70,7 @@ namespace Bon_Voyage.MediatR.Home.Queries
                         Stars = x.Stars,
                         Name = x.Name,
                         Description = x.Description,
-                        Photo = "250_" + _context.PhotosToHotels.FirstOrDefault(y => y.HotelId == x.Id).PhotoLink
+                        Photo = "1280_" + _context.PhotosToHotels.FirstOrDefault(y => y.HotelId == x.Id).PhotoLink
                     })
                     );
 
@@ -72,8 +82,10 @@ namespace Bon_Voyage.MediatR.Home.Queries
                     .Select(x => new HomeTicketViewModel
                     {
                         Id = x.Id,
-                        Photo = "250_" + _context.PhotosToHotels.FirstOrDefault(y => y.HotelId == x.HotelId).PhotoLink,
-                        Price = x.PriceFrom
+                        Photo = "1280_" + _context.PhotosToHotels.FirstOrDefault(y => y.HotelId == x.HotelId).PhotoLink,
+                        Price = x.PriceFrom,
+                        HotelName = x.Hotel.Name,
+                        Description = "asdasd",
                     })
                     );
 

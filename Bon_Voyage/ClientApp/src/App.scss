@@ -18,3 +18,7 @@
 @import './scss/style.scss';
 @import './views/othersViews/instruments/vendors/magnefic-popup/magnific-popup.css';
 //@import './scss/customNav/custNavbar.scss'
+
+.home-page .card-explore__img::after{
+    left:-1px !important;
+}

@@ -9,6 +9,8 @@ namespace Bon_Voyage.MediatR.Ticket.ViewModels
     {
         public string Id { get; set; }
         public float Price { get; set; }
+        public string HotelName { get; set; }
+        public string Description { get; set; }
         public string Photo { get; set; }
     }
 }
