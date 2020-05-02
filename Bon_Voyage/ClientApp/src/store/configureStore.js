@@ -6,6 +6,8 @@ import createHistory from 'history/createHashHistory';
 ///reducers
 import {managerProfileViewReducer } from '../views/managerViews/ManagerProfileView/reducer';
 import {clientProfileViewReducer } from '../views/clientViews/ClientProfileView/reducer';
+import {clientMessageViewReducer } from '../views/clientViews/ClientMessageView/reducer';
+import {clientMapViewReducer } from '../views/clientViews/ClientMapView/reducer';
 import {commentsChartReducer} from '../views/adminViews/CommentsChart/reducer';
 import {loginReducer} from '../views/othersViews/LoginPage/reducer';
 import {managerControlReducer} from '../views/adminViews/ManagerControl/reducer';
@@ -40,6 +42,8 @@ export default function configureStore(history, initialState) {
       managers: managerControlReducer,
       managerProfile: managerProfileViewReducer,
       clientProfile: clientProfileViewReducer,
+      clientMessage: clientMessageViewReducer,
+      clientMap: clientMapViewReducer,
       changeImage: changeImageReducer,
       airports: airportControlReducer,
       changeImage: changeImageReducer,
