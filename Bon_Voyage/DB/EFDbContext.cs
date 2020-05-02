@@ -31,6 +31,7 @@ namespace Bon_Voyage.DB
         public DbSet<RoomType> RoomTypes { get; set; }
         public DbSet<Comfort> Comforts { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
        
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -92,6 +93,7 @@ namespace Bon_Voyage.DB
                 .WithMany(x=>x.Airports)
                 .HasForeignKey(x=>x.CityId);
             #endregion
+
             #region Ticket
             builder.Entity<Ticket>()
                 .HasOne(x => x.Airport)
@@ -105,6 +107,13 @@ namespace Bon_Voyage.DB
                 .HasOne(x => x.RoomType)
                 .WithMany(x => x.Tickets)
                 .HasForeignKey(x=>x.RoomTypeId);
+            #endregion
+
+            #region Feedback
+            builder.Entity<Feedback>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.Feedbacks)
+                .HasForeignKey(x => x.UserId);
             #endregion
 
             #region TicketsToComforts

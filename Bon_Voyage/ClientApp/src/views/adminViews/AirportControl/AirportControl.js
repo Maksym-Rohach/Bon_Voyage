@@ -10,7 +10,6 @@ import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
-import { Growl } from 'primereact/growl';
 import { Form } from 'reactstrap';
 class AirportControl extends Component {
     state = {
@@ -67,8 +66,7 @@ class AirportControl extends Component {
                 shortName: this.state.shortName,
                 cityId: this.state.cityId
             }
-            this.props.createAirport(model);
-            
+            this.props.createAirport(model);            
         }
 
     }
@@ -105,7 +103,7 @@ class AirportControl extends Component {
             });
         }
         return (
-            <div>
+            <div className="d-flex">
                 <DataTable small value={this.props.listAirportsData.airports}>
                     <Column field="name" header="Ім'я" sortable={true} />
                     <Column field="shortName" header="Коротке ім'я" sortable={true} />
@@ -140,8 +138,10 @@ class AirportControl extends Component {
                         </div>
                     </Form>
                 </Dialog>
-                <Button label="Додати аеропорт" className="p-button-primary btn-block p-button-raised" onClick={(e) => this.setState({ visible: true })} />
-                <Growl />
+                <div>
+                <Button label="Додати аеропорт" className="p-button-primary " onClick={(e) => this.setState({ visible: true })} />
+                </div>
+                
             </div>
         );
     }

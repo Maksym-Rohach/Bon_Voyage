@@ -16,21 +16,7 @@ namespace Bon_Voyage.Controllers.AdminControllers
 {
     [Authorize(Roles = "Admin")]
     public class AdminController : ApiController
-    {
-        [HttpPost("CreateManager")]
-        public async Task<IActionResult> CreateManager (CreateManagerCommand command)
-        {
-            var result = await Mediator.Send(command);
-            if (result)
-            {
-                return Ok();
-            }
-            else
-            {
-                return BadRequest();
-            }
-        }
-
+    { 
         [HttpGet("GetAllManagers")]
         public async Task<ActionResult<ICollection<ManagerViewModel>>> GetAllManagers()
         {

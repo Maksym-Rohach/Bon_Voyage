@@ -31,7 +31,8 @@ class AdminLayout extends Component {
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   signOut(e) {
-    e.preventDefault()
+    e.preventDefault();
+    this.props.logout();
     this.props.history.push('/login')
   }
 
@@ -52,48 +53,51 @@ class AdminLayout extends Component {
           isAccess = true;
       }
     }
-    return (
-      <div className="app">
-        <AppHeader fixed>
-          <Suspense  fallback={this.loading()}>
-            <AdminNavbar onLogout={e=>this.signOut(e)}
-            image={`${serverUrl}UserImages/50_${login.user.image}`}
-            />
+    const content=( <div className="app">
+    <AppHeader fixed>
+      <Suspense  fallback={this.loading()}>
+        <AdminNavbar onLogout={e=>this.signOut(e)}
+        image={`${serverUrl}UserImages/50_${login.user.image}`}
+        />
+      </Suspense>
+    </AppHeader>
+    <div className="app-body">
+      <AppSidebar fixed display="lg">
+        <AppSidebarHeader />
+        <AppSidebarForm />
+        <Suspense>
+        <AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
+        </Suspense>
+        <AppSidebarFooter />
+        <AppSidebarMinimizer />
+      </AppSidebar>
+      <main className="main">           
+        <Container fluid>
+          <Suspense fallback={this.loading()}>
+            <Switch>
+              {routes.map((route, idx) => {
+                return route.component ? (
+                  <Route
+                    key={idx}
+                    path={route.path}
+                    exact={route.exact}
+                    name={route.name}
+                    render={props => (
+                      <route.component {...props} />
+                    )} />
+                ) : (null);
+              })}
+              <Redirect from="/" to="/dashboard" />
+            </Switch>
           </Suspense>
-        </AppHeader>
-        <div className="app-body">
-          <AppSidebar fixed display="lg">
-            <AppSidebarHeader />
-            <AppSidebarForm />
-            <Suspense>
-            <AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
-            </Suspense>
-            <AppSidebarFooter />
-            <AppSidebarMinimizer />
-          </AppSidebar>
-          <main className="main">           
-            <Container fluid>
-              <Suspense fallback={this.loading()}>
-                <Switch>
-                  {routes.map((route, idx) => {
-                    return route.component ? (
-                      <Route
-                        key={idx}
-                        path={route.path}
-                        exact={route.exact}
-                        name={route.name}
-                        render={props => (
-                          <route.component {...props} />
-                        )} />
-                    ) : (null);
-                  })}
-                  <Redirect from="/" to="/dashboard" />
-                </Switch>
-              </Suspense>
-            </Container>
-          </main>
-        </div>
-      </div>
+        </Container>
+      </main>
+    </div>
+  </div>);
+    return (
+     isAccess?
+     content:
+     <Redirect to="/login"/>
     );
   }
 }
