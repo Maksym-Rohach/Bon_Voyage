@@ -185,13 +185,11 @@ Login.propTypes =
   }
 
 function mapStateToProps(state) {
-  console.log("mapStateToProps", state);
   return {
     loading: get(state, 'login.post.loading'),
     failed: get(state, 'login.post.failed'),
     success: get(state, 'login.post.success'),
     errors: get(state, 'login.post.errors')
-
   }
 }
 

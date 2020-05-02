@@ -23,8 +23,11 @@ const initialState = {
         failed: false,
     },   
     cities: [],
-    hotels: []
+    hotels: [],
 
+    randomPhotos:[],
+    topHotels:[],
+    hotTickets:[]
 }
 
 // 
@@ -146,10 +149,14 @@ export const homePageReducer = (state = initialState, action) => {
           break;
       }
       case INFO_SUCCESS: {
+          console.log(action.payload);
           newState = update.set(state, 'list.loading', false);
           newState = update.set(newState, 'list.failed', false);
           newState = update.set(newState, 'list.success', true);
-          newState = update.set(newState, 'list.data', action.payload);         
+          newState = update.set(newState, 'list.data', action.payload.countries);  
+          newState = update.set(newState, 'randomPhotos', action.payload.random3Photos);  
+          newState = update.set(newState, 'topHotels', action.payload.topHotels);  
+          newState = update.set(newState, 'hotTickets', action.payload.hotTickets);  
           break;
       }
       case INFO_FAILED: {
