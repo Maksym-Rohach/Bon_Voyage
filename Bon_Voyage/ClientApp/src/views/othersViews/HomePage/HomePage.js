@@ -93,7 +93,7 @@ class HomePage extends Component {
                       <li className="nav-item active"><a className="nav-link" href="index.html">Home</a></li>
                       <li className="nav-item"> <Link className="nav-link" to="/contact-page">Про нас</Link></li>
                       <li className="nav-item"><a className="nav-link" href="properties.html">Properties</a></li>
-                      <li className="nav-item"><a className="nav-link" href="gallery.html">Gallery</a></li>
+                      <li className="nav-item"> <Link className="nav-link" to="/gallery-page">Галерея</Link></li>
 
 
                       {
