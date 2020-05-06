@@ -1,0 +1,6 @@
+{
+    "name": "GalleryPage",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./GalleryPage.jsx"
+}
