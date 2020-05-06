@@ -23,6 +23,7 @@ import {hotelControlReducer} from '../views/adminViews/HotelControl/reducer';
 import {ForgotPasswordReducer} from '../views/othersViews/ForgotPasswordPage/reducer';
 import { NewPasswordReducer } from '../views/othersViews/NewPasswordPage/reducer';
 import {countryControlReducer} from '../views/adminViews/CountryControl/reducer'
+import {GalleryReducer} from '../views/othersViews/GalleryPage/reducer'
 
 import {airportControlReducer} from '../views/adminViews/AirportControl/reducer';
 
@@ -32,7 +33,9 @@ export const history = createHistory({ basename: baseUrl });
 
 export default function configureStore(history, initialState) {
   const reducers = {
+    
     login: loginReducer,
+    gallery:GalleryReducer,
     home: homePageReducer,
     forgotPassword: ForgotPasswordReducer,
     addTicket: addTicketReducer,
