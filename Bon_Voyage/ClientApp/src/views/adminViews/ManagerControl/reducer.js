@@ -46,7 +46,8 @@ export const createManager = (model) => {
             .then((response) => {
                 ManagerControlService.getAllManagers()
                     .then((response) => {
-                        dispatch(getManagerListActions.success(response));
+                        dispatch(createManagerListActions.success(response));
+                        dispatch(createManagerListActions.clear())
                     }, err => { throw err; })
                     .catch(err => {
                         dispatch(getManagerListActions.failed(err));
@@ -54,13 +55,20 @@ export const createManager = (model) => {
                 dispatch(createManagerListActions.success(response))
             }, err => { throw err; })
             .catch((err) => {
-                if (err.response !== undefined)
-                    dispatch(createManagerListActions.failed(err.response.data));
+                if (err.response !== undefined){
+                    dispatch(createManagerListActions.failed(err.response.data)); 
+                    console.log(err.response.data);   
+                }                    
                 else { dispatch(createManagerListActions.failed(err)) }
             })
     }
 }
 
+export const clearErrors=()=>{
+    return (dispatch) => {
+        dispatch(createManagerListActions.clear());
+    }
+}
 
 export const getManagerListActions = {
     started: () => {
