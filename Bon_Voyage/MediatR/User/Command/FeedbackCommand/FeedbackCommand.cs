@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Bon_Voyage.DB;
 using Bon_Voyage.DB.IdentityModels;
+using Bon_Voyage.DB.Entities;
 
 namespace Bon_Voyage.MediatR.User.Command.FeedbackCommand
 {
@@ -32,9 +33,30 @@ namespace Bon_Voyage.MediatR.User.Command.FeedbackCommand
                 _IJwtTokenService = jwtToken;
                 _userManager = userManager;
             }
-            Task<FeedbackViewModel> IRequestHandler<FeedbackCommand, FeedbackViewModel>.Handle(FeedbackCommand request, CancellationToken cancellationToken)
+            async Task<FeedbackViewModel> IRequestHandler<FeedbackCommand, FeedbackViewModel>.Handle(FeedbackCommand request, CancellationToken cancellationToken)
             {
-                return null;
+                var user = _context.BaseProfiles.FirstOrDefault(x => x.Id == request.Id);
+                if (user != null)
+                {
+                    var usetable = new Feedback();
+                    if (request.Theme != "")
+                    {
+                        usetable.Theme = request.Theme;
+                    }
+                    if (request.Message != "")
+                    {
+                        usetable.Description = request.Message;
+                    }
+
+                    usetable.Data = DateTime.Now.ToString("dd.MM.yyyy");
+                    usetable.UserId = user.Id;
+
+                    _context.Add(usetable);
+                    _context.SaveChanges();
+
+                    return new FeedbackViewModel { Status = true };
+                }
+                return new FeedbackViewModel { Status = false, ErrorMessage = "Щось пішло не так" };
             }
         }
     }
