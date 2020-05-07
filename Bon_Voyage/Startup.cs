@@ -91,7 +91,7 @@ namespace Bon_Voyage
 
             var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Lesha-xoche-bytu-ymnitsej"));
 
-            services.AddIdentity<DbUser, DbRole>(options => options.Stores.MaxLengthForKeys = 128)
+            services.AddIdentity<DbUser, IdentityRole>(options => options.Stores.MaxLengthForKeys = 128)
                 .AddEntityFrameworkStores<EFDbContext>()
                 .AddDefaultTokenProviders();
 
@@ -199,8 +199,8 @@ namespace Bon_Voyage
             });
             #endregion;
 
-            // Seeder
-            //SeederDB.SeedData(app.ApplicationServices, env, this.Configuration);
+            //Seeder
+            SeederDB.SeedData(app.ApplicationServices, env, this.Configuration);
 
             app.UseEndpoints(endpoints =>
             {
