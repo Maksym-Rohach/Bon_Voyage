@@ -21,7 +21,8 @@ namespace Bon_Voyage.MediatR.Hotel.Queries.GetAllHotelsPhotos
             public async Task<ICollection<AllHotelPhotosViewModel>> Handle(GetAllHotelsPhotosQuery request, CancellationToken cancellationToken)
             {
                 var photos = _context.PhotosToHotels
-                    .Take(49)
+                    .Skip(40)
+                    .Take(40)
                     .Select(x => new AllHotelPhotosViewModel
                 {
                     Id = x.Hotel.Id,
