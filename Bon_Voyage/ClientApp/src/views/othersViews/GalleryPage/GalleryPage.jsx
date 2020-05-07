@@ -38,8 +38,8 @@ class Gallery extends Component {
   //4 
   // Binding
   componentWillReceiveProps = (nextProps) => {
-	//- Binding
-	console.log(nextProps.photosReducer);
+    //- Binding
+    console.log(nextProps.photosReducer);
     this.setState({
       photos: nextProps.photosReducer,
       isLoad: nextProps.loadingReducer,
@@ -47,13 +47,15 @@ class Gallery extends Component {
 
   };
 
+
   render() {
-  const { photos,isLoad } = this.state;
- 
-	const page = (
-		<React.Fragment>
+    const { photos, isLoad } = this.state;
+
+
+    const page = (
+      <React.Fragment>
         <div className="home-page bg-white">
-        
+
           <header className="header_area">
             <div className="main_menu">
               <nav className="navbar navbar-expand-lg navbar-light">
@@ -132,7 +134,6 @@ class Gallery extends Component {
               </nav>
             </div>
           </header>
-
           <section className="contact-banner-area" id="gallery">
             <div className="container h-100">
               <div className="contact-banner">
@@ -164,138 +165,107 @@ class Gallery extends Component {
                 </div>
                 <h2>Наша Галерея</h2>
               </div>
-              <div className="row">
-                <div className="col-md-5">
-                  <div className="row">
-                    <div className="col-12 mb-4">
-                      <a href="img/gallery/g1.png" className="img-gal card-img">
-                        <div className="single-imgs relative">
-                          <div className="overlay overlay-bg"></div>
-                          <div className="relative">
 
-                            <img
-                              className="card-img rounded-0"
-                               src={g1}
-                              alt=""
-                            />
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                    <div className="col-12 mb-4">
-                      <a href="img/gallery/g2.png" className="img-gal card-img">
-                        <div className="single-imgs relative">
-                          <div className="overlay overlay-bg"></div>
-                          <div className="relative">
-                            <img
-                              className="card-img rounded-0"
-                              src={g2}
-                              alt=""
-                            />
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
 
-                <div className="col-md-7">
-                  <div className="row">
-                    <div className="col-sm-7 mb-4">
-                      <a href="img/gallery/g3.png" className="img-gal card-img">
-                        <div className="single-imgs relative">
-                          <div className="overlay overlay-bg"></div>
-                          <div className="relative">
-                            <img
-                              className="card-img rounded-0"
-                              src={g3}
-                              alt=""
-                            />
+
+              {
+                photos != undefined ? photos.map((item, index, array) => {
+                  if (index < array.length / 4) {
+                    console.log(index);
+                    return (
+                      <div class="row d-flex justify-content-center">
+                        <div class="col-md-5">
+                          <div class="row">
+                            <div className="col-12 mb-4">
+                              <a className="img-gal card-img">
+                                <div className="single-imgs relative">
+                                  <div className="overlay overlay-bg"></div>
+                                  <div className="relative">
+
+                                    <img
+                                      className="card-img rounded-0"
+                                      src={`${serverUrl}HotelImages/${photos[array.indexOf(item)].photo}`}
+                                      alt=""
+                                    />
+                                  </div>
+                                </div>
+                              </a>
+                            </div>
+                            <div className="col-12 mb-4">
+                              <a  className="img-gal card-img">
+                                <div className="single-imgs relative">
+                                  <div className="overlay overlay-bg"></div>
+                                  <div className="relative">
+                                    <img
+                                      className="card-img rounded-0"
+                                      src={`${serverUrl}HotelImages/${photos[array.indexOf(item)+1].photo}`}
+                                      alt=""
+                                    />
+                                  </div>
+                                </div>
+                              </a>
+                            </div>
                           </div>
                         </div>
-                      </a>
-                    </div>
-                    <div className="col-sm-5 mb-4">
-                      <a href="img/gallery/g4.png" className="img-gal card-img">
-                        <div className="single-imgs relative">
-                          <div className="overlay overlay-bg"></div>
-                          <div className="relative">
-                            <img
-                              className="card-img rounded-0"
-                              src={g4}
-                              alt=""
-                            />
+
+                        <div class="col-md-5">
+                          <div class="row">
+                            <div className="col-12 mb-4">
+                              <a className="img-gal card-img">
+                                <div className="single-imgs relative">
+                                  <div className="overlay overlay-bg"></div>
+                                  <div className="relative">
+
+                                    <img
+                                      className="card-img rounded-0"
+                                      src={`${serverUrl}HotelImages/${photos[array.indexOf(item)+2].photo}`}
+                                      alt=""
+                                    />
+                                  </div>
+                                </div>
+                              </a>
+                            </div>
+                            <div className="col-12 mb-4">
+                              <a className="img-gal card-img">
+                                <div className="single-imgs relative">
+                                  <div className="overlay overlay-bg"></div>
+                                  <div className="relative">
+                                    <img
+                                      className="card-img rounded-0"
+                                      src={`${serverUrl}HotelImages/${photos[array.indexOf(item)+3].photo}`}
+                                      alt=""
+                                    />
+                                  </div>
+                                </div>
+                              </a>
+                            </div>
                           </div>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-12 mb-4">
-                      <a href="img/gallery/g5.png" className="img-gal card-img">
-                        <div className="single-imgs relative">
-                          <div className="overlay overlay-bg"></div>
-                          <div className="relative">
-                            <img
-                              className="card-img rounded-0"
-                              src={g5}
-                              alt=""
-                            />
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                  <div className="row">
-                    <div className="col-sm-7 mb-4">
-                      <a href="img/gallery/g6.png" className="img-gal card-img">
-                        <div className="single-imgs relative">
-                          <div className="overlay overlay-bg"></div>
-                          <div className="relative">
-                            <img
-                              className="card-img rounded-0"
-                              src={g6}
-                              alt=""
-                            />
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                    <div className="col-sm-5 mb-4">
-                      <a href="img/gallery/g7.png" className="img-gal card-img">
-                        <div className="single-imgs relative">
-                          <div className="overlay overlay-bg"></div>
-                          <div className="relative">
-                            <img
-                              className="card-img rounded-0"
-                              src={g7}
-                              alt=""
-                            />
-                          </div>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                        </div>                                           
+                      </div>
+                    )
+                  }
+                })
+                  : <div></div>
+              }
+
             </div>
           </section>
 
-          <footer className="footer-area section-gap">
-            <div className="row">
-              <div className="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget"></div>
-              <div className="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget">
-                >
+            <footer className="footer-area section-gap">
+              <div className="row">
+                <div className="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget"></div>
+                <div className="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget">
+                  >
               </div>
-              <div className="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget"></div>
-              <div className="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget"></div>
-              <div className="col-xl-4 col-md-8 mb-4 mb-xl-0 single-footer-widget"></div>
-            </div>
-          </footer>
-          <div className="footer-bottom row align-items-center text-center text-lg-left"></div>
+                <div className="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget"></div>
+                <div className="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget"></div>
+                <div className="col-xl-4 col-md-8 mb-4 mb-xl-0 single-footer-widget"></div>
+              </div>
+            </footer>
+            <div className="footer-bottom row align-items-center text-center text-lg-left"></div>
         </div>
-      </React.Fragment>   
-	);
+      </React.Fragment>
+    );
 
     return isLoad ? <Loader /> : page;
   }
@@ -305,7 +275,7 @@ class Gallery extends Component {
 // GetReducerData
 function mapStateToProps(state) {
   return {
-    photosReducer: get(state, "gallery.photos.data"),
+          photosReducer: get(state, "gallery.photos.data"),
     loadingRecuer: get(state, "gallery.photos.loading"),
   };
 }
@@ -314,8 +284,8 @@ function mapStateToProps(state) {
 //Call reducer
 const mapDispatch = (dispatch) => {
   return {
-    getGalleryPhotos: () => {
-      dispatch(reducer.getGalleryPhotos());
+          getGalleryPhotos: () => {
+          dispatch(reducer.getGalleryPhotos());
     },
   };
 };
