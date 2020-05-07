@@ -27,7 +27,7 @@ namespace Bon_Voyage.MediatR.Manager.Queries.GetAllManagersQuery
                     Id = x.Id,
                     Name = x.BaseProfile.Name,
                     Email = x.BaseProfile.User.Email,
-                    DateOfRegister = x.DateOfRegister,
+                    DateOfRegister = x.DateOfRegister.Date,
                     Photo = x.BaseProfile.Photo,
                     Surname = x.BaseProfile.Surname
                 }).ToList();

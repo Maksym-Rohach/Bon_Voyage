@@ -31,7 +31,7 @@ namespace Bon_Voyage.MediatR.Manager.Commands.CreateManager
             public async Task<CreateManagerViewModel> Handle(CreateManagerCommand request, CancellationToken cancellationToken)
             {
                 var userDb = _context.BaseProfiles.FirstOrDefault(x => x.User.Email == request.Email);
-                if (userDb != null)
+                if (userDb == null)
                 {
                     BaseProfile baseProfile = new BaseProfile
                     {
