@@ -170,20 +170,21 @@ class Gallery extends Component {
 
               {
                 photos != undefined ? photos.map((item, index, array) => {
-                  if (index < array.length / 7) {
+                  if (index < array.length / 4) {
+                    console.log(index);
                     return (
-                      <div class="row">
+                      <div class="row d-flex justify-content-center">
                         <div class="col-md-5">
                           <div class="row">
                             <div className="col-12 mb-4">
-                              <a href="img/gallery/g1.png" className="img-gal card-img">
+                              <a className="img-gal card-img">
                                 <div className="single-imgs relative">
                                   <div className="overlay overlay-bg"></div>
                                   <div className="relative">
 
                                     <img
                                       className="card-img rounded-0"
-                                      src={`${serverUrl}HotelImages/${photos[index*index].photo}`}
+                                      src={`${serverUrl}HotelImages/${photos[array.indexOf(item)].photo}`}
                                       alt=""
                                     />
                                   </div>
@@ -191,13 +192,13 @@ class Gallery extends Component {
                               </a>
                             </div>
                             <div className="col-12 mb-4">
-                              <a href="img/gallery/g2.png" className="img-gal card-img">
+                              <a  className="img-gal card-img">
                                 <div className="single-imgs relative">
                                   <div className="overlay overlay-bg"></div>
                                   <div className="relative">
                                     <img
                                       className="card-img rounded-0"
-                                      src={`${serverUrl}HotelImages/${photos[index*index+1].photo}`}
+                                      src={`${serverUrl}HotelImages/${photos[array.indexOf(item)+1].photo}`}
                                       alt=""
                                     />
                                   </div>
@@ -207,64 +208,39 @@ class Gallery extends Component {
                           </div>
                         </div>
 
-                        <div class="col-md-7">
+                        <div class="col-md-5">
                           <div class="row">
-                            <div class="col-sm-7 mb-4">
-                              <a href="img/gallery/g3.png" class="img-gal card-img">
-                                <div class="single-imgs relative">
-                                  <div class="overlay overlay-bg"></div>
-                                  <div class="relative">
-                                    <img class="card-img rounded-0" src={`${serverUrl}HotelImages/${photos[index*index+2].photo}`} alt="" />
+                            <div className="col-12 mb-4">
+                              <a className="img-gal card-img">
+                                <div className="single-imgs relative">
+                                  <div className="overlay overlay-bg"></div>
+                                  <div className="relative">
+
+                                    <img
+                                      className="card-img rounded-0"
+                                      src={`${serverUrl}HotelImages/${photos[array.indexOf(item)+2].photo}`}
+                                      alt=""
+                                    />
                                   </div>
                                 </div>
                               </a>
                             </div>
-                            <div class="col-sm-5 mb-4">
-                              <a href="img/gallery/g4.png" class="img-gal card-img">
-                                <div class="single-imgs relative">
-                                  <div class="overlay overlay-bg"></div>
-                                  <div class="relative">
-                                    <img class="card-img rounded-0" src={`${serverUrl}HotelImages/${photos[index*index+3].photo}`} alt="" />
+                            <div className="col-12 mb-4">
+                              <a className="img-gal card-img">
+                                <div className="single-imgs relative">
+                                  <div className="overlay overlay-bg"></div>
+                                  <div className="relative">
+                                    <img
+                                      className="card-img rounded-0"
+                                      src={`${serverUrl}HotelImages/${photos[array.indexOf(item)+3].photo}`}
+                                      alt=""
+                                    />
                                   </div>
                                 </div>
                               </a>
                             </div>
                           </div>
-                          <div class="row">
-                            <div class="col-12 mb-4">
-                              <a href="img/gallery/g5.png" class="img-gal card-img">
-                                <div class="single-imgs relative">
-                                  <div class="overlay overlay-bg"></div>
-                                  <div class="relative">
-                                    <img class="card-img rounded-0" src={`${serverUrl}HotelImages/${photos[index*index+4].photo}`} alt="" />
-                                  </div>
-                                </div>
-                              </a>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-sm-7 mb-4">
-                              <a href="img/gallery/g6.png" class="img-gal card-img">
-                                <div class="single-imgs relative">
-                                  <div class="overlay overlay-bg"></div>
-                                  <div class="relative">
-                                    <img class="card-img rounded-0" src={`${serverUrl}HotelImages/${photos[index*index+5].photo}`} alt="" />
-                                  </div>
-                                </div>
-                              </a>
-                            </div>
-                            <div class="col-sm-5 mb-4">
-                              <a href="img/gallery/g7.png" class="img-gal card-img">
-                                <div class="single-imgs relative">
-                                  <div class="overlay overlay-bg"></div>
-                                  <div class="relative">
-                                    <img class="card-img rounded-0" src={`${serverUrl}HotelImages/${photos[index*index+6].photo}`} alt="" />
-                                  </div>
-                                </div>
-                              </a>
-                            </div>
-                          </div>
-                        </div>                        
+                        </div>                                           
                       </div>
                     )
                   }
