@@ -29,7 +29,7 @@ class BoughtTickets extends Component {
     // }
 
     // filterDate = (value, filter) => {
-    //     console.log("Filter", this.filterDate(value.filter));
+    //     
     //     if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
     //         return true;
     //     }
