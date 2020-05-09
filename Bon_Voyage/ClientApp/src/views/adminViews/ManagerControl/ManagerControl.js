@@ -89,7 +89,12 @@ class ManagerControl extends Component {
     const { listManagers } = this.props;
     let {errors} = this.props;
     if(errors===undefined){
-      errors=this.state.errors;
+      if(this.state.errors===undefined){
+        this.clear();
+      }
+      else{
+        errors=this.state.errors;
+      }
     }
     console.log("render", listManagers);
     return (
