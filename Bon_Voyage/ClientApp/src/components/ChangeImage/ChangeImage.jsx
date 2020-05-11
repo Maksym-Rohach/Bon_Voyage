@@ -63,7 +63,7 @@ class ChangeImage extends Component {
               <Col xs="6">
                 <Button color="primary" className="px-4" 
                 onClick={this.triggerChildInput}>
-                  Change Picture
+                  Змінити зображення
                 </Button>
               </Col>
             </Row>
