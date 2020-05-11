@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 
 namespace Bon_Voyage.DB
 {
-    public class EFDbContext : IdentityDbContext<DbUser, DbRole, string, IdentityUserClaim<string>,
-    DbUserRole, IdentityUserLogin<string>,
+    public class EFDbContext : IdentityDbContext<DbUser, IdentityRole, string, IdentityUserClaim<string>,
+    IdentityUserRole<string>, IdentityUserLogin<string>,
     IdentityRoleClaim<string>, IdentityUserToken<string>>
     {
         public EFDbContext(DbContextOptions<EFDbContext> options) : base(options)
@@ -31,6 +31,7 @@ namespace Bon_Voyage.DB
         public DbSet<RoomType> RoomTypes { get; set; }
         public DbSet<Comfort> Comforts { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
        
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -92,6 +93,7 @@ namespace Bon_Voyage.DB
                 .WithMany(x=>x.Airports)
                 .HasForeignKey(x=>x.CityId);
             #endregion
+
             #region Ticket
             builder.Entity<Ticket>()
                 .HasOne(x => x.Airport)
@@ -107,6 +109,13 @@ namespace Bon_Voyage.DB
                 .HasForeignKey(x=>x.RoomTypeId);
             #endregion
 
+            #region Feedback
+            builder.Entity<Feedback>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.Feedbacks)
+                .HasForeignKey(x => x.UserId);
+            #endregion
+
             #region TicketsToComforts
             builder.Entity<TicketsToComforts>()
                 .HasOne(x => x.Ticket)
@@ -117,7 +126,7 @@ namespace Bon_Voyage.DB
                 .WithMany(x => x.TicketToComforts)
                 .HasForeignKey(x => x.ComfortId);
             #endregion
-
+            
         }
 
     }

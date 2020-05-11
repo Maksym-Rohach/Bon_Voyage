@@ -8,7 +8,7 @@ namespace Bon_Voyage.DB.Entities
 {
     public class AdminProfile
     {
-        [Key]
+        [Key]        
         public string Id { get; set; }
         public BaseProfile BaseProfile { get; set; }
     }

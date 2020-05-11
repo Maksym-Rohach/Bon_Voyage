@@ -21,11 +21,6 @@ class ForgotPasswordPage extends Component {
       errorsServer: {}
     }
   
-    static getDerivedStateFromProps(nextProps, prevState) {
-    
-      return { isLoading: nextProps.loading, errorsServer: nextProps.errors };
-  }
-  
     setStateByErrors = (name, value) => {
       if (!!this.state.errors[name]) {
         let errors = Object.assign({}, this.state.errors);
@@ -87,15 +82,8 @@ class ForgotPasswordPage extends Component {
           isSuccess : nextProps.successReducer
         });
       }
-
     }
-
-    componentDidMount(){
-      const paramId= this.props.match.params.id;
-      let id = paramId.split('=').splice(1,1).toString();
-      console.log("QQQidQQQ", id);
-    }
-
+    
     render() { 
         const { errors, isLoading, profileUrl, visible, errorsServer } = this.state;
 
@@ -127,13 +115,11 @@ class ForgotPasswordPage extends Component {
                                         name="email"
                                         value={this.state.email}
                                         onChange={this.handleChange}
-                                    />                       
-                                   
+                                    />                                                          
                                 </InputGroup>                                                                                      
                                     <Row>
                                     <Col xs="4">
-                                    <Link to="/login"> 
-                                                   
+                                    <Link to="/login">                                                  
                                 <Button color="primary" className="px-4">Назад</Button>    
                                     </Link>
                                     </Col> 

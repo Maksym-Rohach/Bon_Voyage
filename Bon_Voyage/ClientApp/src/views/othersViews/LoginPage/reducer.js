@@ -139,9 +139,10 @@ export const loginActions = {
   },
 
   failed: response => {
+    console.log("response",response.data)
     return {
       type: LOGIN_POST_FAILED,
-      errors: response
+      errors: response.data
     };
   },
 

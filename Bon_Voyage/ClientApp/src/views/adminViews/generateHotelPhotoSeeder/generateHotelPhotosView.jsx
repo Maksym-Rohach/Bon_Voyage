@@ -1,9 +1,6 @@
 import React, { Component } from "react";
-import { FileUpload } from "primereact/fileupload";
 import * as reducer from "./reducer";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import get from "lodash.get";
 
 
 class generateHotelPhotosSeeder extends Component {
@@ -44,13 +41,7 @@ class generateHotelPhotosSeeder extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        {/* <FileUpload
-          onBeforeUpload={(e) => this.onUpload(e)}
-          multiple={true}
-          accept="image/*"
-          maxFileSize={1000000}
-        /> */}
+      <React.Fragment>       
         <input
           id="input-b3"
           name="input-b3[]"

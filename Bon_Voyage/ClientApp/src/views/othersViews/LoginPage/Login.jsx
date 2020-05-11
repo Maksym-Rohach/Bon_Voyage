@@ -33,7 +33,7 @@ class Login extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
   
-    return { isLoading: nextProps.loading, errorsServer: nextProps.errors };
+    return { isLoading: nextProps.loading, errorsServer: nextProps.errors};
 }
 
   setStateByErrors = (name, value) => {
@@ -61,12 +61,12 @@ class Login extends Component {
     e.preventDefault();
     const { email, password } = this.state;
 
-    //const regex_phone = /^(?=\+?([0-9]{2})\(?([0-9]{3})\)?([0-9]{3})-?([0-9]{2})-?([0-9]{2})).{17}$/;
+  
 
     let errors = {};
 
     if (email === '') errors.email = "Поле є обов'язковим";
-    //if (!regex_phone.test(phone)) errors.phone = "Не вiрний формат +xx(xxx)xxx-xx-xx телефону";
+    
 
     if (password === '') errors.password = "Поле є обов'язковим";
 
@@ -87,8 +87,7 @@ class Login extends Component {
   
   render() {
 
-    const { errors, loading, profileUrl, visible, errorsServer } = this.state;
-
+    const { errors, loading, visible, errorsServer } = this.state;
     const form = (
 
       <div className="app flex-row">
@@ -100,31 +99,13 @@ class Login extends Component {
                 <Card className="p-3">
                   <CardBody>
                     <Form onSubmit={this.onSubmitForm}>
-                      {/* {!!errorsServer.invalid ?
+                      {!!errorsServer.invalid ?
                           <div className="alert alert-danger">
                               {errorsServer.invalid}.
-                          </div> : ""} */}
+                          </div> : ""}
                       <h1>Вхід</h1>
                       <p className="text-muted">Увійдіть до свого облікового запису</p>
-                      {/* <InputGroup className="mb-3 form-group">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="fa fa-phone "></i>
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <InputMask mask="+99(999)999-99-99"
-                          className={classnames('form-control', { 'is-invalid': !!errors.phone })}
-                          id="phone"
-                          name="phone"
-                          placeholder="Номер телефону"
-                          value={this.state.phone}
-                          onChange={this.handleChange} />
-
-                        {!!errors.phone ?
-                          <div className="invalid-feedback">
-                            {errors.phone}
-                          </div> : ''}
-                      </InputGroup> */}
+                     
 
 <InputGroup className="mb-2">
                       <span className="input-group-text" id="basic-addon1">@</span>
@@ -169,10 +150,7 @@ class Login extends Component {
                            <div className="p-2 bd-highlight">                    
                        <Button color="primary" className="px-3">Вхід</Button>                     
                             </div>
-                      {/*} <div className="p-2 bd-highlight">  
-                                        
-                          <Button color="info" className="px-4">Вхід</Button>
-                        </div>*/}
+                     
                      <div className="p-2 bd-highlight">    
                      <Link to="/register">                
                      <Button color="primary" className="px-3">Реєстрація</Button>    
@@ -184,28 +162,7 @@ class Login extends Component {
                             <Button color="link" className="px-0">Забули пароль?</Button>
                           </Link>
                         </Col>
-                                         
-                       {/*} <Col xs="8">
-                          <Button color="primary" className="px-4">Вхід</Button>
-                        </Col>
-                        <Col xs="4">  
-                          <Button color="primary" className="px-1">Реєстрація</Button>
-                        </Col>*/}
-                       {/* <Col xs="3">
-                          <Link to="/forgot-password">
-                            <Button color="secondary" className="px-4">Забули пароль?</Button>
-                          </Link>
-                        </Col>*}
-                      </Row>
-                      {/* <Row>
-                      <Col xs="12" className="text-left">
-                        <Link to="/" >
-                          <Button color="secondary" className="mt-4" >
-                              <i className="fa fa-reply-all"></i>&nbsp;На головну
-                          </Button>
-                        </Link>
-                        </Col>
-                      </Row> */}
+                       
                     </Form>
                   </CardBody>               
                 </Card>               
@@ -228,7 +185,6 @@ Login.propTypes =
   }
 
 function mapStateToProps(state) {
-  console.log("mapStateToProps", state);
   return {
     loading: get(state, 'login.post.loading'),
     failed: get(state, 'login.post.failed'),

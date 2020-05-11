@@ -6,6 +6,8 @@ import createHistory from 'history/createHashHistory';
 ///reducers
 import {managerProfileViewReducer } from '../views/managerViews/ManagerProfileView/reducer';
 import {clientProfileViewReducer } from '../views/clientViews/ClientProfileView/reducer';
+import {clientMessageViewReducer } from '../views/clientViews/ClientMessageView/reducer';
+import {clientMapViewReducer } from '../views/clientViews/ClientMapView/reducer';
 import {commentsChartReducer} from '../views/adminViews/CommentsChart/reducer';
 import {loginReducer} from '../views/othersViews/LoginPage/reducer';
 import {managerControlReducer} from '../views/adminViews/ManagerControl/reducer';
@@ -21,6 +23,8 @@ import {hotelControlReducer} from '../views/adminViews/HotelControl/reducer';
 import {ForgotPasswordReducer} from '../views/othersViews/ForgotPasswordPage/reducer';
 import { NewPasswordReducer } from '../views/othersViews/NewPasswordPage/reducer';
 import {countryControlReducer} from '../views/adminViews/CountryControl/reducer';
+import {GalleryReducer} from '../views/othersViews/GalleryPage/reducer';
+import {countryControlReducer} from '../views/adminViews/CountryControl/reducer';
 import {clientControlReducer} from '../views/adminViews/ClientControl/reducer';
 import {airportControlReducer} from '../views/adminViews/AirportControl/reducer';
 
@@ -30,7 +34,9 @@ export const history = createHistory({ basename: baseUrl });
 
 export default function configureStore(history, initialState) {
   const reducers = {
+    
     login: loginReducer,
+    gallery:GalleryReducer,
     home: homePageReducer,
     forgotPassword: ForgotPasswordReducer,
     addTicket: addTicketReducer,
@@ -40,6 +46,8 @@ export default function configureStore(history, initialState) {
       managers: managerControlReducer,
       managerProfile: managerProfileViewReducer,
       clientProfile: clientProfileViewReducer,
+      clientMessage: clientMessageViewReducer,
+      clientMap: clientMapViewReducer,
       changeImage: changeImageReducer,
       airports: airportControlReducer,
       changeImage: changeImageReducer,
