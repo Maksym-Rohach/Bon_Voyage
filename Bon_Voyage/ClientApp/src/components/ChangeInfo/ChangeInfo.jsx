@@ -78,7 +78,7 @@ class ChangeInfo extends Component {
                     <InputText id="float-input" name="PhoneNumber" type="text" size="30" value={this.state.value} onChange={this.handleChange}/>
                     <label htmlFor="float-input">{Phone}</label>
                 </span>
-                <Button className="p-float-label m-3" label="Save" icon="pi pi-check" />
+                <Button className="p-float-label m-3" label="Зберегти" icon="pi pi-check" />
             </form>
         );
     }
