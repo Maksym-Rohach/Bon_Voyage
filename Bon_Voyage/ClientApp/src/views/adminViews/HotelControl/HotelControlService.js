@@ -11,4 +11,10 @@ export default class HotelControlService {
     static getAllHotels() {
         return axios.get(`${serverUrl}api/admin/getAllHotels`)
     };
+    static GetCountries() {
+        return axios.get(`${serverUrl}api/Country/GetAllCountry`);
+    }
+    static GetCities(countryId) {
+        return axios.get(`${serverUrl}api/City/GetCitiesByCountry/${countryId}`);
+    }
 }
