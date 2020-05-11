@@ -27,9 +27,9 @@ import {
 class ClientProfileView extends React.Component {
   state = {};
 
-  componentDidMount = () => {
-    this.props.getClientProfileViewData();
-  };
+  // componentDidMount = () => {
+  //   this.props.getClientProfileViewData();
+  // };
   //style={{backgroundColor:'rgba(52, 52, 52, 0.8)'}}
   render() {
     const { clientProfile } = this.props;
