@@ -26,7 +26,10 @@ import {
 } from "reactstrap";
 
 class ClientMessageView extends React.Component {
-    state = {};
+    state = {
+        
+    }
+
 
     render() {
         const { clientMessage } = this.props;
@@ -55,7 +58,6 @@ class ClientMessageView extends React.Component {
                         </Form>
                     </div>
                 </Container>
-                <div className="card text-center"></div>
             </div>
         );
         return form;

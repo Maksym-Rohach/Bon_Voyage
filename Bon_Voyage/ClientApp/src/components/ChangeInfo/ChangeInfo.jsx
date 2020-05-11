@@ -3,7 +3,7 @@ import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import * as reducer from './reducer';
-import { connect } from 'react-redux'; 
+import { connect } from 'react-redux';
 import get from "lodash.get";
 import { Input } from 'reactstrap';
 
@@ -32,7 +32,7 @@ class ChangeInfo extends Component {
 
     handleChange = e => {
         this.setState({ [e.target.name]: e.target.value });
-      };
+    };
 
     // 3
     // Метод викликається до рендера
@@ -50,33 +50,36 @@ class ChangeInfo extends Component {
             Name: nextProps.getInfoReducer.name,
             SurName: nextProps.getInfoReducer.surName,
             Email: nextProps.getInfoReducer.email,
-            Phone: nextProps.getInfoReducer.phoneNumber
+            PhoneNumber: nextProps.getInfoReducer.phoneNumber
         });
     }
 
     render() {
 
-        const { Name,SurName,Email,Phone } = this.state;
-        const {errors} = this.props;
+        const { Name, SurName, Email, PhoneNumber } = this.state;
+        const { errors } = this.props;
         console.log("RENDER", errors);
         return (
             <form onSubmit={this.onSubmitForm}>
                 <label className="p-float-label m-3 d-flex justify-content-center">Зміна данних</label>
                 <span className="p-float-label m-3">
-                    <InputText id="float-input" name="Name" type="text" size="30" value={this.state.value} onChange={this.handleChange} />
-                    <label htmlFor="float-input">{Name}</label>
+                    <InputText id="float-input" name="Name" type="text" size="30" value={Name} onChange={this.handleChange} />
+                    {Name.length <= 0 ? <label htmlFor="float-input">Ім'я</label> : <div></div>}
                 </span>
                 <span className="p-float-label m-3">
-                    <InputText id="float-input" name="SurName" type="text" size="30" value={this.state.value} onChange={this.handleChange}/>
-                    <label htmlFor="float-input">{SurName}</label>
+                    <InputText id="float-input" name="SurName" type="text" size="30" value={SurName} onChange={this.handleChange} />
+                    {SurName.length <= 0 ? <label htmlFor="float-input">Прізвище</label> : <div></div>}
                 </span>
                 <span className="p-float-label m-3">
-                    <InputText id="float-input" name="Email" type="email" size="30"  value={this.state.value} onChange={this.handleChange}/>
-                    <label htmlFor="float-input">{Email}</label>
+                    <InputText id="float-input" name="Email" type="text" size="30" value={Email} onChange={this.handleChange} />
+                    {Email.length <= 0 ? <label htmlFor="float-input">Пошта</label> : <div></div>}
                 </span>
                 <span className="p-float-label m-3">
-                    <InputText id="float-input" name="PhoneNumber" type="text" size="30" value={this.state.value} onChange={this.handleChange}/>
-                    <label htmlFor="float-input">{Phone}</label>
+                    <InputText id="float-input" name="PhoneNumber" type="text" size="30" value={PhoneNumber != null ? PhoneNumber : ""} onChange={this.handleChange} />
+                    {PhoneNumber != null ?
+                        (PhoneNumber.length <= 0 ? <label htmlFor="float-input">Телефон</label> : <div></div>) :
+                        (<label htmlFor="float-input">Телефон</label>)
+                    }
                 </span>
                 <Button className="p-float-label m-3" label="Save" icon="pi pi-check" />
             </form>
