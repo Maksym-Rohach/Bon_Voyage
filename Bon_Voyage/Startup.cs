@@ -147,12 +147,14 @@ namespace Bon_Voyage
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+            
             app.UseAuthentication();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseSession();
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseAuthorization();
 
             #region InitStaticFiles CountryImages
             string pathcountry = InitStaticFiles
@@ -200,7 +202,7 @@ namespace Bon_Voyage
             #endregion;
 
             //Seeder
-            //SeederDB.SeedData(app.ApplicationServices, env, this.Configuration);
+            SeederDB.SeedData(app.ApplicationServices, env, this.Configuration);
 
             app.UseEndpoints(endpoints =>
             {

@@ -81,7 +81,7 @@ class ChangeInfo extends Component {
                         (<label htmlFor="float-input">Телефон</label>)
                     }
                 </span>
-                <Button className="p-float-label m-3" label="Save" icon="pi pi-check" />
+                <Button className="p-float-label m-3" label="Зберегти" icon="pi pi-check" />
             </form>
         );
     }
