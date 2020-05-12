@@ -101,6 +101,10 @@ namespace Bon_Voyage.MediatR.Registration
                     BaseProfile = baseProfile   
                 };
                 var res = _userManager.CreateAsync(dbClient, request.Password).Result;
+                if (!res.Succeeded)
+                {
+                    return new RegistrationViewModel { Status = false, ErrorMessage = (" Поле має складатись з 8 символів, містити мінімум одну велику літеру! ") };
+                }
                 res = _userManager.AddToRoleAsync(dbClient, roleName).Result;
 
                 if (res.Succeeded)

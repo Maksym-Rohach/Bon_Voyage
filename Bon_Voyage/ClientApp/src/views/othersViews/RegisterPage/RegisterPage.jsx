@@ -90,7 +90,6 @@ class RegisterPage extends Component {
     const { errors, isLoading, profileUrl, visible, errorsServer } = this.state;
     const form = (
       <div className="app flex-row">
-        
         <Container>
           <Row className="justify-content-center mt-5">
             <Col md="8">
@@ -136,7 +135,6 @@ class RegisterPage extends Component {
                           onChange={this.handleChange}
                         />
                       </InputGroup>
-                      
                       {!!errors.password ? <div style={{color:"red"}}>{errors.password}</div> : ""}
                       {/* {!!errorsServer ? <div>{errorsServer}</div> : ""} */}
                       <InputGroup className="mb-4">

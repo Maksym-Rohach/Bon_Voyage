@@ -22,6 +22,7 @@ namespace Bon_Voyage.Controllers.RegistrationControllers
         [HttpPost("register")]
         public async Task<IActionResult> Registration([FromBody]RegistrationCommand command)
         {
+            
             if (!ModelState.IsValid)
             {
                 return BadRequest();
@@ -35,13 +36,13 @@ namespace Bon_Voyage.Controllers.RegistrationControllers
                 }
                 else
                 {
-                    return BadRequest(res.ErrorMessage);
+                    return BadRequest(res);
                 }
             }
             catch (Exception e)
             {
-
-                return BadRequest(e.Message);
+                var res = new RegistrationViewModel { Status = false, ErrorMessage = e.Message };
+                return BadRequest(res);
             }
         }
     }
