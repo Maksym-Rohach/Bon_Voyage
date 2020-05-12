@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bon_Voyage.MediatR.Manager.ViewModel
+namespace Bon_Voyage.MediatR.Ticket.Queries.GetTicketsWithFilters.Views
 {
-    public class ManagerViewModel
+    public class HotelView
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Email { get; set; }
+        public int Stars { get; set; }
         public string Photo { get; set; }
-        public string DateOfRegister { get; set; }
     }
 }
