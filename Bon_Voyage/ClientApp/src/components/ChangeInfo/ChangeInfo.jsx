@@ -95,7 +95,6 @@ function mapStateToProps(state) {
         errors: get(state, 'changePassword.list.errors'),
         getInfoReducer: get(state, 'changeInfoReducer.infoList.data')
     };
-
 }
 
 // 1

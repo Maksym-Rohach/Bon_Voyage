@@ -1,4 +1,5 @@
 import ClientMessageViewService from './ClientMessageViewService';
+import ClientMessageView from './ClientMessageView';
 import update from '../../../helpers/update';
 export const CLIENT_MESSAGE_STARTED = "CLIENT_MESSAGE_STARTED";
 export const CLIENT_MESSAGE_SUCCESS = "CLIENT_MESSAGE_SUCCESS";
@@ -31,6 +32,20 @@ export const getListActions = {
             type: CLIENT_MESSAGE_FAILED,
             error: error,
         }
+    }
+}
+
+export const sendmessage = (model) => {
+    return (dispatch) => {
+        dispatch(getListActions.started());
+        ClientMessageViewService.sendmessage(model)
+            .then((response) => {
+                console.log("Response",response);
+                dispatch(getListActions.success());
+            }, err => { throw err; })
+            .catch(err => {
+                dispatch(getListActions.failed(err));
+            });
     }
 }
 
