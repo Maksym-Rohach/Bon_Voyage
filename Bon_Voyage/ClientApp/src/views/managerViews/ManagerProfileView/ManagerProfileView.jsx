@@ -27,9 +27,9 @@ import ChangeInfo from "../../../components/ChangeInfo";
 class ManagerProfileView extends React.Component {
   state = {};
 
-  componentDidMount = () => {
-    this.props.getManagerProfileViewData();
-  };
+  // componentDidMount = () => {
+  //   this.props.getManagerProfileViewData();
+  // };
 
   render() {
     const { managerProfile } = this.props;

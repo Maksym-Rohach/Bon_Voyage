@@ -103,7 +103,7 @@ class ChangePassword extends Component {
             {!!errorsState.confPassword ? <div>{errorsState.confPassword}</div> : ""}
             <label htmlFor="float-input">Підтвердіть пароль</label>
           </span>
-          <Button className="p-float-label m-3" label="Save" icon="pi pi-check" />
+          <Button className="p-float-label m-3" label="Зберегти" icon="pi pi-check" />
         </form>
       );
     }
