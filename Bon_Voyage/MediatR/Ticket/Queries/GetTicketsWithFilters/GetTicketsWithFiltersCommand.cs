@@ -117,52 +117,52 @@ namespace Bon_Voyage.MediatR.Ticket.Queries.GetTicketsWithFilters
                 }
             }
 
-            public IQueryable<DB.Entities.Ticket> Filter(IQueryable<DB.Entities.Ticket> tickets,TicketFilters filters)
+            public IQueryable<DB.Entities.Ticket> Filter(IQueryable<DB.Entities.Ticket> query,TicketFilters filters)
             {
                 if (filters.MaxPrice != null)
                 {
-                    tickets.Where(x => x.PriceFrom < filters.MaxPrice);
+                    query = query.Where(x => x.PriceFrom < filters.MaxPrice);
                 }
                 if (filters.DateFrom != null && filters.DateTo != null)
                 {
                     DateTime dateFrom, dateTo;
                     dateFrom = DateTime.Parse(filters.DateFrom);
                     dateTo = DateTime.Parse(filters.DateTo);
-                    tickets.Where(x => x.DateFrom >= dateFrom && x.DateTo<=x.DateTo);
+                    query = query.Where(x => x.DateFrom >= dateFrom && x.DateTo<=x.DateTo);
                 }
                 if (filters.CountOfNights != null || filters.CountOfNights > 0)
                 {
-                    tickets.Where(x => x.CountsOfNight == filters.CountOfNights);
+                    query = query.Where(x => x.CountsOfNight == filters.CountOfNights);
                 }
                 if (filters.CountOfPlaces != null || filters.CountOfPlaces > 0)
                 {
-                    tickets.Where(x => x.CountsOfPlaces == filters.CountOfPlaces);
+                    query = query.Where(x => x.CountsOfPlaces == filters.CountOfPlaces);
                 }
                 if (filters.HotelStars != null || filters.HotelStars > 0)
                 {
-                    tickets.Where(x => x.Hotel.Stars >= filters.HotelStars);
+                    query = query.Where(x => x.Hotel.Stars >= filters.HotelStars);
                 }
                 if (filters.WithDiscount)
                 {
-                    tickets.Where(x => x.Discount != null && x.Discount > 0);
+                    query = query.Where(x => x.Discount != null && x.Discount > 0);
                 }
                 if (filters.CityId != "" || filters.CityId != null)
                 {
-                    tickets.Where(x => x.Hotel.CityId == filters.CityId);
+                    query = query.Where(x => x.Hotel.CityId == filters.CityId);
                 }
                 if (filters.HotelId != "" || filters.HotelId != null)
                 {
-                    tickets.Where(x => x.HotelId == filters.HotelId);
+                    query = query.Where(x => x.HotelId == filters.HotelId);
                 }
                 if (filters.RoomTypeId != "" || filters.RoomTypeId != null)
                 {
-                    tickets.Where(x => x.RoomTypeId == filters.RoomTypeId);
+                    query = query.Where(x => x.RoomTypeId == filters.RoomTypeId);
                 }
                 if (filters.ComfortIds != null || filters.ComfortIds.Count() > 0)
                 {
-                    tickets.Any(x => x.TicketToComforts.Any(y => filters.ComfortIds.Contains(y.ComfortId)));
+                    query = query.Where(x => x.TicketToComforts.Any(y => filters.ComfortIds.Contains(y.ComfortId)));
                 }
-                return tickets;
+                return query;
             } 
         }
     }
