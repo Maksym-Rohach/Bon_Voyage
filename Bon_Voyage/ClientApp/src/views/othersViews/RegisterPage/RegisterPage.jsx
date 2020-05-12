@@ -61,18 +61,13 @@ class RegisterPage extends Component {
     e.preventDefault();
     const { email, password, name, surname } = this.state;
 
-    //const regex_phone = /^(?=\+?([0-9]{2})\(?([0-9]{3})\)?([0-9]{3})-?([0-9]{2})-?([0-9]{2})).{17}$/;
-
     let errors = {};
 
-    if (email === '') errors.email = "Поле є обов'язковим";
-    //if (!regex_phone.test(phone)) errors.phone = "Не вiрний формат +xx(xxx)xxx-xx-xx телефону";
+    if (password.length<8) errors.password = " Поле має складатись з 8 символів, містити мінімум одну велику літеру! ";
 
-    if (password === '') errors.password = "Поле є обов'язковим";
+    if (name.length <3) errors.name = " Введіть корректне ім'я! ";
 
-    if (name === '') errors.name = "Поле є обов'язковим";
-
-    if (surname === '') errors.surname = "Поле є обов'язковим";
+    if (surname <3) errors.surname = " Введіть корректне прізвище! ";
 
     const isValid = Object.keys(errors).length === 0
     if (isValid) {
@@ -84,7 +79,6 @@ class RegisterPage extends Component {
         surname: surname
       };
 
-      console.log("Registration************************", model)
       this.props.Register(model);
     }
     else {
@@ -96,6 +90,7 @@ class RegisterPage extends Component {
     const { errors, isLoading, profileUrl, visible, errorsServer } = this.state;
     const form = (
       <div className="app flex-row">
+        
         <Container>
           <Row className="justify-content-center mt-5">
             <Col md="8">
@@ -109,44 +104,43 @@ class RegisterPage extends Component {
                         <Input
                           type="email"
                           placeholder="Електронна пошта"
-                          //className={classnames("form-control", { "is-invalid": !!errors.email })}
                           id="email"
-                          autocomplete="new-password"
+                          autoComplete="email"
                           name="email"
                           value={this.state.email}
                           onChange={this.handleChange}
                         />
-                        {/* {!!errors.email ? <div className="invalid-feedback">{errors.email}</div> : ""} */}
                       </InputGroup>
+                      {!!errors.name ? <div style={{color:"red"}}>{errors.name}</div> : ""}
                       <InputGroup className="mb-3">
                         <Input
                           type="text"
-                          placeholder="Імя"
-                          //className={classnames("form-control", { "is-invalid": !!errors.name })}
+                          placeholder="Ім'я"
                           id="name"
-                          autocomplete="new-password"
+                          autoComplete="name"
                           name="name"
                           value={this.state.name}
                           onChange={this.handleChange}
                         />
-                        {/* {!!errors.email ? <div className="invalid-feedback">{errors.email}</div> : ""} */}
                       </InputGroup>
+                      
+                      {!!errors.surname ? <div style={{color:"red"}}>{errors.surname}</div> : ""}
                       <InputGroup className="mb-3">
                         <Input
                           type="text"
                           placeholder="Прізвище"
-                          //className={classnames("form-control", { "is-invalid": !!errors.surname })}
                           id="surname"
-                          autocomplete="new-password"
+                          autoComplete="surname"
                           name="surname"
                           value={this.state.surname}
                           onChange={this.handleChange}
                         />
-                        {/* {!!errors.email ? <div className="invalid-feedback">{errors.email}</div> : ""} */}
                       </InputGroup>
+                      
+                      {!!errors.password ? <div style={{color:"red"}}>{errors.password}</div> : ""}
+                      {/* {!!errorsServer ? <div>{errorsServer}</div> : ""} */}
                       <InputGroup className="mb-4">
                         <Input
-                          //className={classnames('form-control', { 'is-invalid': !!errors.password })}
                           type={classnames(visible ? "text" : "password")}
                           id="password"
                           name="password"
@@ -154,13 +148,14 @@ class RegisterPage extends Component {
                           autoComplete="current-password"
                           onChange={this.handleChange}
                         />
+                        
                         <InputGroupAddon addonType="append">
                           <Button onClick={this.passwordVisible}>
                             <i className={classnames(visible ? 'fa fa-eye' : 'fa fa-eye-slash')}></i>
                           </Button>
                         </InputGroupAddon>
-                        {/* {!!errors.password ? <div className="invalid-feedback">{errors.password}</div> : ''} */}
                       </InputGroup>
+                      
                       <Row>
                         <Col xs="6">
                           <Button type="submit" color="primary" className="px-4">Реєстрація</Button>
