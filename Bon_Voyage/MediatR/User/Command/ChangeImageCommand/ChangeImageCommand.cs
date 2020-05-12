@@ -20,10 +20,10 @@ namespace Bon_Voyage.MediatR.User.Command.ChangeImageCommand
         public class ChangeImageCommandHandler : BaseMediator, IRequestHandler<ChangeImageCommand, string>
         {
             private readonly IConfiguration _configuration;
-            private readonly IHostingEnvironment _env;
+            private readonly IWebHostEnvironment _env;
 
             public ChangeImageCommandHandler(EFDbContext context, IConfiguration configuration,
-                IHostingEnvironment env) : base(context)
+                IWebHostEnvironment env) : base(context)
             {
                 _configuration = configuration;
                 _env = env;

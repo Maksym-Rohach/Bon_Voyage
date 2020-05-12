@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace Bon_Voyage
@@ -14,11 +15,17 @@ namespace Bon_Voyage
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            var host = Host.CreateDefaultBuilder(args)
+            .UseContentRoot(Directory.GetCurrentDirectory())
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder
+                    .UseKestrel()
+                    .UseIIS()
+                    .UseStartup<Startup>();
+                })
+            .Build();
+            host.Run();
         }
-
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
     }
 }

@@ -10,6 +10,6 @@ namespace Bon_Voyage.DB.Entities
     {
         [Key]        
         public string Id { get; set; }
-        public BaseProfile BaseProfile { get; set; }
+        public virtual BaseProfile BaseProfile { get; set; }
     }
 }

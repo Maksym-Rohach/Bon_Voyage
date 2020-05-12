@@ -18,9 +18,7 @@ import { connect } from "react-redux";
 import * as reducer from "./reducer";
 
 import { serverUrl } from "../../../config";
-import Loader from '../../../components/Loader/index'
-
-
+import Loader from "../../../components/Loader/index";
 
 class Gallery extends Component {
   state = {
@@ -34,8 +32,7 @@ class Gallery extends Component {
     this.props.getGalleryPhotos();
   };
 
- 
-  //4 
+  //4
   // Binding
   componentWillReceiveProps = (nextProps) => {
     //- Binding
@@ -44,18 +41,14 @@ class Gallery extends Component {
       photos: nextProps.photosReducer,
       isLoad: nextProps.loadingReducer,
     });
-
   };
-
 
   render() {
     const { photos, isLoad } = this.state;
 
-
     const page = (
       <React.Fragment>
         <div className="home-page bg-white">
-
           <header className="header_area">
             <div className="main_menu">
               <nav className="navbar navbar-expand-lg navbar-light">
@@ -82,7 +75,7 @@ class Gallery extends Component {
                   >
                     <ul className="nav navbar-nav menu_nav">
                       <li className="nav-item active">
-                        <Link className="nav-link" to="/">
+                      <Link className="nav-link" to="/#/">
                           Головна
                         </Link>
                       </li>
@@ -91,9 +84,9 @@ class Gallery extends Component {
                         <Link className="nav-link" to="/contact-page">
                           Контакти
                         </Link>
-                      </li>
+                      </li>                     
                       <li className="nav-item">
-                        <Link className="nav-link" to="/gallery-page">
+                      <Link className="nav-link" to="gallery-page">
                           Галерея
                         </Link>
                       </li>
@@ -161,10 +154,8 @@ class Gallery extends Component {
                 <h2>Наша Галерея</h2>
               </div>
 
-
-
-              {
-                photos != undefined ? photos.map((item, index, array) => {
+              {photos != undefined ? (
+                photos.map((item, index, array) => {
                   if (index < array.length / 4) {
                     console.log(index);
                     return (
@@ -176,10 +167,11 @@ class Gallery extends Component {
                                 <div className="single-imgs relative">
                                   <div className="overlay overlay-bg"></div>
                                   <div className="relative">
-
                                     <img
                                       className="card-img rounded-0"
-                                      src={`${serverUrl}HotelImages/${photos[array.indexOf(item)].photo}`}
+                                      src={`${serverUrl}HotelImages/${
+                                        photos[array.indexOf(item)].photo
+                                      }`}
                                       alt=""
                                     />
                                   </div>
@@ -187,13 +179,15 @@ class Gallery extends Component {
                               </a>
                             </div>
                             <div className="col-12 mb-4">
-                              <a  className="img-gal card-img">
+                              <a className="img-gal card-img">
                                 <div className="single-imgs relative">
                                   <div className="overlay overlay-bg"></div>
                                   <div className="relative">
                                     <img
                                       className="card-img rounded-0"
-                                      src={`${serverUrl}HotelImages/${photos[array.indexOf(item)+1].photo}`}
+                                      src={`${serverUrl}HotelImages/${
+                                        photos[array.indexOf(item) + 1].photo
+                                      }`}
                                       alt=""
                                     />
                                   </div>
@@ -210,10 +204,11 @@ class Gallery extends Component {
                                 <div className="single-imgs relative">
                                   <div className="overlay overlay-bg"></div>
                                   <div className="relative">
-
                                     <img
                                       className="card-img rounded-0"
-                                      src={`${serverUrl}HotelImages/${photos[array.indexOf(item)+2].photo}`}
+                                      src={`${serverUrl}HotelImages/${
+                                        photos[array.indexOf(item) + 2].photo
+                                      }`}
                                       alt=""
                                     />
                                   </div>
@@ -227,7 +222,9 @@ class Gallery extends Component {
                                   <div className="relative">
                                     <img
                                       className="card-img rounded-0"
-                                      src={`${serverUrl}HotelImages/${photos[array.indexOf(item)+3].photo}`}
+                                      src={`${serverUrl}HotelImages/${
+                                        photos[array.indexOf(item) + 3].photo
+                                      }`}
                                       alt=""
                                     />
                                   </div>
@@ -235,29 +232,29 @@ class Gallery extends Component {
                               </a>
                             </div>
                           </div>
-                        </div>                                           
+                        </div>
                       </div>
-                    )
+                    );
                   }
                 })
-                  : <div></div>
-              }
-
+              ) : (
+                <div></div>
+              )}
             </div>
           </section>
 
-            <footer className="footer-area section-gap">
-              <div className="row">
-                <div className="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget"></div>
-                <div className="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget">
-                  >
+          <footer className="footer-area section-gap">
+            <div className="row">
+              <div className="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget"></div>
+              <div className="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget">
+                >
               </div>
-                <div className="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget"></div>
-                <div className="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget"></div>
-                <div className="col-xl-4 col-md-8 mb-4 mb-xl-0 single-footer-widget"></div>
-              </div>
-            </footer>
-            <div className="footer-bottom row align-items-center text-center text-lg-left"></div>
+              <div className="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget"></div>
+              <div className="col-xl-2 col-sm-6 mb-4 mb-xl-0 single-footer-widget"></div>
+              <div className="col-xl-4 col-md-8 mb-4 mb-xl-0 single-footer-widget"></div>
+            </div>
+          </footer>
+          <div className="footer-bottom row align-items-center text-center text-lg-left"></div>
         </div>
       </React.Fragment>
     );
@@ -270,7 +267,7 @@ class Gallery extends Component {
 // GetReducerData
 function mapStateToProps(state) {
   return {
-          photosReducer: get(state, "gallery.photos.data"),
+    photosReducer: get(state, "gallery.photos.data"),
     loadingRecuer: get(state, "gallery.photos.loading"),
   };
 }
@@ -279,8 +276,8 @@ function mapStateToProps(state) {
 //Call reducer
 const mapDispatch = (dispatch) => {
   return {
-          getGalleryPhotos: () => {
-          dispatch(reducer.getGalleryPhotos());
+    getGalleryPhotos: () => {
+      dispatch(reducer.getGalleryPhotos());
     },
   };
 };
