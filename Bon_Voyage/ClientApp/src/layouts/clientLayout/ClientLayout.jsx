@@ -2,6 +2,11 @@ import React, { Component, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import * as router from 'react-router-dom';
 import { Container } from 'reactstrap';
+import * as loginReducer from '../../views/othersViews/LoginPage/reducer';
+import { connect } from "react-redux";
+import get from 'lodash.get';
+import { logout } from '../../views/othersViews/LoginPage/reducer';
+
 
 import {
   AppAside,
@@ -28,11 +33,31 @@ class ClientLayout extends Component {
 
   signOut(e) {
     e.preventDefault()
+    this.props.logout();
     this.props.history.push('/login')
   }
 
   render() {
-    return (
+
+    const { login } = this.props;
+    let isAccess = false;
+
+
+    if(login.isAuthenticated===undefined){
+        return (
+            <Redirect to="/login" />  
+          );
+    }
+    if(login.isAuthenticated)
+    {     
+      const { roles } = login.user;
+      for (let i = 0; i < roles.length; i++) {
+        if (roles[i] === 'Client')
+          isAccess = true;
+      }
+    }
+
+    const page = (
       <div className="app">
         <AppHeader fixed>
           <Suspense  fallback={this.loading()}>
@@ -73,7 +98,22 @@ class ClientLayout extends Component {
         </div>
       </div>
     );
+
+
+    return (
+    isAccess?
+    page:
+    <Redirect to="/login"/>
+    );
   }
 }
 
-export default ClientLayout;
+
+
+const mapStateToProps = (state) => {
+  return {
+    login: get(state, 'login')
+  };
+}
+
+export default connect(mapStateToProps, { logout }) (ClientLayout);
