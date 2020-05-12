@@ -60,9 +60,9 @@ class Gallery extends Component {
             <div className="main_menu">
               <nav className="navbar navbar-expand-lg navbar-light">
                 <div className="container">
-                  <a className="navbar-brand logo_h" href="index.html">
+                  <Link className="navbar-brand logo_h" to="/">
                     <img src={mylogo} height="50px" alt="" />
-                  </a>
+                  </Link>
                   <button
                     className="navbar-toggler"
                     type="button"
@@ -82,9 +82,9 @@ class Gallery extends Component {
                   >
                     <ul className="nav navbar-nav menu_nav">
                       <li className="nav-item active">
-                        <a className="nav-link" href="index.html">
+                        <Link className="nav-link" to="/">
                           Головна
-                        </a>
+                        </Link>
                       </li>
                       <li className="nav-item">
                         {" "}
@@ -93,14 +93,9 @@ class Gallery extends Component {
                         </Link>
                       </li>
                       <li className="nav-item">
-                        <a className="nav-link" href="properties.html">
-                          Properties
-                        </a>
-                      </li>
-                      <li className="nav-item">
-                        <a className="nav-link" href="gallery.html">
+                        <Link className="nav-link" to="/gallery-page">
                           Галерея
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </div>
