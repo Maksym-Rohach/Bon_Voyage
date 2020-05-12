@@ -17,7 +17,7 @@ class ClientNavbar extends Component {
   render() {
 
     // eslint-disable-next-line
-    const { children, ...attributes } = this.props;
+    const { children, image,...attributes } = this.props;
 
     return (
       <React.Fragment>
@@ -51,7 +51,7 @@ class ClientNavbar extends Component {
           </NavItem>
           <UncontrolledDropdown nav direction="down">
             <DropdownToggle nav>
-              <img src={'../../assets/img/avatars/6.jpg'} className="img-avatar" alt="manager@bootstrapmaster.com" />
+              <img src={image} className="img-avatar" alt="manager@bootstrapmaster.com" />
             </DropdownToggle>
             <DropdownMenu right>
               <DropdownItem header tag="div" className="text-center"><strong>Account</strong></DropdownItem>
