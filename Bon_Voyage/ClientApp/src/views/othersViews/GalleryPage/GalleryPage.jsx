@@ -34,7 +34,7 @@ class Gallery extends Component {
     this.props.getGalleryPhotos();
   };
 
-
+ 
   //4 
   // Binding
   componentWillReceiveProps = (nextProps) => {

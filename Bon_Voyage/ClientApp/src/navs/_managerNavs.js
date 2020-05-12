@@ -41,6 +41,11 @@ export default {
                     icon: 'icon-fire',
                 }
             ]
-        }
+        },
+        {
+            name: "Зв`язок з клієнтом",
+            url: '/manager/feedback',
+            icon: 'icon-phone',
+        },
     ]
 };
