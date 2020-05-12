@@ -9,103 +9,109 @@ import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { Dropdown } from 'primereact/dropdown';
 import { Form, InputGroup, Input, InputGroupAddon, InputGroupText } from 'reactstrap';
+import { object } from 'prop-types';
 
 class ManagerControl extends Component {
   state = {
-    name:undefined,
-    surname:undefined,
-    email:undefined,
-    salary:4800,
-    errors:{},
-    visible:false,
+    name: undefined,
+    surname: undefined,
+    email: undefined,
+    salary: 4800,
+    errors: {},
+    visible: false,
   }
 
-  defaultState={
-    name:undefined,
-    surname:undefined,
-    email:undefined,
-    salary:4800,
-    errors:{},
-    visible:false,
+  defaultState = () => {
+    return {
+      name: undefined,
+      surname: undefined,
+      email: undefined,
+      salary: 4800,
+      errors: {},
+      visible: false,
+    }
   }
   dialogHide = (e) => {
-    this.setState({ visible: false });
+    this.setState(this.defaultState);
   }
   componentDidMount = () => {
     this.props.getManagerControlData();
   }
 
-  submitForm=(e)=>{
-    let isValid=true;
-    let validErrors={};
+  submitForm = (e) => {
+    let isValid = true;
+    let validErrors = {};
     e.preventDefault();
-    if(this.state.name===undefined||this.state.name===""){
-      isValid=false;
-      validErrors.name="Це поле має бути заповнено";
+    if (this.state.name === undefined || this.state.name === "") {
+      isValid = false;
+      validErrors.name = "Це поле має бути заповнено";
+      validErrors.status = false;
     }
-    if(this.state.email===undefined||this.state.email===""){
-      isValid=false;
-      validErrors.email="Це поле має бути заповнено";
+    if (this.state.email === undefined || this.state.email === "") {
+      isValid = false;
+      validErrors.email = "Це поле має бути заповнено";
+      validErrors.status = false;
     }
-    else{
-      let regex=/[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}/;
-      if(!regex.test(this.state.email)){
-        isValid=false;
-        validErrors.email="Почта введена невірно";
+    else {
+      let regex = /[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}/;
+      if (!regex.test(this.state.email)) {
+        isValid = false;
+        validErrors.email = "Почта введена невірно";
+        validErrors.status = false;
       }
     }
-    if(this.state.surname===undefined||this.state.surname===""){
-      isValid=false;
-      validErrors.surname="Це поле має бути заповнено";
+    if (this.state.surname === undefined || this.state.surname === "") {
+      isValid = false;
+      validErrors.surname = "Це поле має бути заповнено";
+      validErrors.status = false;
     }
-    if(this.state.salary===0){
-      isValid=false;
-      validErrors.salary="Це поле має бути заповнено";
+    if (this.state.salary === 0) {
+      isValid = false;
+      validErrors.salary = "Це поле має бути заповнено";
+      validErrors.status = false;
     }
-    
-    if(isValid){
-      let model={
-        name:this.state.name,
-        email:this.state.email,
-        salary:this.state.salary,
-        surname:this.state.surname
+
+    if (isValid) {
+      let model = {
+        name: this.state.name,
+        email: this.state.email,
+        salary: this.state.salary,
+        surname: this.state.surname
       };
       this.props.createManager(model);
     }
-    else{
-      this.setState({errors:validErrors});
-      this.state.errors=validErrors;
-      console.log(this.state.errors);
+    else {
+      this.setState({ errors: validErrors });
+      this.state.errors = validErrors;
     }
   }
 
-  clear=()=>
-  {
+  clear = () => {
     this.setState(this.defaultState);
     this.props.clearErrors();
   }
 
-  render() {    
+  render() {
     const { listManagers } = this.props;
-    let {errors} = this.props;
-    if(errors===undefined){
-      if(this.state.errors===undefined){
-        this.clear();
-      }
-      else{
-        errors=this.state.errors;
-      }
+    let parsedlistManagers = listManagers;
+    console.log(parsedlistManagers);
+    let { errorsList } = this.props;
+    if (errorsList === undefined || Object.keys(errorsList).length === 0) {
+      errorsList = this.state.errors;
     }
-    console.log("render", listManagers);
+    if (errorsList !== undefined && errorsList.status) {
+      this.clear();
+    }
+    console.log("error", errorsList);
     return (
-      <div className="d-flex" style={{paddingTop: "15px"}}>     
-        <DataTable value={listManagers}>
-          <Column field="name" header="Ім'я" />
-          <Column field="surname" header="Прізвище" />
-          <Column field="email" header="Пошта" />
-          <Column field="dateOfRegister" header="Дата реєстрації" />
+      <div className="d-flex" style={{ paddingTop: "15px" }}>
+        <DataTable value={parsedlistManagers}>
+          <Column field="name" header="Ім'я" sortable={true} />
+          <Column field="surname" header="Прізвище" sortable={true} />
+          <Column field="email" header="Пошта" sortable={true} />
+          <Column field="dateOfRegister" header="Дата реєстрації" sortable={true} />
         </DataTable>
-        <Dialog header="Додавання менеджера" position="right" visible={this.state.visible} style={{ width: '50vw'}} modal={true} onHide={e => this.dialogHide(e)}>
+        <Dialog header="Додавання менеджера" position="right" visible={this.state.visible} style={{ width: '50vw' }} modal={true} onHide={e => this.dialogHide(e)}>
           <Form onSubmit={(e) => { this.submitForm(e) }} style={{ height: '15vw' }}>
             <InputGroup className="mb-3">
               <Input
@@ -113,11 +119,11 @@ class ManagerControl extends Component {
                 placeholder="Електронна пошта"
                 name="email"
                 value={this.state.email}
-                onChange={(e)=>{this.setState({email: e.target.value})}}
+                onChange={(e) => { this.setState({ email: e.target.value }) }}
               />
-              {!!errors.email ? <div className="invalid-feedback">{errors.email}</div> : ""}
+              {errorsList.email ? <div className="text-danger">{errorsList.email}</div> : ""}
             </InputGroup>
-            
+
             <InputGroup className="mb-3">
               <Input
                 type="text"
@@ -125,52 +131,50 @@ class ManagerControl extends Component {
                 id="name"
                 name="name"
                 value={this.state.name}
-                onChange={(e)=>{this.setState({name: e.target.value})}}               
-              /> 
-              {!!errors.name ? <div className="invalid-feedback">{errors.name}</div> : ""}             
-            </InputGroup>            
+                onChange={(e) => { this.setState({ name: e.target.value }) }}
+              />
+              {!!errorsList.name ? <div className="text-danger">{errorsList.name}</div> : ""}
+            </InputGroup>
             <InputGroup className="mb-3">
               <Input
                 type="text"
                 placeholder="Прізвище"
                 id="surname"
-                autocomplete="new-password"
                 name="surname"
                 value={this.state.surname}
-                onChange={(e)=>{this.setState({surname: e.target.value})}}
+                onChange={(e) => { this.setState({ surname: e.target.value }) }}
               />
-              {!!errors.surname ? <div className="invalid-feedback">{errors.surname}</div> : ""}
-            </InputGroup>            
+              {!!errorsList.surname ? <div className="text-danger">{errorsList.surname}</div> : ""}
+            </InputGroup>
             <InputGroup className="mb-3">
               <InputGroupAddon><InputGroupText>Зарплата</InputGroupText></InputGroupAddon>
               <Input
                 type="number"
                 id="surname"
-                autocomplete="new-password"
-                name="surname"
+                name="salary"
                 value={this.state.salary}
-                onChange={(e)=>{this.setState({salary: e.target.value})}}
+                onChange={(e) => { this.setState({ salary: e.target.value }) }}
               />
-              {!!errors.salary ? <div className="invalid-feedback">{errors.salary}</div> : ""}
-            </InputGroup>            
+              {!!errorsList.salary ? <div className="text-danger">{errorsList.salary}</div> : ""}
+            </InputGroup>
             <div>
               <Button label="Додати" style={{ margin: '1rem' }} color="secondary"></Button>
             </div>
           </Form>
         </Dialog>
         <div>
-        <Button label="Додати менеджера" className="p-button-primary " onClick={(e) => this.setState({ visible: true })} />
+          <Button label="Додати менеджера" className="p-button-primary " onClick={(e) => this.setState({ visible: true })} />
         </div>
-        
-      </div>
-        );
+
+      </div >
+    );
   }
 }
 
 const mapStateToProps = state => {
   return {
     listManagers: get(state, 'managers.list.data'),
-    errors: get(state, 'managers.createRespone.errors'),
+    errorsList: get(state, 'managers.createResult.errors'),
   };
 }
 
