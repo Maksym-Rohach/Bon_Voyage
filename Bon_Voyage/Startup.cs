@@ -90,11 +90,10 @@ namespace Bon_Voyage
             services.AddScoped<IJwtTokenService, JwtTokenService>();
 
             var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Lesha-xoche-bytu-ymnitsej"));
-            
-            services.AddIdentity<DbUser, DbRole>(options => options.Stores.MaxLengthForKeys = 128)
+
+            services.AddIdentity<DbUser, IdentityRole>(options => options.Stores.MaxLengthForKeys = 128)
                 .AddEntityFrameworkStores<EFDbContext>()
-                .AddDefaultTokenProviders()
-                .AddDefaultUI();
+                .AddDefaultTokenProviders();
 
             services.AddScoped<IJwtTokenService, JwtTokenService>();
 
@@ -148,11 +147,14 @@ namespace Bon_Voyage
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+            
             app.UseAuthentication();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseSession();
             app.UseHttpsRedirection();
+            app.UseRouting();
+            app.UseAuthorization();
 
             #region InitStaticFiles CountryImages
             string pathcountry = InitStaticFiles
@@ -198,15 +200,15 @@ namespace Bon_Voyage
                 RequestPath = new PathString("/" + Configuration.GetValue<string>("UrlImages"))
             });
             #endregion;
-            
-            // Seeder
-            //SeederDB.SeedData(app.ApplicationServices, env, this.Configuration);
 
-            app.UseMvc(routes =>
+            //Seeder
+            SeederDB.SeedData(app.ApplicationServices, env, this.Configuration);
+
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                    pattern: "{controller}/{action=Index}/{id?}");
             });
 
             app.UseSpa(spa =>

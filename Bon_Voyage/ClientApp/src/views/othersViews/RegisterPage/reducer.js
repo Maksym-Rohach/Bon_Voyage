@@ -72,11 +72,9 @@ const initialState = {
   };
 
 export function Register(data) {
-    const url = 'https://localhost:44365/api/registration/register';
-    console.log("Return token - ", data);
     return dispatch => {
       dispatch(registerListActions.started());
-        return axios.post(url, data)
+      RegisterService.register(data)
             .then(res => {
               dispatch(registerListActions.success());
               console.log("Register data - ",res.data);

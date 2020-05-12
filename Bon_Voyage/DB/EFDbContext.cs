@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 
 namespace Bon_Voyage.DB
 {
-    public class EFDbContext : IdentityDbContext<DbUser, DbRole, string, IdentityUserClaim<string>,
-    DbUserRole, IdentityUserLogin<string>,
+    public class EFDbContext : IdentityDbContext<DbUser, IdentityRole, string, IdentityUserClaim<string>,
+    IdentityUserRole<string>, IdentityUserLogin<string>,
     IdentityRoleClaim<string>, IdentityUserToken<string>>
     {
         public EFDbContext(DbContextOptions<EFDbContext> options) : base(options)
@@ -126,7 +126,7 @@ namespace Bon_Voyage.DB
                 .WithMany(x => x.TicketToComforts)
                 .HasForeignKey(x => x.ComfortId);
             #endregion
-
+            
         }
 
     }
