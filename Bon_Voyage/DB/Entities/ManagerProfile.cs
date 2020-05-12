@@ -15,6 +15,6 @@ namespace Bon_Voyage.DB.Entities
         public DateTime DateOfRegister { get; set; }
         public float Salary { get; set; }
 
-        public BaseProfile BaseProfile { get; set; }
+        public virtual BaseProfile BaseProfile { get; set; }
     }
 }
