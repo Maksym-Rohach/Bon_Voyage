@@ -5,6 +5,7 @@ import * as getListActions from "./reducer";
 import * as reducer from './reducer';
 import { connect } from "react-redux";
 import get from "lodash.get";
+import {Growl} from 'primereact/growl';
 
 
 import {
@@ -41,10 +42,13 @@ class ClientMessageView extends React.Component {
         this.props.sendmessage(model);
     }
 
+    showSuccess = () => {
+        this.growl.show({severity: 'success', life:8000, summary: 'Повідомлення відправлено'});
+    }
+
     handleChange = e => {
         this.setState({ [e.target.name]: e.target.value });
     };
-
 
     render() {
         const { Theme, Message } = this.props;
@@ -68,7 +72,8 @@ class ClientMessageView extends React.Component {
                                 <Label for="exampleText">Текст повідомлення</Label>
                                 <Input type="textarea" name="Message" id="exampleText" value={this.state.Message} onChange={this.handleChange}/>
                             </FormGroup>
-                            <Button>Відправити</Button>
+                            <Button onClick={this.showSuccess} label="Success" className="p-button-success">Відправити</Button>
+                            <Growl ref={(el) => (this.growl = el)} style={{ marginTop: "3rem" }} />
                         </Form>
                     </div>
                 </Container>
