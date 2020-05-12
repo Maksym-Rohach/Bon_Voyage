@@ -56,12 +56,12 @@ export default {
       icon: 'icon-chart',
       children: [
         {
-          name: 'Statistic',
+          name: 'Статистика',
           url: '/admin/statistic',
           icon: 'icon-emotsmile',
         },
         {
-          name: 'Statistic',
+          name: 'Статистика',
           url: '/base/cards',
           icon: 'icon-people',
         }
