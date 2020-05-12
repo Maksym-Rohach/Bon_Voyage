@@ -9,6 +9,7 @@ import mylogo from '../../../assets/img/Logo.png';
 import Loader from '../../../components/Loader/index'
 import { serverUrl } from '../../../config';
 import bedIcon from '../../../assets/img/bed-icon.png'
+import { Button} from 'reactstrap';
 
 //import '../../../scss/customNav/custNavbar.scss'
 
@@ -91,9 +92,8 @@ class HomePage extends Component {
                   </button>
                   <div className="collapse navbar-collapse offset ml-5" id="navbarSupportedContent">
                     <ul className="nav navbar-nav menu_nav ml-5">
-                      <li className="nav-item active"><a className="nav-link" href="index.html">Home</a></li>
-                      <li className="nav-item"> <Link className="nav-link" to="/contact-page">Про нас</Link></li>
-                      <li className="nav-item"><a className="nav-link" href="properties.html">Properties</a></li>
+                    <li className="nav-item"> <Link className="nav-link" to="/#/">Головна</Link></li>
+                      <li className="nav-item"> <Link className="nav-link" to="/contact-page">Контакти</Link></li>                    
                       <li className="nav-item"> <Link className="nav-link" to="/gallery-page">Галерея</Link></li>
 
 
@@ -236,7 +236,10 @@ class HomePage extends Component {
                       <h2 className="mb-4"><span className="d-block"></span>Виберіть подорож на свій смак</h2>
                       {/* <p>Beginning blessed second a creepeth. Darkness wherein fish years good air whose after seed appear midst evenin, appear void give third bearing divide one so blessed moved firmament gathered </p>
                     <p>Beginning blessed second a creepeth. Darkness wherein fish years good air whose after seed appear midst evenin, appear void give third bearing divide one so blessed</p> */}
-                      <a className="button button--active home-banner-btn mt-4" href="#">Дізнатися більше</a>
+                     
+                      <Link to="/details-page">                                                  
+                               <Button className="button button--active home-banner-btn mt-4">Дізнатись більше</Button>    
+                       </Link>
                     </div>
                   </div>
                 </div>
@@ -264,7 +267,9 @@ class HomePage extends Component {
                                 <h3 className="card-explore__price">₴ {item.price}<sub>/ За Ніч</sub></h3>
                                 <h4 className="card-explore__title"><a href="#">{item.hotelName}</a></h4>
                                 <p>{item.description}</p>
-                                <a className="card-explore__link" href="#">Переглянути<i className="ti-arrow-right"></i></a>
+                                <Link to="/details-page">                                                  
+                               <Button className="button button--active home-banner-btn mt-4">Дізнатись більше</Button>    
+                              </Link>
                               </div>
                             </div>
                           </div>
@@ -312,7 +317,9 @@ class HomePage extends Component {
                                 <li><a href="#"><span class="news-icon"><i class="ti-notepad"></i></span>{item.city}</a></li>
                               </ul>
                               <p>{item.description}</p>
-                              <a class="card-news__link" href="#">Дізнатись більше<i class="ti-arrow-right"></i></a>
+                              <Link to="/details-page">                                                  
+                               <Button className="button button--active home-banner-btn mt-4">Дізнатись більше</Button>    
+                             </Link>
                             </div>
                           </div>
                         </div>

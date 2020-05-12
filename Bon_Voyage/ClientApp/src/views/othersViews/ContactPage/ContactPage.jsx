@@ -26,10 +26,9 @@ class Contact extends Component {
       </button>
       <div className="collapse navbar-collapse offset" id="navbarSupportedContent">
         <ul className="nav navbar-nav menu_nav">
-          <li className="nav-item active"><a className="nav-link" href="index.html">Головна</a></li>
-          <li className="nav-item"> <Link className="nav-link" to="/contact-page">Контакти</Link></li>
-          <li className="nav-item"><a className="nav-link" href="properties.html">Properties</a></li>
-          <li className="nav-item"><a className="nav-link" href="gallery.html">Галерея</a></li>
+        <li className="nav-item"> <Link className="nav-link" to="/#/">Головна</Link></li>
+          <li className="nav-item"> <Link className="nav-link" to="/contact-page">Контакти</Link></li>         
+          <li className="nav-item"> <Link className="nav-link" to="/gallery-page">Галерея</Link></li>
         </ul>       
       </div>
       <div className="ml-auto d-none d-md-block d-md-flex" >
