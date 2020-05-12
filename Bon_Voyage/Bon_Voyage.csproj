@@ -5,6 +5,8 @@
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
+    <IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
     <SpaRoot>ClientApp\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
   </PropertyGroup>
@@ -42,7 +44,6 @@
     <Folder Include="MediatR\Comfort\Commands\" />
     <Folder Include="MediatR\Home\Commands\" />
     <Folder Include="MediatR\RoomType\Commands\" />
-    <Folder Include="MediatR\Ticket\Queries\" />
     <Folder Include="Uploaded\HotelImages\" />
     <Folder Include="Uploaded\CountryImages\" />
     <Folder Include="Uploaded\UserImages\" />

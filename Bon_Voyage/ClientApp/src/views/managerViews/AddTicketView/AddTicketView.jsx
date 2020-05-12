@@ -474,7 +474,7 @@ class AddTicket extends Component {
                 className={
                   errors.countsOfNight == "" ? "mb-3" : "is-invalid p-error"
                 }
-                type="text"
+                type="number"
                 keyfilter="pint"
                 onChange={(e) =>
                   (this.state.fields.countsOfNight = e.target.value)
@@ -538,7 +538,7 @@ class AddTicket extends Component {
                 className={
                   errors.countOfPlaces == "" ? "mb-3" : "is-invalid p-error"
                 }
-                type="text"
+                type="number"
                 keyfilter="pint"
                 onChange={(e) =>
                   (this.state.fields.countOfPlaces = e.target.value)
