@@ -20,10 +20,10 @@ namespace Bon_Voyage.MediatR.Hotel.Commands.AddHotelPhoto
         public class AddHotelPhotoHandler : BaseMediator, IRequestHandler<AddHotelPhotoCommand, string>
         {
             private readonly IConfiguration _configuration;
-            private readonly IHostingEnvironment _env;
+            private readonly IWebHostEnvironment _env;
 
             public AddHotelPhotoHandler(EFDbContext context, IConfiguration configuration,
-                IHostingEnvironment env) : base(context)
+                IWebHostEnvironment env) : base(context)
             {
                 _configuration = configuration;
                 _env = env;

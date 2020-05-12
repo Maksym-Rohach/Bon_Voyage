@@ -73,7 +73,8 @@ namespace Bon_Voyage.MediatR.Manager.Commands.CreateManager
                         Status = false,
                         ErrorsMessages = new CreateManagerErrors
                         {
-                            Email = "Користувач с таким емейлом вже існує"
+                            Email = "Користувач с таким емейлом вже існує",
+                            Status = false
                         }
                     };
                 }
