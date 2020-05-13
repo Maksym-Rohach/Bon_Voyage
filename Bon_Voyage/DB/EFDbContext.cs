@@ -32,6 +32,7 @@ namespace Bon_Voyage.DB
         public DbSet<Comfort> Comforts { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<Cart> Carts { get; set; }
        
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -126,7 +127,17 @@ namespace Bon_Voyage.DB
                 .WithMany(x => x.TicketToComforts)
                 .HasForeignKey(x => x.ComfortId);
             #endregion
-            
+
+            #region Cart
+            builder.Entity<Cart>()
+                .HasOne(x => x.Client)
+                .WithMany(x => x.Carts)
+                .HasForeignKey(x => x.ClientId);
+            builder.Entity<Cart>()
+                .HasOne(x => x.Ticket)
+                .WithOne(x => x.Cart)
+                .HasForeignKey<Cart>(x => x.TicketId);
+            #endregion
         }
 
     }

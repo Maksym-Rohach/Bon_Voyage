@@ -29,7 +29,8 @@ import {
 class ClientMessageView extends React.Component {
     state = {
         Theme: "",
-        Message:""
+        Message:"",
+        isSuccess: false
     }
     onSubmitForm = (e) => {
         e.preventDefault();
@@ -42,6 +43,14 @@ class ClientMessageView extends React.Component {
         this.props.sendmessage(model);
     }
 
+    componentWillReceiveProps = (nextProps) => { 
+        this.setState(
+            {
+                isSuccess: nextProps.addsuccess
+            }
+        )
+    }
+
     showSuccess = () => {
         this.growl.show({severity: 'success', life:8000, summary: 'Повідомлення відправлено'});
     }
@@ -51,7 +60,9 @@ class ClientMessageView extends React.Component {
     };
 
     render() {
-        const { Theme, Message } = this.props;
+        if(this.state.isSuccess){
+            this.showSuccess()
+        }
         const form = (
             <div className="app flex-row" style={{ position: 'absolute', left: '15%', top: '10%', }}>
                 <div className="card text-center"></div>
@@ -72,7 +83,7 @@ class ClientMessageView extends React.Component {
                                 <Label for="exampleText">Текст повідомлення</Label>
                                 <Input type="textarea" name="Message" id="exampleText" value={this.state.Message} onChange={this.handleChange}/>
                             </FormGroup>
-                            <Button onClick={this.showSuccess} label="Success" className="p-button-success">Відправити</Button>
+                            <Button label="Success" className="p-button-success">Відправити</Button>
                             <Growl ref={(el) => (this.growl = el)} style={{ marginTop: "3rem" }} />
                         </Form>
                     </div>
@@ -86,6 +97,7 @@ class ClientMessageView extends React.Component {
 function mapStateToProps(state) {
     return {
         listClients: get(state, "clientmessage.list.data"),
+        addsuccess: get(state, "clientMessage.list.success"),
     };
 }
 
