@@ -1,0 +1,6 @@
+{
+    "name": "CityControl",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./CityControlView.jsx"
+}
