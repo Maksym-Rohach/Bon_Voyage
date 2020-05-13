@@ -15,5 +15,7 @@ namespace Bon_Voyage.DB.Entities
 
         public virtual BaseProfile BaseProfile { get; set; }
         public virtual ICollection<Ticket> Tickets { get; set; }
+
+        public virtual ICollection<Cart> Carts { get; set; }
     }
 }
