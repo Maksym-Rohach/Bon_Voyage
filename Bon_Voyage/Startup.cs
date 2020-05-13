@@ -42,7 +42,7 @@ namespace Bon_Voyage
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
-            });
+            });            
             services.AddScoped<IJwtTokenService, JwtTokenService>();
             services.AddSwaggerGen(c =>
             {
@@ -84,9 +84,10 @@ namespace Bon_Voyage
                 }
             });
             services.AddMediatR(typeof(Startup));
-            services.AddDbContext<EFDbContext>(
-                 options =>
-                   options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<EFDbContext>(options =>
+                options
+                .UseLazyLoadingProxies()
+                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),x=>x.MigrationsAssembly("Bon_Voyage")));
 
             services.AddScoped<IJwtTokenService, JwtTokenService>();
 
