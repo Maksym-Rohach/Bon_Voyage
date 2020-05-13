@@ -24,7 +24,7 @@ import {ForgotPasswordReducer} from '../views/othersViews/ForgotPasswordPage/red
 import { NewPasswordReducer } from '../views/othersViews/NewPasswordPage/reducer';
 import {countryControlReducer} from '../views/adminViews/CountryControl/reducer'
 import {GalleryReducer} from '../views/othersViews/GalleryPage/reducer'
-
+import {cityControlReducer} from '../views/adminViews/CityControl/reducer';
 import {airportControlReducer} from '../views/adminViews/AirportControl/reducer';
 
 // Create browser history to use in the Redux store
@@ -40,6 +40,7 @@ export default function configureStore(history, initialState) {
     forgotPassword: ForgotPasswordReducer,
     addTicket: addTicketReducer,
     countryControl: countryControlReducer,
+    cityControl: cityControlReducer,
     //persons: personsChartReducer,
     comments: commentsChartReducer,
       managers: managerControlReducer,
@@ -57,6 +58,7 @@ export default function configureStore(history, initialState) {
       newPassword:NewPasswordReducer,
       hotels: hotelControlReducer,
       register: registerReducer
+
   };
 
   const middleware = [
