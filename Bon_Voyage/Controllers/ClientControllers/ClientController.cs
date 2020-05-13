@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bon_Voyage.MediatR.Ticket.Queries.GetCardsTickets;
 using Bon_Voyage.MediatR.User.Command.ChangeInfo;
 using Bon_Voyage.MediatR.User.Command.FeedbackCommand;
 using Microsoft.AspNetCore.Authorization;
@@ -25,10 +26,14 @@ namespace Bon_Voyage.Controllers.ClientControllers
                 return BadRequest(res);
         }
 
-        //[HttpPost("GetCardsTickets/{ClientId}")]
-        //public async Task<IActionResult> GetCardsTickets(string ClientId)
-        //{
+        [HttpPost("GetCardsTickets")]
+        public async Task<IActionResult> GetCardsTickets()
+        {
+            var id = User.Claims.ToList()[0].Value;
 
-        //}
+            var res = await Mediator.Send(new GetCardsTicketsQuery { ClientId = id });
+
+            return Ok(res);
+        }
     }
 }

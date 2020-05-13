@@ -22,7 +22,21 @@ namespace Bon_Voyage.MediatR.Ticket.Queries.GetCardsTickets
 
             public async Task<ICollection<CardsTicketViewModel>> Handle(GetCardsTicketsQuery request, CancellationToken cancellationToken)
             {
-                return null;
+                var tickets = _context.Carts
+                    .Where(x => x.ClientId == request.ClientId)
+                    .Select(t => new CardsTicketViewModel
+                    {
+                        Id = t.Ticket.Id,
+                        City = t.Ticket.Hotel.City.Name,
+                        Country = t.Ticket.Hotel.City.Country.Name,
+                        Hotel = t.Ticket.Hotel.Name,
+                        CountOfPlaces = t.Ticket.CountsOfPlaces,
+                        DateTo = t.Ticket.DateTo.ToString("dd.MM.yyyy"),
+                        DateFrom = t.Ticket.DateFrom.ToString("dd.MM.yyyy"),
+                        Price = t.Ticket.PriceFrom
+                    }).ToList();
+
+                return tickets;
             }
         }
     }
