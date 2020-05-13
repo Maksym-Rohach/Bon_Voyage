@@ -25,8 +25,8 @@ namespace Bon_Voyage.Controllers.ClientControllers
                 return BadRequest(res);
         }
 
-        //[HttpPost("GetCardsTickets")]
-        //public async Task<IActionResult> GetCardsTickets()
+        //[HttpPost("GetCardsTickets/{ClientId}")]
+        //public async Task<IActionResult> GetCardsTickets(string ClientId)
         //{
 
         //}
