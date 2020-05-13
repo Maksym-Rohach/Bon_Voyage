@@ -19,7 +19,7 @@ namespace Bon_Voyage.MediatR.Feedback.Queries.GetAllFeedbacks
             }
             public async Task<ICollection<GetAllFeedbackViewModel>> Handle(GetAllFeedbacksQuery request, CancellationToken cancellationToken)
             {
-                var feedbacks = _context.Feedbacks.Select(x => new GetAllFeedbackViewModel
+                var feedbacks = _context.Feedbacks.Where(x=>x.IsAnwsered!=true).Select(x => new GetAllFeedbackViewModel
                 {
                    Date = x.Data,
                    Description = x.Description,
