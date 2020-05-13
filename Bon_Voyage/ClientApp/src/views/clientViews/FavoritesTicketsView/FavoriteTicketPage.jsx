@@ -1,4 +1,10 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
+import get from "lodash.get";
+import { connect } from "react-redux";
+import Loader from '../../../components/Loader/index'
+
+
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
@@ -13,7 +19,7 @@ class FavoriteTicket extends Component {
     //-------------------------RENDER--------------------------------
 
     actionTemplate = () => {
-        return (
+      return (
             <div>
                 <Button
                     type="button"
