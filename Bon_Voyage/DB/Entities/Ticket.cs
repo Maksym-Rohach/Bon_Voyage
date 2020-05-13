@@ -29,6 +29,8 @@ namespace Bon_Voyage.DB.Entities
         public string ClientId { get; set; }
         public virtual ClientProfile Client { get; set; }
 
+        public virtual Cart Cart { get; set; }
+
         public virtual ICollection<TicketsToComforts> TicketToComforts { get; set; }
     }
 }

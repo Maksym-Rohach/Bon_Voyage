@@ -16,7 +16,9 @@ namespace Bon_Voyage.MediatR.Ticket.Queries.GetTicketsWithFilters
         public string DateTo { get; set; }
         public int CountsOfPlaces { get; set; }
         public int Discount { get; set; }
+
         public int Count { get; set; }
+        public int Index { get; set; }
 
         public List<ComfortViewModel> Comforts { get; set; }
         public CityViewModel City { get; set; }
