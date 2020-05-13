@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Bon_Voyage.Controllers.OthersControllers
 {
-    
+
     public class CityController : ApiController
     {
         [HttpGet("GetCitiesByCountry/{CountryId}")]
