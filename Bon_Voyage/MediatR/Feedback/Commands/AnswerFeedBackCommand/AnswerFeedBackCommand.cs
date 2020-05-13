@@ -31,6 +31,5 @@ namespace Bon_Voyage.MediatR.Feedback.Commands.AnswerFeedBackCommand
                 return true;
             }
         }
-    }
-    
+    }    
 }

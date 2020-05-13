@@ -27,7 +27,6 @@ namespace Bon_Voyage.MediatR.Feedback.Queries.GetAllFeedbacks
                    Theme = x.Theme,
                    UserEmail = _context.Users.FirstOrDefault(u => u.Id == x.UserId).Email
                 }).ToList();
-
                 return feedbacks;
             }
         }
