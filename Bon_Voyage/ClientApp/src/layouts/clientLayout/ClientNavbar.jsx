@@ -16,7 +16,7 @@ class ClientNavbar extends Component {
   render() {
 
     // eslint-disable-next-line
-    const { children, ...attributes } = this.props;
+    const { children, image,...attributes } = this.props;
 
     return (
       <React.Fragment>
