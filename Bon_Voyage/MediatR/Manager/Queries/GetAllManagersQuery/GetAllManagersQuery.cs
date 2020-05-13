@@ -25,11 +25,11 @@ namespace Bon_Voyage.MediatR.Manager.Queries.GetAllManagersQuery
                 var managers = _context.ManagerProfiles.Select(x => new ManagerViewModel
                 {
                     Id = x.Id,
-                    Name = x.Name,
-                    Email = x.User.Email,
-                    DateOfRegister = x.DateOfRegister,
-                    Photo = x.Photo,
-                    Surname = x.Surname
+                    Name = x.BaseProfile.Name,
+                    Email = x.BaseProfile.User.Email,
+                    DateOfRegister = x.DateOfRegister.Date.ToString("dd.MM.yyyy"),
+                    Photo = x.BaseProfile.Photo,
+                    Surname = x.BaseProfile.Surname
                 }).ToList();
                 return managers;
             }

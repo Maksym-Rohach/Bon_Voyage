@@ -15,29 +15,29 @@ export default {
             icon: 'icon-user',
         },
         {
-            name: 'Білети',
+            name: 'Квитки',
             url: '/base/carousels',
             icon: 'icon-plane',
 
             children: [
                 {
-                    name: 'Усі білети',
+                    name: 'Усі квитки',
                     url: '/base/carousels',
                     icon: 'icon-list',
                 },
                 {
-                    name: 'Добавити білет',
-                    url: '/base/cards',
+                    name: 'Додати квитки',
+                    url: '/manager/ticket/add',
                     icon: 'icon-plus',
                 },
                 {
-                    name: 'Куплені білети',
-                    url: '/base/carousels',
+                    name: 'Куплені квитки',
+                    url: '/manager/tickets/bought-tickets',
                     icon: 'icon-credit-card',
                 },
                 {
                     name: 'Гарячі пропозиції',
-                    url: '/base/carousels',
+                    url: '/manager/tickets/hot-deal-tickets',
                     icon: 'icon-fire',
                 }
             ]

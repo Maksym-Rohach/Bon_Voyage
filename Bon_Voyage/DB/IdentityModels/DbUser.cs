@@ -9,9 +9,6 @@ namespace Bon_Voyage.DB.IdentityModels
 {
     public class DbUser : IdentityUser
     {
-        public ICollection<DbUserRole> UserRoles { get; set; }
-        public virtual ClientProfile ClientProfile { get; set; }
-        public virtual ManagerProfile ManagerProfile { get; set; }
-        public virtual AdminProfile Admin { get; set; }
+        public virtual BaseProfile BaseProfile { get; set; }
     }
 }

@@ -37,17 +37,17 @@ namespace Bon_Voyage.MediatR.Registration
             }
 
             public async Task<RegistrationViewModel> Handle(RegistrationCommand request, CancellationToken cancellationToken)
-            {
+            {               
                 var roleName = "Client";
                 var userReg = _context.Users.FirstOrDefault(x => x.Email == request.Email);
                 if (userReg != null)
                 {
-                    return new RegistrationViewModel { Status = false, ErrorMessage = ("Bad Model (цей емейл вже зареєстровано)") };
+                    return new RegistrationViewModel { Status = false, ErrorMessage = ("Цей емейл вже зареєстровано)") };
                 }
 
                 if (request.Name == null)
                 {
-                    return new RegistrationViewModel { Status = false, ErrorMessage = ("Bad Model (поле вводу пусте)") };
+                    return new RegistrationViewModel { Status = false, ErrorMessage = ("Поле вводу імені пусте") };
                 }
                 else
                 {
@@ -55,42 +55,64 @@ namespace Bon_Voyage.MediatR.Registration
 
                     if (!nameANDsurnameREGEX.IsMatch(request.Name))
                     {
-                        return new RegistrationViewModel { Status = false, ErrorMessage = ("Bad Model (мінімум 3 символи максимум 15 символів)") };
+                        return new RegistrationViewModel { Status = false, ErrorMessage = ("Імя має мати мінімум 3 символи максимум 15 символів") };
                     }
                 }
 
                 if (request.Surname == null)
                 {
-                    return new RegistrationViewModel { Status = false, ErrorMessage = ("Bad Model (поле вводу пусте)") };
+                    return new RegistrationViewModel { Status = false, ErrorMessage = ("Поле вводу прізвища пусте") };
                 }
                 else
                 {
                     var nameANDsurnameREGEX = new Regex(@"[A-Za-z0-9._()\[\]-]{3,15}$");
-
-                    if (!nameANDsurnameREGEX.IsMatch(request.Name))
+                    if (!nameANDsurnameREGEX.IsMatch(request.Surname))
                     {
-                        return new RegistrationViewModel { Status = false, ErrorMessage = ("Bad Model (мінімум 3 символи максимум 15 символів)") };
+                        return new RegistrationViewModel { Status = false, ErrorMessage = ("Прізвище має мати мінімум 3 символи максимум 15 символів") };
+                    }
+                }
+                if (request.Email == null)
+                {
+                    return new RegistrationViewModel { Status = false, ErrorMessage = ("Вкажіть пошту)") };
+                }
+                else
+                {
+                    var testmail = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+                    if (!testmail.IsMatch(request.Email))
+                    {
+                        return new RegistrationViewModel { Status = false, ErrorMessage = ("Невірно вказана почта)") };
                     }
                 }
 
-                ClientProfile clientPro = new ClientProfile
+                BaseProfile baseProfile = new BaseProfile
                 {
                     Name = request.Name,
-                    Surname = request.Surname,
+                    Surname = request.Surname
+                };
+
+                ClientProfile clientPro = new ClientProfile
+                {
+                    BaseProfile = baseProfile
                 };
                 DbUser dbClient = new DbUser
                 {
                     Email = request.Email,
-                    UserName = request.Name,
-                    ClientProfile = clientPro
+                    UserName = request.Email,
+                    BaseProfile = baseProfile   
                 };
-                var res = await _userManager.CreateAsync(dbClient, request.Password);
+                var res = _userManager.CreateAsync(dbClient, request.Password).Result;
+                if (!res.Succeeded)
+                {
+                    return new RegistrationViewModel { Status = false, ErrorMessage = (" Код доступу має складатись з 8 символів, містити мінімум одну велику літеру! ") };
+                }
                 res = _userManager.AddToRoleAsync(dbClient, roleName).Result;
 
                 if (res.Succeeded)
                 {
+                    _context.ClientProfiles.Add(clientPro);
+                    _context.SaveChanges();
                     await _signInManager.SignInAsync(dbClient, isPersistent: false);
-                    return new RegistrationViewModel { Status = true, Tokken = _IJwtTokenService.CreateToken(dbClient) };
+                    return new RegistrationViewModel { Status = true, Token = _IJwtTokenService.CreateToken(dbClient) };
                 }
                 return new RegistrationViewModel { Status = false, ErrorMessage = ("") };
             }

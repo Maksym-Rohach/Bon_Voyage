@@ -1,3 +1,6 @@
+//import './views/othersViews/instruments/vendors/jquery/jquery-3.2.1.min.js';
+
+//import './views/othersViews/instruments/js/main.js';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.min.css';
 import React from 'react';

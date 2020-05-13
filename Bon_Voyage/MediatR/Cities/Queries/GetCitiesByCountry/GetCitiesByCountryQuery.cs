@@ -10,19 +10,19 @@ using Bon_Voyage.DB;
 
 namespace Bon_Voyage.MediatR.Cities.Queries.GetCitiesByCountry
 {
-    public class GetCitiesByCountryQuery : IRequest<ICollection<CityViewModel>>
+    public class GetCitiesByCountryQuery : IRequest<ICollection<HomeCityViewModel>>
     {
         public string CountryId { get; set; }
 
-        public class GetCitiesByCountryQueryHandler : BaseMediator, IRequestHandler<GetCitiesByCountryQuery, ICollection<CityViewModel>>
+        public class GetCitiesByCountryQueryHandler : BaseMediator, IRequestHandler<GetCitiesByCountryQuery, ICollection<HomeCityViewModel>>
         {
             public GetCitiesByCountryQueryHandler(EFDbContext context) : base(context)
             {
             }
             
-            public async Task<ICollection<CityViewModel>> Handle(GetCitiesByCountryQuery request, CancellationToken cancellationToken)
+            public async Task<ICollection<HomeCityViewModel>> Handle(GetCitiesByCountryQuery request, CancellationToken cancellationToken)
             {
-                var cities = _context.Cities.Where(x => x.CountryId == request.CountryId).Select(x => new CityViewModel
+                var cities = _context.Cities.Where(x => x.CountryId == request.CountryId).Select(x => new HomeCityViewModel
                 {
                     Id = x.Id,
                     Name = x.Name

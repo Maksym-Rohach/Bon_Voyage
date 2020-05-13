@@ -10,15 +10,17 @@ using System.Threading.Tasks;
 
 namespace Bon_Voyage.DB
 {
-    public class EFDbContext : IdentityDbContext<DbUser, DbRole, string, IdentityUserClaim<string>,
-    DbUserRole, IdentityUserLogin<string>,
+    public class EFDbContext : IdentityDbContext<DbUser, IdentityRole, string, IdentityUserClaim<string>,
+    IdentityUserRole<string>, IdentityUserLogin<string>,
     IdentityRoleClaim<string>, IdentityUserToken<string>>
     {
         public EFDbContext(DbContextOptions<EFDbContext> options) : base(options)
         {
         }
-
+        
+        public DbSet<BaseProfile> BaseProfiles { get; set; }
         public DbSet<ClientProfile> ClientProfiles { get; set; }
+        public DbSet<BlockedProfile> BlockedProfiles { get; set; }
         public DbSet<AdminProfile> AdminProfiles { get; set; }
         public DbSet<ManagerProfile> ManagerProfiles { get; set; }
         public DbSet<Country> Country { get; set; }
@@ -29,6 +31,8 @@ namespace Bon_Voyage.DB
         public DbSet<RoomType> RoomTypes { get; set; }
         public DbSet<Comfort> Comforts { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<Cart> Carts { get; set; }
        
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -40,12 +44,31 @@ namespace Bon_Voyage.DB
                 .HasMany(x => x.Tickets)
                 .WithOne(x => x.Client)
                 .HasForeignKey(x => x.ClientId);
+            builder.Entity<ClientProfile>()
+                .HasOne(x => x.BaseProfile)
+                .WithOne(x => x.ClientProfile)
+                .HasForeignKey<ClientProfile>(x => x.Id);
             #endregion
 
             #region AdminProfile
+            builder.Entity<AdminProfile>()
+                .HasOne(x => x.BaseProfile)
+                .WithOne(x => x.AdminProfile)
+                .HasForeignKey<AdminProfile>(x => x.Id);
             #endregion
 
             #region ManagerProfile
+            builder.Entity<ManagerProfile>()
+                .HasOne(x => x.BaseProfile)
+                .WithOne(x => x.ManagerProfile)
+                .HasForeignKey<ManagerProfile>(x => x.Id);
+            #endregion
+
+            #region BlockedProfile
+            builder.Entity<BlockedProfile>()
+                .HasOne(x => x.BaseProfile)
+                .WithOne(x => x.BlockedProfile)
+                .HasForeignKey<BlockedProfile>(x => x.Id);
             #endregion
 
             #region City
@@ -75,14 +98,23 @@ namespace Bon_Voyage.DB
             #region Ticket
             builder.Entity<Ticket>()
                 .HasOne(x => x.Airport)
-                .WithOne(x => x.Ticket);
+                .WithMany(x=>x.Tickets)
+                .HasForeignKey(x=>x.AirportId);
             builder.Entity<Ticket>()
                 .HasOne(x => x.Hotel)
                 .WithMany(x => x.Tickets)
                 .HasForeignKey(x=>x.HotelId);
             builder.Entity<Ticket>()
                 .HasOne(x => x.RoomType)
-                .WithOne(x => x.Ticket);
+                .WithMany(x => x.Tickets)
+                .HasForeignKey(x=>x.RoomTypeId);
+            #endregion
+
+            #region Feedback
+            builder.Entity<Feedback>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.Feedbacks)
+                .HasForeignKey(x => x.UserId);
             #endregion
 
             #region TicketsToComforts
@@ -96,6 +128,16 @@ namespace Bon_Voyage.DB
                 .HasForeignKey(x => x.ComfortId);
             #endregion
 
+            #region Cart
+            builder.Entity<Cart>()
+                .HasOne(x => x.Client)
+                .WithMany(x => x.Carts)
+                .HasForeignKey(x => x.ClientId);
+            builder.Entity<Cart>()
+                .HasOne(x => x.Ticket)
+                .WithOne(x => x.Cart)
+                .HasForeignKey<Cart>(x => x.TicketId);
+            #endregion
         }
 
     }

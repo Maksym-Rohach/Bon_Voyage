@@ -6,10 +6,16 @@ using System.Threading.Tasks;
 
 namespace Bon_Voyage.DB.Entities
 {
-    public class ClientProfile : BaseProfile
+    public class ClientProfile
     {
+        [Key]
+        public string Id { get; set; }
+
         public DateTime DateOfBirth { get; set; }
 
+        public virtual BaseProfile BaseProfile { get; set; }
         public virtual ICollection<Ticket> Tickets { get; set; }
+
+        public virtual ICollection<Cart> Carts { get; set; }
     }
 }

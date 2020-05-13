@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Card, CardBody, CardFooter, CardGroup,
-         Col, Container, Form, Input, InputGroup,
-         InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import {
+  Button, Card, CardBody, CardFooter, CardGroup,
+  Col, Container, Form, Input, InputGroup,
+  InputGroupAddon, InputGroupText, Row
+} from 'reactstrap';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import * as loginActions from './reducer';
 // import InputMask from 'react-input-mask';
 import get from "lodash.get";
+import Loader from '../../../components/Loader';
 
 
 class Login extends Component {
@@ -24,16 +27,16 @@ class Login extends Component {
     errorsServer: {}
   }
 
-  passwordVisible = (e)=>{
+  passwordVisible = (e) => {
     this.setState({
       visible: !this.state.visible,
     });
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-  
+
     return { isLoading: nextProps.loading, errorsServer: nextProps.errors };
-}
+  }
 
   setStateByErrors = (name, value) => {
     if (!!this.state.errors[name]) {
@@ -60,12 +63,12 @@ class Login extends Component {
     e.preventDefault();
     const { email, password } = this.state;
 
-    //const regex_phone = /^(?=\+?([0-9]{2})\(?([0-9]{3})\)?([0-9]{3})-?([0-9]{2})-?([0-9]{2})).{17}$/;
+
 
     let errors = {};
 
     if (email === '') errors.email = "Поле є обов'язковим";
-    //if (!regex_phone.test(phone)) errors.phone = "Не вiрний формат +xx(xxx)xxx-xx-xx телефону";
+
 
     if (password === '') errors.password = "Поле є обов'язковим";
 
@@ -75,22 +78,22 @@ class Login extends Component {
       const model = {
         email: email,
         password: password
-        };
+      };
 
-      this.props.login(model, this.props.history);     
+      this.props.login(model, this.props.history);
     }
     else {
       this.setState({ errors });
     }
   }
-  
+
   render() {
 
-    const { errors, isLoading, profileUrl, visible, errorsServer } = this.state;
-
+    const { errors, loading, visible, errorsServer } = this.state;
     const form = (
 
       <div className="app flex-row">
+        {loading && <Loader />}
         <Container>
           <Row className="justify-content-center mt-5">
             <Col md="6">
@@ -98,49 +101,31 @@ class Login extends Component {
                 <Card className="p-3">
                   <CardBody>
                     <Form onSubmit={this.onSubmitForm}>
-                      {/* {!!errorsServer.invalid ?
-                          <div className="alert alert-danger">
-                              {errorsServer.invalid}.
-                          </div> : ""} */}
+                      {!!errorsServer.invalid ?
+                        <div className="alert alert-danger">
+                          {errorsServer.invalid}.
+                          </div> : ""}
                       <h1>Вхід</h1>
                       <p className="text-muted">Увійдіть до свого облікового запису</p>
-                      {/* <InputGroup className="mb-3 form-group">
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="fa fa-phone "></i>
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <InputMask mask="+99(999)999-99-99"
-                          className={classnames('form-control', { 'is-invalid': !!errors.phone })}
-                          id="phone"
-                          name="phone"
-                          placeholder="Номер телефону"
-                          value={this.state.phone}
-                          onChange={this.handleChange} />
 
-                        {!!errors.phone ?
-                          <div className="invalid-feedback">
-                            {errors.phone}
-                          </div> : ''}
-                      </InputGroup> */}
-
-<InputGroup className="mb-2">
-                      <span class="input-group-text" id="basic-addon1">@</span>
-                      <Input
-                        type="text"
-                        placeholder="Електронна пошта"
-                        className={classnames("form-control", { "is-invalid": !!errors.email })}
-                        id="email"
-                        autocomplete="new-password"
-                        name="email"
-                        value={this.state.email}
-                        onChange={this.handleChange}
-                         />                       
-                      {!!errors.email ? <div className="invalid-feedback">{errors.email}</div> : ""}
-                    </InputGroup>
 
                       <InputGroup className="mb-2">
-                        
+                        <span className="input-group-text" id="basic-addon1">@</span>
+                        <Input
+                          type="text"
+                          placeholder="Електронна пошта"
+                          className={classnames("form-control", { "is-invalid": !!errors.email })}
+                          id="email"
+                          autocomplete="new-password"
+                          name="email"
+                          value={this.state.email}
+                          onChange={this.handleChange}
+                        />
+                        {!!errors.email ? <div className="invalid-feedback">{errors.email}</div> : ""}
+                      </InputGroup>
+
+                      <InputGroup className="mb-2">
+
                         <InputGroupAddon addonType="prepend">
                           <InputGroupText>
                             <i className="icon-lock"></i>
@@ -155,7 +140,7 @@ class Login extends Component {
                           onChange={this.handleChange} />
                         <InputGroupAddon addonType="append">
                           <Button onClick={this.passwordVisible}>
-                            <i className={classnames( visible? 'fa fa-eye':'fa fa-eye-slash')}></i>
+                            <i className={classnames(visible ? 'fa fa-eye' : 'fa fa-eye-slash')}></i>
                           </Button>
                         </InputGroupAddon>
                         {!!errors.password ?
@@ -163,70 +148,45 @@ class Login extends Component {
                             {errors.password}
                           </div> : ''}
                       </InputGroup>
-                      <div class="d-flex justify-content-center">
-                           <div className="p-2 bd-highlight">                    
-                       <Button color="primary" className="px-3">Вхід</Button>                     
-                            </div>
-                      {/*} <div className="p-2 bd-highlight">  
-                                        
-                          <Button color="info" className="px-4">Вхід</Button>
-                        </div>*/}
-                     <div className="p-2 bd-highlight">    
-                     <Link to="/register">                
-                     <Button color="primary" className="px-3">Реєстрація</Button>    
-                     </Link>                 
-                       </div>                      
-                    </div>
-                    <Col xs="5">
-                          <Link to="/forgot-password">
-                            <Button color="link" className="px-0">Забули пароль?</Button>
+                      <div className="d-flex justify-content-center">
+                        <div className="p-2 bd-highlight">
+                          <Button color="primary" className="px-3">Вхід</Button>
+                        </div>
+
+                        <div className="p-2 bd-highlight">
+                          <Link to="/register">
+                            <Button color="primary" className="px-3">Реєстрація</Button>
                           </Link>
-                        </Col>
-                                         
-                       {/*} <Col xs="8">
-                          <Button color="primary" className="px-4">Вхід</Button>
-                        </Col>
-                        <Col xs="4">  
-                          <Button color="primary" className="px-1">Реєстрація</Button>
-                        </Col>*/}
-                       {/* <Col xs="3">
-                          <Link to="/forgot-password">
-                            <Button color="secondary" className="px-4">Забули пароль?</Button>
-                          </Link>
-                        </Col>*}
-                      </Row>
-                      {/* <Row>
-                      <Col xs="12" className="text-left">
-                        <Link to="/" >
-                          <Button color="secondary" className="mt-4" >
-                              <i className="fa fa-reply-all"></i>&nbsp;На головну
-                          </Button>
+                        </div>
+                      </div>
+                      <Col xs="5">
+                        <Link to="/forgot-password">
+                          <Button color="link" className="px-0">Забули пароль?</Button>
                         </Link>
-                        </Col>
-                      </Row> */}
+                      </Col>
+
                     </Form>
-                  </CardBody>               
-                </Card>               
+                  </CardBody>
+                </Card>
               </CardGroup>
             </Col>
           </Row>
         </Container>
-      
+
       </div>
     );
     return (
-       form
+      form
     );
   }
 }
 
 Login.propTypes =
-  {
-    login: PropTypes.func.isRequired
-  }
+{
+  login: PropTypes.func.isRequired
+}
 
 function mapStateToProps(state) {
-  console.log("mapStateToProps", state);
   return {
     loading: get(state, 'login.post.loading'),
     failed: get(state, 'login.post.failed'),
@@ -237,7 +197,7 @@ function mapStateToProps(state) {
 
 const mapDispatch = {
   login: (model, history) => {
-      return loginActions.login(model, history);
+    return loginActions.login(model, history);
   }
 }
 

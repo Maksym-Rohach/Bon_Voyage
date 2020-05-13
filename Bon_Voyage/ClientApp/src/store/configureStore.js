@@ -5,9 +5,27 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import createHistory from 'history/createHashHistory';
 ///reducers
 import {managerProfileViewReducer } from '../views/managerViews/ManagerProfileView/reducer';
+import {clientProfileViewReducer } from '../views/clientViews/ClientProfileView/reducer';
+import {clientMessageViewReducer } from '../views/clientViews/ClientMessageView/reducer';
+import {clientMapViewReducer } from '../views/clientViews/ClientMapView/reducer';
 import {commentsChartReducer} from '../views/adminViews/CommentsChart/reducer';
 import {loginReducer} from '../views/othersViews/LoginPage/reducer';
 import {managerControlReducer} from '../views/adminViews/ManagerControl/reducer';
+import {homePageReducer} from '../views/othersViews/HomePage/reducer';
+import {changeImageReducer} from '../components/ChangeImage/reducer';
+import {changePasswordReducer} from '../components/ChangePassword/reducer';
+import {changeInfoReducer} from '../components/ChangeInfo/reducer';
+import { boughtTicketsReducer } from '../views/managerViews/BoughtTickets/reducer';
+import { hotDealTicketsReducer } from '../views/managerViews/HotDealTickets/reducer';
+import {addTicketReducer} from '../views/managerViews/AddTicketView/reducer'
+import { registerReducer } from '../views/othersViews/RegisterPage/reducer';
+import {hotelControlReducer} from '../views/adminViews/HotelControl/reducer';
+import {ForgotPasswordReducer} from '../views/othersViews/ForgotPasswordPage/reducer';
+import { NewPasswordReducer } from '../views/othersViews/NewPasswordPage/reducer';
+import {countryControlReducer} from '../views/adminViews/CountryControl/reducer'
+import {GalleryReducer} from '../views/othersViews/GalleryPage/reducer'
+
+import {airportControlReducer} from '../views/adminViews/AirportControl/reducer';
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
@@ -15,11 +33,30 @@ export const history = createHistory({ basename: baseUrl });
 
 export default function configureStore(history, initialState) {
   const reducers = {
+    
     login: loginReducer,
+    gallery:GalleryReducer,
+    home: homePageReducer,
+    forgotPassword: ForgotPasswordReducer,
+    addTicket: addTicketReducer,
+    countryControl: countryControlReducer,
     //persons: personsChartReducer,
     comments: commentsChartReducer,
       managers: managerControlReducer,
-      managerProfile: managerProfileViewReducer
+      managerProfile: managerProfileViewReducer,
+      clientProfile: clientProfileViewReducer,
+      clientMessage: clientMessageViewReducer,
+      clientMap: clientMapViewReducer,
+      changeImage: changeImageReducer,
+      airports: airportControlReducer,
+      changeImage: changeImageReducer,
+      changePassword: changePasswordReducer,
+      changeInfoReducer: changeInfoReducer,
+      boughtTickets: boughtTicketsReducer,
+      hotDealTickets: hotDealTicketsReducer,
+      newPassword:NewPasswordReducer,
+      hotels: hotelControlReducer,
+      register: registerReducer
   };
 
   const middleware = [

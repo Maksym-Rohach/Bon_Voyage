@@ -10,31 +10,67 @@ export default {
       class: ''             // optional class names space delimited list for title item ex: "text-center"
     },  
     {
-      name: 'Statistic',
-      url: '/admin/statistic',
-      icon: 'icon-puzzle',
+      name: 'Керування користувачами',
+      icon: 'icon-user',
       children: [
         {
-          name: 'Breadcrumbs',
-          url: '/admin/statistic',
-          icon: 'icon-puzzle',
+          name: 'Менеджери',
+          url: '/admin/manager/control',
+          icon: 'icon-emotsmile',
         },
         {
-          name: 'Cards',
-          url: '/base/cards',
-          icon: 'icon-puzzle',
-        },
-        {
-          name: 'Carousels',
-          url: '/base/carousels',
-          icon: 'icon-puzzle',
+          name: 'Клієнти',
+          url: '/admin/client/control',
+          icon: 'icon-people',
         }
       ]
-    },       
+    },    
     {
-      name: 'ManagerControl',
-      url: '/admin/manager/control',
-      icon: 'icon-cursor',
-    }
+      name: 'Керування даними',
+      icon: 'icon-settings',
+      children: [
+        {
+          name: 'Керування готелями',
+          url: '/admin/hotel/control',
+          icon: 'icon-home',
+        },
+        {
+          name: 'Керування містами',
+          url: '/admin/city/control',
+          icon: 'icon-directions',
+        },
+        {
+          name: 'Керування аеропортами',
+          url: '/admin/airport/control',
+          icon: 'icon-plane',
+        },
+        {
+          name: 'Керування країнами',
+          url: '/admin/country/control',
+          icon: 'icon-map',
+        }
+      ]
+    },         
+    {
+      name: 'Статистика',
+      icon: 'icon-chart',
+      children: [
+        {
+          name: 'Статистика',
+          url: '/admin/statistic',
+          icon: 'icon-emotsmile',
+        },
+        {
+          name: 'Статистика',
+          url: '/base/cards',
+          icon: 'icon-people',
+        }
+      ]
+    },
+    // {
+    //   name: '$HOTEL PHOTOS SEEDER',
+    //   url: '/admin/seeder/hotelPhotos',
+    //   icon: 'icon-user',
+    // }, 
   ]
 };

@@ -1,4 +1,5 @@
-﻿using Bon_Voyage.DB.Entities;
+﻿using Bon_Voyage.MediatR.Country.ViewModels;
+using Bon_Voyage.MediatR.Ticket.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,9 @@ namespace Bon_Voyage.MediatR.Home.ViewModel
 {
     public class HomeInfoViewModel
     {
-        public List<Bon_Voyage.DB.Entities.Country> Countries { get; set; }
-        //public string Top3Photos { get; set; }
-        public List<Ticket> TopTickets { get; set; }
-        public List<Ticket> TopHotTickets { get; set; }
+        public List<CountryViewModel> Countries { get; set; }
+        public List<string> Random3Photos { get; set; }
+        public List<HomeHotelViewModel> TopHotels { get; set; }
+        public List<HomeTicketViewModel> HotTickets { get; set; }
     }
 }

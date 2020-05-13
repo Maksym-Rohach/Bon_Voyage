@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +9,8 @@ namespace Bon_Voyage.DB.Entities
 {
     public class Ticket
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
         public float PriceFrom { get; set; }
         public int CountsOfNight { get; set; }
@@ -24,6 +28,8 @@ namespace Bon_Voyage.DB.Entities
         public virtual RoomType RoomType { get; set; }
         public string ClientId { get; set; }
         public virtual ClientProfile Client { get; set; }
+
+        public virtual Cart Cart { get; set; }
 
         public virtual ICollection<TicketsToComforts> TicketToComforts { get; set; }
     }

@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
@@ -40,8 +42,8 @@ namespace Bon_Voyage
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
-            });
-            services.AddScoped<IJwtTokenService, JwtTokenService>();            
+            });            
+            services.AddScoped<IJwtTokenService, JwtTokenService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -82,18 +84,18 @@ namespace Bon_Voyage
                 }
             });
             services.AddMediatR(typeof(Startup));
-            services.AddDbContext<EFDbContext>(
-                 options =>
-                   options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<EFDbContext>(options =>
+                options
+                .UseLazyLoadingProxies()
+                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),x=>x.MigrationsAssembly("Bon_Voyage")));
 
             services.AddScoped<IJwtTokenService, JwtTokenService>();
 
             var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Lesha-xoche-bytu-ymnitsej"));
-            
-            services.AddIdentity<DbUser, DbRole>(options => options.Stores.MaxLengthForKeys = 128)
+
+            services.AddIdentity<DbUser, IdentityRole>(options => options.Stores.MaxLengthForKeys = 128)
                 .AddEntityFrameworkStores<EFDbContext>()
-                .AddDefaultTokenProviders()
-                .AddDefaultUI();
+                .AddDefaultTokenProviders();
 
             services.AddScoped<IJwtTokenService, JwtTokenService>();
 
@@ -119,11 +121,13 @@ namespace Bon_Voyage
 
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSession();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddRouting();
+            services.AddControllersWithViews();
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -138,7 +142,7 @@ namespace Bon_Voyage
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
 
-            if (env.IsDevelopment())
+            if (env.EnvironmentName == "Development")
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -147,20 +151,66 @@ namespace Bon_Voyage
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+
             app.UseAuthentication();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
             app.UseSession();
             app.UseHttpsRedirection();
-           
-            // Seeder
+            app.UseRouting();
+            app.UseAuthorization();
+
+            #region InitStaticFiles CountryImages
+            string pathcountry = InitStaticFiles
+               .CreateFolderServer(env, this.Configuration,
+                   new string[] { "ImagesPath", "ImagesPathCountry" });
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(pathcountry),
+                RequestPath = new PathString('/' + Configuration.GetValue<string>("CountryUrlImages"))
+            });
+            #endregion
+
+            #region InitStaticFiles HotelImages
+            string pathhotel = InitStaticFiles
+               .CreateFolderServer(env, this.Configuration,
+                   new string[] { "ImagesPath", "ImagesPathHotel" });
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(pathhotel),
+                RequestPath = new PathString('/' + Configuration.GetValue<string>("HotelUrlImages"))
+            });
+            #endregion
+
+            #region InitStaticFiles UserImages
+            string pathuser = InitStaticFiles
+               .CreateFolderServer(env, this.Configuration,
+                   new string[] { "ImagesPath", "ImagesPathUser" });
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(pathuser),
+                RequestPath = new PathString('/' + Configuration.GetValue<string>("UserUrlImages"))
+            });
+            #endregion
+
+            #region InitStaticFiles Images
+            string pathRoot = InitStaticFiles
+                .CreateFolderServer(env, this.Configuration,
+                    new string[] { "ImagesPath" });
+
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(pathRoot),
+                RequestPath = new PathString("/" + Configuration.GetValue<string>("UrlImages"))
+            });
+            #endregion;
+            //Seeder
             //SeederDB.SeedData(app.ApplicationServices, env, this.Configuration);
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
 
             app.UseSpa(spa =>
