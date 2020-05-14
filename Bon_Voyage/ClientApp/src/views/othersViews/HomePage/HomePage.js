@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import get from "lodash.get";
 import { connect } from "react-redux";
 import * as reducer from "./reducer";
-import * as login from "../LoginPage/reducer";
+import { getUrlToRedirect} from "../LoginPage/reducer";
 import '../instruments/css/style.scss';
 import mylogo from '../../../assets/img/Logo.png';
 import Loader from '../../../components/Loader/index'
@@ -74,6 +74,7 @@ class HomePage extends Component {
   render() {
     const { countries, cities, hotels, isLoad, randomPhotos,hotTickets,topHotels } = this.state;
     const { isAuthenticated } = this.props;
+    console.log("URL to redirect", getUrlToRedirect());
 
     const page = (
       <React.Fragment>

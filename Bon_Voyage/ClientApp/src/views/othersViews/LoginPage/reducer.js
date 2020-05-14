@@ -14,7 +14,7 @@ export const LOGIN_SET_CURRENT_USER = "login/SET_CURRENT_USER";
 
 
 
-const initialState = {
+export const initialState = {
   post: {
     loading: false,
     success: false,
@@ -93,7 +93,7 @@ export const login = model => {
   };
 };
 
-function getUrlToRedirect() {
+export function getUrlToRedirect() {
   var user = jwt.decode(localStorage.jwtToken);
   //let roles =[];
   let roles = user.roles;
@@ -113,7 +113,7 @@ function getUrlToRedirect() {
       } 
     }
   } else {
-    if (roles == "Client") {
+    if (roles === "Client") {
       path = "/client/profile";
     } else if (roles === "Manager") {
       path = "/manager/profile";
