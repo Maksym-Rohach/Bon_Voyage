@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bon_Voyage.MediatR.Hotel.Queries.GetAllHotelInfo;
 using Bon_Voyage.MediatR.Hotel.Queries.GetHotelsByCity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +20,16 @@ namespace Bon_Voyage.Controllers.OthersControllers
                 return BadRequest();
             }
 
+            return Ok(result);
+        }
+        [HttpGet("GetHotelInfo/{HotelId}")]
+        public async Task<IActionResult> GetHotelInfo(string HotelId)
+        {
+            var result = await Mediator.Send(new GetAllHotelInfo { HotelId = HotelId });
+            if(result==null)
+            {
+                return BadRequest();
+            }
             return Ok(result);
         }
     }

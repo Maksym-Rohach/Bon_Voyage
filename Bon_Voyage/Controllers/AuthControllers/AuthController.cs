@@ -111,6 +111,5 @@ namespace Bon_Voyage.Controllers.AuthControllers
             }
         }
 
-
     }
 }

@@ -42,7 +42,7 @@ namespace Bon_Voyage.MediatR.Change
                         return new ChangePasswordViewModel { Status = false, ErrorMessage="Перевірте правильність введення данних"};
                     }
                 }
-                return new ChangePasswordViewModel { Status = false, ErrorMessage="заплати 20$ !!! :)" };
+                return new ChangePasswordViewModel { Status = false, ErrorMessage="Щось пішло не так :(" };
             }
 
         }

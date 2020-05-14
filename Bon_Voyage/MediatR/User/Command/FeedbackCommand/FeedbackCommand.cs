@@ -54,9 +54,9 @@ namespace Bon_Voyage.MediatR.User.Command.FeedbackCommand
                     _context.Add(usetable);
                     _context.SaveChanges();
 
-                    return new FeedbackViewModel { Status = true };
+                    return new FeedbackViewModel { Status = true};
                 }
-                return new FeedbackViewModel { Status = false, ErrorMessage = "Щось пішло не так" };
+                return new FeedbackViewModel { Status = false, ErrorMessage = "Щось пішло не так :(" };
             }
         }
     }

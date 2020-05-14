@@ -9,7 +9,7 @@ import mylogo from '../../../assets/img/Logo.png';
 import Loader from '../../../components/Loader/index'
 import { serverUrl } from '../../../config';
 import bedIcon from '../../../assets/img/bed-icon.png'
-import { Button} from 'reactstrap';
+import {Button} from 'reactstrap';
 
 //import '../../../scss/customNav/custNavbar.scss'
 
@@ -79,7 +79,6 @@ class HomePage extends Component {
       <React.Fragment>
         <div className="home-page bg-white">
           <header className="header_area">
-
             <div className="main_menu">
               <nav className="navbar navbar-expand-lg navbar-light">
                 <div className="container">
@@ -418,7 +417,6 @@ function mapStateToProps(state) {
     topHotelsReducer: get(state, 'home.topHotels'),
     hotTicketsReducer: get(state, 'home.hotTickets'),
   };
-
 }
 
 //1

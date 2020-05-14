@@ -12,6 +12,6 @@ namespace Bon_Voyage.MediatR.Manager.ViewModel
         public string Surname { get; set; }
         public string Email { get; set; }
         public string Photo { get; set; }
-        public DateTime DateOfRegister { get; set; }
+        public string DateOfRegister { get; set; }
     }
 }

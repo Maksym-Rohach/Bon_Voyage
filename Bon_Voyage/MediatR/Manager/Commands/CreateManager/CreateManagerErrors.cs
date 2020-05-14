@@ -12,5 +12,6 @@ namespace Bon_Voyage.MediatR.Manager.Commands.CreateManager
         public string Email { get; set; }
         public string Salary { get; set; }
         public string ServerResponse { get; set; }
+        public bool Status { get; set; }
     }
 }
