@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace Bon_Voyage.MediatR.Airports.Queries.GetAirportsQuery
 {
-    public class GetAirportControlDataQuery : IRequest<AirportsControlDataViewModel>
+    public class GetAirportControlDataQuery : IRequest<GetAllHotelsViewModel>
     {
-        public class GetAirportControlDataQueryHandler : IRequestHandler<GetAirportControlDataQuery, AirportsControlDataViewModel>
+        public class GetAirportControlDataQueryHandler : IRequestHandler<GetAirportControlDataQuery, GetAllHotelsViewModel>
         {
             private readonly EFDbContext _context;
 
@@ -23,7 +23,7 @@ namespace Bon_Voyage.MediatR.Airports.Queries.GetAirportsQuery
                 _context = context;
             }
 
-            public async Task<AirportsControlDataViewModel> Handle(GetAirportControlDataQuery request, CancellationToken cancellationToken)
+            public async Task<GetAllHotelsViewModel> Handle(GetAirportControlDataQuery request, CancellationToken cancellationToken)
             {
                 var airports = await _context.Airports.Select(x => new AirportViewModel
                 {
@@ -37,7 +37,7 @@ namespace Bon_Voyage.MediatR.Airports.Queries.GetAirportsQuery
                     Id = x.Id,
                     Name = x.Name
                 }).ToListAsync();
-                var res = new AirportsControlDataViewModel
+                var res = new GetAllHotelsViewModel
                 {
                     Airports = airports,
                     Countries = countries

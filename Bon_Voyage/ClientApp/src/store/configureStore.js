@@ -62,7 +62,7 @@ export default function configureStore(history, initialState) {
         hotDealTickets: hotDealTicketsReducer,
         newPassword: NewPasswordReducer,
         hotels: hotelControlReducer,
-        register: registerReducer
+        register: registerReducer,
         clients: clientControlReducer
     };
 

@@ -31,9 +31,9 @@ class ClientControl extends Component {
 
         return ( 
             <DataTable value={listClients} header={header}>
-            <Column field="name" header="Ім'я" />
-            <Column field="surname" header="Прізвище" />
-            <Column field="dateOfBirth" header="Дата народження" />
+            <Column field="name" header="Ім'я" sortable={true}/>
+            <Column field="surname" header="Прізвище" sortable={true}/>
+            <Column field="dateOfBirth" header="Дата народження" sortable={true}/>
         </DataTable>
          );
     }

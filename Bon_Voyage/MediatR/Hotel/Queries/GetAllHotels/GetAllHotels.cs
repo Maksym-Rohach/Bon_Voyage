@@ -1,6 +1,8 @@
 ﻿using Bon_Voyage.DB;
+using Bon_Voyage.MediatR.Country.ViewModels;
 using Bon_Voyage.MediatR.Hotel.ViewModels;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Bon_Voyage.MediatR.Hotel.Queries.GetAllHotels
 {
-    public class GetAllHotels : IRequest<ICollection<HotelViewModel>>
+    public class GetAllHotels : IRequest<GetAllHotelsViewModel>
     {
-        public class GetAllHotelsQueryHandler : IRequestHandler<GetAllHotels, ICollection<HotelViewModel>>
+        public class GetAllHotelsQueryHandler : IRequestHandler<GetAllHotels, GetAllHotelsViewModel>
         {
             private readonly EFDbContext _context;
 
@@ -20,9 +22,9 @@ namespace Bon_Voyage.MediatR.Hotel.Queries.GetAllHotels
                 _context = context;
             }
 
-            public async Task<ICollection<HotelViewModel>> Handle(GetAllHotels request, CancellationToken cancellationToken)
+            public async Task<GetAllHotelsViewModel> Handle(GetAllHotels request, CancellationToken cancellationToken)
             {
-                var hotels = _context.Hotels.Select(x => new HotelViewModel
+                var hotels = await _context.Hotels.Select(x => new HotelViewModel
                 {
                     Id = x.Id,
                     Name = x.Name,
@@ -33,8 +35,18 @@ namespace Bon_Voyage.MediatR.Hotel.Queries.GetAllHotels
                         Id=x.City.Id,
                         Name=x.City.Name
                     }
-                }).ToList();
-                return hotels;
+                }).ToListAsync();
+                var countries = await _context.Country.Select(x => new CountryViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                }).ToListAsync();
+                var res = new GetAllHotelsViewModel
+                {
+                    Hotels = hotels,
+                    Countries = countries
+                };
+                return res;
             }
         }
     }
