@@ -2,6 +2,7 @@ import React, { Component, useState, Fragment } from 'react';
 import * as getListActions from './reducer';
 import * as getFilterListActions from './reducer';
 import * as getHotelListActions from './reducer';
+import * as buyTicketListActions from './reducer';
 import get from 'lodash.get';
 import "../../othersViews/instruments/css/style.scss";
 import "../../othersViews/instruments/vendors/linericon/style.css";
@@ -60,7 +61,9 @@ class TicketView extends Component {
     discountCheckBox = (e) => {
         this.setState({ withDiscount: e.target.value });
     }
-
+    buyTicket(ticketId,indx,filters) {
+        this.props.buyTicket(ticketId,indx,filters);
+    }
     submitFilter() {
         this.props.getFiltredTickets(0, this.state);
     }
@@ -322,7 +325,7 @@ class TicketView extends Component {
                                                                 }
                                                             </p>
 
-                                                            <a style={{ marginTop: '5px' }} className="card-explore__link" href="#">Додати до кошику <i className="ti-arrow-right"></i></a>
+                                                            <button style={{ marginTop: '5px' }} className="button button-form" onClick={(e)=>{this.buyTicket(item.id,0,this.state.filter)}}>Додати до кошику <i className="ti-arrow-right"></i></button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -358,6 +361,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         getHotels: (countryId) => {
             dispatch(getHotelListActions.getHotelsData(countryId));
+        },
+        buyTicket: (ticketId,indx,filter)=>{
+            dispatch(buyTicketListActions.buyTicket(ticketId,indx,filter));
         }
     }
 }
