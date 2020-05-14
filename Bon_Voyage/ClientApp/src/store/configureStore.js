@@ -35,7 +35,6 @@ export const history = createHistory({ basename: baseUrl });
 
 export default function configureStore(history, initialState) {
     const reducers = {
-
         login: loginReducer,
         gallery: GalleryReducer,
         home: homePageReducer,
@@ -62,7 +61,6 @@ export default function configureStore(history, initialState) {
         newPassword: NewPasswordReducer,
         hotels: hotelControlReducer,
         register: registerReducer
-
     };
 
     const middleware = [
