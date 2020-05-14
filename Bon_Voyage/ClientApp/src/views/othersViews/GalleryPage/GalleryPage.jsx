@@ -268,6 +268,7 @@ class Gallery extends Component {
 function mapStateToProps(state) {
   return {
     photosReducer: get(state, "gallery.photos.data"),
+    
     loadingRecuer: get(state, "gallery.photos.loading"),
   };
 }
