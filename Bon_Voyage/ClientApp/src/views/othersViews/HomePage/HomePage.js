@@ -193,7 +193,7 @@ class HomePage extends Component {
                         <select name="HotelSelect">
                           <option disabled selected default>Виберіть готель</option>
                           {                      
-                            hotels != undefined ?
+                            !!hotels ?
                             hotels.length > 0 ?
                               (hotels.map(item => {
                                 return (<option key={item.id} value={item.id} >{item.name}</option>)

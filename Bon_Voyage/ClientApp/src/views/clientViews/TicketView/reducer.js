@@ -35,7 +35,6 @@ export const getTicketsData = (indx, filters) => {
                 dispatch(getListActions.success(response));
             }, err => { throw err; })
             .catch(err => {
-                console.log(err.response.data);
                 dispatch(getListActions.failed(err));
             });
     }
@@ -72,7 +71,7 @@ export const buyTicket = (ticketId, indx, filters) => {
         dispatch(buyTicketListActions.started());
         TicketViewService.buyTicket(ticketId)
             .then((response) => {                
-                TicketViewService.getFiltersData(indx, filters)
+                TicketViewService.getTicketsWithFiltres(indx, filters)
                     .then((response) => {
                         dispatch(getListActions.success(response));
                     }, err => { throw err; })
@@ -130,18 +129,18 @@ export const getHotelListActions = {
 export const buyTicketListActions = {
     started: () => {
         return {
-            type: HOTEL_STARTED
+            type: TICKET_BUY_STARTED
         }
     },
     success: (data) => {
         return {
-            type: HOTEL_SUCCESS,
+            type: TICKET_BUY_SUCCESS,
             payload: data
         }
     },
     failed: (error) => {
         return {
-            type: HOTEL_FAILED,
+            type: TICKET_BUY_FAILED,
             errors: error
         }
     }

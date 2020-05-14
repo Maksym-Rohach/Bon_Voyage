@@ -12,6 +12,6 @@ export default class ClientProfileViewService {
         return axios.get(`${serverUrl}api/Hotel/GetHotelByCountry/${countryId}`);
     }
     static buyTicket(ticketId){
-        return axios.post(`${serverUrl}api/Ticket/AddTicketToCart`, ticketId);
+        return axios.post(`${serverUrl}api/Ticket/AddTicketToCart`, {ticketId});
     }
 }

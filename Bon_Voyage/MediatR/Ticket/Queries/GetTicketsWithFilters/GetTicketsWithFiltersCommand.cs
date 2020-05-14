@@ -30,6 +30,7 @@ namespace Bon_Voyage.MediatR.Ticket.Queries.GetTicketsWithFilters
                 int take = 20;
                 var query = _context.Tickets
                     .OrderBy(x => x.Id)
+                    .Where(x=>!x.IsBought&&x.Cart==null)
                     .Include(x => x.Hotel)
                     .AsQueryable();
                 if (request.Filters != null)
@@ -170,9 +171,9 @@ namespace Bon_Voyage.MediatR.Ticket.Queries.GetTicketsWithFilters
                 {
                     query = query.Where(x => x.RoomTypeId == filters.RoomTypeId);
                 }
-                if (filters.ComfortIds != null && filters.ComfortIds.Count() > 0)
+                if (filters.ComfortId != null && filters.ComfortId != "")
                 {
-                    query = query.Where(x => x.TicketToComforts.Any(y => filters.ComfortIds.Contains(y.ComfortId)));
+                    query = query.Where(x => x.TicketToComforts.Any(y => y.ComfortId==filters.ComfortId));
                 }
                 return query;
             }

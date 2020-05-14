@@ -11,13 +11,14 @@ import { serverUrl } from '../../../config';
 import { Card, Button, Dropdown } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import mylogo from "../../../assets/img/Logo.png";
+import { array } from 'prop-types';
 
 class TicketView extends Component {
     state = {
         countryId: "",
         roomTypeId: "",
         hotelId: "",
-        comforts: [],
+        comfortsId: "",
         maxPrice: 0,
         hotelStarts: 0,
         dateFrom: null,
@@ -59,11 +60,16 @@ class TicketView extends Component {
         this.setState({ countsOfPlaces: e.target.value })
     }
     discountCheckBox = (e) => {
-        this.setState({ withDiscount: e.target.value });
+        if(e.target.value==="on")
+        this.setState({ withDiscount:true});
+        else
+        this.setState({ withDiscount:false});
     }
+
     buyTicket(ticketId,indx,filters) {
         this.props.buyTicket(ticketId,indx,filters);
     }
+
     submitFilter() {
         this.props.getFiltredTickets(0, this.state);
     }
@@ -72,15 +78,9 @@ class TicketView extends Component {
         this.props.getFiltredTickets(0, null);
         this.props.getFilterData();
     }
-    filterTickets = () => {
-    }
     render() {
         const { tickets, filters, hotels } = this.props;
-        let startIndx, count = tickets
-        console.log('caught', tickets);
-        console.log('hotel', hotels);
-        console.log('filters', this.state);
-        console.log('filter', filters);
+        let startIndx, count = tickets;
         return (
             <React.Fragment>
                 <div className="home-page bg-white">
@@ -265,8 +265,8 @@ class TicketView extends Component {
                             </div>
                             <div className="row">
                                 <div className="col-sm gutters-19">
-                                    <div className="form-select">
-                                        <select multiple="multiple" name="" id="" onChange={(e) => { this.comfortSelect(e) }}>
+                                    <div className="form-select-custom">
+                                        <select name="" id="" onChange={(e) => { this.comfortSelect(e) }}>
                                             <option value="" disabled selected>Оберіть зручності</option>
                                             {!!filters ?
                                                 filters.comforts.map((item, i) => {

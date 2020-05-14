@@ -30,6 +30,7 @@ namespace Bon_Voyage.MediatR.Ticket.Commands.AddTicketToCart
                         ClientId = request.ClientId,
                         TicketId = request.TicketId
                     });
+                    _context.SaveChanges();
                     return true;
                 }
                 return false;

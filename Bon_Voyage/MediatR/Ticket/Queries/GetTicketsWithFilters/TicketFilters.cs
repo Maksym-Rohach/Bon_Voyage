@@ -13,7 +13,7 @@ namespace Bon_Voyage.MediatR.Ticket.Queries.GetTicketsWithFilters
         public int CountOfPlaces { get; set; }
         public int CountOfNights { get; set; }
         public int HotelStars { get; set; }
-        public List<string> ComfortIds { get; set; }
+        public string ComfortId { get; set; }
         public string RoomTypeId { get; set; }
        
 

@@ -26,13 +26,13 @@ namespace Bon_Voyage.Controllers.TicketControllers
             return Ok(res);
         }
        [HttpPost("AddTicketToCart")]
-       public async Task<IActionResult> AddTicketToCart(string ticketId)
+       public async Task<IActionResult> AddTicketToCart(AddTicketToCart command)
        {           
             var userId = User.Claims.ToList()[0].Value;
             var res = await Mediator.Send(new AddTicketToCart
             {
                 ClientId = userId,
-                TicketId = ticketId
+                TicketId = command.TicketId
             });
             if (res)
             {
