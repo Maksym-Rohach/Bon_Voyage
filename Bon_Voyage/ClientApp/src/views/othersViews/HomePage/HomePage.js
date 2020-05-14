@@ -259,8 +259,9 @@ class HomePage extends Component {
 
                 <div className="row">
                   {
-                    hotTickets.map(item => {
-                      return (
+                    hotTickets.map(item => {      
+                      console.log(item.id)              
+                      return (                       
                           <div className="col-md-6 col-lg-4 mb-4 mb-lg-0">
                             <div className="card card-explore">
                               <div className="card-explore__img">
@@ -271,7 +272,7 @@ class HomePage extends Component {
                                 <h4 className="card-explore__title"><a href="#">{item.hotelName}</a></h4>
                                 <p>{item.description}</p>
                                 <Link to="/details-page">                                                  
-                               <Button className="button button--active home-banner-btn mt-4">Дізнатись більше</Button>    
+                               <Link to={`/details-page/${item.id}`} className="button button--active home-banner-btn mt-4">Дізнатись більше</Link>    
                               </Link>
                               </div>
                             </div>

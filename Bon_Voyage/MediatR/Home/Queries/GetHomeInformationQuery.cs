@@ -90,6 +90,7 @@ namespace Bon_Voyage.MediatR.Home.Queries
                    .AsNoTracking()
                    .Where(x => x.Discount != 0)
                    .OrderByDescending(x => x.Hotel.Stars)
+                   .Skip(3)
                    .Take(3)
                    .Select(x => new HomeTicketViewModel
                    {
