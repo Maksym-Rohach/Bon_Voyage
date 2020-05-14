@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bon_Voyage.MediatR.Airports.Queries.GetAirportControlDataQuery
 {
-    public class AirportsControlDataViewModel
+    public class GetAllHotelsViewModel
     {
         public ICollection<CountryViewModel> Countries { get; set; }
         public ICollection<AirportViewModel> Airports { get; set; }

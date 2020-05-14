@@ -27,15 +27,13 @@ namespace Bon_Voyage.MediatR.Hotel.Commands.CreateHotel
 
             public async Task<CreateHotelViewModel> Handle(CreateHotelCommand request, CancellationToken cancellationToken)
             {
-                var city = _context.Cities.FirstOrDefault(x => x.Id == request.CityId);
-                if (city != null)
-                {
+                
                     try
                     {
                         DB.Entities.Hotel hotel = new DB.Entities.Hotel
                         {
                             Name = request.Name,
-                            City = city,
+                            CityId = request.CityId,
                             Description = request.Description,
                             Stars = request.Stars
                         };
@@ -47,8 +45,7 @@ namespace Bon_Voyage.MediatR.Hotel.Commands.CreateHotel
                     {
                         return new CreateHotelViewModel { Status = false, ErrorMessage = e.Message };
                     }
-                }
-                return new CreateHotelViewModel { Status = false, ErrorMessage = "Місто не знайдено" };
+                
             }
         }
     }

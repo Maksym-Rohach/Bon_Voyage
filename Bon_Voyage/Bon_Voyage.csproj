@@ -49,6 +49,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\layouts\registerLayout\" />
+    <Folder Include="MediatR\Client\Commands\" />
     <Folder Include="MediatR\Comfort\Commands\" />
     <Folder Include="MediatR\Home\Commands\" />
     <Folder Include="MediatR\RoomType\Commands\" />

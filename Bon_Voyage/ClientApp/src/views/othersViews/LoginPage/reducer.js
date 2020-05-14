@@ -88,7 +88,7 @@ export const login = model => {
       .catch(err => {
         dispatch(loginActions.failed(err.response));
         console.log(err);
-        redirectStatusCode(err.response.status);
+        redirectStatusCode(err.response);
       });
   };
 };
