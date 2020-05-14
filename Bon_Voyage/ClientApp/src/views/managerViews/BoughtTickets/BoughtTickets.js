@@ -18,42 +18,6 @@ class BoughtTickets extends Component {
             <Calendar value={this.state.dateFilter} onChange={this.onDateFilterChange} placeholder="Вибрати дату" dateFormat="dd.mm.yy" className="p-column-filter" />
         );
     }
-    // onDateFilterChange = (event) => {
-    //     console.log("Format ", this.formatDate(event.value));
-    //     if (event.value !== null)
-    //         this.dt.filter(this.formatDate(event.value), 'date', 'equals');
-    //     else
-    //         this.dt.filter(null, 'date', 'equals');
-
-    //     this.setState({dateFilter: event.value});   
-    // }
-
-    // filterDate = (value, filter) => {
-    //     
-    //     if (filter === undefined || filter === null || (typeof filter === 'string' && filter.trim() === '')) {
-    //         return true;
-    //     }
-
-    //     if (value === undefined || value === null) {
-    //         return false;
-    //     }
-       
-    //     return value === this.formatDate(filter);
-    // }
-
-    // formatDate = (date) => {
-    //     let month = date.getMonth() + 1;
-    //     let day = date.getDate();
-
-    //     if (month < 10) {
-    //         month = '0' + month;
-    //     }
-
-    //     if (day < 10) {
-    //         day = '0' + day;
-    //     }
-    //     return day + '.' + month + '.' + date.getFullYear();
-    // }
     componentDidMount = () => {
         this.props.getBoughtTicketsData();
     }
