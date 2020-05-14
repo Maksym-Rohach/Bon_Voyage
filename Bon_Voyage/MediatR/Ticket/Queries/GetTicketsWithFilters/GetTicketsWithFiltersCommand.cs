@@ -14,18 +14,18 @@ using System.Threading.Tasks;
 
 namespace Bon_Voyage.MediatR.Ticket.Queries.GetTicketsWithFilters
 {
-    public class GetTicketsWithFiltersCommand : IRequest<ICollection<TicketsViewModel>>
+    public class GetTicketsWithFiltersCommand : IRequest<FiltredTicketsViewModel>
     {
         public int StartIndex { get; set; }
         public TicketFilters Filters { get; set; }
 
-        public class GetTicketsWithFiltersCommandHandler : BaseMediator, IRequestHandler<GetTicketsWithFiltersCommand, ICollection<TicketsViewModel>>
+        public class GetTicketsWithFiltersCommandHandler : BaseMediator, IRequestHandler<GetTicketsWithFiltersCommand, FiltredTicketsViewModel>
         {
             public GetTicketsWithFiltersCommandHandler(EFDbContext context) : base(context)
             {
             }
 
-            public async Task<ICollection<TicketsViewModel>> Handle(GetTicketsWithFiltersCommand request, CancellationToken cancellationToken)
+            public async Task<FiltredTicketsViewModel> Handle(GetTicketsWithFiltersCommand request, CancellationToken cancellationToken)
             {
                 int take = 20;
                 var query = _context.Tickets
@@ -34,16 +34,16 @@ namespace Bon_Voyage.MediatR.Ticket.Queries.GetTicketsWithFilters
                     .AsQueryable();
                 if (request.Filters != null)
                 {
-                    int count = _context.Tickets.Count();
+                    
                     int skip = request.StartIndex * take;
                     int indx = request.StartIndex + skip;
-                    return await Filter(query, request.Filters)
+                    query = Filter(query, request.Filters);
+                    var res = await query
                         .Skip(skip)
                         .Take(take)
-                        .Select(x => new TicketsViewModel
+                        .Select(x => new TicketViewModel
                         {
                             Id = x.Id,
-                            Count = count,
                             CountsOfNight = x.CountsOfNight,
                             CountsOfPlaces = x.CountsOfPlaces,
                             DateFrom = x.DateFrom.ToString("dd.MM.yyyy"),
@@ -55,7 +55,7 @@ namespace Bon_Voyage.MediatR.Ticket.Queries.GetTicketsWithFilters
                                 Id = x.HotelId,
                                 Name = x.Hotel.Name,
                                 Stars = x.Hotel.Stars,
-                                Photo = x.Hotel.PhotosToHotels.First().PhotoLink
+                                Photo = "50_" + x.Hotel.PhotosToHotels.First().PhotoLink
                             },
                             RoomType = new RoomTypeViewModel
                             {
@@ -71,23 +71,26 @@ namespace Bon_Voyage.MediatR.Ticket.Queries.GetTicketsWithFilters
                             {
                                 Id = y.ComfortId,
                                 Name = y.Comfort.Name
-                            }).ToList(),
-                            Index=indx
+                            }).ToList()
                         })
                         .ToListAsync();
+                    return (new FiltredTicketsViewModel
+                    {
+                        Count = query.Count(),
+                        Index = indx,
+                        Tickets=res
+                    });
                 }
                 else
-                {                    
-                    int count = _context.Tickets.Count();
+                {
                     int skip = request.StartIndex * take;
                     int indx = request.StartIndex + skip;
-                    return await query
+                    var res= await query
                         .Skip(skip)
                         .Take(take)
-                        .Select(x => new TicketsViewModel
+                        .Select(x => new TicketViewModel
                         {
                             Id = x.Id,
-                            Count = count,
                             CountsOfNight = x.CountsOfNight,
                             CountsOfPlaces = x.CountsOfPlaces,
                             DateFrom = x.DateFrom.ToString("dd.MM.yyyy"),
@@ -99,7 +102,7 @@ namespace Bon_Voyage.MediatR.Ticket.Queries.GetTicketsWithFilters
                                 Id = x.HotelId,
                                 Name = x.Hotel.Name,
                                 Stars = x.Hotel.Stars,
-                                Photo = x.Hotel.PhotosToHotels.First().PhotoLink
+                                Photo = "1280_" + x.Hotel.PhotosToHotels.First().PhotoLink
                             },
                             RoomType = new RoomTypeViewModel
                             {
@@ -115,9 +118,14 @@ namespace Bon_Voyage.MediatR.Ticket.Queries.GetTicketsWithFilters
                             {
                                 Id = y.ComfortId,
                                 Name = y.Comfort.Name
-                            }).ToList(),
-                            Index = indx
+                            }).ToList()
                         }).ToListAsync();
+                    return (new FiltredTicketsViewModel
+                    {
+                        Count = query.Count(),
+                        Index = indx,
+                        Tickets = res
+                    });
                 }
             }
 
@@ -150,9 +158,9 @@ namespace Bon_Voyage.MediatR.Ticket.Queries.GetTicketsWithFilters
                 {
                     query = query.Where(x => x.Discount != null && x.Discount > 0);
                 }
-                if (filters.CityId != "" && filters.CityId != null)
+                if (filters.CountryId != "" && filters.CountryId != null)
                 {
-                    query = query.Where(x => x.Hotel.CityId == filters.CityId);
+                    query = query.Where(x => x.Hotel.City.CountryId == filters.CountryId);
                 }
                 if (filters.HotelId != "" && filters.HotelId != null)
                 {
