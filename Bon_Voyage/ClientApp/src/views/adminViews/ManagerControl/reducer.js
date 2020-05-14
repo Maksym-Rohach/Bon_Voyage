@@ -46,8 +46,7 @@ export const createManager = (model) => {
             .then((response) => {
                 ManagerControlService.getAllManagers()
                     .then((response) => {
-                        dispatch(createManagerListActions.success(response));
-                        dispatch(createManagerListActions.clear())
+                        dispatch(getManagerListActions.success(response));
                     }, err => { throw err; })
                     .catch(err => {
                         dispatch(getManagerListActions.failed(err));
@@ -57,7 +56,7 @@ export const createManager = (model) => {
             .catch((err) => {
                 if (err.response !== undefined){
                     dispatch(createManagerListActions.failed(err.response.data)); 
-                    console.log(err.response.data);   
+                    console.log(err.response.data);
                 }                    
                 else { dispatch(createManagerListActions.failed(err)) }
             })
@@ -149,7 +148,7 @@ export const managerControlReducer = (state = initialState, action) => {
             newState = update.set(state, 'createResult.loading', false);
             newState = update.set(newState, 'createResult.failed', false);
             newState = update.set(newState, 'createResult.success', true);
-            newState = update.set(newState, 'createResult.errors', undefined);
+            newState = update.set(newState, 'createResult.errors', {status:true});
             break;
         }
         case MANAGER_CREATE_FAILED: {

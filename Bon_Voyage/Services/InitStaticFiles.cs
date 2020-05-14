@@ -11,7 +11,7 @@ namespace Bon_Voyage.Services
 {
     public static class InitStaticFiles
     {
-        public static string CreateFolderServer(IHostingEnvironment env,
+        public static string CreateFolderServer(IWebHostEnvironment env,
             IConfiguration configuration, string[] settings)
         {
             string fileDestDir = env.ContentRootPath;
@@ -26,7 +26,7 @@ namespace Bon_Voyage.Services
             return fileDestDir;
         }
 
-        public static string CreateImageBySettingServer(IHostingEnvironment env,
+        public static string CreateImageBySettingServer(IWebHostEnvironment env,
                                                 IConfiguration configuration,
                                                 string[] settingsFolder,
                                                 string settingfileName, string base64)
@@ -86,7 +86,7 @@ namespace Bon_Voyage.Services
             return fileDestDir;
         }
 
-        public static string CreateImageByFileName(IHostingEnvironment env,
+        public static string CreateImageByFileName(IWebHostEnvironment env,
                                                   IConfiguration configuration,
                                                   string[] settingsFolder,
                                                   string fileName, string base64)

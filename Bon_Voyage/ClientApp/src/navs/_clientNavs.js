@@ -21,7 +21,7 @@ export default {
         },
         {
             name: 'Обрані тури',
-            url: '/client/selectedtravel',
+            url: '/client/favorite/tickets',
             icon: 'icon-star',
         },
         {

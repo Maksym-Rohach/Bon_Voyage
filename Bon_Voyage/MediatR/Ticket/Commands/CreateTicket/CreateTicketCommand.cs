@@ -12,12 +12,12 @@ namespace Bon_Voyage.MediatR.Ticket.Commands.CreateTicket
 {
     public class CreateTicketCommand : IRequest<AddTicketRequest>
     {
-        public int PriceFrom { get; set; }
-        public int CountsOfNight { get; set; }
+        public string PriceFrom { get; set; } // int
+        public string CountsOfNight { get; set; } // int
         public string DateFrom { get; set; }
         public string DateTo { get; set; }
-        public int CountsOfPlaces { get; set; }
-        public int Discount { get; set; }
+        public string CountsOfPlaces { get; set; } // int
+        public int Discount { get; set; } // int
         public string HotelId { get; set; }
         public string AirportId { get; set; }
         public string RoomTypeId { get; set; }
@@ -36,12 +36,12 @@ namespace Bon_Voyage.MediatR.Ticket.Commands.CreateTicket
 
                 var ticket = new DB.Entities.Ticket
                 {
-                    PriceFrom = request.PriceFrom,
-                    CountsOfNight = request.CountsOfNight,
+                    PriceFrom = Convert.ToInt32(request.PriceFrom),
+                    CountsOfNight = Convert.ToInt32(request.CountsOfNight),
                     DateFrom = DateTime.Parse(DateTime.Parse(request.DateFrom).ToString("dd.MM.yyyy")),
                     DateTo = DateTime.Parse(DateTime.Parse(request.DateTo).ToString("dd.MM.yyyy")),
-                    CountsOfPlaces = request.CountsOfPlaces,
-                    Discount = request.Discount,
+                    CountsOfPlaces = Convert.ToInt32(request.CountsOfPlaces),
+                    Discount = Convert.ToInt32(request.Discount),
                     HotelId = request.HotelId,
                     AirportId = request.AirportId,
                     RoomTypeId = request.RoomTypeId,
@@ -79,7 +79,7 @@ namespace Bon_Voyage.MediatR.Ticket.Commands.CreateTicket
 
             private AddTicketRequest Validation(CreateTicketCommand request)
             {
-                if (request.PriceFrom <= 0)
+                if (Convert.ToInt32(request.PriceFrom) <= 0)
                 {
                     return new AddTicketRequest
                     {
@@ -88,7 +88,7 @@ namespace Bon_Voyage.MediatR.Ticket.Commands.CreateTicket
                     };
                 }
 
-                if (request.CountsOfNight <= 0)
+                if (Convert.ToInt32(request.CountsOfNight) <= 0)
                 {
                     return new AddTicketRequest
                     {
@@ -114,7 +114,7 @@ namespace Bon_Voyage.MediatR.Ticket.Commands.CreateTicket
                     };
                 }
 
-                if (request.CountsOfPlaces <= 0)
+                if (Convert.ToInt32(request.CountsOfPlaces) <= 0)
                 {
                     return new AddTicketRequest
                     {

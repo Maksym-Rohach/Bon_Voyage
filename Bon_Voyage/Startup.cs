@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
@@ -41,8 +42,8 @@ namespace Bon_Voyage
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
-            });
-            services.AddScoped<IJwtTokenService, JwtTokenService>();            
+            });            
+            services.AddScoped<IJwtTokenService, JwtTokenService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -83,9 +84,10 @@ namespace Bon_Voyage
                 }
             });
             services.AddMediatR(typeof(Startup));
-            services.AddDbContext<EFDbContext>(
-                 options =>
-                   options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<EFDbContext>(options =>
+                options
+                .UseLazyLoadingProxies()
+                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),x=>x.MigrationsAssembly("Bon_Voyage")));
 
             services.AddScoped<IJwtTokenService, JwtTokenService>();
 
@@ -119,11 +121,13 @@ namespace Bon_Voyage
 
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSession();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddRouting();
+            services.AddControllersWithViews();
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -138,7 +142,7 @@ namespace Bon_Voyage
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
 
-            if (env.IsDevelopment())
+            if (env.EnvironmentName == "Development")
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -147,7 +151,7 @@ namespace Bon_Voyage
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
-            
+
             app.UseAuthentication();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
@@ -200,15 +204,13 @@ namespace Bon_Voyage
                 RequestPath = new PathString("/" + Configuration.GetValue<string>("UrlImages"))
             });
             #endregion;
-
             //Seeder
-            SeederDB.SeedData(app.ApplicationServices, env, this.Configuration);
+            //SeederDB.SeedData(app.ApplicationServices, env, this.Configuration);
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
 
             app.UseSpa(spa =>

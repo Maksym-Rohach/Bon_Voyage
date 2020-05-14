@@ -13,7 +13,9 @@ namespace Bon_Voyage.DB.Entities
 
         public DateTime DateOfBirth { get; set; }
 
-        public BaseProfile BaseProfile { get; set; }
+        public virtual BaseProfile BaseProfile { get; set; }
         public virtual ICollection<Ticket> Tickets { get; set; }
+
+        public virtual ICollection<Cart> Carts { get; set; }
     }
 }
