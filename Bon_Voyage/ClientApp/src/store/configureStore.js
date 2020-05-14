@@ -24,9 +24,9 @@ import {ForgotPasswordReducer} from '../views/othersViews/ForgotPasswordPage/red
 import { NewPasswordReducer } from '../views/othersViews/NewPasswordPage/reducer';
 import {countryControlReducer} from '../views/adminViews/CountryControl/reducer'
 import {GalleryReducer} from '../views/othersViews/GalleryPage/reducer'
-import {detailsPageReducer} from '../views/othersViews/DetailsPage/reducer'
-import {cityControlReducer} from '../views/adminViews/CityControl/reducer';
-import {airportControlReducer} from '../views/adminViews/AirportControl/reducer';
+import { cityControlReducer } from '../views/adminViews/CityControl/reducer';
+import { airportControlReducer } from '../views/adminViews/AirportControl/reducer';
+import { detailsPageReducer } from '../views/othersViews/DetailsPage/reducer'
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
