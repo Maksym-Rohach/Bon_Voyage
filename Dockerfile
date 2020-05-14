@@ -2,6 +2,10 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 
 #install application for get HW info
 RUN apt-get update
+RUN apt-get install -y --allow-unauthenticated 
+RUN apt-get install -y libc6-dev 
+RUN apt-get install -y libgdiplus
+RUN apt-get install -y libx11-de
 RUN apt-get install -y mc
 RUN apt-get install -y curl
 RUN apt-get install -y hwinfo
