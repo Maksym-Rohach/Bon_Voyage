@@ -137,7 +137,7 @@ class HomePage extends Component {
                   <div className="text-center">
                     <h4>Вибери свою подорож разом з Bon Voyage</h4>
                     <h1>Подорожуй <em>із</em> насолодою</h1>
-                    <a className="button home-banner-btn" href="#">Список квитків</a>
+                    <Link className="button home-banner-btn" to="/tickets">Список квитків</Link>
                   </div>
                 </div>
               </div>
@@ -193,7 +193,7 @@ class HomePage extends Component {
                         <select name="HotelSelect">
                           <option disabled selected default>Виберіть готель</option>
                           {                      
-                            hotels != undefined ?
+                            !!hotels ?
                             hotels.length > 0 ?
                               (hotels.map(item => {
                                 return (<option key={item.id} value={item.id} >{item.name}</option>)

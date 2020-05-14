@@ -6,6 +6,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
+import TicketView from './views/clientViews/TicketView/TicketView';
 
 // Layouts
 const AdminLayout = React.lazy(() => import("./layouts/adminLayout/AdminLayout"));
@@ -48,6 +49,7 @@ class App extends Component {
                         <Route path="/admin" name="Admin" render={props => <AdminLayout {...props} />} />
                         <Route path="/manager" name="Manager" render={props => <ManagerLayout {...props} />} />
                         <Route path="/client" name="Client" render={props => <ClientLayout {...props} />} />
+                        <Route path="/tickets" name="TicketView" render={props => <TicketView {...props} />} />
                         {/* <Redirect from="/" to="/admin/persons" /> */}
                     </Switch>
                 </Suspense>

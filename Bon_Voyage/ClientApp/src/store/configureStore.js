@@ -29,42 +29,41 @@ import { airportControlReducer } from '../views/adminViews/AirportControl/reduce
 import { cartTicketReducer } from '../views/clientViews/FavoritesTicketsView/reducer';
 import { detailsPageReducer } from '../views/othersViews/DetailsPage/reducer'
 import { FeedBackReducer } from '../views/managerViews/FeedBackManager/reducer';
-
+import { ticketReducer } from '../views/clientViews/TicketView/reducer';
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 export const history = createHistory({ basename: baseUrl });
 
 export default function configureStore(history, initialState) {
-    const reducers = {
-        login: loginReducer,
-        gallery: GalleryReducer,
-        home: homePageReducer,
-        details: detailsPageReducer,
-        forgotPassword: ForgotPasswordReducer,
-        addTicket: addTicketReducer,
-        countryControl: countryControlReducer,
-        cityControl: cityControlReducer,
-        cartTicket: cartTicketReducer,
-        //persons: personsChartReducer,
-        comments: commentsChartReducer,
-        managers: managerControlReducer,
-        managerProfile: managerProfileViewReducer,
-        clientProfile: clientProfileViewReducer,
-        clientMessage: clientMessageViewReducer,
-        clientMap: clientMapViewReducer,
-        changeImage: changeImageReducer,
-        airports: airportControlReducer,
-        changeImage: changeImageReducer,
-        changePassword: changePasswordReducer,
-        changeInfoReducer: changeInfoReducer,
-        boughtTickets: boughtTicketsReducer,
-        hotDealTickets: hotDealTicketsReducer,
-        newPassword: NewPasswordReducer,
-        hotels: hotelControlReducer,
-        register: registerReducer,
-        feedback: FeedBackReducer
-    };
+  const reducers = {
+    
+    login: loginReducer,
+    gallery:GalleryReducer,
+    home: homePageReducer,
+    forgotPassword: ForgotPasswordReducer,
+    addTicket: addTicketReducer,
+    countryControl: countryControlReducer,
+    //persons: personsChartReducer,
+    comments: commentsChartReducer,
+      managers: managerControlReducer,
+      managerProfile: managerProfileViewReducer,
+      clientProfile: clientProfileViewReducer,
+      clientMessage: clientMessageViewReducer,
+      clientMap: clientMapViewReducer,
+      changeImage: changeImageReducer,
+      airports: airportControlReducer,
+      changeImage: changeImageReducer,
+      changePassword: changePasswordReducer,
+      changeInfoReducer: changeInfoReducer,
+      boughtTickets: boughtTicketsReducer,
+      hotDealTickets: hotDealTicketsReducer,
+      newPassword:NewPasswordReducer,
+      hotels: hotelControlReducer,
+      register: registerReducer,
+      ticketReducer: ticketReducer,
+      feedback: FeedBackReducer
+  };
 
     const middleware = [
         thunk,
