@@ -28,6 +28,8 @@ import { cityControlReducer } from '../views/adminViews/CityControl/reducer';
 import { airportControlReducer } from '../views/adminViews/AirportControl/reducer';
 import { cartTicketReducer } from '../views/clientViews/FavoritesTicketsView/reducer';
 import { detailsPageReducer } from '../views/othersViews/DetailsPage/reducer'
+import { FeedBackReducer } from '../views/managerViews/FeedBackManager/reducer';
+
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
@@ -60,7 +62,8 @@ export default function configureStore(history, initialState) {
         hotDealTickets: hotDealTicketsReducer,
         newPassword: NewPasswordReducer,
         hotels: hotelControlReducer,
-        register: registerReducer
+        register: registerReducer,
+        feedback: FeedBackReducer
     };
 
     const middleware = [

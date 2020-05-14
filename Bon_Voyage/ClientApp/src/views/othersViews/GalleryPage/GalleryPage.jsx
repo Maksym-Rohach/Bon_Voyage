@@ -53,9 +53,9 @@ class Gallery extends Component {
             <div className="main_menu">
               <nav className="navbar navbar-expand-lg navbar-light">
                 <div className="container">
-                  <a className="navbar-brand logo_h" href="index.html">
+                  <Link className="navbar-brand logo_h" to="/">
                     <img src={mylogo} height="50px" alt="" />
-                  </a>
+                  </Link>
                   <button
                     className="navbar-toggler"
                     type="button"

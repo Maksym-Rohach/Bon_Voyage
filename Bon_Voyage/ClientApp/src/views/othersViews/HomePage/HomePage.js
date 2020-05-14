@@ -96,8 +96,6 @@ class HomePage extends Component {
                     <li className="nav-item"> <Link className="nav-link" to="/#/">Головна</Link></li>
                       <li className="nav-item"> <Link className="nav-link" to="/contact-page">Контакти</Link></li>                    
                       <li className="nav-item"> <Link className="nav-link" to="/gallery-page">Галерея</Link></li>
-
-
                       {
                         getUrlToRedirect() == "/" ?
                           <li className="nav-item">
