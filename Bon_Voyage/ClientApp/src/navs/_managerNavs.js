@@ -21,11 +21,6 @@ export default {
 
             children: [
                 {
-                    name: 'Усі квитки',
-                    url: '/base/carousels',
-                    icon: 'icon-list',
-                },
-                {
                     name: 'Додати квитки',
                     url: '/manager/ticket/add',
                     icon: 'icon-plus',
@@ -41,6 +36,11 @@ export default {
                     icon: 'icon-fire',
                 }
             ]
-        }
+        },
+        {
+            name: "Зв`язок з клієнтом",
+            url: '/manager/feedback',
+            icon: 'icon-phone',
+        },
     ]
 };

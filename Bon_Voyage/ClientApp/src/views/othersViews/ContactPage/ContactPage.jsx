@@ -17,7 +17,7 @@ class Contact extends Component {
 <div className="main_menu">
   <nav className="navbar navbar-expand-lg navbar-light">
     <div className="container">
-      <a className="navbar-brand logo_h" href="index.html"><img src={mylogo} height="50px" alt="" /></a>
+      <Link className="navbar-brand logo_h" to="/"><img src={mylogo} height="50px" alt="" /></Link>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span className="icon-bar"></span>
@@ -78,13 +78,8 @@ class Contact extends Component {
         <div id="map" style={{height: '420px'}}>
         <Iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3580.155688092591!2d26.25886499832669!3d50.61685488613916!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x472f134609e1331f:0x4b4b27390f364d81!2z0JrQvtC80L8n0Y7RgtC10YDQvdCwINCQ0LrQsNC00LXQvNGW0Y8g0KjQkNCT!5e0!3m2!1sru!2sua!4v1588261875083!5m2!1sru!2sua" 
         width="1100" height="480" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></Iframe>
-        </div>
-        
-       
+        </div>    
       </div>
-     
-
-
       <div class="row">
         <div class="col-md-4 col-lg-3 mb-4 mb-md-0">
           <div class="media contact-info">

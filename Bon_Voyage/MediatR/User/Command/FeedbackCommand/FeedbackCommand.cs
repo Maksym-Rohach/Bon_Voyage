@@ -38,7 +38,7 @@ namespace Bon_Voyage.MediatR.User.Command.FeedbackCommand
                 var user = _context.BaseProfiles.FirstOrDefault(x => x.Id == request.Id);
                 if (user != null)
                 {
-                    var usetable = new Feedback();
+                    var usetable = new DB.Entities.Feedback();
                     if (request.Theme != "")
                     {
                         usetable.Theme = request.Theme;
@@ -54,9 +54,9 @@ namespace Bon_Voyage.MediatR.User.Command.FeedbackCommand
                     _context.Add(usetable);
                     _context.SaveChanges();
 
-                    return new FeedbackViewModel { Status = true };
+                    return new FeedbackViewModel { Status = true};
                 }
-                return new FeedbackViewModel { Status = false, ErrorMessage = "Щось пішло не так" };
+                return new FeedbackViewModel { Status = false, ErrorMessage = "Щось пішло не так :(" };
             }
         }
     }
