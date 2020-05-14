@@ -96,6 +96,12 @@ export const login = model => {
 export function getUrlToRedirect() {
   var user = jwt.decode(localStorage.jwtToken);
   //let roles =[];
+  
+  if(user == null)
+  {
+    return "/";
+  }
+
   let roles = user.roles;
   let path = "";
   console.log("getUrlToRedirect", user);

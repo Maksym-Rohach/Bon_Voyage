@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import get from "lodash.get";
 import { connect } from "react-redux";
 import * as reducer from "./reducer";
+import * as loginReducer from '../LoginPage/reducer';
 import { getUrlToRedirect} from "../LoginPage/reducer";
 import '../instruments/css/style.scss';
 import mylogo from '../../../assets/img/Logo.png';
@@ -98,20 +99,22 @@ class HomePage extends Component {
 
 
                       {
-                        !isAuthenticated ?
+                        getUrlToRedirect() == "/" ?
                           <li className="nav-item">
                             <Link className="nav-link" to="/login">Вхід</Link>
                           </li>
-                          : <li className="nav-item">
-                            <Link className="nav-link" to="/login">Вхід</Link>
+                          : < li className="nav-item">
+                            <Link className="nav-link" to={getUrlToRedirect()}>Особистий кабінет</Link>
                           </li>
                       }
                       {
-                        !isAuthenticated ?
+                        getUrlToRedirect() == "/" ?
                           <li className="nav-item">
                             <Link className="nav-link" to="/Register">Реєстрація</Link>
                           </li>
-                          : <div></div>
+                          : <li className="nav-item">
+                            <Link className="nav-link" onClick={this.props.logout}>Вихід</Link>
+                          </li>
                       }
 
 
@@ -435,6 +438,9 @@ const mapDispatch = (dispatch) => {
     },
     clearData: () => {
       dispatch(reducer.clearData());
+    },
+    logout: () => {
+      dispatch(loginReducer.logout());
     }
   }
 }
