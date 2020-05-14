@@ -194,11 +194,12 @@ class HomePage extends Component {
                       <div className="form-select-custom">
                         <select name="HotelSelect">
                           <option disabled selected default>Виберіть готель</option>
-                          {
+                          {                      
                             hotels != undefined ?
+                            hotels.length > 0 ?
                               (hotels.map(item => {
                                 return (<option key={item.id} value={item.id} >{item.name}</option>)
-                              })) : <div></div>
+                              })) : <div></div> : <div></div>
                           }
                         </select>
                       </div>
@@ -321,7 +322,7 @@ class HomePage extends Component {
                                 <li><a href="#"><span class="news-icon"><i class="ti-notepad"></i></span>{item.city}</a></li>
                               </ul>
                               <p>{item.description}</p>
-                              <Link to="/details-page">                                                  
+                              <Link to={`/details-page/${item.id}`}>                                                  
                                <Button className="button button--active home-banner-btn mt-4">Дізнатись більше</Button>    
                              </Link>
                             </div>
