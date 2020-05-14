@@ -48,24 +48,7 @@ namespace Bon_Voyage.MediatR.Hotel.Queries.GetAllHotelInfo
                        PhotosToHotels.ToList()[0].
                        PhotoLink;
                 returnHotel.HotelPhotos = hotel.PhotosToHotels.Take(5).Select(x => x.PhotoLink).ToList();
-
-                // hotel =_context.Hotels.Where(x=>x.Id==request.HotelId).Select(x => new HotelInfoViewModel
-                //{
-                //    Id = x.Id,
-                //    Description = x.Description,
-                //    Stars = x.Stars,
-                //    MainPhoto = "1280_" + x.PhotosToHotels.ToList()[0].PhotoLink,
-                //    Country = x.City.Country.Name,
-                //    City = x.City.Name,
-                ////    HotelPhotos = x.PhotosToHotels.Take(2).Select(x => "1280_" + x.PhotoLink).ToList(),
-                //    CountryPhoto = "1280_" + _context.Hotels.
-                //      FirstOrDefault(c => c.City.Country.Id == x.City.Country.Id).
-                //      PhotosToHotels.ToList()[0].
-                //      PhotoLink
-                //}).First();
-
-
-
+            
 
                 return returnHotel;
             }

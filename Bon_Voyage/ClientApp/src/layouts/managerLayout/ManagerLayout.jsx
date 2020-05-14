@@ -2,6 +2,9 @@
 import { Redirect, Route, Switch } from 'react-router-dom';
 import * as router from 'react-router-dom';
 import { Container } from 'reactstrap';
+import { logout } from '../../views/othersViews/LoginPage/reducer';
+import { connect } from "react-redux";
+import get from 'lodash.get';
 
 import {
   AppAside,
@@ -27,16 +30,37 @@ class ManagerLayout extends Component {
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   signOut(e) {
-    e.preventDefault()
-    this.props.history.push('/login')
+    e.preventDefault();
+    this.props.logout();
+    this.props.history.push('/login');
   }
 
   render() {
-    return (
+
+
+    const { login } = this.props;
+    let isAccess = false;
+
+
+    if (login.isAuthenticated === undefined) {
+      return (
+        <Redirect to="/login" />
+      );
+    }
+    if (login.isAuthenticated) {
+      const { roles } = login.user;
+      for (let i = 0; i < roles.length; i++) {
+        if (roles[i] === 'Manager')
+          isAccess = true;
+      }
+    }
+
+
+    const page = (
       <div className="app">
         <AppHeader fixed>
-          <Suspense  fallback={this.loading()}>
-            <ManagerNavbar onLogout={e=>this.signOut(e)}/>
+          <Suspense fallback={this.loading()}>
+            <ManagerNavbar onLogout={e => this.signOut(e)} />
           </Suspense>
         </AppHeader>
         <div className="app-body">
@@ -44,12 +68,12 @@ class ManagerLayout extends Component {
             <AppSidebarHeader />
             <AppSidebarForm />
             <Suspense>
-            <AppSidebarNav navConfig={navigation} {...this.props} router={router}/>
+              <AppSidebarNav navConfig={navigation} {...this.props} router={router} />
             </Suspense>
             <AppSidebarFooter />
             <AppSidebarMinimizer />
           </AppSidebar>
-          <main className="main">           
+          <main className="main">
             <Container fluid>
               <Suspense fallback={this.loading()}>
                 <Switch>
@@ -73,7 +97,24 @@ class ManagerLayout extends Component {
         </div>
       </div>
     );
+
+
+
+    return (
+      isAccess ?
+        page :
+        <Redirect to="/login" />
+    );
   }
 }
 
-export default ManagerLayout;
+
+
+const mapStateToProps = (state) => {
+  return {
+    login: get(state, 'login')
+  };
+}
+
+
+export default connect(mapStateToProps, { logout })(ManagerLayout);

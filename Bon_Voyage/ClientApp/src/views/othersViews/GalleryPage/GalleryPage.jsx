@@ -169,6 +169,7 @@ class Gallery extends Component {
                                   <div className="relative">
                                     <img
                                       className="card-img rounded-0"
+                                      onClick={y => this.props.history.push("/details-page/" + photos[array.indexOf(item)].id)}
                                       src={`${serverUrl}HotelImages/${
                                         photos[array.indexOf(item)].photo
                                       }`}
@@ -185,6 +186,7 @@ class Gallery extends Component {
                                   <div className="relative">
                                     <img
                                       className="card-img rounded-0"
+                                      onClick={y => this.props.history.push("/details-page/" + photos[array.indexOf(item)+1].id)}
                                       src={`${serverUrl}HotelImages/${
                                         photos[array.indexOf(item) + 1].photo
                                       }`}
@@ -206,6 +208,7 @@ class Gallery extends Component {
                                   <div className="relative">
                                     <img
                                       className="card-img rounded-0"
+                                      onClick={y => this.props.history.push("/details-page/" + photos[array.indexOf(item)+2].id)}
                                       src={`${serverUrl}HotelImages/${
                                         photos[array.indexOf(item) + 2].photo
                                       }`}
@@ -222,6 +225,7 @@ class Gallery extends Component {
                                   <div className="relative">
                                     <img
                                       className="card-img rounded-0"
+                                      onClick={y => this.props.history.push("/details-page/" + photos[array.indexOf(item)+3].id)}
                                       src={`${serverUrl}HotelImages/${
                                         photos[array.indexOf(item) + 3].photo
                                       }`}
