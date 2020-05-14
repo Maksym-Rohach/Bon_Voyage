@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import get from "lodash.get";
 import { connect } from "react-redux";
 import * as reducer from "./reducer";
-import * as login from "../LoginPage/reducer";
+import * as loginReducer from '../LoginPage/reducer';
+import { getUrlToRedirect} from "../LoginPage/reducer";
 import '../instruments/css/style.scss';
 import mylogo from '../../../assets/img/Logo.png';
 import Loader from '../../../components/Loader/index'
@@ -74,6 +75,7 @@ class HomePage extends Component {
   render() {
     const { countries, cities, hotels, isLoad, randomPhotos,hotTickets,topHotels } = this.state;
     const { isAuthenticated } = this.props;
+    console.log("URL to redirect", getUrlToRedirect());
 
     const page = (
       <React.Fragment>
@@ -94,23 +96,23 @@ class HomePage extends Component {
                     <li className="nav-item"> <Link className="nav-link" to="/#/">Головна</Link></li>
                       <li className="nav-item"> <Link className="nav-link" to="/contact-page">Контакти</Link></li>                    
                       <li className="nav-item"> <Link className="nav-link" to="/gallery-page">Галерея</Link></li>
-
-
                       {
-                        !isAuthenticated ?
+                        getUrlToRedirect() == "/" ?
                           <li className="nav-item">
                             <Link className="nav-link" to="/login">Вхід</Link>
                           </li>
-                          : <li className="nav-item">
-                            <Link className="nav-link" to="/login">Вхід</Link>
+                          : < li className="nav-item">
+                            <Link className="nav-link" to={getUrlToRedirect()}>Особистий кабінет</Link>
                           </li>
                       }
                       {
-                        !isAuthenticated ?
+                        getUrlToRedirect() == "/" ?
                           <li className="nav-item">
                             <Link className="nav-link" to="/Register">Реєстрація</Link>
                           </li>
-                          : <div></div>
+                          : <li className="nav-item">
+                            <Link className="nav-link" onClick={this.props.logout}>Вихід</Link>
+                          </li>
                       }
 
 
@@ -135,7 +137,7 @@ class HomePage extends Component {
                   <div className="text-center">
                     <h4>Вибери свою подорож разом з Bon Voyage</h4>
                     <h1>Подорожуй <em>із</em> насолодою</h1>
-                    <a className="button home-banner-btn" href="#">Список квитків</a>
+                    <Link className="button home-banner-btn" to="/tickets">Список квитків</Link>
                   </div>
                 </div>
               </div>
@@ -190,11 +192,12 @@ class HomePage extends Component {
                       <div className="form-select-custom">
                         <select name="HotelSelect">
                           <option disabled selected default>Виберіть готель</option>
-                          {
-                            hotels != undefined ?
+                          {                      
+                            !!hotels ?
+                            hotels.length > 0 ?
                               (hotels.map(item => {
                                 return (<option key={item.id} value={item.id} >{item.name}</option>)
-                              })) : <div></div>
+                              })) : <div></div> : <div></div>
                           }
                         </select>
                       </div>
@@ -255,8 +258,9 @@ class HomePage extends Component {
 
                 <div className="row">
                   {
-                    hotTickets.map(item => {
-                      return (
+                    hotTickets.map(item => {      
+                      console.log(item.id)              
+                      return (                       
                           <div className="col-md-6 col-lg-4 mb-4 mb-lg-0">
                             <div className="card card-explore">
                               <div className="card-explore__img">
@@ -267,7 +271,7 @@ class HomePage extends Component {
                                 <h4 className="card-explore__title"><a href="#">{item.hotelName}</a></h4>
                                 <p>{item.description}</p>
                                 <Link to="/details-page">                                                  
-                               <Button className="button button--active home-banner-btn mt-4">Дізнатись більше</Button>    
+                               <Link to={`/details-page/${item.id}`} className="button button--active home-banner-btn mt-4">Дізнатись більше</Link>    
                               </Link>
                               </div>
                             </div>
@@ -316,7 +320,7 @@ class HomePage extends Component {
                                 <li><a href="#"><span class="news-icon"><i class="ti-notepad"></i></span>{item.city}</a></li>
                               </ul>
                               <p>{item.description}</p>
-                              <Link to="/details-page">                                                  
+                              <Link to={`/details-page/${item.id}`}>                                                  
                                <Button className="button button--active home-banner-btn mt-4">Дізнатись більше</Button>    
                              </Link>
                             </div>
@@ -434,6 +438,9 @@ const mapDispatch = (dispatch) => {
     },
     clearData: () => {
       dispatch(reducer.clearData());
+    },
+    logout: () => {
+      dispatch(loginReducer.logout());
     }
   }
 }

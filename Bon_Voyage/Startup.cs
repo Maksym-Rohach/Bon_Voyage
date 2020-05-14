@@ -122,6 +122,7 @@ namespace Bon_Voyage
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSession();
             services.AddRouting();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

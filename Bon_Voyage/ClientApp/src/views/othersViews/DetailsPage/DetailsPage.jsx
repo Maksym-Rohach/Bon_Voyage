@@ -74,7 +74,7 @@ class Details extends Component {
                   <ul className="nav navbar-nav menu_nav">
                     <li className="nav-item active">
                       <Link className="nav-link" to="/#/">
-                        Контакти
+                      Головна
                       </Link>
                     </li>
                     <li className="nav-item">
@@ -85,7 +85,7 @@ class Details extends Component {
                     </li>                   
                     <li className="nav-item">
                       <Link className="nav-link" to="/gallery-page">
-                        Контакти
+                       Галерея
                       </Link>
                     </li>
                   </ul>
@@ -97,10 +97,10 @@ class Details extends Component {
                     </span>
                     <div className="media-body">
                       <p>Маєте питання?</p>
-                      <p>
-                        Free:{" "}
-                        <a href="tel:++38 096 6666666">++38 096 6666666</a>
-                      </p>
+                      
+                        {" "}
+                        <a href="tel:++38 067 557 8704">+067 557 8704</a>
+                     
                     </div>
                   </div>
                   <div className="media header-top-info">
@@ -108,9 +108,9 @@ class Details extends Component {
                       <i className="fa fa-envelope" aria-hidden="true"></i>
                     </span>
                     <div className="media-body">
-                      <p>Have any question?</p>
+                      <p>Маєте питання?</p>
                       <p>
-                        Free: <a href="tel:+38 096 6666666">+38 096 6666666</a>
+                      <a href="bonvoyagevirus@gmail.com">bonvoyagevirus@gmail.com</a>
                       </p>
                     </div>
                   </div>
@@ -126,17 +126,7 @@ class Details extends Component {
               <div className="text-center">
                 <h1>Інформація про готель</h1>
                 <nav aria-label="breadcrumb" className="banner-breadcrumb">
-                  <ol className="breadcrumb">
-                    <li className="breadcrumb-item">
-                      <Link to="/#">Головна</Link>
-                    </li>
-                    <li className="breadcrumb-item">
-                      <Link to="/details-page">Деталі</Link>
-                    </li>
-                    <li className="breadcrumb-item active" aria-current="page">
-                      Д
-                    </li>
-                  </ol>
+              
                 </nav>
               </div>
             </div>
@@ -158,25 +148,25 @@ class Details extends Component {
                       <ul className="blog_meta list">
                         <li>
                           <a href="#">
-                            Назва
+                           
                             <i className="lnr lnr-user"></i>
                           </a>
                         </li>
                         <li>
                           <a href="#">
-                            {hotel.stars}
+                            
                             <i className="lnr lnr-calendar-full"></i>
                           </a>
                         </li>
                         <li>
                           <a href="#">
-                           {hotel.country}
+                           
                             <i className="lnr lnr-eye"></i>
                           </a>
                         </li>
                         <li>
                           <a href="#">
-                           {hotel.city}
+                          
                             <i className="lnr lnr-bubble"></i>
                           </a>
                         </li>
