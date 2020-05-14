@@ -31,8 +31,7 @@ class BoughtTickets extends Component {
             <Card className="mt-5">                       
                 <DataTable value={listBoughtTickets} paginator={true} ref={(el) => this.dt = el} rows={10} first={this.state.first} onPage={(e) => this.setState({first: e.first})}>
                     <Column sortable={true} field="client.fullName" filter={true} filterPlaceholder="Search" style={{textAlign:'center'}} header="Ім'я покупця" />
-                    <Column field="dateTo" header="Date" sortable filter filterMatchMode="custom" filterFunction={this.filterDate} filterElement={dateFilter} />            
-                    {/* <Column sortable={true} field="dateFrom" header="Дата повернення" filter={true} sortable filter filterMatchMode="contains" style={{textAlign:'center'}} filterFunction={this.filterDate} filterElement={dateFilter} /> */}
+                    <Column sortable={true} field="dateTo" filter={true} filterMatchMode="contains" filterPlaceholder="Search" style={{textAlign:'center'}} header="Дата відправлення" />            
                     <Column sortable={true} field="dateFrom" filter={true} filterMatchMode="contains" filterPlaceholder="Search" style={{textAlign:'center'}} header="Дата прибуття" />
                     <Column sortable={true} field="country.name" filter={true} filterMatchMode="contains" filterPlaceholder="Search" style={{textAlign:'center'}} header="Країна" />
                     <Column sortable={true} field="countOfPlaces" filter={true} filterMatchMode="contains" filterPlaceholder="Search" style={{textAlign:'center'}} header="Кількість місць" />

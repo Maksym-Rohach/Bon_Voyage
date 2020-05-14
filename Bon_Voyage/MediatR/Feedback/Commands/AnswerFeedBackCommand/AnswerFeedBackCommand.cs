@@ -25,7 +25,7 @@ namespace Bon_Voyage.MediatR.Feedback.Commands.AnswerFeedBackCommand
             public async Task<bool> Handle(AnswerFeedBackCommand request, CancellationToken cancellationToken)
             {
                 EmailService emailService = new EmailService();
-                await emailService.SendEmailAsync(request.UserEmail, "Відповідь на ваше звернення", request.Message);
+                await emailService.SendEmailAsync(request.UserEmail, request.Message, "Відповідь на ваше звернення");
                 _context.Feedbacks.FirstOrDefault(x => x.Id == request.Id).IsAnwsered = true;
                 _context.SaveChanges();
                 return true;

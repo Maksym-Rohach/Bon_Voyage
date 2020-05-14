@@ -25,8 +25,10 @@ namespace Bon_Voyage.Controllers.ManagerControllers
             }
         }
         [HttpPost("AnswerFeedBack")]
-        public async Task<IActionResult> AnswerFeedBack(AnswerFeedBackCommand command)
+        public async Task<IActionResult> AnswerFeedBack([FromBody]AnswerFeedBackCommand command)
         {
+            var id = User.Claims.ToList()[0].Value;
+            //command.Id = id;
             var res = await Mediator.Send(command);
             return Ok(res);
         }
