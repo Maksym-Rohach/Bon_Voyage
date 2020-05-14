@@ -418,7 +418,6 @@ function mapStateToProps(state) {
     topHotelsReducer: get(state, 'home.topHotels'),
     hotTicketsReducer: get(state, 'home.hotTickets'),
   };
-
 }
 
 //1

@@ -26,7 +26,7 @@ namespace Bon_Voyage.Controllers.ClientControllers
                 return BadRequest(res);
         }
 
-        [HttpPost("GetCardsTickets")]
+        [HttpGet("GetCardsTickets")]
         public async Task<IActionResult> GetCardsTickets()
         {
             var id = User.Claims.ToList()[0].Value;
