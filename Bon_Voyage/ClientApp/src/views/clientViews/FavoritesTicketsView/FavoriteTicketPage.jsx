@@ -5,6 +5,9 @@ import { connect } from "react-redux";
 import Loader from '../../../components/Loader/index'
 import * as reducer from "./reducer";
 import { Growl } from 'primereact/growl';
+import { useHistory } from 'react-router-dom';
+
+import { Redirect } from 'react-router-dom'
 
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -59,6 +62,7 @@ class FavoriteTicket extends Component {
                     type="button"
                     icon="pi pi-info"
                     className="p-button-info"
+                  onClick={y => this.props.history.push("/details-page/"+e.hotelId)}
                     style={{ marginRight: ".5em" }}
                 ></Button>
                 <Button
@@ -139,8 +143,7 @@ class FavoriteTicket extends Component {
                                 header="Кількість місць"
                                 style={{ textAlign: "center" }}
                             />
-                            <Column
-                                
+                            <Column                              
                                 body={(e) => this.actionTemplate(e)}
                                 style={{ textAlign: "center", width: "8em" }}
                             />
