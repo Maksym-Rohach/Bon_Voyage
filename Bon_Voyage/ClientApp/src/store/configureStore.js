@@ -27,6 +27,7 @@ import { GalleryReducer } from '../views/othersViews/GalleryPage/reducer'
 import { cityControlReducer } from '../views/adminViews/CityControl/reducer';
 import { airportControlReducer } from '../views/adminViews/AirportControl/reducer';
 import { cartTicketReducer } from '../views/clientViews/FavoritesTicketsView/reducer';
+import { detailsPageReducer } from '../views/othersViews/DetailsPage/reducer'
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
@@ -38,6 +39,7 @@ export default function configureStore(history, initialState) {
         login: loginReducer,
         gallery: GalleryReducer,
         home: homePageReducer,
+        details: detailsPageReducer,
         forgotPassword: ForgotPasswordReducer,
         addTicket: addTicketReducer,
         countryControl: countryControlReducer,
