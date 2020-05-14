@@ -36,36 +36,35 @@ const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 export const history = createHistory({ basename: baseUrl });
 
 export default function configureStore(history, initialState) {
-  const reducers = {
-    
-      login: loginReducer,
-      gallery: GalleryReducer,
-      home: homePageReducer,
-      details: detailsPageReducer,
-      forgotPassword: ForgotPasswordReducer,
-      addTicket: addTicketReducer,
-      countryControl: countryControlReducer,
-      cityControl: cityControlReducer,
-      cartTicket: cartTicketReducer,
-      //persons: personsChartReducer,
-      comments: commentsChartReducer,
-      managers: managerControlReducer,
-      managerProfile: managerProfileViewReducer,
-      clientProfile: clientProfileViewReducer,
-      clientMessage: clientMessageViewReducer,
-      clientMap: clientMapViewReducer,
-      changeImage: changeImageReducer,
-      airports: airportControlReducer,
-      changeImage: changeImageReducer,
-      changePassword: changePasswordReducer,
-      changeInfoReducer: changeInfoReducer,
-      boughtTickets: boughtTicketsReducer,
-      hotDealTickets: hotDealTicketsReducer,
-      newPassword: NewPasswordReducer,
-      hotels: hotelControlReducer,
-      register: registerReducer,
-      feedback: FeedBackReducer
-  };
+    const reducers = {
+        login: loginReducer,
+        gallery: GalleryReducer,
+        home: homePageReducer,
+        details: detailsPageReducer,
+        forgotPassword: ForgotPasswordReducer,
+        addTicket: addTicketReducer,
+        countryControl: countryControlReducer,
+        cityControl: cityControlReducer,
+        cartTicket: cartTicketReducer,
+        //persons: personsChartReducer,
+        comments: commentsChartReducer,
+        managers: managerControlReducer,
+        managerProfile: managerProfileViewReducer,
+        clientProfile: clientProfileViewReducer,
+        clientMessage: clientMessageViewReducer,
+        clientMap: clientMapViewReducer,
+        changeImage: changeImageReducer,
+        airports: airportControlReducer,
+        changeImage: changeImageReducer,
+        changePassword: changePasswordReducer,
+        changeInfoReducer: changeInfoReducer,
+        boughtTickets: boughtTicketsReducer,
+        hotDealTickets: hotDealTicketsReducer,
+        newPassword: NewPasswordReducer,
+        hotels: hotelControlReducer,
+        register: registerReducer,
+        feedback: FeedBackReducer
+    };
 
     const middleware = [
         thunk,
