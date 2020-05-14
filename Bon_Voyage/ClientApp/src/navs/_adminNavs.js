@@ -50,23 +50,7 @@ export default {
           icon: 'icon-map',
         }
       ]
-    },         
-    {
-      name: 'Статистика',
-      icon: 'icon-chart',
-      children: [
-        {
-          name: 'Статистика',
-          url: '/admin/statistic',
-          icon: 'icon-emotsmile',
-        },
-        {
-          name: 'Статистика',
-          url: '/base/cards',
-          icon: 'icon-people',
-        }
-      ]
-    },
+    }
     // {
     //   name: '$HOTEL PHOTOS SEEDER',
     //   url: '/admin/seeder/hotelPhotos',

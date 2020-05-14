@@ -24,7 +24,6 @@ import {ForgotPasswordReducer} from '../views/othersViews/ForgotPasswordPage/red
 import { NewPasswordReducer } from '../views/othersViews/NewPasswordPage/reducer';
 import {countryControlReducer} from '../views/adminViews/CountryControl/reducer';
 import {GalleryReducer} from '../views/othersViews/GalleryPage/reducer';
-import {countryControlReducer} from '../views/adminViews/CountryControl/reducer';
 import {clientControlReducer} from '../views/adminViews/ClientControl/reducer';
 import {airportControlReducer} from '../views/adminViews/AirportControl/reducer';
 

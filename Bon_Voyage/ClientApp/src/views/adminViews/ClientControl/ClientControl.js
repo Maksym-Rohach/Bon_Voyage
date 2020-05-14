@@ -27,14 +27,13 @@ class ClientControl extends Component {
         const { listClients }= this.props;
         console.log("render",listClients);
 
-        var header = <div className="p-clearfix" style={{'lineHeight':'1.87em'}}>Список клієнтів<Button icon="pi pi-refresh" style={{'float':'right'}}/></div>;
+        var header = <div className="p-clearfix" style={{'lineHeight':'1.87em'}}>Список клієнтів</div>;
 
         return ( 
             <DataTable value={listClients} header={header}>
             <Column field="name" header="Ім'я" />
             <Column field="surname" header="Прізвище" />
             <Column field="dateOfBirth" header="Дата народження" />
-            <Column header="Змінити" body={this.actionTemplate} style={{textAlign:'center', width: '6em'}}/>
         </DataTable>
          );
     }

@@ -5,6 +5,11 @@ export const HOTEL_CONTROL_STARTED = "HOTEL_CONTROL_STARTED";
 export const HOTEL_CONTROL_SUCCESS = "HOTEL_CONTROL_SUCCESS";
 export const HOTEL_CONTROL_FAILED = "HOTEL_CONTROL_FAILED";
 
+export const HOTEL_ADD_STARTED = "HOTEL_ADD_STARTED";
+export const HOTEL_ADD_SUCCESS = "HOTEL_ADD_SUCCESS";
+export const HOTEL_ADD_FAILED = "HOTEL_ADD_FAILED";
+export const HOTEL_ADD_CLEAR = "HOTEL_ADD_CLEAR";
+
 export const COUNTRIES_STARTED = "COUNTRIES_STARTED";
 export const COUNTRIES_SUCCESS = "COUTRIES_SUCCESS";
 export const COUNTRIES_FAILED = "COUNTRIES_FAILED";
@@ -18,6 +23,13 @@ const initialState = {
         success: false,
         failed: false,
     },   
+    createResult: {
+        data: [],
+        loading: false,
+        success: false,
+        failed: false,
+        errors: {},
+    },
     countries: {
         data:[],
         loading: false,
@@ -44,14 +56,24 @@ export const addHotel = (hotel) => {
     return (dispatch) => {
         dispatch(HotelsActions.started()); // Set started action
         HotelControlService.addHotel(hotel) // Get data from service
-            .then((response) => {       
-                console.log("Add hotel - ",response);
-                dispatch(HotelsActions.success(response)); // Set success action
+            .then((response) => {     
+                HotelControlService.getAllHotels()
+                .then((response) => {
+                    dispatch(addHotelListActions.success(response));
+                    dispatch(addHotelListActions.clear())
+                }, err => {throw err; })
+                .catch(err => {
+                    dispatch(getListActions.failed(err));
+                });
+                dispatch(addHotelListActions.success(response))
             }, err=> { throw err; })
-            .catch(err=> {            
-                console.log("Add hotel error - ",err.response);
-              dispatch(HotelsActions.failed(err.response));
-            });
+            .catch(err=> {    
+                if (err.response !== undefined){
+                    dispatch(addHotelListActions.failed(err.response.data));
+                    console.log(err.response.data);
+                }        
+                else{dispatch(addHotelListActions.failed(err)) }
+            })
             
     }
 }
@@ -83,6 +105,12 @@ export const getCityData = (countryId) => {
     }
 }
 
+export const clearErrors=()=>{
+    return (dispatch) => {
+        dispatch(addHotelListActions.clear());
+    }
+}
+
 export const getListActions = {
     started: () => {
         return {
@@ -102,6 +130,31 @@ export const getListActions = {
         }
     }
   }
+
+  export const addHotelListActions = {
+    started: () => {
+        return {
+            type: HOTEL_ADD_STARTED
+        }
+    },
+    success: (data) => {
+        return {
+            type: HOTEL_ADD_SUCCESS,
+            payload: data.data
+        }
+    },
+    failed: (error) => {
+        return {
+            type: HOTEL_ADD_FAILED,
+            error: error,
+        }
+    },
+    clear: () => {
+        return {
+            type: HOTEL_ADD_CLEAR,
+        }
+    }
+}
 
   export const CountriesActions = {
     started: () => {
