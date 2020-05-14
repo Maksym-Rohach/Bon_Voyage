@@ -24,7 +24,7 @@ import {ForgotPasswordReducer} from '../views/othersViews/ForgotPasswordPage/red
 import { NewPasswordReducer } from '../views/othersViews/NewPasswordPage/reducer';
 import {countryControlReducer} from '../views/adminViews/CountryControl/reducer'
 import {GalleryReducer} from '../views/othersViews/GalleryPage/reducer'
-
+import {detailsPageReducer} from '../views/othersViews/DetailsPage/reducer'
 import {airportControlReducer} from '../views/adminViews/AirportControl/reducer';
 
 // Create browser history to use in the Redux store
@@ -36,6 +36,7 @@ export default function configureStore(history, initialState) {
     
     login: loginReducer,
     gallery:GalleryReducer,
+    details:detailsPageReducer,
     home: homePageReducer,
     forgotPassword: ForgotPasswordReducer,
     addTicket: addTicketReducer,
