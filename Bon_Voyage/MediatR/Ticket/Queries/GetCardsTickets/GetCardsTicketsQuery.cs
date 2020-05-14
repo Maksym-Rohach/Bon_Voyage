@@ -31,6 +31,7 @@ namespace Bon_Voyage.MediatR.Ticket.Queries.GetCardsTickets
                         Country = t.Ticket.Hotel.City.Country.Name,
                         Hotel = t.Ticket.Hotel.Name,
                         CountOfPlaces = t.Ticket.CountsOfPlaces,
+                        HotelId = t.Ticket.Hotel.Id,
                         DateTo = t.Ticket.DateTo.ToString("dd.MM.yyyy"),
                         DateFrom = t.Ticket.DateFrom.ToString("dd.MM.yyyy"),
                         Price = t.Ticket.PriceFrom
